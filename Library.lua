@@ -56,9 +56,7 @@ function UpSize(Scroll)
     end
     Scroll.CanvasSize = UDim2.new(0, 0, 0, OffsetY)
 end
-local function errorHandler(err)
-    return debug.traceback("Lỗi: " .. tostring(err), 2)
-end
+if not getgenv().WhitelistedByNam then return end
 local function AutoUpSize(Scroll)
 	Scroll.ChildAdded:Connect(function()
         UpSize(Scroll)
@@ -1462,32 +1460,30 @@ function Library:AddWindow()
 				end
 			end)
 			function DropFunc:Set(acc)
-				pcall(function()
-					DropFunc.Value = acc or DropFunc.Value
-					for _, v in Listed:GetChildren() do
-						if v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and not ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
-							tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 2)}):Play()
-							tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
-							tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
-						elseif v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
-							tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 2)}):Play()
-							tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-							tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
-						end
+				DropFunc.Value = acc or DropFunc.Value
+				for _, v in Listed:GetChildren() do
+					if v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and not ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
+						tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 2)}):Play()
+						tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+						tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
+					elseif v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
+						tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 2)}):Play()
+						tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+						tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
 					end
-					if configdropdown.Multi and typeof(DropFunc.Value) == "table" then
-						local DropdownValueTable = table.concat(DropFunc.Value, ", ")
-						if DropdownValueTable == "" then
-							Selected_2.Text = "Selected : nil"
-						else
-							Selected_2.Text = "Selected : " .. tostring(DropdownValueTable)
-						end
-						configdropdown.Callback(DropFunc.Value)
-					elseif not configdropdown.Multi or typeof(DropFunc.Value) == "string" then
-						Selected_2.Text = "Selected : " .. tostring(DropFunc.Value)
-						configdropdown.Callback(DropFunc.Value)
+				end
+				if configdropdown.Multi and typeof(DropFunc.Value) == "table" then
+					local DropdownValueTable = table.concat(DropFunc.Value, ", ")
+					if DropdownValueTable == "" then
+						Selected_2.Text = "Selected : nil"
+					else
+						Selected_2.Text = "Selected : " .. tostring(DropdownValueTable)
 					end
-				end)
+					configdropdown.Callback(DropFunc.Value)
+				elseif not configdropdown.Multi or typeof(DropFunc.Value) == "string" then
+					Selected_2.Text = "Selected : " .. tostring(DropFunc.Value)
+					configdropdown.Callback(DropFunc.Value)
+				end
 			end
 			function DropFunc:Add(Value)
 				Value = Value or ""
@@ -1552,27 +1548,24 @@ function Library:AddWindow()
 				UICorner_22.Parent = Circle_6
 
 				Click_10.Activated:Connect(function()
-					local a, b = xpcall(function()
-						CircleClick(Click_10, Mouse.X, Mouse.Y)
-						if configdropdown.Multi then
-							if Options_2.BackgroundTransparency > 0.95 then
-								table.insert(DropFunc.Value, Value)
-								DropFunc:Set(DropFunc.Value)
-							else
-								for i, value in pairs(DropFunc.Value) do
-									if value == Value then
-										table.remove(DropFunc.Value, i)
-										break
-									end
-								end
-								DropFunc:Set(DropFunc.Value)
-							end
+					CircleClick(Click_10, Mouse.X, Mouse.Y)
+					if configdropdown.Multi then
+						if Options_2.BackgroundTransparency > 0.95 then
+							table.insert(DropFunc.Value, Value)
+							DropFunc:Set(DropFunc.Value)
 						else
-							DropFunc.Value = Value
+							for i, value in pairs(DropFunc.Value) do
+								if value == Value then
+									table.remove(DropFunc.Value, i)
+									break
+								end
+							end
 							DropFunc:Set(DropFunc.Value)
 						end
-					end, errorHandler)
-					if not a then return warn(b) end
+					else
+						DropFunc.Value = Value
+						DropFunc:Set(DropFunc.Value)
+					end
 				end)
 			end
 			function DropFunc:Refresh(RefreshList, Selecting)
