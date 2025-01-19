@@ -855,6 +855,11 @@ function Library:AddWindow()
 		TabDisable.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		TabDisable.BorderSizePixel = 0
 		TabDisable.Size = UDim2.new(1, 0, 0, 35)
+		if Counts == 0 then
+			TabDisable.BackgroundTransparency = 0.930
+		else
+			TabDisable.BackgroundTransparency = 1.000
+		end
 
 		UICorner_5.CornerRadius = UDim.new(0, 4)
 		UICorner_5.Parent = TabDisable
@@ -887,16 +892,6 @@ function Library:AddWindow()
 		UIPadding_3.Parent = NameTab_2
 		UIPadding_3.PaddingLeft = UDim.new(0, 12)
 
-		Circle_2.Name = "Circle"
-		Circle_2.Parent = TabDisable
-		Circle_2.BackgroundColor3 = Color3.fromRGB(200, 61, 60)
-		Circle_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Circle_2.BorderSizePixel = 0
-		Circle_2.Position = UDim2.new(0, -10, 0, 6)
-		Circle_2.Size = UDim2.new(0, 5, 0, 23)
-
-		UICorner_6.Parent = Circle_2
-
 		Click_4.Name = "Click"
 		Click_4.Parent = TabDisable
 		Click_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -908,7 +903,25 @@ function Library:AddWindow()
 		Click_4.Text = ""
 		Click_4.TextColor3 = Color3.fromRGB(0, 0, 0)
 		Click_4.TextSize = 14.000
-		NiGo:JumpToIndex(0)
+		if Counts == 0 then
+			NiGo:JumpToIndex(0)
+			Circle_2.Name = "Circle"
+			Circle_2.Parent = TabDisable
+			Circle_2.BackgroundColor3 = Color3.fromRGB(200, 61, 60)
+			Circle_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Circle_2.BorderSizePixel = 0
+			Circle_2.Position = UDim2.new(0, 2, 0, 6)
+			Circle_2.Size = UDim2.new(0, 5, 0, 23)
+		else
+			Circle_2.Name = "Circle"
+			Circle_2.Parent = TabDisable
+			Circle_2.BackgroundColor3 = Color3.fromRGB(200, 61, 60)
+			Circle_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Circle_2.BorderSizePixel = 0
+			Circle_2.Position = UDim2.new(0, -10, 0, 6)
+			Circle_2.Size = UDim2.new(0, 5, 0, 23)
+		end
+		UICorner_6.Parent = Circle_2
 		Click_4.Activated:Connect(function()
 			CircleClick(Click_4, Mouse.X, Mouse.Y)
 			for r, v in pairs(TabHolder:GetChildren()) do
@@ -1444,14 +1457,14 @@ function Library:AddWindow()
 					tweenservice:Create(IconDrop, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Rotation = 0}):Play()
 				end
 			end)
-			function DropFunc:Set(acc)
+			function DropFunc:Set(text, acc)
 				DropFunc.Value = acc or DropFunc.Value
 				for _, v in Listed:GetChildren() do
-					if v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and not ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
+					if v.Selected.Text == text and v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and not ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
 						tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 2)}):Play()
 						tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
 						tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
-					elseif v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
+					elseif v.Selected.Text == text and v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
 						tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 2)}):Play()
 						tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 						tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
@@ -1537,7 +1550,7 @@ function Library:AddWindow()
 					if configdropdown.Multi then
 						if Options_2.BackgroundTransparency > 0.95 then
 							table.insert(DropFunc.Value, Value)
-							DropFunc:Set(DropFunc.Value)
+							DropFunc:Set(Value, DropFunc.Value)
 						else
 							for i, value in pairs(DropFunc.Value) do
 								if value == Value then
@@ -1545,11 +1558,11 @@ function Library:AddWindow()
 									break
 								end
 							end
-							DropFunc:Set(DropFunc.Value)
+							DropFunc:Set(Value, DropFunc.Value)
 						end
 					else
 						DropFunc.Value = Value
-						DropFunc:Set(DropFunc.Value)
+						DropFunc:Set(Value, DropFunc.Value)
 					end
 				end)
 			end
@@ -1566,7 +1579,7 @@ function Library:AddWindow()
 					wait()
 				end
 				DropFunc.Options = Selecting
-				DropFunc:Set(Selecting)
+				DropFunc:Set(Selecting, Selecting)
 			end
 			DropFunc:Refresh(DropFunc.Options, DropFunc.Value)
 			return DropFunc
