@@ -1,9 +1,4 @@
-local GUIPath
-if game:FindFirstChild("CoreGui") then
-	GUIPath = game.CoreGui
-else
-	GUIPath = game.Players.LocalPlayer.PlayerGui
-end
+local GUIPath = game.Players.LocalPlayer.PlayerGui
 local player = game.Players and game.Players.LocalPlayer
 local tweenservice = game:GetService("TweenService")
 local Mouse = player:GetMouse()
