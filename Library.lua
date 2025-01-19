@@ -905,6 +905,8 @@ function Library:AddWindow()
 		Click_4.TextSize = 14.000
 		if Counts == 0 then
 			NiGo:JumpToIndex(0)
+			IconTab_2.ImageColor3 = Color3.fromRGB(255, 255, 255)
+			NameTab_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Circle_2.Name = "Circle"
 			Circle_2.Parent = TabDisable
 			Circle_2.BackgroundColor3 = Color3.fromRGB(200, 61, 60)
@@ -913,6 +915,8 @@ function Library:AddWindow()
 			Circle_2.Position = UDim2.new(0, 2, 0, 6)
 			Circle_2.Size = UDim2.new(0, 5, 0, 23)
 		else
+			NameTab_2.TextColor3 = Color3.fromRGB(144, 144, 144)
+			IconTab_2.ImageColor3 = Color3.fromRGB(122, 122, 122)
 			Circle_2.Name = "Circle"
 			Circle_2.Parent = TabDisable
 			Circle_2.BackgroundColor3 = Color3.fromRGB(200, 61, 60)
@@ -943,6 +947,14 @@ function Library:AddWindow()
 					end
 				end
 			end
+			for r, v in pairs(TabHolder:GetChildren()) do
+				for r1, v1 in pairs(v:GetChildren()) do
+					if v1:IsA("ImageLabel") then
+						tweenservice:Create(v1, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {ImageColor3 = Color3.fromRGB(122, 122, 122)}):Play()
+					end
+				end
+			end
+			tweenservice:Create(IconTab_2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 			tweenservice:Create(TabDisable, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
 			tweenservice:Create(Circle_2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 6)}):Play()
 			tweenservice:Create(NameTab_2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
