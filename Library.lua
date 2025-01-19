@@ -750,10 +750,11 @@ function Library:AddWindow()
 	UIListLayout.Parent = TabHolder
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.Padding = UDim.new(0, 7)
-	game:GetService("RunService").Stepped:Connect(function()
+	
+	game:GetService("RunService").Stepped:Connect(function ()
 		TabHolder.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
 	end)
-
+	
 	UIPadding.Parent = TabHolder
 	UIPadding.PaddingBottom = UDim.new(0, 2)
 	UIPadding.PaddingLeft = UDim.new(0, 2)
@@ -848,7 +849,7 @@ function Library:AddWindow()
 		UIListLayout_2.Parent = Channel
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_2.Padding = UDim.new(0, 5)
-		game:GetService("RunService").Stepped:Connect(function()
+		game:GetService("RunService").Stepped:Connect(function ()
 			Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 20)
 		end)
 	
@@ -1433,7 +1434,7 @@ function Library:AddWindow()
 			UIPadding_15.PaddingLeft = UDim.new(0, 5)
 			UIPadding_15.PaddingRight = UDim.new(0, 5)
 			UIPadding_15.PaddingTop = UDim.new(0, 8)
-			game:GetService("RunService").Stepped:Connect(function()
+			game:GetService("RunService").Stepped:Connect(function ()
 				Listed.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_3.AbsoluteContentSize.Y + 20)
 			end)
 			Click_8.Activated:Connect(function()
