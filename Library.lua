@@ -3,7 +3,6 @@ local tweenservice = game:GetService("TweenService")
 local Mouse = player:GetMouse()
 local UserInputService = game:GetService("UserInputService")
 local Library = {}
-_G.WhitelistedByNam = true
 local function Adddraggable(top, Object)
 	local Dragging = nil
 	local DragInput = nil
@@ -42,7 +41,7 @@ local function Adddraggable(top, Object)
 		end
 	end)
 end
-if not _G.WhitelistedByNam then return end
+if not getgenv().WhitelistedByNam then return end
 local function AddCustomSized(Touched, Object)
 	local Dragging = false
 	local DragInput = nil
@@ -127,7 +126,7 @@ local function CircleClick(Button, X, Y)
 	end)
 end
 --------------------------------------------------------------------------------------------------------------------------------------------
-local GUIPath = game.Players.LocalPlayer.PlayerGui
+local GUIPath = game.CoreGui
 function Library:AddNotify(confignotify)
 	confignotify = confignotify or {}
 	confignotify.Title = confignotify.Title or "Notification"
