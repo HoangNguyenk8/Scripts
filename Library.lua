@@ -1476,7 +1476,7 @@ function Library:AddWindow()
 						tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 2)}):Play()
 						tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
 						tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
-					elseif v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and v.Selected.Text == text and v.Name ~= "UIListLayout" and ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
+					elseif v.Name ~= "UICorner" and v.Name ~= "UIPadding" and v.Name ~= "UIListLayout" and v.Selected.Text == text and ((typeof(DropFunc.Value) == "table" and table.find(DropFunc.Value, v.Selected.Text)) or (typeof(DropFunc.Value) == "string" and string.find(v.Selected.Text, DropFunc.Value))) then
 						tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 2)}):Play()
 						tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 						tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
