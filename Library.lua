@@ -844,8 +844,10 @@ function Library:AddWindow()
 		UIListLayout_2.Parent = Channel
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_2.Padding = UDim.new(0, 5)
-		game:GetService("RunService").Stepped:Connect(function ()
-			Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 20)
+		game:GetService("RunService").Stepped:Connect(function()
+			pcall(function()
+				Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 20)
+			end)
 		end)
 
 		TabDisable.Name = "Tab Disable"
