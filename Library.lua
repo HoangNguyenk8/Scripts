@@ -1,4 +1,3 @@
-local GUIPath = game.Players.LocalPlayer.PlayerGui
 local player = game.Players and game.Players.LocalPlayer
 local tweenservice = game:GetService("TweenService")
 local Mouse = player:GetMouse()
@@ -127,6 +126,7 @@ local function CircleClick(Button, X, Y)
 	end)
 end
 --------------------------------------------------------------------------------------------------------------------------------------------
+local GUIPath = game.CoreGui
 function Library:AddNotify(confignotify)
 	confignotify = confignotify or {}
 	confignotify.Title = confignotify.Title or "Notification"
