@@ -3,6 +3,7 @@ local tweenservice = game:GetService("TweenService")
 local Mouse = player:GetMouse()
 local UserInputService = game:GetService("UserInputService")
 local Library = {}
+_G.WhitelistedByNam = true
 local function Adddraggable(top, Object)
 	local Dragging = nil
 	local DragInput = nil
@@ -41,7 +42,7 @@ local function Adddraggable(top, Object)
 		end
 	end)
 end
-if not getgenv().WhitelistedByNam then return end
+if not _G.WhitelistedByNam then return end
 local function AddCustomSized(Touched, Object)
 	local Dragging = false
 	local DragInput = nil
@@ -91,6 +92,14 @@ local function AddCustomSized(Touched, Object)
 		end
 	end)
 end
+local function MouseTo(part)
+	part.MouseEnter:Connect(function()
+		tweenservice:Create(part, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.920}):Play()
+	end)
+	part.MouseLeave:Connect(function()
+		tweenservice:Create(part, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.960}):Play()
+	end)
+end
 local function CircleClick(Button, X, Y)
 	spawn(function()
 		Button.ClipsDescendants = true
@@ -126,7 +135,7 @@ local function CircleClick(Button, X, Y)
 	end)
 end
 --------------------------------------------------------------------------------------------------------------------------------------------
-local GUIPath = game.CoreGui
+local GUIPath = game.Players.LocalPlayer.PlayerGui
 function Library:AddNotify(confignotify)
 	confignotify = confignotify or {}
 	confignotify.Title = confignotify.Title or "Notification"
@@ -1133,7 +1142,7 @@ function Library:AddWindow()
 			ToggleDisable.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			ToggleDisable.BorderSizePixel = 0
 			ToggleDisable.Size = UDim2.new(1, 0, 0, 45)
-
+			MouseTo(ToggleDisable)
 			UICorner_12.CornerRadius = UDim.new(0, 3)
 			UICorner_12.Parent = ToggleDisable
 
@@ -1264,7 +1273,7 @@ function Library:AddWindow()
 			Button.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Button.BorderSizePixel = 0
 			Button.Size = UDim2.new(1, 0, 0, 45)
-
+			MouseTo(Button)
 			UICorner_15.CornerRadius = UDim.new(0, 3)
 			UICorner_15.Parent = Button
 
@@ -1365,7 +1374,7 @@ function Library:AddWindow()
 			Dropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Dropdown.BorderSizePixel = 0
 			Dropdown.Size = UDim2.new(1, 0, 0, 55)
-
+			MouseTo(Dropdown)
 			UICorner_16.CornerRadius = UDim.new(0, 3)
 			UICorner_16.Parent = Dropdown
 
@@ -1463,7 +1472,7 @@ function Library:AddWindow()
 				CircleClick(Click_8, Mouse.X, Mouse.Y)
 				if Dropdown.Size.Y.Offset <= 55 then
 					Dropdown:TweenSize(UDim2.new(1, 0, 0, 175), "Out", "Quad", 0.35, true)
-					Selected:TweenSize(UDim2.new(1, -14, 0, 110), "Out", "Quad", 0.35, true)
+					Selected:TweenSize(UDim2.new(1, -14, 0, 140), "Out", "Quad", 0.35, true)
 					tweenservice:Create(IconDrop, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Rotation = 180.000}):Play()
 				else
 					Dropdown:TweenSize(UDim2.new(1, 0, 0, 55), "Out", "Quad", 0.35, true)
@@ -1672,6 +1681,7 @@ function Library:AddWindow()
 			Slider.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Slider.BorderSizePixel = 0
 			Slider.Size = UDim2.new(1, 0, 0, 30)
+			MouseTo(Slider)
 
 			UICorner_23.CornerRadius = UDim.new(0, 3)
 			UICorner_23.Parent = Slider
