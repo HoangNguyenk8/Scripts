@@ -91,6 +91,23 @@ local function AddCustomSized(Touched, Object)
 		end
 	end)
 end
+local function UpSize(Scroll)
+    local OffsetY = 0
+    for _, child in Scroll:GetChildren() do
+        if child.Name ~= "UIListLayout" and child.Name ~= "UIPadding" then
+            OffsetY = OffsetY + Scroll.UIListLayout.Padding.Offset + child.Size.Y.Offset
+        end
+    end
+    Scroll.CanvasSize = UDim2.new(0, 0, 0, OffsetY)
+end
+local function AutoUp(Scroll)
+    Scroll.ChildAdded:Connect(function()
+        UpSize(Scroll)
+    end)
+    Scroll.ChildRemoved:Connect(function()
+        UpSize(Scroll)
+    end)
+end
 local function MouseTo(part)
 	part.MouseEnter:Connect(function()
 		tweenservice:Create(part, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.920}):Play()
@@ -749,11 +766,7 @@ function Library:AddWindow()
 	TabHolder.Position = UDim2.new(0.5, 0, 0.5, 0)
 	TabHolder.Size = UDim2.new(1, -5, 1, -5)
 	TabHolder.ScrollBarThickness = 0
-	game:GetService("RunService").Stepped:Connect(function ()
-		pcall(function()
-			TabHolder.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 22)
-		end)
-	end)
+	AutoUp(TabHolder)
 
 	UIListLayout.Parent = TabHolder
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -843,11 +856,7 @@ function Library:AddWindow()
 		Channel.Size = UDim2.new(1, 0, 1, 0)
 		Channel.ScrollBarThickness = 0
 		Channel.LayoutOrder = Counts
-		game:GetService("RunService").Stepped:Connect(function()
-			pcall(function()
-				Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 22)
-			end)
-		end)
+		AutoUp(Channel)
 
 		UIPadding_4.Parent = Channel
 		UIPadding_4.PaddingBottom = UDim.new(0, 3)
@@ -1465,9 +1474,7 @@ function Library:AddWindow()
 			UIPadding_15.PaddingLeft = UDim.new(0, 5)
 			UIPadding_15.PaddingRight = UDim.new(0, 5)
 			UIPadding_15.PaddingTop = UDim.new(0, 8)
-			game:GetService("RunService").Stepped:Connect(function ()
-				Listed.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_3.AbsoluteContentSize.Y + 20)
-			end)
+			AutoUp(Listed)
 			Click_8.Activated:Connect(function()
 				CircleClick(Click_8, Mouse.X, Mouse.Y)
 				if Dropdown.Size.Y.Offset <= 55 then
