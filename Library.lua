@@ -749,16 +749,15 @@ function Library:AddWindow()
 	TabHolder.Position = UDim2.new(0.5, 0, 0.5, 0)
 	TabHolder.Size = UDim2.new(1, -5, 1, -5)
 	TabHolder.ScrollBarThickness = 0
+	game:GetService("RunService").Stepped:Connect(function ()
+		pcall(function()
+			TabHolder.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 22)
+		end)
+	end)
 
 	UIListLayout.Parent = TabHolder
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.Padding = UDim.new(0, 7)
-
-	game:GetService("RunService").Stepped:Connect(function ()
-		pcall(function()
-			TabHolder.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
-		end)
-	end)
 
 	UIPadding.Parent = TabHolder
 	UIPadding.PaddingBottom = UDim.new(0, 2)
@@ -844,6 +843,11 @@ function Library:AddWindow()
 		Channel.Size = UDim2.new(1, 0, 1, 0)
 		Channel.ScrollBarThickness = 0
 		Channel.LayoutOrder = Counts
+		game:GetService("RunService").Stepped:Connect(function()
+			pcall(function()
+				Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 22)
+			end)
+		end)
 
 		UIPadding_4.Parent = Channel
 		UIPadding_4.PaddingBottom = UDim.new(0, 3)
@@ -854,11 +858,6 @@ function Library:AddWindow()
 		UIListLayout_2.Parent = Channel
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_2.Padding = UDim.new(0, 5)
-		game:GetService("RunService").Stepped:Connect(function()
-			pcall(function()
-				Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 20)
-			end)
-		end)
 
 		TabDisable.Name = "Tab Disable"
 		TabDisable.Parent = TabHolder
