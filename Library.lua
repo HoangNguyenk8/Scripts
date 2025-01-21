@@ -753,6 +753,7 @@ function Library:AddWindow()
 	UIListLayout.Parent = TabHolder
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.Padding = UDim.new(0, 7)
+
 	game:GetService("RunService").Stepped:Connect(function ()
 		pcall(function()
 			TabHolder.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
