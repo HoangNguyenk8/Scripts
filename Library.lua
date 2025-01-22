@@ -1,4 +1,3 @@
-print("Loading UI...")
 local player = game.Players and game.Players.LocalPlayer
 local tweenservice = game:GetService("TweenService")
 local Mouse = player:GetMouse()
@@ -95,7 +94,7 @@ end
 local function UpSize(Scroll)
     local OffsetY = 0
     for _, child in Scroll:GetChildren() do
-        if child.Name ~= "UIListLayout" and child.Name ~= "UIPadding" then
+        if child.Name ~= "UIListLayout" and child.Name ~= "UIPadding" and child.Name ~= "UICorner" then
             OffsetY = OffsetY + Scroll.UIListLayout.Padding.Offset + child.Size.Y.Offset
         end
     end
