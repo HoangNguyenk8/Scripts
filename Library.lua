@@ -1,3 +1,4 @@
+print("Loading UI...")
 local player = game.Players and game.Players.LocalPlayer
 local tweenservice = game:GetService("TweenService")
 local Mouse = player:GetMouse()
