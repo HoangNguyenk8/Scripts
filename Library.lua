@@ -766,7 +766,6 @@ function Library:AddWindow()
 	TabHolder.Position = UDim2.new(0.5, 0, 0.5, 0)
 	TabHolder.Size = UDim2.new(1, -5, 1, -5)
 	TabHolder.ScrollBarThickness = 0
-	AutoUp(TabHolder)
 
 	UIListLayout.Parent = TabHolder
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -825,6 +824,7 @@ function Library:AddWindow()
 	NiGo.ScrollWheelInputEnabled = false
 	NiGo.TweenTime = 0.400
 
+	AutoUp(TabHolder)
 	Adddraggable(Top, Main)
 	Adddraggable(CLICKED, MinizedUi)
 	AddCustomSized(Main, Main)
@@ -856,7 +856,6 @@ function Library:AddWindow()
 		Channel.Size = UDim2.new(1, 0, 1, 0)
 		Channel.ScrollBarThickness = 0
 		Channel.LayoutOrder = Counts
-		AutoUp(Channel)
 
 		UIPadding_4.Parent = Channel
 		UIPadding_4.PaddingBottom = UDim.new(0, 3)
@@ -980,6 +979,7 @@ function Library:AddWindow()
 			tweenservice:Create(NameTab_2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 			NiGo:JumpToIndex(Channel.LayoutOrder)
 		end)
+		AutoUp(Channel)
 		Counts = Counts + 1
 		local Features = {}
 		function Features:AddSeperator(configsepearator)
@@ -1474,7 +1474,7 @@ function Library:AddWindow()
 			UIPadding_15.PaddingLeft = UDim.new(0, 5)
 			UIPadding_15.PaddingRight = UDim.new(0, 5)
 			UIPadding_15.PaddingTop = UDim.new(0, 8)
-			AutoUp(Listed)
+			
 			Click_8.Activated:Connect(function()
 				CircleClick(Click_8, Mouse.X, Mouse.Y)
 				if Dropdown.Size.Y.Offset <= 55 then
@@ -1652,6 +1652,7 @@ function Library:AddWindow()
 					wait()
 				end
 			end
+			AutoUp(Listed)
 			DropFunc:Refresh(DropFunc.Options)
             if typeof(DropFunc.Value) == "table" then
                 DropFunc:Set(configdropdown.Default)
