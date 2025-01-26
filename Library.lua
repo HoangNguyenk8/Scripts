@@ -303,9 +303,52 @@ function Library:AddWindow()
     local RealLayout = Instance.new("Frame")
     local ChannelList = Instance.new("Folder")
     local UIPageLayout = Instance.new("UIPageLayout")
+    local MinizedUI = Instance.new("Frame")
+    local UICorner_37 = Instance.new("UICorner")
+    local TextButton_2 = Instance.new("TextButton")
+    local ImageLabel_3 = Instance.new("ImageLabel")
+    local UIStroke_6 = Instance.new("UIStroke")
 
     ZinnerBeos.Name = "ZinnerBeos"
     ZinnerBeos.Parent = GUIPath
+
+    MinizedUI.Name = "MinizedUI"
+    MinizedUI.Parent = ZinnerBeos
+    MinizedUI.BackgroundColor3 = Color3.fromRGB(16, 17, 18)
+    MinizedUI.BackgroundTransparency = 0.040
+    MinizedUI.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    MinizedUI.BorderSizePixel = 0
+    MinizedUI.Position = UDim2.new(0.0284789652, 0, 0.054862842, 0)
+    MinizedUI.Size = UDim2.new(0, 40, 0, 40)
+    
+    UICorner_37.CornerRadius = UDim.new(1, 0)
+    UICorner_37.Parent = MinizedUI
+    
+    TextButton_2.Parent = MinizedUI
+    TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_2.BackgroundTransparency = 1.000
+    TextButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_2.BorderSizePixel = 0
+    TextButton_2.Size = UDim2.new(1, 0, 1, 0)
+    TextButton_2.Font = Enum.Font.SourceSans
+    TextButton_2.Text = ""
+    TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_2.TextSize = 14.000
+    TextButton_2.Activated:Connect(function()
+        Main.Visible = not Main.Visible
+    end)
+    
+    ImageLabel_3.Parent = MinizedUI
+    ImageLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageLabel_3.BackgroundTransparency = 1.000
+    ImageLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ImageLabel_3.BorderSizePixel = 0
+    ImageLabel_3.Size = UDim2.new(1, 0, 1, 0)
+    ImageLabel_3.Image = "rbxassetid://135102227248834"
+    
+    UIStroke_6.Parent = MinizedUI
+    UIStroke_6.Color = Color3.fromRGB(255, 0, 4)
+    UIStroke_6.Thickness = 1.200
     
     Main.Name = "Main"
     Main.Parent = ZinnerBeos
@@ -654,7 +697,7 @@ function Library:AddWindow()
         NameTab_2.Position = UDim2.new(0, 43, 0, 1)
         NameTab_2.Size = UDim2.new(1, -40, 1, 0)
         NameTab_2.Font = Enum.Font.GothamBold
-        NameTab_2.Text = "Tab 1"
+        NameTab_2.Text = configtab.Name
         NameTab_2.TextColor3 = Color3.fromRGB(144, 144, 144)
         NameTab_2.TextSize = 13.000
         NameTab_2.TextXAlignment = Enum.TextXAlignment.Left
@@ -817,7 +860,7 @@ function Library:AddWindow()
                 Desc.Position = UDim2.new(0, 0, 0, 22)
                 Desc.Size = UDim2.new(1, 0, 1, -22)
                 Desc.Font = Enum.Font.GothamBold
-                Desc.Text = "This Is A Button"
+                Desc.Text = configbutton.Description
                 Desc.TextColor3 = Color3.fromRGB(144, 144, 144)
                 Desc.TextSize = 12.000
                 Desc.TextXAlignment = Enum.TextXAlignment.Left
@@ -876,7 +919,7 @@ function Library:AddWindow()
             Title_4.BorderSizePixel = 0
             Title_4.Size = UDim2.new(1, -40, 0, 36)
             Title_4.Font = Enum.Font.GothamBold
-            Title_4.Text = "Toggle"
+            Title_4.Text = configtoggle.Name
             Title_4.TextColor3 = Color3.fromRGB(222, 222, 222)
             Title_4.TextSize = 13.000
             Title_4.TextXAlignment = Enum.TextXAlignment.Left
@@ -936,7 +979,7 @@ function Library:AddWindow()
                 Desc_2.Position = UDim2.new(0, 0, 0, 22)
                 Desc_2.Size = UDim2.new(1, 0, 1, -22)
                 Desc_2.Font = Enum.Font.GothamBold
-                Desc_2.Text = "This Is A Toggle"
+                Desc_2.Text = configtoggle.Description
                 Desc_2.TextColor3 = Color3.fromRGB(144, 144, 144)
                 Desc_2.TextSize = 12.000
                 Desc_2.TextXAlignment = Enum.TextXAlignment.Left
