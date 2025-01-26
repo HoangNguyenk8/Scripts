@@ -606,7 +606,7 @@ function Library:AddWindow()
         UIListLayout_2.Padding = UDim.new(0, 6)
         game:GetService("RunService").Stepped:Connect(function()
             if Channel and UIListLayout_2 then
-                Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteSize.Y + 15)
+                Channel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 15)
             end
         end)
         
