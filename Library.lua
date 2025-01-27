@@ -985,7 +985,7 @@ function Library:AddWindow()
                 Desc_2.BackgroundTransparency = 1.000
                 Desc_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_2.BorderSizePixel = 0
-                Desc_2.Position = UDim2.new(0, 0, 0, 22)
+                Desc_2.Position = UDim2.new(0, 0, 0, 21)
                 Desc_2.Size = UDim2.new(1, -80, 1, -22)
                 Desc_2.Font = Enum.Font.GothamBold
                 Desc_2.Text = configtoggle.Description
@@ -1074,7 +1074,7 @@ function Library:AddWindow()
             Title_5.BackgroundTransparency = 1.000
             Title_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
             Title_5.BorderSizePixel = 0
-            Title_5.Size = UDim2.new(1, -40, 0, 20)
+            Title_5.Size = UDim2.new(1, -40, 1, 0)
             Title_5.Font = Enum.Font.GothamBold
             Title_5.Text = configslider.Name
             Title_5.TextColor3 = Color3.fromRGB(222, 222, 222)
@@ -1103,20 +1103,36 @@ function Library:AddWindow()
             SliderFrame.BorderSizePixel = 0
             SliderFrame.Position = UDim2.new(1, -139, 0, 15)
             SliderFrame.Size = UDim2.new(0, 126, 0, 5)
+
+            NumberValue.Name = "NumberValue"
+            NumberValue.Parent = Slider
+            NumberValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            NumberValue.BackgroundTransparency = 1.000
+            NumberValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            NumberValue.BorderSizePixel = 0
+            NumberValue.Position = UDim2.new(1, -180, 0, 6)
+            NumberValue.Size = UDim2.new(0, 50, 0, 20)
+            NumberValue.Font = Enum.Font.GothamBold
+            NumberValue.Text = configslider.Default
+            NumberValue.TextColor3 = Color3.fromRGB(200, 200, 200)
+            NumberValue.TextSize = 12.000
+            NumberValue.TextWrapped = true
             
             UICorner_15.CornerRadius = UDim.new(1, 0)
             UICorner_15.Parent = SliderFrame
             
             if configslider.Description ~= nil and configslider.Description ~= "" then
                 UIPadding_9.PaddingTop = UDim.new(0, 12)
+                Title_5.Size = UDim2.new(1, -40, 0, 20)
                 SliderFrame.Position = UDim2.new(1, -139, 0, 22)
+                NumberValue.Position = UDim2.new(1, -180, 0, 14)
                 Desc_3.Name = "Desc"
                 Desc_3.Parent = Slider
                 Desc_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 Desc_3.BackgroundTransparency = 1.000
                 Desc_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_3.BorderSizePixel = 0
-                Desc_3.Position = UDim2.new(0, 0, 0, 22)
+                Desc_3.Position = UDim2.new(0, 0, 0, 21)
                 Desc_3.Size = UDim2.new(1, 0, 1, -22)
                 Desc_3.Font = Enum.Font.GothamBold
                 Desc_3.Text = configslider.Description
@@ -1157,19 +1173,6 @@ function Library:AddWindow()
             UICorner_17.CornerRadius = UDim.new(1, 0)
             UICorner_17.Parent = Circle_5
             
-            NumberValue.Name = "NumberValue"
-            NumberValue.Parent = Slider
-            NumberValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            NumberValue.BackgroundTransparency = 1.000
-            NumberValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
-            NumberValue.BorderSizePixel = 0
-            NumberValue.Position = UDim2.new(1, -180, 0, 0)
-            NumberValue.Size = UDim2.new(0, 50, 0, 20)
-            NumberValue.Font = Enum.Font.GothamBold
-            NumberValue.Text = configslider.Default
-            NumberValue.TextColor3 = Color3.fromRGB(200, 200, 200)
-            NumberValue.TextSize = 12.000
-            NumberValue.TextWrapped = true
 			local dragging = false
 			local function Round(Number, Factor)
 				local Result = math.floor(Number/Factor + (math.sign(Number) * 0.5)) * Factor
@@ -1183,7 +1186,7 @@ function Library:AddWindow()
 				configslider.Callback(SliderFunc.Value)
 				tweenservice:Create(
 					SliderDraggable,
-					TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+					TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 					{Size = UDim2.fromScale((Value - configslider.Min) / (configslider.Max - configslider.Min), 1)}
 				):Play()
 			end
@@ -1322,7 +1325,7 @@ function Library:AddWindow()
 
             Selected_2.Name = "Selected"
             Selected_2.Parent = Dropdown_2
-            Selected_2.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+            Selected_2.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
             Selected_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
             Selected_2.BorderSizePixel = 0
             Selected_2.Position = UDim2.new(1, -110, 0, 7)
@@ -1355,6 +1358,7 @@ function Library:AddWindow()
             
             if configdropdown.Description ~= nil and configdropdown.Description ~= "" then
                 UIPadding_14.PaddingTop = UDim.new(0, 12)
+                Title_8.Size = UDim2.new(1, -40, 0, 20)
                 Selected_2.Position = UDim2.new(1, -110, 0, 7)
                 Desc_4.Name = "Desc"
                 Desc_4.Parent = Dropdown_2
@@ -1362,19 +1366,19 @@ function Library:AddWindow()
                 Desc_4.BackgroundTransparency = 1.000
                 Desc_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_4.BorderSizePixel = 0
-                Desc_4.Position = UDim2.new(0, 0, 0, 22)
-                Desc_4.Size = UDim2.new(1, -100, 1, -22)
+                Desc_4.Position = UDim2.new(0, 0, 0, 21)
+                Desc_4.Size = UDim2.new(1, -100, 0, 27)
                 Desc_4.Font = Enum.Font.GothamBold
                 Desc_4.TextWrapped = true
                 Desc_4.Text = configdropdown.Description
                 Desc_4.TextColor3 = Color3.fromRGB(144, 144, 144)
                 Desc_4.TextSize = 12.000
                 Desc_4.TextXAlignment = Enum.TextXAlignment.Left
-                Desc_4.Size = UDim2.new(1, -100, 1, -22 - Desc_4.TextBounds.Y + 2)
-                Dropdown_2.Size = UDim2.new(1, 0, 0, 36 + Desc_4.Size.Y.Offset + 2)
+                Desc_4.Size = UDim2.new(1, -175, 0, 23 + Desc_4.TextBounds.Y)
+                Dropdown_2.Size = UDim2.new(1, 0, 0, 31 + Desc_4.Size.Y.Offset -16)
                 Desc_4:GetPropertyChangedSignal("Text"):Connect(function()
-                    Desc_4.TextXAlignment = Enum.TextXAlignment.Left
-                    Desc_4.Size = UDim2.new(1, -100, 1, -22 - Desc_4.TextBounds.Y + 2)
+                    Desc_4.Size = UDim2.new(1, -175, 0, 23 + Desc_4.TextBounds.Y )
+                    Dropdown_2.Size = UDim2.new(1, 0, 0, 31 + Desc_4.Size.Y.Offset -16)
                 end)
                 UIPadding_15.Parent = Desc_4
                 UIPadding_15.PaddingBottom = UDim.new(0, 12)
