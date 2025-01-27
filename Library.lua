@@ -1110,7 +1110,7 @@ function Library:AddWindow()
             NumberValue.BackgroundTransparency = 1.000
             NumberValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
             NumberValue.BorderSizePixel = 0
-            NumberValue.Position = UDim2.new(1, -250, 0, 6)
+            NumberValue.Position = UDim2.new(1, -180, 0, 6)
             NumberValue.Size = UDim2.new(0, 50, 0, 20)
             NumberValue.Font = Enum.Font.GothamBold
             NumberValue.Text = configslider.Default
@@ -1133,7 +1133,7 @@ function Library:AddWindow()
                 Desc_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_3.BorderSizePixel = 0
                 Desc_3.Position = UDim2.new(0, 0, 0, 21)
-                Desc_3.Size = UDim2.new(1, 0, 1, -22)
+                Desc_3.Size = UDim2.new(1, -220, 1, -22)
                 Desc_3.Font = Enum.Font.GothamBold
                 Desc_3.Text = configslider.Description
                 Desc_3.TextColor3 = Color3.fromRGB(144, 144, 144)
