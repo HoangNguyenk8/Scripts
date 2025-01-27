@@ -1431,11 +1431,7 @@ function Library:AddWindow()
             end)
 
             function DropFunc:Set(acc)
-				if typeof(acc) == "string" then
-                    DropFunc.Value = {acc}
-                else
-                    DropFunc.Value = acc
-                end
+                DropFunc.Value = acc
 				for _, Drop in Listed:GetChildren() do
 					if Drop.Name ~= "UICorner" and Drop.Name ~= "UIPadding" and Drop.Name ~= "UIListLayout" then
                         if typeof(DropFunc.Value) == "table" then
@@ -1464,7 +1460,7 @@ function Library:AddWindow()
                 if configdropdown.Multi and typeof(DropFunc.Value) == "table" then
 					local DropdownValueTable = table.concat(DropFunc.Value, ", ")
 					if DropdownValueTable == "" then
-						SELECT_2.Text = "Selected : nil"
+						SELECT_2.Text = ""
 					else
 						SELECT_2.Text = tostring(DropdownValueTable)
 					end
