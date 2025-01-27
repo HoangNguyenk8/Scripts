@@ -1431,7 +1431,11 @@ function Library:AddWindow()
             end)
 
             function DropFunc:Set(acc)
-				DropFunc.Value = acc
+				if typeof(acc) == "string" then
+                    DropFunc.Value = {acc}
+                else
+                    DropFunc.Value = acc
+                end
 				for _, Drop in Listed:GetChildren() do
 					if Drop.Name ~= "UICorner" and Drop.Name ~= "UIPadding" and Drop.Name ~= "UIListLayout" then
                         if typeof(DropFunc.Value) == "table" then
