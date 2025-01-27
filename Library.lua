@@ -1127,7 +1127,7 @@ function Library:AddWindow()
                 Desc_3.Size = UDim2.new(1, -80, 1, -22 +(Desc_3.TextBounds.Y) - 5)
                 Slider.Size = UDim2.new(1, 0, 0, 36 + Desc_3.TextBounds.Y + 2)
                 Desc_3:GetPropertyChangedSignal("Text"):Connect(function()
-                    Desc_2.Size = UDim2.new(1, -80, 1, -22 +(Desc_3.TextBounds.Y) - 5)
+                    Desc_3.Size = UDim2.new(1, -80, 1, -22 +(Desc_3.TextBounds.Y) - 5)
                     Slider.Size = UDim2.new(1, 0, 0, 36 + Desc_3.Size.Y.Offset + 2)
                 end)
                 UIPadding_10.Parent = Desc_3
@@ -1163,7 +1163,7 @@ function Library:AddWindow()
             NumberValue.BackgroundTransparency = 1.000
             NumberValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
             NumberValue.BorderSizePixel = 0
-            NumberValue.Position = UDim2.new(1, -180, 0, 13)
+            NumberValue.Position = UDim2.new(1, -180, 0, -8)
             NumberValue.Size = UDim2.new(0, 50, 0, 20)
             NumberValue.Font = Enum.Font.GothamBold
             NumberValue.Text = configslider.Default
