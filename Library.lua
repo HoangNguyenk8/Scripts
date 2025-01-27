@@ -979,7 +979,6 @@ function Library:AddWindow()
             if configtoggle.Description ~= nil and configtoggle.Description ~= "" then
                 UIPadding_7.PaddingTop = UDim.new(0, 12)
                 Title_4.Size = UDim2.new(1, -40, 0, 20)
-                CheckFrame_2.Position = UDim2.new(1, -50, 0, 15)
                 Desc_2.Name = "Desc"
                 Desc_2.Parent = Toggle_2
                 Desc_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -994,9 +993,13 @@ function Library:AddWindow()
                 Desc_2.TextSize = 12.000
                 Desc_2.TextWrapped = true
                 Desc_2.TextXAlignment = Enum.TextXAlignment.Left
-                Toggle_2.Size = UDim2.new(1, 0, 0, 36 + Desc_2.TextBounds.Y + 2)
+                Desc_2.Size = UDim2.new(1, -80, 1, -22 +(Desc_2.TextBounds.Y) - 5)
+                Toggle_2.Size = UDim2.new(1, 0, 0, 42 + Desc_2.Size.Y.Offset + 28)
+                CheckFrame_2.Position = UDim2.new(1, -50, 1, -35)
                 Desc_2:GetPropertyChangedSignal("Text"):Connect(function()
-                    Toggle_2.Size = UDim2.new(1, 0, 0, 36 + Desc_2.TextBounds.Y + 2)
+                    Toggle_2.Size = UDim2.new(1, 0, 0, 42 + Desc_2.Size.Y.Offset + 28)
+                    Desc_2.Size = UDim2.new(1, -80, 1, -22 +(Desc_2.TextBounds.Y) - 5)
+                    CheckFrame_2.Position = UDim2.new(1, -50, 1, -35)
                 end)
                 UIPadding_8.Parent = Desc_2
                 UIPadding_8.PaddingBottom = UDim.new(0, 12)
@@ -1121,9 +1124,11 @@ function Library:AddWindow()
                 Desc_3.TextWrapped = true
                 Desc_3.TextSize = 12.000
                 Desc_3.TextXAlignment = Enum.TextXAlignment.Left
+                Desc_3.Size = UDim2.new(1, -80, 1, -22 +(Desc_3.TextBounds.Y) - 5)
                 Slider.Size = UDim2.new(1, 0, 0, 36 + Desc_3.TextBounds.Y + 2)
                 Desc_3:GetPropertyChangedSignal("Text"):Connect(function()
-                    Slider.Size = UDim2.new(1, 0, 0, 36 + Desc_3.TextBounds.Y + 2)
+                    Desc_2.Size = UDim2.new(1, -80, 1, -22 +(Desc_3.TextBounds.Y) - 5)
+                    Slider.Size = UDim2.new(1, 0, 0, 36 + Desc_3.Size.Y.Offset + 2)
                 end)
                 UIPadding_10.Parent = Desc_3
                 UIPadding_10.PaddingBottom = UDim.new(0, 12)
@@ -1365,9 +1370,11 @@ function Library:AddWindow()
                 Desc_4.TextColor3 = Color3.fromRGB(144, 144, 144)
                 Desc_4.TextSize = 12.000
                 Desc_4.TextXAlignment = Enum.TextXAlignment.Left
-                Dropdown_2.Size = UDim2.new(1, 0, 0, 36 + Desc_4.TextBounds.Y + 2)
+                Desc_4.Size = UDim2.new(1, -100, 1, -22 - Desc_4.TextBounds.Y + 2)
+                Dropdown_2.Size = UDim2.new(1, 0, 0, 36 + Desc_4.Size.Y.Offset + 2)
                 Desc_4:GetPropertyChangedSignal("Text"):Connect(function()
-                    Dropdown_2.Size = UDim2.new(1, 0, 0, 36 + Desc_4.TextBounds.Y + 2)
+                    Desc_4.TextXAlignment = Enum.TextXAlignment.Left
+                    Desc_4.Size = UDim2.new(1, -100, 1, -22 - Desc_4.TextBounds.Y + 2)
                 end)
                 UIPadding_15.Parent = Desc_4
                 UIPadding_15.PaddingBottom = UDim.new(0, 12)
