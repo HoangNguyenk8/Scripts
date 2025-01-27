@@ -104,18 +104,19 @@ local function MakeDraggable(topbarobject, object)
 end
 local function MouseTo(part)
 	part.MouseEnter:Connect(function()
-		tweenservice:Create(part, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.970}):Play()
+		tweenservice:Create(part, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.960}):Play()
 	end)
 	part.MouseLeave:Connect(function()
 		tweenservice:Create(part, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.950}):Play()
 	end)
 end
-local GUIPath = game.CoreGui
+local GUIPath = game.Players.LocalPlayer.PlayerGui
 function Library:AddNotify(confignotify)
     confignotify = confignotify or {}
 	confignotify.Title = confignotify.Title or "Notification"
 	confignotify.Content = confignotify.Content or ""
 	confignotify.Time = confignotify.Time or 5
+    local NotifyFunc = {}
 	spawn(function()
         if not GUIPath:FindFirstChild("Zinnerbeo") then
 			local Zinnerbeo = Instance.new("ScreenGui")
@@ -123,26 +124,26 @@ function Library:AddNotify(confignotify)
 			Zinnerbeo.Parent = GUIPath
 			Zinnerbeo.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		end
-		if not GUIPath:WaitForChild("Zinnerbeo"):FindFirstChild("NotifyLayout") then
+		if not GUIPath.Zinnerbeo:FindFirstChild("NotifyLayout") then
 			local NotifyLayout = Instance.new("Frame")
             NotifyLayout.Name = "NotifyLayout"
-            NotifyLayout.Parent = GUIPath:WaitForChild("Zinnerbeo")
+            NotifyLayout.Parent = GUIPath.Zinnerbeo
             NotifyLayout.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             NotifyLayout.BackgroundTransparency = 1.000
             NotifyLayout.BorderColor3 = Color3.fromRGB(0, 0, 0)
             NotifyLayout.BorderSizePixel = 0
-            NotifyLayout.Position = UDim2.new(1, 300, 1, -150)
+            NotifyLayout.Position = UDim2.new(1, 300, 1, -90)
             NotifyLayout.Size = UDim2.new(0, 220, 0, 70)
 			local Count = 0
-			GUIPath:WaitForChild("Zinnerbeo").NotifyLayout.ChildRemoved:Connect(function()
-				for r, v in next, GUIPath:WaitForChild("Zinnerbeo"):WaitForChild("NotifyLayout"):GetChildren() do
+			GUIPath.Zinnerbeo.NotifyLayout.ChildRemoved:Connect(function()
+				for r, v in next, GUIPath.Zinnerbeo.NotifyLayout:GetChildren() do
 					tweenservice:Create(v, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 0, 1, -((v.Size.Y.Offset + 12) * Count))}):Play()
 					Count = Count + 1
 				end
 			end)
 		end
 		local NotifyHeighst = 0
-		for i, v in GUIPath:WaitForChild("Zinnerbeo").NotifyLayout:GetChildren() do
+		for i, v in GUIPath.Zinnerbeo.NotifyLayout:GetChildren() do
 			NotifyHeighst = -(v.Position.Y.Offset) + v.Size.Y.Offset + 45
 		end
 
@@ -158,12 +159,12 @@ function Library:AddNotify(confignotify)
         local DropShadow = Instance.new("ImageLabel")
 
         NotifyFrame.Name = "NotifyFrame"
-        NotifyFrame.Parent = GUIPath:WaitForChild("Zinnerbeo"):FindFirstChild("NotifyLayout")
+        NotifyFrame.Parent = GUIPath.Zinnerbeo.NotifyLayout
         NotifyFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         NotifyFrame.BackgroundTransparency = 1.000
         NotifyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
         NotifyFrame.BorderSizePixel = 0
-        NotifyFrame.Position = UDim2.new(0, 0, 0 , -(NotifyHeighst) + 10)
+        NotifyFrame.Position = UDim2.new(0, 0, 0 , -(NotifyHeighst) + 5)
         NotifyFrame.Size = UDim2.new(1, 0, 1, 0)
 
         NotifyReal.Name = "NotifyReal"
@@ -186,7 +187,7 @@ function Library:AddNotify(confignotify)
         Title.Position = UDim2.new(0, 10, 0, 6)
         Title.Size = UDim2.new(1, -15, 0, 20)
         Title.Font = Enum.Font.GothamBold
-        Title.Text = "Title"
+        Title.Text = confignotify.Title
         Title.TextColor3 = Color3.fromRGB(200, 200, 200)
         Title.TextSize = 13.000
         Title.TextXAlignment = Enum.TextXAlignment.Left
@@ -259,21 +260,19 @@ function Library:AddNotify(confignotify)
         DropShadow.ImageTransparency = 0.500
         DropShadow.ScaleType = Enum.ScaleType.Slice
         DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
-		local wait = false
-		function Close()
-			if wait then return end
-			wait = true
-			tweenservice:Create(NotifyReal, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 0, 0, -(NotifyHeighst) - 37)}):Play()
+		function NotifyFunc:Close()
+			tweenservice:Create(NotifyReal, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 0, 0, -(NotifyHeighst) - 49)}):Play()
 			task.wait(tonumber(confignotify.Time) / 1.2)
-			GUIPath:WaitForChild("Zinnerbeo"):WaitForChild("NotifyLayout"):Destroy()
+			NotifyFrame:Destroy()
 		end
-		tweenservice:Create(NotifyReal, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -570, 0, -(NotifyHeighst) - 37)}):Play()
+		tweenservice:Create(NotifyReal, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -570, 0, -(NotifyHeighst) - 49)}):Play()
 		Click.Activated:Connect(function()
-			Close()
+			NotifyFunc:Close()
 		end)
         task.wait(tonumber(confignotify.Time))
-        Close()
+        NotifyFunc:Close()
     end)
+    return NotifyFunc
 end
 function Library:AddWindow()
     local ZinnerBeos = Instance.new("ScreenGui")
@@ -489,16 +488,16 @@ function Library:AddWindow()
     Click_2.TextColor3 = Color3.fromRGB(0, 0, 0)
     Click_2.TextSize = 14.000
     local a = true
-    OldSize = Main.Size
-    OldPos = Main.Position
     Click_2.Activated:Connect(function()
         if a then
-            tweenservice:Create(Main, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
-            tweenservice:Create(Main, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 1, 0)}):Play()
+            OldSize = Main.Size
+            OldPos = Main.Position
+            tweenservice:Create(Main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
+            tweenservice:Create(Main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 1, 0)}):Play()
             a = false
         else
-            tweenservice:Create(Main, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = OldPos}):Play()
-            tweenservice:Create(Main, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = OldSize}):Play()
+            tweenservice:Create(Main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = OldPos}):Play()
+            tweenservice:Create(Main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = OldSize}):Play()
             a = true
         end
     end)
@@ -535,6 +534,11 @@ function Library:AddWindow()
     Click_3.TextColor3 = Color3.fromRGB(0, 0, 0)
     Click_3.TextSize = 14.000
     Click_3.Activated:Connect(function()
+        Library:AddNotify({
+            Title = "Interface",
+            Content = "Zinner Screen Gui Has Deleted!!",
+            Time = 7
+        })
         ZinnerBeos:Destroy()
     end)
     
@@ -723,6 +727,12 @@ function Library:AddWindow()
         Click_5.Text = ""
         Click_5.TextColor3 = Color3.fromRGB(0, 0, 0)
         Click_5.TextSize = 14.000
+        if Counts == 0 then
+            NameTab_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ImageLabel_2.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            TabDisable.BackgroundTransparency = 0.960
+            Circle_2.Position = UDim2.new(0, 2, 0, 8)
+        end
         Click_5.Activated:Connect(function()
             for r, v in pairs(TabHolder:GetChildren()) do
                 if v:IsA("Frame") then
@@ -1669,6 +1679,93 @@ function Library:AddWindow()
             TextBox.FocusLost:Connect(function()
                 configinput.Callback(TextBox.Text)
             end)
+        end
+        function Feature:AddParagraph(configparagraph)
+            configparagraph = configparagraph or {}
+            configparagraph.Name = configparagraph.Name or "Paragraph"
+            configparagraph.Description = configparagraph.Description or ""
+
+            local Paragraph = Instance.new("Frame")
+            local UICorner_26 = Instance.new("UICorner")
+            local Title_9 = Instance.new("TextLabel")
+            local UIPadding_17 = Instance.new("UIPadding")
+            local Desc_6 = Instance.new("TextLabel")
+            local UIPadding_18 = Instance.new("UIPadding")
+            local ParagraphFunc = {}
+
+            Paragraph.Name = "Paragraph"
+            Paragraph.Parent = Channel
+            Paragraph.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Paragraph.BackgroundTransparency = 0.950
+            Paragraph.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Paragraph.BorderSizePixel = 0
+            Paragraph.Size = UDim2.new(1, 0, 0, 36)
+            
+            UICorner_26.CornerRadius = UDim.new(0, 3)
+            UICorner_26.Parent = Paragraph
+            
+            Title_9.Name = "Title"
+            Title_9.Parent = Paragraph
+            Title_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title_9.BackgroundTransparency = 1.000
+            Title_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Title_9.BorderSizePixel = 0
+            Title_9.Size = UDim2.new(1, -40, 1, 0)
+            Title_9.Font = Enum.Font.GothamBold
+            Title_9.Text = configparagraph.Name
+            Title_9.TextColor3 = Color3.fromRGB(222, 222, 222)
+            Title_9.TextSize = 13.000
+            Title_9.TextXAlignment = Enum.TextXAlignment.Left
+            
+            UIPadding_17.Parent = Title_9
+            UIPadding_17.PaddingLeft = UDim.new(0, 12)
+            
+            if configparagraph.Description ~= nil and configparagraph.Description ~= "" then
+                Title_9.Size = UDim2.new(1, -40, 1, 0)
+                UIPadding_17.PaddingTop = UDim.new(0, 12)
+                Desc_6.Name = "Desc"
+                Desc_6.Parent = Paragraph
+                Desc_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Desc_6.BackgroundTransparency = 1.000
+                Desc_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Desc_6.BorderSizePixel = 0
+                Desc_6.Position = UDim2.new(0, 0, 0, 22)
+                Desc_6.Size = UDim2.new(1, 0, 1, -22)
+                Desc_6.Font = Enum.Font.GothamBold
+                Desc_6.Text = configparagraph.Description
+                Desc_6.TextColor3 = Color3.fromRGB(144, 144, 144)
+                Desc_6.TextSize = 12.000
+                Desc_6.TextXAlignment = Enum.TextXAlignment.Left
+                Paragraph.Size = UDim2.new(1, 0, 0, 36 + Desc_6.TextBounds.Y + 2)
+                Desc_6:GetPropertyChangedSignal("Text"):Connect(function()
+                    Paragraph.Size = UDim2.new(1, 0, 0, 36 + Desc_6.TextBounds.Y + 2)
+                end)
+                UIPadding_18.Parent = Desc_6
+                UIPadding_18.PaddingBottom = UDim.new(0, 12)
+                UIPadding_18.PaddingLeft = UDim.new(0, 12)
+                function ParagraphFunc:SetDesc(args)
+                    Desc_6.Text = args
+                end
+            end
+            function ParagraphFunc:SetTitle(args)
+                Title_9.Text = args
+            end
+            return ParagraphFunc
+        end
+        function Feature:AddSeperator(Te)
+            local Seperator = Instance.new("TextLabel")
+            Seperator.Name = "Seperator"
+            Seperator.Parent = Channel
+            Seperator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Seperator.BackgroundTransparency = 1.000
+            Seperator.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Seperator.BorderSizePixel = 0
+            Seperator.Size = UDim2.new(0, 200, 0, 30)
+            Seperator.Font = Enum.Font.GothamBold
+            Seperator.Text = Te
+            Seperator.TextColor3 = Color3.fromRGB(200, 200, 200)
+            Seperator.TextSize = 16.000
+            Seperator.TextXAlignment = Enum.TextXAlignment.Left
         end
         return Feature
     end
