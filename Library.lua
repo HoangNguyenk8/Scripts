@@ -1098,7 +1098,7 @@ function Library:AddWindow()
 
             SliderFrame.Name = "SliderFrame"
             SliderFrame.Parent = Slider
-            SliderFrame.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+            SliderFrame.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
             SliderFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
             SliderFrame.BorderSizePixel = 0
             SliderFrame.Position = UDim2.new(1, -139, 0, 15)
@@ -1110,7 +1110,7 @@ function Library:AddWindow()
             NumberValue.BackgroundTransparency = 1.000
             NumberValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
             NumberValue.BorderSizePixel = 0
-            NumberValue.Position = UDim2.new(1, -180, 0, 6)
+            NumberValue.Position = UDim2.new(1, -250, 0, 6)
             NumberValue.Size = UDim2.new(0, 50, 0, 20)
             NumberValue.Font = Enum.Font.GothamBold
             NumberValue.Text = configslider.Default
@@ -1325,7 +1325,7 @@ function Library:AddWindow()
 
             Selected_2.Name = "Selected"
             Selected_2.Parent = Dropdown_2
-            Selected_2.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+            Selected_2.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
             Selected_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
             Selected_2.BorderSizePixel = 0
             Selected_2.Position = UDim2.new(1, -110, 0, 7)
