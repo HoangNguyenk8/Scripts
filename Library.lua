@@ -1735,7 +1735,7 @@ function Library:AddWindow()
             UIPadding_17.PaddingLeft = UDim.new(0, 12)
             
             if configparagraph.Description ~= nil and configparagraph.Description ~= "" then
-                Title_9.Size = UDim2.new(1, -40, 1, 0)
+                Title_9.Size = UDim2.new(1, -40, 0, 20)
                 UIPadding_17.PaddingTop = UDim.new(0, 12)
                 Desc_6.Name = "Desc"
                 Desc_6.Parent = Paragraph
