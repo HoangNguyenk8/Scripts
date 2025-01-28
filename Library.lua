@@ -874,11 +874,12 @@ function Library:AddWindow()
                 Desc.TextSize = 12.000
                 Desc.TextWrapped = true
                 Desc.TextXAlignment = Enum.TextXAlignment.Left
-                Button_2.Size = UDim2.new(1, 0, 0, 36 + Desc.TextBounds.Y + 2)
+                Desc.Size = UDim2.new(1, -80, 1, -22 +(Desc.TextBounds.Y) - 5)
+                Button_2.Size = UDim2.new(1, 0, 0, 42 + Desc.Size.Y.Offset + 28)
                 Desc:GetPropertyChangedSignal("Text"):Connect(function()
-                    Button_2.Size = UDim2.new(1, 0, 0, 36 + Desc.TextBounds.Y + 2)
+                    Desc.Size = UDim2.new(1, -80, 1, -22 +(Desc.TextBounds.Y) - 5)
+                    Button_2.Size = UDim2.new(1, 0, 0, 42 + Desc.Size.Y.Offset + 28)
                 end)
-                
                 UIPadding_5.Parent = Desc
                 UIPadding_5.PaddingBottom = UDim.new(0, 12)
                 UIPadding_5.PaddingLeft = UDim.new(0, 12)
