@@ -1099,7 +1099,7 @@ function Library:AddWindow()
 
             SliderFrame.Name = "SliderFrame"
             SliderFrame.Parent = Slider
-            SliderFrame.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+            SliderFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
             SliderFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
             SliderFrame.BorderSizePixel = 0
             SliderFrame.Position = UDim2.new(1, -139, 0, 15)
