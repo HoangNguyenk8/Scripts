@@ -1133,7 +1133,7 @@ function Library:AddWindow()
                 Desc_3.BackgroundTransparency = 1.000
                 Desc_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_3.BorderSizePixel = 0
-                Desc_3.Position = UDim2.new(0, 0, 0, 21)
+                Desc_3.Position = UDim2.new(0, 0, 0, 19)
                 Desc_3.Size = UDim2.new(1, -220, 1, -22)
                 Desc_3.Font = Enum.Font.GothamBold
                 Desc_3.Text = configslider.Description
