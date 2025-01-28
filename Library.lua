@@ -986,7 +986,7 @@ function Library:AddWindow()
                 Desc_2.BackgroundTransparency = 1.000
                 Desc_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_2.BorderSizePixel = 0
-                Desc_2.Position = UDim2.new(0, 0, 0, 18)
+                Desc_2.Position = UDim2.new(0, 0, 0, 20)
                 Desc_2.Size = UDim2.new(1, -80, 1, -22)
                 Desc_2.Font = Enum.Font.GothamBold
                 Desc_2.Text = configtoggle.Description
