@@ -856,7 +856,7 @@ function Library:AddWindow()
             Click_7.TextColor3 = Color3.fromRGB(0, 0, 0)
             Click_7.TextSize = 14.000
             
-            if configbutton.Description ~= nil and configbutton ~= "" then
+            if configbutton.Description ~= nil and configbutton.Description ~= "" then
                 Title_2.Size = UDim2.new(1, -40, 0, 20)
                 UIPadding_4.PaddingTop = UDim.new(0, 12)
                 Logo_2.Position = UDim2.new(1, -26, 0, 17)
