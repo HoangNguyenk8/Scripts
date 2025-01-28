@@ -866,7 +866,7 @@ function Library:AddWindow()
                 Desc.BackgroundTransparency = 1.000
                 Desc.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc.BorderSizePixel = 0
-                Desc.Position = UDim2.new(0, 0, 0, 22)
+                Desc.Position = UDim2.new(0, 0, 0, 19)
                 Desc.Size = UDim2.new(1, -30, 1, -22)
                 Desc.Font = Enum.Font.GothamBold
                 Desc.Text = configbutton.Description
@@ -986,7 +986,7 @@ function Library:AddWindow()
                 Desc_2.BackgroundTransparency = 1.000
                 Desc_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_2.BorderSizePixel = 0
-                Desc_2.Position = UDim2.new(0, 0, 0, 21)
+                Desc_2.Position = UDim2.new(0, 0, 0, 18)
                 Desc_2.Size = UDim2.new(1, -80, 1, -22)
                 Desc_2.Font = Enum.Font.GothamBold
                 Desc_2.Text = configtoggle.Description
@@ -1133,7 +1133,7 @@ function Library:AddWindow()
                 Desc_3.BackgroundTransparency = 1.000
                 Desc_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_3.BorderSizePixel = 0
-                Desc_3.Position = UDim2.new(0, 0, 0, 19)
+                Desc_3.Position = UDim2.new(0, 0, 0, 18)
                 Desc_3.Size = UDim2.new(1, -220, 1, -22)
                 Desc_3.Font = Enum.Font.GothamBold
                 Desc_3.Text = configslider.Description
@@ -1367,7 +1367,7 @@ function Library:AddWindow()
                 Desc_4.BackgroundTransparency = 1.000
                 Desc_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
                 Desc_4.BorderSizePixel = 0
-                Desc_4.Position = UDim2.new(0, 0, 0, 21)
+                Desc_4.Position = UDim2.new(0, 0, 0, 19)
                 Desc_4.Size = UDim2.new(1, -100, 0, 27)
                 Desc_4.Font = Enum.Font.GothamBold
                 Desc_4.TextWrapped = true
