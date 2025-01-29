@@ -4,103 +4,108 @@ local Mouse = player:GetMouse()
 local UserInputService = game:GetService("UserInputService")
 local Library = {}
 local function MakeDraggable(topbarobject, object)
-	local function CustomPos(topbarobject, object)
-		local Dragging = nil
-		local DragInput = nil
-		local DragStart = nil
-		local StartPosition = nil
+    local Dragging = nil
+    local DragInput = nil
+    local DragStart = nil
+    local StartPosition = nil
 
-		local function UpdatePos(input)
-			local Delta = input.Position - DragStart
-			local pos = UDim2.new(StartPosition.X.Scale, StartPosition.X.Offset + Delta.X, StartPosition.Y.Scale, StartPosition.Y.Offset + Delta.Y)
-			object.Position = pos
-		end
+    local function UpdatePos(input)
+        local Delta = input.Position - DragStart
+        local pos =
+            UDim2.new(
+                StartPosition.X.Scale,
+                StartPosition.X.Offset + Delta.X,
+                StartPosition.Y.Scale,
+                StartPosition.Y.Offset + Delta.Y
+            )
+        local Tween = TweenService:Create(object, TweenInfo.new(0.2), {Position = pos})
+        Tween:Play()
+    end
 
-		topbarobject.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				Dragging = true
-				DragStart = input.Position
-				StartPosition = object.Position
+    topbarobject.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            Dragging = true
+            DragStart = input.Position
+            StartPosition = object.Position
 
-				input.Changed:Connect(function()
-					if input.UserInputState == Enum.UserInputState.End then
-						Dragging = false
-					end
-				end)
-			end
-		end)
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    Dragging = false
+                end
+            end)
+        end
+    end)
 
-		topbarobject.InputChanged:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-				DragInput = input
-			end
-		end)
+    topbarobject.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            DragInput = input
+        end
+    end)
 
-		UserInputService.InputChanged:Connect(function(input)
-			if input == DragInput and Dragging then
-				UpdatePos(input)
-			end
-		end)
-	end
-	local function CustomSize(object)
-		local Dragging = false
-		local DragInput = nil
-		local DragStart = nil
-		local StartSize = nil
-		local maxSizeX = object.Size.X.Offset
-		if maxSizeX < 400 then
-			maxSizeX = 400
-		end
-		local maxSizeY = maxSizeX - 100
-		object.Size = UDim2.new(0, maxSizeX, 0, maxSizeY)
-		local changesizeobject = Instance.new("Frame");
+    UserInputService.InputChanged:Connect(function(input)
+        if input == DragInput and Dragging then
+            UpdatePos(input)
+        end
+    end)
+end
+local function CustomSize(object)
+    local Dragging = false
+    local DragInput = nil
+    local DragStart = nil
+    local StartSize = nil
+    local maxSizeX = object.Size.X.Offset
+    if maxSizeX < 400 then
+        maxSizeX = 400
+    end
+    local maxSizeY = maxSizeX - 100
+    object.Size = UDim2.new(0, maxSizeX, 0, maxSizeY)
+    local changesizeobject = Instance.new("Frame");
 
-		changesizeobject.AnchorPoint = Vector2.new(1, 1)
-		changesizeobject.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		changesizeobject.BackgroundTransparency = 0.9990000128746033
-		changesizeobject.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		changesizeobject.BorderSizePixel = 0
-		changesizeobject.Position = UDim2.new(1, 20, 1, 20)
-		changesizeobject.Size = UDim2.new(0, 40, 0, 40)
-		changesizeobject.Name = "changesizeobject"
-		changesizeobject.Parent = object
+    changesizeobject.AnchorPoint = Vector2.new(1, 1)
+    changesizeobject.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    changesizeobject.BackgroundTransparency = 0.9990000128746033
+    changesizeobject.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    changesizeobject.BorderSizePixel = 0
+    changesizeobject.Position = UDim2.new(1, 20, 1, 20)
+    changesizeobject.Size = UDim2.new(0, 40, 0, 40)
+    changesizeobject.Name = "changesizeobject"
+    changesizeobject.Parent = object
 
-		local function UpdateSize(input)
-			local Delta = input.Position - DragStart
-			local newWidth = StartSize.X.Offset + Delta.X
-			local newHeight = StartSize.Y.Offset + Delta.Y
-			newWidth = math.max(newWidth, maxSizeX)
-			newHeight = math.max(newHeight, maxSizeY)
-			object.Size = UDim2.new(0, newWidth, 0, newHeight)
-		end
+    local function UpdateSize(input)
+        local Delta = input.Position - DragStart
+        local newWidth = StartSize.X.Offset + Delta.X
+        local newHeight = StartSize.Y.Offset + Delta.Y
+        newWidth = math.max(newWidth, maxSizeX)
+        newHeight = math.max(newHeight, maxSizeY)
+        local Delta = input.Position - DragStart
+        local Tween = TweenService:Create(object, TweenInfo.new(0.2), {Size = UDim2.new(0, newWidth, 0, newHeight)})
+        Tween:Play()
+    end
 
-		changesizeobject.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				Dragging = true
-				DragStart = input.Position
-				StartSize = object.Size
-				input.Changed:Connect(function()
-					if input.UserInputState == Enum.UserInputState.End then
-						Dragging = false
-					end
-				end)
-			end
-		end)
+    changesizeobject.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            Dragging = true
+            DragStart = input.Position
+            StartSize = object.Size
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    Dragging = false
+                end
+            end)
+        end
+    end)
 
-		changesizeobject.InputChanged:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-				DragInput = input
-			end
-		end)
+    changesizeobject.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            DragInput = input
+        end
+    end)
 
-		UserInputService.InputChanged:Connect(function(input)
-			if input == DragInput and Dragging then
-				UpdateSize(input)
-			end
-		end)
-	end
-	CustomSize(object)
-	CustomPos(topbarobject, object)
+    UserInputService.InputChanged:Connect(function(input)
+        if input == DragInput and Dragging then
+            UpdateSize(input)
+        end
+    end)
 end
 local function MouseTo(part)
 	part.MouseEnter:Connect(function()
@@ -612,6 +617,8 @@ function Library:AddWindow()
 	UIPageLayout.TweenTime = 0.400
 
     MakeDraggable(Top, Main)
+    MakeDraggable(TextButton_2, MinizedUI)
+    CustomSize(Main)
     local Counts = 0
     local Tabs = {}
     function Tabs:CreateTab(configtab)
