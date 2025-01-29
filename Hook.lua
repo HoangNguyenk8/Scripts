@@ -4,5 +4,5 @@ hookfunction(require(game.ReplicatedStorage:WaitForChild("GuideModule")).ChangeD
 require(game.ReplicatedStorage.Util.CameraShaker):Stop()
 if workspace:FindFirstChild("Rocks") then workspace:FindFirstChild("Rocks"):Destroy() end
 if workspace._WorldOrigin["Foam;"] then workspace._WorldOrigin["Foam;"]:Destroy() end
-game.Lighting.FogEnd = 100000 for r, v in pairsgame.Lightingc:GetDescendants()) do if v:IsA("Atmosphere") then v:Destroy() end end
+game.Lighting.FogEnd = 100000 for r, v in pairs(game.Lighting:GetDescendants()) do if v:IsA("Atmosphere") then v:Destroy() end end
 setfpscap(60)
