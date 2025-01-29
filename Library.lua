@@ -18,7 +18,7 @@ local function MakeDraggable(topbarobject, object)
                 StartPosition.Y.Scale,
                 StartPosition.Y.Offset + Delta.Y
             )
-        local Tween = TweenService:Create(object, TweenInfo.new(0.2), {Position = pos})
+        local Tween = tweenservice:Create(object, TweenInfo.new(0.2), {Position = pos})
         Tween:Play()
     end
 
@@ -78,7 +78,7 @@ local function CustomSize(object)
         newWidth = math.max(newWidth, maxSizeX)
         newHeight = math.max(newHeight, maxSizeY)
         local Delta = input.Position - DragStart
-        local Tween = TweenService:Create(object, TweenInfo.new(0.2), {Size = UDim2.new(0, newWidth, 0, newHeight)})
+        local Tween = tweenservice:Create(object, TweenInfo.new(0.2), {Size = UDim2.new(0, newWidth, 0, newHeight)})
         Tween:Play()
     end
 
