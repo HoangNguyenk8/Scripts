@@ -1616,6 +1616,7 @@ function Library:AddWindow()
         function Feature:AddInput(configinput)
             configinput = configinput or {}
 			configinput.Name = configinput.Name or "Input"
+            configinput.Description = configinput.Description or ""
 			configinput.PlaceHolderText = configinput.PlaceHolderText or "Input Here"
 			configinput.Default = configinput.Default or ""
 			configinput.Callback = configinput.Callback or function() end
