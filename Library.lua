@@ -86,10 +86,6 @@ local function MakeDraggable(topbarobject, object)
 				end)
 			end
 		end)
-		function setMidPos(screenGui, mainFrame)
-			mainFrame.Position = UDim2.new(0, (screenGui.AbsoluteSize.X // 2 - mainFrame.Size.X.Offset // 2), 0, (screenGui.AbsoluteSize.Y // 2 - mainFrame.Size.Y.Offset // 2))
-			return mainFrame.Position
-		end
 		
 		changesizeobject.InputChanged:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
@@ -105,6 +101,10 @@ local function MakeDraggable(topbarobject, object)
 	end
 	CustomSize(object)
 	CustomPos(topbarobject, object)
+end
+function setMidPos(screenGui, mainFrame)
+	mainFrame.Position = UDim2.new(0, (screenGui.AbsoluteSize.X // 2 - mainFrame.Size.X.Offset // 2), 0, (screenGui.AbsoluteSize.Y // 2 - mainFrame.Size.Y.Offset // 2))
+	return mainFrame.Position
 end
 local function MouseTo(part)
 	part.MouseEnter:Connect(function()
