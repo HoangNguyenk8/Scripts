@@ -1595,8 +1595,9 @@ function Library:AddWindow()
 			return DropFunc
 		end
 		function Feature:AddInput(configinput)
-			configinput = configinput or {}
+            configinput = configinput or {}
 			configinput.Name = configinput.Name or "Input"
+            configinput.Description = configinput.Description or ""
 			configinput.PlaceHolderText = configinput.PlaceHolderText or "Input Here"
 			configinput.Default = configinput.Default or ""
 			configinput.Callback = configinput.Callback or function() end
@@ -1683,7 +1684,92 @@ function Library:AddWindow()
 				configinput.Callback(TextBox.Text)
 			end)
 		end
-		return Feature
+		function Feature:AddParagraph(configparagraph)
+            configparagraph = configparagraph or {}
+            configparagraph.Name = configparagraph.Name or "Paragraph"
+            configparagraph.Description = configparagraph.Description or ""
+            local Paragraph = Instance.new("Frame")
+            local UICorner_26 = Instance.new("UICorner")
+            local Title_9 = Instance.new("TextLabel")
+            local UIPadding_17 = Instance.new("UIPadding")
+            local Desc_6 = Instance.new("TextLabel")
+            local UIPadding_18 = Instance.new("UIPadding")
+            local ParagraphFunc = {}
+            Paragraph.Name = "Paragraph"
+            Paragraph.Parent = Channel
+            Paragraph.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Paragraph.BackgroundTransparency = 0.950
+            Paragraph.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Paragraph.BorderSizePixel = 0
+            Paragraph.Size = UDim2.new(1, 0, 0, 36)
+            
+            UICorner_26.CornerRadius = UDim.new(0, 3)
+            UICorner_26.Parent = Paragraph
+            
+            Title_9.Name = "Title"
+            Title_9.Parent = Paragraph
+            Title_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title_9.BackgroundTransparency = 1.000
+            Title_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Title_9.BorderSizePixel = 0
+            Title_9.Size = UDim2.new(1, -40, 1, 0)
+            Title_9.Font = Enum.Font.GothamBold
+            Title_9.Text = configparagraph.Name
+            Title_9.TextColor3 = Color3.fromRGB(222, 222, 222)
+            Title_9.TextSize = 13.000
+            Title_9.TextXAlignment = Enum.TextXAlignment.Left
+            
+            UIPadding_17.Parent = Title_9
+            UIPadding_17.PaddingLeft = UDim.new(0, 12)
+            
+            if configparagraph.Description ~= nil and configparagraph.Description ~= "" then
+                Title_9.Size = UDim2.new(1, -40, 0, 20)
+                UIPadding_17.PaddingTop = UDim.new(0, 12)
+                Desc_6.Name = "Desc"
+                Desc_6.Parent = Paragraph
+                Desc_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Desc_6.BackgroundTransparency = 1.000
+                Desc_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Desc_6.BorderSizePixel = 0
+                Desc_6.Position = UDim2.new(0, 0, 0, 22)
+                Desc_6.Size = UDim2.new(1, 0, 1, -22)
+                Desc_6.Font = Enum.Font.GothamBold
+                Desc_6.Text = configparagraph.Description
+                Desc_6.TextColor3 = Color3.fromRGB(144, 144, 144)
+                Desc_6.TextSize = 12.000
+                Desc_6.TextXAlignment = Enum.TextXAlignment.Left
+                Paragraph.Size = UDim2.new(1, 0, 0, 36 + Desc_6.TextBounds.Y + 2)
+                Desc_6:GetPropertyChangedSignal("Text"):Connect(function()
+                    Paragraph.Size = UDim2.new(1, 0, 0, 36 + Desc_6.TextBounds.Y + 2)
+                end)
+                UIPadding_18.Parent = Desc_6
+                UIPadding_18.PaddingBottom = UDim.new(0, 12)
+                UIPadding_18.PaddingLeft = UDim.new(0, 12)
+                function ParagraphFunc:SetDesc(args)
+                    Desc_6.Text = args
+                end
+            end
+            function ParagraphFunc:SetTitle(args)
+                Title_9.Text = args
+            end
+            return ParagraphFunc
+        end
+        function Feature:AddSeperator(Te)
+            local Seperator = Instance.new("TextLabel")
+            Seperator.Name = "Seperator"
+            Seperator.Parent = Channel
+            Seperator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Seperator.BackgroundTransparency = 1.000
+            Seperator.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Seperator.BorderSizePixel = 0
+            Seperator.Size = UDim2.new(0, 200, 0, 30)
+            Seperator.Font = Enum.Font.GothamBold
+            Seperator.Text = Te
+            Seperator.TextColor3 = Color3.fromRGB(200, 200, 200)
+            Seperator.TextSize = 16.000
+            Seperator.TextXAlignment = Enum.TextXAlignment.Left
+        end
+        return Feature
 	end
 	return Tabs
 end
