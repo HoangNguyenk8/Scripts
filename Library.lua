@@ -86,7 +86,11 @@ local function MakeDraggable(topbarobject, object)
 				end)
 			end
 		end)
-
+		function setMidPos(screenGui, mainFrame)
+			mainFrame.Position = UDim2.new(0, (screenGui.AbsoluteSize.X // 2 - mainFrame.Size.X.Offset // 2), 0, (screenGui.AbsoluteSize.Y // 2 - mainFrame.Size.Y.Offset // 2))
+			return mainFrame.Position
+		end
+		
 		changesizeobject.InputChanged:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 				DragInput = input
@@ -357,7 +361,7 @@ function Library:AddWindow()
 	Main.BorderSizePixel = 0
 	Main.Position = UDim2.new(0.4, 0, 0.4, 0)
 	Main.Size = UDim2.new(0, 522, 0, 390)
-
+	setMidPos(ZinnerBeos, Main)
 	UICorner.Parent = Main
 
 	DropShadowHolder.Name = "DropShadowHolder"
