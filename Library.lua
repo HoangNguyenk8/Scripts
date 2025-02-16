@@ -114,7 +114,7 @@ local function MouseTo(part)
 		tweenservice:Create(part, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.950}):Play()
 	end)
 end
-local GUIPath = game.Players.LocalPlayer.PlayerGui
+local GUIPath = game.CoreGui
 function Library:AddNotify(confignotify)
 	confignotify = confignotify or {}
 	confignotify.Title = confignotify.Title or "Notification"
