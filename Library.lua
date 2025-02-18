@@ -2,7 +2,7 @@ local player = game.Players and game.Players.LocalPlayer
 local tweenservice = game:GetService("TweenService")
 local Mouse = player:GetMouse()
 local UserInputService = game:GetService("UserInputService")
-local Library = {}
+local Fluent = {}
 local function MakeDraggable(topbarobject, object)
 	local function CustomPos(topbarobject, object)
 		local Dragging = nil
@@ -115,7 +115,7 @@ local function MouseTo(part)
 	end)
 end
 local GUIPath = game.CoreGui
-function Library:AddNotify(confignotify)
+function Fluent:AddNotify(confignotify)
 	confignotify = confignotify or {}
 	confignotify.Title = confignotify.Title or "Notification"
 	confignotify.Content = confignotify.Content or ""
@@ -278,7 +278,7 @@ function Library:AddNotify(confignotify)
 	end)
 	return NotifyFunc
 end
-function Library:AddWindow()
+function Fluent:AddWindow()
 	local ZinnerBeos = Instance.new("ScreenGui")
 	local Main = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
@@ -537,7 +537,7 @@ function Library:AddWindow()
 	Click_3.TextColor3 = Color3.fromRGB(0, 0, 0)
 	Click_3.TextSize = 14.000
 	Click_3.Activated:Connect(function()
-		Library:AddNotify({
+		Fluent:AddNotify({
 			Title = "Interface",
 			Content = "Zinner Screen Gui Has Deleted!!",
 			Time = 7
@@ -1772,4 +1772,4 @@ function Library:AddWindow()
 	end
 	return Tabs
 end
-return Library
+return Fluent
