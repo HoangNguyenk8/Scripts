@@ -495,7 +495,7 @@ function Library:AddWindow()
 		if a then
 			OldSize = Main.Size
 			OldPos = Main.Position
-			tweenservice:Create(Main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
+			tweenservice:Create(Main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, (ZinnerBeos.AbsoluteSize.X // 2 - Main.Size.X.Offset // 2), 0, (ZinnerBeos.AbsoluteSize.Y // 2 - Main.Size.Y.Offset // 2))}):Play()
 			tweenservice:Create(Main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 1, 0)}):Play()
 			a = false
 		else
@@ -796,96 +796,99 @@ function Library:AddWindow()
 		Counts = Counts + 1
 		local Feature = {}
 		function Feature:AddButton(configbutton)
-			configbutton = configbutton or {}
-			configbutton.Name = configbutton.Name or "Button"
-			configbutton.Description = configbutton.Description or ""
-			configbutton.Callback = configbutton.Callback or function() end
-
-			local Button_2 = Instance.new("Frame")
-			local UICorner_7 = Instance.new("UICorner")
-			local Title_2 = Instance.new("TextLabel")
-			local UIPadding_4 = Instance.new("UIPadding")
-			local Logo_2 = Instance.new("ImageLabel")
-			local Click_7 = Instance.new("TextButton")
-			local Desc = Instance.new("TextLabel")
-			local UIPadding_5 = Instance.new("UIPadding")
-
-			Button_2.Name = "Button"
-			Button_2.Parent = Channel
-			Button_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Button_2.BackgroundTransparency = 0.950
-			Button_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Button_2.BorderSizePixel = 0
-			Button_2.Size = UDim2.new(1, 0, 0, 36)
-			MouseTo(Button_2)
-			UICorner_7.CornerRadius = UDim.new(0, 3)
-			UICorner_7.Parent = Button_2
-
-			Title_2.Name = "Title"
-			Title_2.Parent = Button_2
-			Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Title_2.BackgroundTransparency = 1.000
-			Title_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Title_2.BorderSizePixel = 0
-			Title_2.Size = UDim2.new(1, -40, 1, 0)
-			Title_2.Font = Enum.Font.GothamBold
-			Title_2.Text = configbutton.Name
-			Title_2.TextColor3 = Color3.fromRGB(222, 222, 222)
-			Title_2.TextSize = 13.000
-			Title_2.TextXAlignment = Enum.TextXAlignment.Left
-
-			UIPadding_4.Parent = Title_2
-			UIPadding_4.PaddingLeft = UDim.new(0, 12)
-
-			Logo_2.Name = "Logo"
-			Logo_2.Parent = Button_2
-			Logo_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Logo_2.BackgroundTransparency = 1.000
-			Logo_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Logo_2.BorderSizePixel = 0
-			Logo_2.Position = UDim2.new(1, -26, 0, 11)
-			Logo_2.Size = UDim2.new(0, 12, 0, 12)
-			Logo_2.Image = "http://www.roblox.com/asset/?id=89867158038179"
-			Logo_2.ImageColor3 = Color3.fromRGB(222, 222, 222)
-
-			Click_7.Name = "Click"
-			Click_7.Parent = Button_2
-			Click_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Click_7.BackgroundTransparency = 1.000
-			Click_7.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Click_7.BorderSizePixel = 0
-			Click_7.Size = UDim2.new(1, 0, 1, 0)
-			Click_7.Font = Enum.Font.SourceSans
-			Click_7.Text = ""
-			Click_7.TextColor3 = Color3.fromRGB(0, 0, 0)
-			Click_7.TextSize = 14.000
-
-			if configbutton.Description ~= nil and configbutton ~= "" then
-				Title_2.Size = UDim2.new(1, -40, 0, 20)
-				UIPadding_4.PaddingTop = UDim.new(0, 12)
-				Logo_2.Position = UDim2.new(1, -26, 0, 17)
-				Desc.Name = "Desc"
-				Desc.Parent = Button_2
-				Desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Desc.BackgroundTransparency = 1.000
-				Desc.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				Desc.BorderSizePixel = 0
-				Desc.Position = UDim2.new(0, 0, 0, 22)
-				Desc.Size = UDim2.new(1, 0, 1, -22)
-				Desc.Font = Enum.Font.GothamBold
-				Desc.Text = configbutton.Description
-				Desc.TextColor3 = Color3.fromRGB(144, 144, 144)
-				Desc.TextSize = 12.000
-				Desc.TextXAlignment = Enum.TextXAlignment.Left
-				Button_2.Size = UDim2.new(1, 0, 0, 36 + Desc.TextBounds.Y + 2)
-				Desc:GetPropertyChangedSignal("Text"):Connect(function()
-					Button_2.Size = UDim2.new(1, 0, 0, 36 + Desc.TextBounds.Y + 2)
-				end)
-
-				UIPadding_5.Parent = Desc
-				UIPadding_5.PaddingBottom = UDim.new(0, 12)
-				UIPadding_5.PaddingLeft = UDim.new(0, 12)
+            configbutton = configbutton or {}
+            configbutton.Name = configbutton.Name or "Button"
+            configbutton.Description = configbutton.Description or ""
+            configbutton.Callback = configbutton.Callback or function() end
+            local Button_2 = Instance.new("Frame")
+            local UICorner_7 = Instance.new("UICorner")
+            local Title_2 = Instance.new("TextLabel")
+            local UIPadding_4 = Instance.new("UIPadding")
+            local Logo_2 = Instance.new("ImageLabel")
+            local Click_7 = Instance.new("TextButton")
+            local Desc = Instance.new("TextLabel")
+            local UIPadding_5 = Instance.new("UIPadding")
+            Button_2.Name = "Button"
+            Button_2.Parent = Channel
+            Button_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Button_2.BackgroundTransparency = 0.950
+            Button_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Button_2.BorderSizePixel = 0
+            Button_2.Size = UDim2.new(1, 0, 0, 36)
+            MouseTo(Button_2)
+            UICorner_7.CornerRadius = UDim.new(0, 3)
+            UICorner_7.Parent = Button_2
+            
+            Title_2.Name = "Title"
+            Title_2.Parent = Button_2
+            Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title_2.BackgroundTransparency = 1.000
+            Title_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Title_2.BorderSizePixel = 0
+            Title_2.Size = UDim2.new(1, -40, 1, 0)
+            Title_2.Font = Enum.Font.GothamBold
+            Title_2.Text = configbutton.Name
+            Title_2.TextColor3 = Color3.fromRGB(222, 222, 222)
+            Title_2.TextSize = 13.000
+            Title_2.TextXAlignment = Enum.TextXAlignment.Left
+            
+            UIPadding_4.Parent = Title_2
+            UIPadding_4.PaddingLeft = UDim.new(0, 12)
+            
+            Logo_2.Name = "Logo"
+            Logo_2.Parent = Button_2
+            Logo_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Logo_2.BackgroundTransparency = 1.000
+            Logo_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Logo_2.BorderSizePixel = 0
+            Logo_2.Position = UDim2.new(1, -26, 0, 11)
+            Logo_2.Size = UDim2.new(0, 12, 0, 12)
+            Logo_2.Image = "http://www.roblox.com/asset/?id=89867158038179"
+            Logo_2.ImageColor3 = Color3.fromRGB(222, 222, 222)
+            
+            Click_7.Name = "Click"
+            Click_7.Parent = Button_2
+            Click_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Click_7.BackgroundTransparency = 1.000
+            Click_7.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Click_7.BorderSizePixel = 0
+            Click_7.Size = UDim2.new(1, 0, 1, 0)
+            Click_7.Font = Enum.Font.SourceSans
+            Click_7.Text = ""
+            Click_7.TextColor3 = Color3.fromRGB(0, 0, 0)
+            Click_7.TextSize = 14.000
+            
+            if configbutton.Description ~= nil and configbutton.Description ~= "" then
+                Title_2.Size = UDim2.new(1, -40, 0, 20)
+                UIPadding_4.PaddingTop = UDim.new(0, 12)
+                Logo_2.Position = UDim2.new(1, -26, 0, 17)
+                Desc.Name = "Desc"
+                Desc.Parent = Button_2
+                Desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Desc.BackgroundTransparency = 1.000
+                Desc.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Desc.BorderSizePixel = 0
+                Desc.Position = UDim2.new(0, 0, 0, 19)
+                Desc.Size = UDim2.new(1, -30, 1, -22)
+                Desc.Font = Enum.Font.GothamBold
+                Desc.Text = configbutton.Description
+                Desc.TextColor3 = Color3.fromRGB(144, 144, 144)
+                Desc.TextSize = 12.000
+                Desc.TextWrapped = true
+                Desc.TextXAlignment = Enum.TextXAlignment.Left
+                Desc.Size = UDim2.new(1, -80, 1, -22 +(Desc.TextBounds.Y) - 5)
+                Button_2.Size = UDim2.new(1, 0, 0, 42 + Desc.Size.Y.Offset + 28)
+                Desc:GetPropertyChangedSignal("Text"):Connect(function()
+                    Desc.Size = UDim2.new(1, -80, 1, -22 +(Desc.TextBounds.Y) - 5)
+                    Button_2.Size = UDim2.new(1, 0, 0, 42 + Desc.Size.Y.Offset + 28)
+                end)
 			end
+			UIPadding_5.Parent = Desc
+			UIPadding_5.PaddingBottom = UDim.new(0, 12)
+			UIPadding_5.PaddingLeft = UDim.new(0, 12)
+			UIPadding_5.Parent = Desc
+			UIPadding_5.PaddingBottom = UDim.new(0, 12)
+			UIPadding_5.PaddingLeft = UDim.new(0, 12)
 			Click_7.Activated:Connect(function()
 				Button_2.BackgroundTransparency = 0.970
 				tweenservice:Create(Button_2, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.950}):Play()
@@ -893,117 +896,118 @@ function Library:AddWindow()
 			end)
 		end
 		function Feature:AddToggle(configtoggle)
-			configtoggle = configtoggle or {}
-			configtoggle.Name = configtoggle.Name or "Toggle"
-			configtoggle.Description = configtoggle.Description or ""
-			configtoggle.Default = configtoggle.Default or false
-			configtoggle.Callback = configtoggle.Callback or function() end
-
-			local Toggle_2 = Instance.new("Frame")
-			local UICorner_11 = Instance.new("UICorner")
-			local Title_4 = Instance.new("TextLabel")
-			local UIPadding_7 = Instance.new("UIPadding")
-			local Click_9 = Instance.new("TextButton")
-			local Desc_2 = Instance.new("TextLabel")
-			local UIPadding_8 = Instance.new("UIPadding")
-			local CheckFrame_2 = Instance.new("Frame")
-			local UICorner_12 = Instance.new("UICorner")
-			local UIStroke_2 = Instance.new("UIStroke")
-			local Circle_4 = Instance.new("Frame")
-			local UICorner_13 = Instance.new("UICorner")
-			local ToggleFunc = {}
-
-			Toggle_2.Name = "Toggle"
-			Toggle_2.Parent = Channel
-			Toggle_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Toggle_2.BackgroundTransparency = 0.950
-			Toggle_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Toggle_2.BorderSizePixel = 0
-			Toggle_2.Size = UDim2.new(1, 0, 0, 36)
-			MouseTo(Toggle_2)
-			UICorner_11.CornerRadius = UDim.new(0, 3)
-			UICorner_11.Parent = Toggle_2
-
-			Title_4.Name = "Title"
-			Title_4.Parent = Toggle_2
-			Title_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Title_4.BackgroundTransparency = 1.000
-			Title_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Title_4.BorderSizePixel = 0
-			Title_4.Size = UDim2.new(1, -40, 0, 36)
-			Title_4.Font = Enum.Font.GothamBold
-			Title_4.Text = configtoggle.Name
-			Title_4.TextColor3 = Color3.fromRGB(222, 222, 222)
-			Title_4.TextSize = 13.000
-			Title_4.TextXAlignment = Enum.TextXAlignment.Left
-
-			UIPadding_7.Parent = Title_4
-			UIPadding_7.PaddingLeft = UDim.new(0, 12)
-
-			Click_9.Name = "Click"
-			Click_9.Parent = Toggle_2
-			Click_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Click_9.BackgroundTransparency = 1.000
-			Click_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Click_9.BorderSizePixel = 0
-			Click_9.Size = UDim2.new(1, 0, 1, 0)
-			Click_9.Font = Enum.Font.SourceSans
-			Click_9.Text = ""
-			Click_9.TextColor3 = Color3.fromRGB(0, 0, 0)
-			Click_9.TextSize = 14.000
-
-			CheckFrame_2.Name = "CheckFrame"
-			CheckFrame_2.Parent = Toggle_2
-			CheckFrame_2.BackgroundColor3 = Color3.fromRGB(255, 5, 9)
-			CheckFrame_2.BackgroundTransparency = 1.000
-			CheckFrame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			CheckFrame_2.BorderSizePixel = 0
-			CheckFrame_2.Position = UDim2.new(1, -50, 0, 9)
-			CheckFrame_2.Size = UDim2.new(0, 40, 0, 18)
-
-			UICorner_12.CornerRadius = UDim.new(1, 0)
-			UICorner_12.Parent = CheckFrame_2
-
-			UIStroke_2.Parent = CheckFrame_2
-			UIStroke_2.Color = Color3.fromRGB(93, 93, 93)
-			UIStroke_2.Thickness = 1.800
-
-			Circle_4.Name = "Circle"
-			Circle_4.Parent = CheckFrame_2
-			Circle_4.BackgroundColor3 = Color3.fromRGB(93, 93, 93)
-			Circle_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Circle_4.BorderSizePixel = 0
-			Circle_4.Position = UDim2.new(0, 1, 0, 1)
-			Circle_4.Size = UDim2.new(0, 16, 0, 16)
-
-			UICorner_13.CornerRadius = UDim.new(1, 0)
-			UICorner_13.Parent = Circle_4
-
-			if configtoggle.Description ~= nil and configtoggle.Description ~= "" then
-				UIPadding_7.PaddingTop = UDim.new(0, 12)
-				Title_4.Size = UDim2.new(1, -40, 0, 20)
-				CheckFrame_2.Position = UDim2.new(1, -50, 0, 15)
-				Desc_2.Name = "Desc"
-				Desc_2.Parent = Toggle_2
-				Desc_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Desc_2.BackgroundTransparency = 1.000
-				Desc_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				Desc_2.BorderSizePixel = 0
-				Desc_2.Position = UDim2.new(0, 0, 0, 22)
-				Desc_2.Size = UDim2.new(1, 0, 1, -22)
-				Desc_2.Font = Enum.Font.GothamBold
-				Desc_2.Text = configtoggle.Description
-				Desc_2.TextColor3 = Color3.fromRGB(144, 144, 144)
-				Desc_2.TextSize = 12.000
-				Desc_2.TextXAlignment = Enum.TextXAlignment.Left
-				Toggle_2.Size = UDim2.new(1, 0, 0, 36 + Desc_2.TextBounds.Y + 2)
-				Desc_2:GetPropertyChangedSignal("Text"):Connect(function()
-					Toggle_2.Size = UDim2.new(1, 0, 0, 36 + Desc_2.TextBounds.Y + 2)
-				end)
-				UIPadding_8.Parent = Desc_2
-				UIPadding_8.PaddingBottom = UDim.new(0, 12)
-				UIPadding_8.PaddingLeft = UDim.new(0, 12)    
-			end
+            configtoggle = configtoggle or {}
+            configtoggle.Name = configtoggle.Name or "Toggle"
+            configtoggle.Description = configtoggle.Description or ""
+            configtoggle.Default = configtoggle.Default or false
+            configtoggle.Callback = configtoggle.Callback or function() end
+            local Toggle_2 = Instance.new("Frame")
+            local UICorner_11 = Instance.new("UICorner")
+            local Title_4 = Instance.new("TextLabel")
+            local UIPadding_7 = Instance.new("UIPadding")
+            local Click_9 = Instance.new("TextButton")
+            local Desc_2 = Instance.new("TextLabel")
+            local UIPadding_8 = Instance.new("UIPadding")
+            local CheckFrame_2 = Instance.new("Frame")
+            local UICorner_12 = Instance.new("UICorner")
+            local UIStroke_2 = Instance.new("UIStroke")
+            local Circle_4 = Instance.new("Frame")
+            local UICorner_13 = Instance.new("UICorner")
+            local ToggleFunc = {}
+            Toggle_2.Name = "Toggle"
+            Toggle_2.Parent = Channel
+            Toggle_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Toggle_2.BackgroundTransparency = 0.950
+            Toggle_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Toggle_2.BorderSizePixel = 0
+            Toggle_2.Size = UDim2.new(1, 0, 0, 36)
+            MouseTo(Toggle_2)
+            UICorner_11.CornerRadius = UDim.new(0, 3)
+            UICorner_11.Parent = Toggle_2
+            
+            Title_4.Name = "Title"
+            Title_4.Parent = Toggle_2
+            Title_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title_4.BackgroundTransparency = 1.000
+            Title_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Title_4.BorderSizePixel = 0
+            Title_4.Size = UDim2.new(1, -40, 0, 36)
+            Title_4.Font = Enum.Font.GothamBold
+            Title_4.Text = configtoggle.Name
+            Title_4.TextColor3 = Color3.fromRGB(222, 222, 222)
+            Title_4.TextSize = 13.000
+            Title_4.TextXAlignment = Enum.TextXAlignment.Left
+            
+            UIPadding_7.Parent = Title_4
+            UIPadding_7.PaddingLeft = UDim.new(0, 12)
+            
+            Click_9.Name = "Click"
+            Click_9.Parent = Toggle_2
+            Click_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Click_9.BackgroundTransparency = 1.000
+            Click_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Click_9.BorderSizePixel = 0
+            Click_9.Size = UDim2.new(1, 0, 1, 0)
+            Click_9.Font = Enum.Font.SourceSans
+            Click_9.Text = ""
+            Click_9.TextColor3 = Color3.fromRGB(0, 0, 0)
+            Click_9.TextSize = 14.000
+            CheckFrame_2.Name = "CheckFrame"
+            CheckFrame_2.Parent = Toggle_2
+            CheckFrame_2.BackgroundColor3 = Color3.fromRGB(255, 5, 9)
+            CheckFrame_2.BackgroundTransparency = 1.000
+            CheckFrame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            CheckFrame_2.BorderSizePixel = 0
+            CheckFrame_2.Position = UDim2.new(1, -50, 0, 9)
+            CheckFrame_2.Size = UDim2.new(0, 40, 0, 18)
+            
+            UICorner_12.CornerRadius = UDim.new(1, 0)
+            UICorner_12.Parent = CheckFrame_2
+            
+            UIStroke_2.Parent = CheckFrame_2
+            UIStroke_2.Color = Color3.fromRGB(93, 93, 93)
+            UIStroke_2.Thickness = 1.800
+            
+            Circle_4.Name = "Circle"
+            Circle_4.Parent = CheckFrame_2
+            Circle_4.BackgroundColor3 = Color3.fromRGB(93, 93, 93)
+            Circle_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Circle_4.BorderSizePixel = 0
+            Circle_4.Position = UDim2.new(0, 1, 0, 1)
+            Circle_4.Size = UDim2.new(0, 16, 0, 16)
+            
+            UICorner_13.CornerRadius = UDim.new(1, 0)
+            UICorner_13.Parent = Circle_4
+            
+            if configtoggle.Description ~= nil and configtoggle.Description ~= "" then
+                UIPadding_7.PaddingTop = UDim.new(0, 12)
+                Title_4.Size = UDim2.new(1, -40, 0, 20)
+                Desc_2.Name = "Desc"
+                Desc_2.Parent = Toggle_2
+                Desc_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Desc_2.BackgroundTransparency = 1.000
+                Desc_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Desc_2.BorderSizePixel = 0
+                Desc_2.Position = UDim2.new(0, 0, 0, 20)
+                Desc_2.Size = UDim2.new(1, -80, 1, -22)
+                Desc_2.Font = Enum.Font.GothamBold
+                Desc_2.Text = configtoggle.Description
+                Desc_2.TextColor3 = Color3.fromRGB(144, 144, 144)
+                Desc_2.TextSize = 12.000
+                Desc_2.TextWrapped = true
+                Desc_2.TextXAlignment = Enum.TextXAlignment.Left
+                Desc_2.Size = UDim2.new(1, -80, 1, -22 +(Desc_2.TextBounds.Y) - 5)
+                Toggle_2.Size = UDim2.new(1, 0, 0, 42 + Desc_2.Size.Y.Offset + 28)
+                CheckFrame_2.Position = UDim2.new(1, -50, 1, -35)
+                Desc_2:GetPropertyChangedSignal("Text"):Connect(function()
+                    Toggle_2.Size = UDim2.new(1, 0, 0, 42 + Desc_2.Size.Y.Offset + 28)
+                    Desc_2.Size = UDim2.new(1, -80, 1, -22 +(Desc_2.TextBounds.Y) - 5)
+                    CheckFrame_2.Position = UDim2.new(1, -50, 1, -35)
+                end)
+                UIPadding_8.Parent = Desc_2
+                UIPadding_8.PaddingBottom = UDim.new(0, 12)
+                UIPadding_8.PaddingLeft = UDim.new(0, 12)    
+            end
 
 			local Tg = false
 			Click_9.Activated:Connect(function()
@@ -1203,253 +1207,248 @@ function Library:AddWindow()
 			return SliderFunc
 		end
 		function Feature:AddDropdown(configdropdown)
-			configdropdown = configdropdown or {}
+            configdropdown = configdropdown or {}
 			configdropdown.Name = configdropdown.Name or "Dropdown"
 			configdropdown.Multi = configdropdown.Multi or false
 			configdropdown.Options = configdropdown.Options or {}
 			configdropdown.Default = configdropdown.Default or ""
 			configdropdown.Callback = configdropdown.Callback or function() end
-
-			local Dropdown_2 = Instance.new("Frame")
-			local UICorner_24 = Instance.new("UICorner")
-			local Title_8 = Instance.new("TextLabel")
-			local UIPadding_14 = Instance.new("UIPadding")
-			local Desc_4 = Instance.new("TextLabel")
-			local UIPadding_15 = Instance.new("UIPadding")
-			local Selected_2 = Instance.new("Frame")
-			local UICorner_25 = Instance.new("UICorner")
-			local UIStroke_4 = Instance.new("UIStroke")
-			local SELECT_2 = Instance.new("TextLabel")
-			local UIPadding_16 = Instance.new("UIPadding")
-			local Icon_2 = Instance.new("ImageLabel")
-			local Click_13 = Instance.new("TextButton")
-			local ListDropdown = Instance.new("Frame")
-			local UICorner_30 = Instance.new("UICorner")
-			local UIStroke_5 = Instance.new("UIStroke")
-			local Listed = Instance.new("Frame")
-			local UIListLayout_3 = Instance.new("UIListLayout")
-			local UIPadding_22 = Instance.new("UIPadding")
-			local CancelDrop = Instance.new("Frame")
-			local TextButton = Instance.new("TextButton")
-			local DropFunc = {Value = configdropdown.Default, Options = configdropdown.Options}
-
-			CancelDrop.Name = "CancelDrop"
-			CancelDrop.Parent = Main
-			CancelDrop.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-			CancelDrop.BackgroundTransparency = 0.650
-			CancelDrop.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			CancelDrop.BorderSizePixel = 0
-			CancelDrop.Size = UDim2.new(1, 0, 1, 0)
-			CancelDrop.Visible = false
-
-			TextButton.Parent = CancelDrop
-			TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			TextButton.BackgroundTransparency = 1.000
-			TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			TextButton.BorderSizePixel = 0
-			TextButton.Size = UDim2.new(1, 0, 1, 0)
-			TextButton.Font = Enum.Font.SourceSans
-			TextButton.Text = ""
-			TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-			TextButton.TextSize = 14.000
-
-			ListDropdown.Name = "ListDropdown"
-			ListDropdown.Parent = Layout
-			ListDropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-			ListDropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			ListDropdown.BorderSizePixel = 0
-			ListDropdown.Position = UDim2.new(1.5, -182, 0, 10)
-			ListDropdown.Size = UDim2.new(0, 175, 1, -20)
-			ListDropdown.ZIndex = 2
-
-			UICorner_30.CornerRadius = UDim.new(0, 4)
-			UICorner_30.Parent = ListDropdown
-
-			UIStroke_5.Parent = ListDropdown
-			UIStroke_5.Color = Color3.fromRGB(65, 65, 65)
-			UIStroke_5.Thickness = 2.000
-
-			Listed.Name = "Listed"
-			Listed.Parent = ListDropdown
-			Listed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Listed.BackgroundTransparency = 1.000
-			Listed.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Listed.BorderSizePixel = 0
-			Listed.ClipsDescendants = true
-			Listed.Size = UDim2.new(1, 0, 1, 0)
-			Listed.ZIndex = 2
-
-			UIListLayout_3.Parent = Listed
-			UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
-			UIListLayout_3.Padding = UDim.new(0, 4)
-
-			UIPadding_22.Parent = Listed
-			UIPadding_22.PaddingBottom = UDim.new(0, 3)
-			UIPadding_22.PaddingLeft = UDim.new(0, 3)
-			UIPadding_22.PaddingRight = UDim.new(0, 3)
-			UIPadding_22.PaddingTop = UDim.new(0, 7)
-
-			Dropdown_2.Name = "Dropdown"
-			Dropdown_2.Parent = Channel
-			Dropdown_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Dropdown_2.BackgroundTransparency = 0.950
-			Dropdown_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Dropdown_2.BorderSizePixel = 0
-			Dropdown_2.Size = UDim2.new(1, 0, 0, 36)
-
-			UICorner_24.CornerRadius = UDim.new(0, 3)
-			UICorner_24.Parent = Dropdown_2
-
-			Title_8.Name = "Title"
-			Title_8.Parent = Dropdown_2
-			Title_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Title_8.BackgroundTransparency = 1.000
-			Title_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Title_8.BorderSizePixel = 0
-			Title_8.Size = UDim2.new(1, -40, 1, 0)
-			Title_8.Font = Enum.Font.GothamBold
-			Title_8.Text = configdropdown.Name
-			Title_8.TextColor3 = Color3.fromRGB(222, 222, 222)
-			Title_8.TextSize = 13.000
-			Title_8.TextXAlignment = Enum.TextXAlignment.Left
-
-			UIPadding_14.Parent = Title_8
-			UIPadding_14.PaddingLeft = UDim.new(0, 12)
-
-			Selected_2.Name = "Selected"
-			Selected_2.Parent = Dropdown_2
-			Selected_2.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-			Selected_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Selected_2.BorderSizePixel = 0
-			Selected_2.Position = UDim2.new(1, -110, 0, 7)
-			Selected_2.Size = UDim2.new(0, 100, 0, 22)
-
-			UICorner_25.CornerRadius = UDim.new(0, 5)
-			UICorner_25.Parent = Selected_2
-
-			UIStroke_4.Parent = Selected_2
-			UIStroke_4.Color = Color3.fromRGB(255, 255, 255)
-			UIStroke_4.Transparency = 0.860
-			UIStroke_4.Thickness = 1.400
-
-			SELECT_2.Name = "SELECT"
-			SELECT_2.Parent = Selected_2
-			SELECT_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			SELECT_2.BackgroundTransparency = 1.000
-			SELECT_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			SELECT_2.BorderSizePixel = 0
-			SELECT_2.Size = UDim2.new(1, -20, 1, 0)
-			SELECT_2.Font = Enum.Font.GothamBold
-			SELECT_2.Text = ""
-			SELECT_2.TextColor3 = Color3.fromRGB(222, 222, 222)
-			SELECT_2.TextSize = 13.000
-			SELECT_2.TextWrapped = true
-			SELECT_2.TextXAlignment = Enum.TextXAlignment.Left
-
-			UIPadding_16.Parent = SELECT_2
-			UIPadding_16.PaddingLeft = UDim.new(0, 8)
-
-			if configdropdown.Description ~= nil and configdropdown.Description ~= "" then
-				UIPadding_14.PaddingTop = UDim.new(0, 12)
-				Selected_2.Position = UDim2.new(1, -110, 0, 7)
-				Desc_4.Name = "Desc"
-				Desc_4.Parent = Dropdown_2
-				Desc_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Desc_4.BackgroundTransparency = 1.000
-				Desc_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				Desc_4.BorderSizePixel = 0
-				Desc_4.Position = UDim2.new(0, 0, 0, 22)
-				Desc_4.Size = UDim2.new(1, 0, 1, -22)
-				Desc_4.Font = Enum.Font.GothamBold
-				Desc_4.Text = configdropdown.Description
-				Desc_4.TextColor3 = Color3.fromRGB(144, 144, 144)
-				Desc_4.TextSize = 12.000
-				Desc_4.TextXAlignment = Enum.TextXAlignment.Left
-				Dropdown_2.Size = UDim2.new(1, 0, 0, 36 + Desc_4.TextBounds.Y + 2)
-				Desc_4:GetPropertyChangedSignal("Text"):Connect(function()
-					Dropdown_2.Size = UDim2.new(1, 0, 0, 36 + Desc_4.TextBounds.Y + 2)
-				end)
-				UIPadding_15.Parent = Desc_4
-				UIPadding_15.PaddingBottom = UDim.new(0, 12)
-				UIPadding_15.PaddingLeft = UDim.new(0, 12)
-			end
-
-			Icon_2.Name = "Icon"
-			Icon_2.Parent = Selected_2
-			Icon_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Icon_2.BackgroundTransparency = 1.000
-			Icon_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Icon_2.BorderSizePixel = 0
-			Icon_2.Position = UDim2.new(1, -20, 0, 7)
-			Icon_2.Rotation = 90.000
-			Icon_2.Size = UDim2.new(0, 9, 0, 9)
-			Icon_2.Image = "rbxassetid://70714917134111"
-
-			Click_13.Name = "Click"
-			Click_13.Parent = Selected_2
-			Click_13.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Click_13.BackgroundTransparency = 1.000
-			Click_13.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Click_13.BorderSizePixel = 0
-			Click_13.Size = UDim2.new(1, 0, 1, 0)
-			Click_13.Font = Enum.Font.SourceSans
-			Click_13.Text = ""
-			Click_13.TextColor3 = Color3.fromRGB(0, 0, 0)
-			Click_13.TextSize = 14.000
-
-			Click_13.Activated:Connect(function()
-				if ListDropdown.Position.X.Scale >= 1.5 then
-					tweenservice:Create(
-						ListDropdown,
-						TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-						{Position = UDim2.new(1, -182, 0, 10)}
-					):Play()
-					CancelDrop.Visible = true
-				end
-			end)
-
-			TextButton.Activated:Connect(function()
-				if ListDropdown.Position.X.Scale < 1.5 then
-					tweenservice:Create(
-						ListDropdown,
-						TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-						{Position = UDim2.new(1.5, -182, 0, 10)}
-					):Play()
-					CancelDrop.Visible = false
-				end
-			end)
-
-			function DropFunc:Set(acc)
-				DropFunc.Value = acc
+            local Dropdown_2 = Instance.new("Frame")
+            local UICorner_24 = Instance.new("UICorner")
+            local Title_8 = Instance.new("TextLabel")
+            local UIPadding_14 = Instance.new("UIPadding")
+            local Desc_4 = Instance.new("TextLabel")
+            local UIPadding_15 = Instance.new("UIPadding")
+            local Selected_2 = Instance.new("Frame")
+            local UICorner_25 = Instance.new("UICorner")
+            local UIStroke_4 = Instance.new("UIStroke")
+            local SELECT_2 = Instance.new("TextLabel")
+            local UIPadding_16 = Instance.new("UIPadding")
+            local Icon_2 = Instance.new("ImageLabel")
+            local Click_13 = Instance.new("TextButton")
+            local ListDropdown = Instance.new("Frame")
+            local UICorner_30 = Instance.new("UICorner")
+            local UIStroke_5 = Instance.new("UIStroke")
+            local Listed = Instance.new("Frame")
+            local UIListLayout_3 = Instance.new("UIListLayout")
+            local UIPadding_22 = Instance.new("UIPadding")
+            local CancelDrop = Instance.new("Frame")
+            local TextButton = Instance.new("TextButton")
+            local DropFunc = {Value = configdropdown.Default, Options = configdropdown.Options}
+            CancelDrop.Name = "CancelDrop"
+            CancelDrop.Parent = Main
+            CancelDrop.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            CancelDrop.BackgroundTransparency = 0.650
+            CancelDrop.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            CancelDrop.BorderSizePixel = 0
+            CancelDrop.Size = UDim2.new(1, 0, 1, 0)
+            CancelDrop.Visible = false
+            
+            TextButton.Parent = CancelDrop
+            TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            TextButton.BackgroundTransparency = 1.000
+            TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            TextButton.BorderSizePixel = 0
+            TextButton.Size = UDim2.new(1, 0, 1, 0)
+            TextButton.Font = Enum.Font.SourceSans
+            TextButton.Text = ""
+            TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+            TextButton.TextSize = 14.000
+            ListDropdown.Name = "ListDropdown"
+            ListDropdown.Parent = Layout
+            ListDropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            ListDropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            ListDropdown.BorderSizePixel = 0
+            ListDropdown.Position = UDim2.new(1.5, -182, 0, 10)
+            ListDropdown.Size = UDim2.new(0, 175, 1, -20)
+            ListDropdown.ZIndex = 2
+            
+            UICorner_30.CornerRadius = UDim.new(0, 4)
+            UICorner_30.Parent = ListDropdown
+            
+            UIStroke_5.Parent = ListDropdown
+            UIStroke_5.Color = Color3.fromRGB(65, 65, 65)
+            UIStroke_5.Thickness = 2.000
+            
+            Listed.Name = "Listed"
+            Listed.Parent = ListDropdown
+            Listed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Listed.BackgroundTransparency = 1.000
+            Listed.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Listed.BorderSizePixel = 0
+            Listed.ClipsDescendants = true
+            Listed.Size = UDim2.new(1, 0, 1, 0)
+            Listed.ZIndex = 2
+            
+            UIListLayout_3.Parent = Listed
+            UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+            UIListLayout_3.Padding = UDim.new(0, 4)
+            
+            UIPadding_22.Parent = Listed
+            UIPadding_22.PaddingBottom = UDim.new(0, 3)
+            UIPadding_22.PaddingLeft = UDim.new(0, 3)
+            UIPadding_22.PaddingRight = UDim.new(0, 3)
+            UIPadding_22.PaddingTop = UDim.new(0, 7)
+            Dropdown_2.Name = "Dropdown"
+            Dropdown_2.Parent = Channel
+            Dropdown_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Dropdown_2.BackgroundTransparency = 0.950
+            Dropdown_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Dropdown_2.BorderSizePixel = 0
+            Dropdown_2.Size = UDim2.new(1, 0, 0, 36)
+            UICorner_24.CornerRadius = UDim.new(0, 3)
+            UICorner_24.Parent = Dropdown_2
+            
+            Title_8.Name = "Title"
+            Title_8.Parent = Dropdown_2
+            Title_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title_8.BackgroundTransparency = 1.000
+            Title_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Title_8.BorderSizePixel = 0
+            Title_8.Size = UDim2.new(1, -40, 1, 0)
+            Title_8.Font = Enum.Font.GothamBold
+            Title_8.Text = configdropdown.Name
+            Title_8.TextColor3 = Color3.fromRGB(222, 222, 222)
+            Title_8.TextSize = 13.000
+            Title_8.TextXAlignment = Enum.TextXAlignment.Left
+            
+            UIPadding_14.Parent = Title_8
+            UIPadding_14.PaddingLeft = UDim.new(0, 12)
+            Selected_2.Name = "Selected"
+            Selected_2.Parent = Dropdown_2
+            Selected_2.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
+            Selected_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Selected_2.BorderSizePixel = 0
+            Selected_2.Position = UDim2.new(1, -110, 0, 7)
+            Selected_2.Size = UDim2.new(0, 100, 0, 22)
+            
+            UICorner_25.CornerRadius = UDim.new(0, 5)
+            UICorner_25.Parent = Selected_2
+            
+            UIStroke_4.Parent = Selected_2
+            UIStroke_4.Color = Color3.fromRGB(255, 255, 255)
+            UIStroke_4.Transparency = 0.860
+            UIStroke_4.Thickness = 1.400
+            
+            SELECT_2.Name = "SELECT"
+            SELECT_2.Parent = Selected_2
+            SELECT_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SELECT_2.BackgroundTransparency = 1.000
+            SELECT_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            SELECT_2.BorderSizePixel = 0
+            SELECT_2.Size = UDim2.new(1, -20, 1, 0)
+            SELECT_2.Font = Enum.Font.GothamBold
+            SELECT_2.Text = ""
+            SELECT_2.TextColor3 = Color3.fromRGB(222, 222, 222)
+            SELECT_2.TextSize = 13.000
+            SELECT_2.TextWrapped = true
+            SELECT_2.TextXAlignment = Enum.TextXAlignment.Left
+            
+            UIPadding_16.Parent = SELECT_2
+            UIPadding_16.PaddingLeft = UDim.new(0, 8)
+            
+            if configdropdown.Description ~= nil and configdropdown.Description ~= "" then
+                UIPadding_14.PaddingTop = UDim.new(0, 12)
+                Title_8.Size = UDim2.new(1, -40, 0, 20)
+                Selected_2.Position = UDim2.new(1, -110, 0, 7)
+                Desc_4.Name = "Desc"
+                Desc_4.Parent = Dropdown_2
+                Desc_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Desc_4.BackgroundTransparency = 1.000
+                Desc_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Desc_4.BorderSizePixel = 0
+                Desc_4.Position = UDim2.new(0, 0, 0, 19)
+                Desc_4.Size = UDim2.new(1, -100, 0, 27)
+                Desc_4.Font = Enum.Font.GothamBold
+                Desc_4.TextWrapped = true
+                Desc_4.Text = configdropdown.Description
+                Desc_4.TextColor3 = Color3.fromRGB(144, 144, 144)
+                Desc_4.TextSize = 12.000
+                Desc_4.TextXAlignment = Enum.TextXAlignment.Left
+                Desc_4.Size = UDim2.new(1, -175, 0, 23 + Desc_4.TextBounds.Y)
+                Dropdown_2.Size = UDim2.new(1, 0, 0, 31 + Desc_4.Size.Y.Offset -16)
+                Desc_4:GetPropertyChangedSignal("Text"):Connect(function()
+                    Desc_4.Size = UDim2.new(1, -175, 0, 23 + Desc_4.TextBounds.Y )
+                    Dropdown_2.Size = UDim2.new(1, 0, 0, 31 + Desc_4.Size.Y.Offset -16)
+                end)
+                UIPadding_15.Parent = Desc_4
+                UIPadding_15.PaddingBottom = UDim.new(0, 12)
+                UIPadding_15.PaddingLeft = UDim.new(0, 12)
+            end
+            
+            Icon_2.Name = "Icon"
+            Icon_2.Parent = Selected_2
+            Icon_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Icon_2.BackgroundTransparency = 1.000
+            Icon_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Icon_2.BorderSizePixel = 0
+            Icon_2.Position = UDim2.new(1, -20, 0, 7)
+            Icon_2.Rotation = 90.000
+            Icon_2.Size = UDim2.new(0, 9, 0, 9)
+            Icon_2.Image = "rbxassetid://70714917134111"
+            
+            Click_13.Name = "Click"
+            Click_13.Parent = Selected_2
+            Click_13.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Click_13.BackgroundTransparency = 1.000
+            Click_13.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Click_13.BorderSizePixel = 0
+            Click_13.Size = UDim2.new(1, 0, 1, 0)
+            Click_13.Font = Enum.Font.SourceSans
+            Click_13.Text = ""
+            Click_13.TextColor3 = Color3.fromRGB(0, 0, 0)
+            Click_13.TextSize = 14.000
+            Click_13.Activated:Connect(function()
+                if ListDropdown.Position.X.Scale >= 1.5 then
+                    tweenservice:Create(
+					ListDropdown,
+					TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+					{Position = UDim2.new(1, -182, 0, 10)}
+				    ):Play()
+                    CancelDrop.Visible = true
+                end
+            end)
+            TextButton.Activated:Connect(function()
+                if ListDropdown.Position.X.Scale < 1.5 then
+                    tweenservice:Create(
+					ListDropdown,
+					TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+					{Position = UDim2.new(1.5, -182, 0, 10)}
+				    ):Play()
+                    CancelDrop.Visible = false
+                end
+            end)
+            function DropFunc:Set(acc)
+                DropFunc.Value = acc
 				for _, Drop in Listed:GetChildren() do
 					if Drop.Name ~= "UICorner" and Drop.Name ~= "UIPadding" and Drop.Name ~= "UIListLayout" then
-						if typeof(DropFunc.Value) == "table" then
-							if not table.find(DropFunc.Value, Drop.Selected.Text) then
-								tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 5)}):Play()
-								tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
-								tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
-							elseif table.find(DropFunc.Value, Drop.Selected.Text) then
-								tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 5)}):Play()
-								tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-								tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
-							end
-						else
-							if not string.find(Drop.Selected.Text, DropFunc.Value) then
-								tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 5)}):Play()
-								tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
-								tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
-							elseif string.find(Drop.Selected.Text, DropFunc.Value) then
-								tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 5)}):Play()
-								tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-								tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
-							end
-						end
+                        if typeof(DropFunc.Value) == "table" then
+                            if not table.find(DropFunc.Value, Drop.Selected.Text) then
+                                tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 5)}):Play()
+                                tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+                                tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
+                            elseif table.find(DropFunc.Value, Drop.Selected.Text) then
+                                tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 5)}):Play()
+                                tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+                                tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
+                            end
+                        else
+                            if not string.find(Drop.Selected.Text, DropFunc.Value) then
+                                tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 5)}):Play()
+                                tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+                                tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
+                            elseif string.find(Drop.Selected.Text, DropFunc.Value) then
+                                tweenservice:Create(Drop.Circle, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 5)}):Play()
+                                tweenservice:Create(Drop.Selected, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+                                tweenservice:Create(Drop, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
+                            end
+                        end
 					end
 				end
-				if configdropdown.Multi and typeof(DropFunc.Value) == "table" then
+                if configdropdown.Multi and typeof(DropFunc.Value) == "table" then
 					local DropdownValueTable = table.concat(DropFunc.Value, ", ")
 					if DropdownValueTable == "" then
-						SELECT_2.Text = "Selected : nil"
+						SELECT_2.Text = ""
 					else
 						SELECT_2.Text = tostring(DropdownValueTable)
 					end
@@ -1458,121 +1457,121 @@ function Library:AddWindow()
 					SELECT_2.Text = tostring(DropFunc.Value)
 					configdropdown.Callback(DropFunc.Value)
 				end
-			end
-			function DropFunc:Set1(acc)
-				DropFunc.Value = acc
-				for i, v in pairs(Listed:GetChildren()) do
-					if v.Name == "Options" then
-						if v.Selected.Text == acc then
-							for r, a in next, Listed:GetChildren() do
-								if a.Name == "Options" then
-									tweenservice:Create(a, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
-								end
-							end
-							for r, a in next, Listed:GetChildren() do
-								if a.Name == "Options" then
-									tweenservice:Create(a.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
-								end
-							end
-							for r, a in next, Listed:GetChildren() do
-								if a.Name == "Options" then
-									tweenservice:Create(a.Circle, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 5)}):Play()
-								end
-							end
-							tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 5)}):Play()
-							tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-							tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
-							SELECT_2.Text = tostring(DropFunc.Value)
-							configdropdown.Callback(DropFunc.Value)
-						end
-					end
-				end
-			end
+            end
+            function DropFunc:Set1(acc)
+                DropFunc.Value = acc
+                for i, v in pairs(Listed:GetChildren()) do
+                    if v.Name == "Options" then
+                        if v.Selected.Text == acc then
+                            for r, a in next, Listed:GetChildren() do
+                                if a.Name == "Options" then
+                                    tweenservice:Create(a, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.999}):Play()
+                                end
+                            end
+                            for r, a in next, Listed:GetChildren() do
+                                if a.Name == "Options" then
+                                    tweenservice:Create(a.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+                                end
+                            end
+                            for r, a in next, Listed:GetChildren() do
+                                if a.Name == "Options" then
+                                    tweenservice:Create(a.Circle, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -12, 0, 5)}):Play()
+                                end
+                            end
+                            tweenservice:Create(v.Circle, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 2, 0, 5)}):Play()
+                            tweenservice:Create(v.Selected, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+                            tweenservice:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.930}):Play()
+                            SELECT_2.Text = tostring(DropFunc.Value)
+					        configdropdown.Callback(DropFunc.Value)
+                        end
+                    end
+                end
+            end
 			function DropFunc:Add(Value)
-				Value = Value or ""
-				local Options_2 = Instance.new("Frame")
-				local UICorner_34 = Instance.new("UICorner")
-				local UICorner_35 = Instance.new("UICorner")
-				local Title_13 = Instance.new("TextLabel")
-				local Circle_8 = Instance.new("Frame")
-				local UICorner_36 = Instance.new("UICorner")
-				local Click_15 = Instance.new("TextButton")
-
-				Options_2.Name = "Options"
-				Options_2.Parent = Listed
-				Options_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Options_2.BackgroundTransparency = 1.000
-				Options_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				Options_2.BorderSizePixel = 0
-				Options_2.Size = UDim2.new(1, 0, 0, 30)
-				Options_2.ZIndex = 2
-
-				UICorner_34.CornerRadius = UDim.new(0, 4)
-				UICorner_34.Parent = Options_2
-
-				UICorner_35.CornerRadius = UDim.new(0, 4)
-				UICorner_35.Parent = UICorner_34
-
-				Title_13.Name = "Selected"
-				Title_13.Parent = Options_2
-				Title_13.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Title_13.BackgroundTransparency = 1.000
-				Title_13.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				Title_13.BorderSizePixel = 0
-				Title_13.Position = UDim2.new(0, 12, 0, 0)
-				Title_13.Size = UDim2.new(1, -12, 1, 0)
-				Title_13.ZIndex = 2
-				Title_13.Font = Enum.Font.GothamBold
-				Title_13.Text = Value
-				Title_13.TextColor3 = Color3.fromRGB(222, 222, 222)
-				Title_13.TextSize = 13.000
-				Title_13.TextXAlignment = Enum.TextXAlignment.Left
-
-				Circle_8.Name = "Circle"
-				Circle_8.Parent = Options_2
-				Circle_8.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
-				Circle_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				Circle_8.BorderSizePixel = 0
-				Circle_8.Position = UDim2.new(0, -12, 0, 5)
-				Circle_8.Size = UDim2.new(0, 5, 0, 20)
-				Circle_8.ZIndex = 2
-
-				UICorner_36.CornerRadius = UDim.new(0, 4)
-				UICorner_36.Parent = Circle_8
-
-				Click_15.Name = "Click"
-				Click_15.Parent = Options_2
-				Click_15.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Click_15.BackgroundTransparency = 1.000
-				Click_15.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				Click_15.BorderSizePixel = 0
-				Click_15.Size = UDim2.new(1, 0, 1, 0)
-				Click_15.ZIndex = 2
-				Click_15.Font = Enum.Font.SourceSans
-				Click_15.Text = ""
-				Click_15.TextColor3 = Color3.fromRGB(0, 0, 0)
-				Click_15.TextSize = 14.000
-
-				Click_15.Activated:Connect(function()
-					if configdropdown.Multi then
-						if Options_2.BackgroundTransparency > 0.95 then
-							table.insert(DropFunc.Value, Value)
-							DropFunc:Set(DropFunc.Value)
-						else
-							for i, value in pairs(DropFunc.Value) do
-								if value == Value then
-									table.remove(DropFunc.Value, i)
-									break
-								end
-							end
-							DropFunc:Set(DropFunc.Value)
-						end
-					else
-						DropFunc.Value = Value
-						DropFunc:Set(DropFunc.Value)
-					end
-				end)
-			end            
+                Value = Value or ""
+                local Options_2 = Instance.new("Frame")
+                local UICorner_34 = Instance.new("UICorner")
+                local UICorner_35 = Instance.new("UICorner")
+                local Title_13 = Instance.new("TextLabel")
+                local Circle_8 = Instance.new("Frame")
+                local UICorner_36 = Instance.new("UICorner")
+                local Click_15 = Instance.new("TextButton")
+            
+                Options_2.Name = "Options"
+                Options_2.Parent = Listed
+                Options_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Options_2.BackgroundTransparency = 1.000
+                Options_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Options_2.BorderSizePixel = 0
+                Options_2.Size = UDim2.new(1, 0, 0, 30)
+                Options_2.ZIndex = 2
+                
+                UICorner_34.CornerRadius = UDim.new(0, 4)
+                UICorner_34.Parent = Options_2
+                
+                UICorner_35.CornerRadius = UDim.new(0, 4)
+                UICorner_35.Parent = UICorner_34
+                
+                Title_13.Name = "Selected"
+                Title_13.Parent = Options_2
+                Title_13.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Title_13.BackgroundTransparency = 1.000
+                Title_13.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Title_13.BorderSizePixel = 0
+                Title_13.Position = UDim2.new(0, 12, 0, 0)
+                Title_13.Size = UDim2.new(1, -12, 1, 0)
+                Title_13.ZIndex = 2
+                Title_13.Font = Enum.Font.GothamBold
+                Title_13.Text = Value
+                Title_13.TextColor3 = Color3.fromRGB(222, 222, 222)
+                Title_13.TextSize = 13.000
+                Title_13.TextXAlignment = Enum.TextXAlignment.Left
+                
+                Circle_8.Name = "Circle"
+                Circle_8.Parent = Options_2
+                Circle_8.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+                Circle_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Circle_8.BorderSizePixel = 0
+                Circle_8.Position = UDim2.new(0, -12, 0, 5)
+                Circle_8.Size = UDim2.new(0, 5, 0, 20)
+                Circle_8.ZIndex = 2
+                
+                UICorner_36.CornerRadius = UDim.new(0, 4)
+                UICorner_36.Parent = Circle_8
+                
+                Click_15.Name = "Click"
+                Click_15.Parent = Options_2
+                Click_15.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Click_15.BackgroundTransparency = 1.000
+                Click_15.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Click_15.BorderSizePixel = 0
+                Click_15.Size = UDim2.new(1, 0, 1, 0)
+                Click_15.ZIndex = 2
+                Click_15.Font = Enum.Font.SourceSans
+                Click_15.Text = ""
+                Click_15.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Click_15.TextSize = 14.000
+            
+                Click_15.Activated:Connect(function()
+                    if configdropdown.Multi then
+                        if Options_2.BackgroundTransparency > 0.95 then
+                            table.insert(DropFunc.Value, Value)
+                            DropFunc:Set(DropFunc.Value)
+                        else
+                            for i, value in pairs(DropFunc.Value) do
+                                if value == Value then
+                                    table.remove(DropFunc.Value, i)
+                                    break
+                                end
+                            end
+                            DropFunc:Set(DropFunc.Value)
+                        end
+                    else
+                        DropFunc.Value = Value
+                        DropFunc:Set(DropFunc.Value)
+                    end
+                end)
+            end            
 			function DropFunc:Refresh(RefreshList)
 				RefreshList = RefreshList or {}
 				Selecting = Selecting or {}
@@ -1587,13 +1586,13 @@ function Library:AddWindow()
 				end
 			end
 			DropFunc:Refresh(DropFunc.Options)
-			if typeof(DropFunc.Value) == "table" then
-				DropFunc:Set(configdropdown.Default)
-			else
-				DropFunc:Set1(configdropdown.Default)
-			end
+            if typeof(DropFunc.Value) == "table" then
+                DropFunc:Set(configdropdown.Default)
+            else
+                DropFunc:Set1(configdropdown.Default)
+            end
 			return DropFunc
-		end
+        end
 		function Feature:AddInput(configinput)
             configinput = configinput or {}
 			configinput.Name = configinput.Name or "Input"
