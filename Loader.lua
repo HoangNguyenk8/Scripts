@@ -1,6 +1,6 @@
 function LoaderScript(main)
   if main == 2753915549 or main == 4442272183 or main == 7449423635 then
-    return https://raw.githubusercontent.com/HoangNguyenk8/Scripts/refs/heads/main/BF-Main.lua
+    return "https://raw.githubusercontent.com/HoangNguyenk8/Scripts/refs/heads/main/BF-Main.lua"
   else
     return "Kick"
   end
