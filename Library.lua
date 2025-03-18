@@ -1249,7 +1249,6 @@ function Lib:CreateWindow()
 
 			UIPadding_8.Parent = Title_2
 			UIPadding_8.PaddingLeft = UDim.new(0, 8)
-			UIPadding_8.PaddingTop = UDim.new(0, 8)
 
 			Desc_3.Name = "Desc"
 			Desc_3.Parent = Toggle
@@ -1402,7 +1401,6 @@ function Lib:CreateWindow()
 
 			UIPadding_12.Parent = Title_4
 			UIPadding_12.PaddingLeft = UDim.new(0, 8)
-			UIPadding_12.PaddingTop = UDim.new(0, 8)
 
 			Desc_5.Name = "Desc"
 			Desc_5.Parent = Dropdown
@@ -1543,6 +1541,9 @@ function Lib:CreateWindow()
 				Ngu.Visible = false
 			end)
 			if configdropdown.Description ~= nil and configdropdown.Description ~= "" then
+				UIPadding_12.Parent = Title_4
+				UIPadding_12.PaddingLeft = UDim.new(0, 8)
+				UIPadding_12.PaddingTop = UDim.new(0, 8)
 				Desc_5.Size = UDim2.new(1, -50, 0, 15 + Desc_5.TextBounds.Y)   
 				Dropdown.Size = UDim2.new(1, 0, 0, 25 + Desc_5.TextBounds.Y)         
 			end
@@ -1730,7 +1731,6 @@ function Lib:CreateWindow()
 
 			UIPadding_16.Parent = Title_6
 			UIPadding_16.PaddingLeft = UDim.new(0, 8)
-			UIPadding_16.PaddingTop = UDim.new(0, 8)
 
 			Desc_7.Name = "Desc"
 			Desc_7.Parent = Input_2
@@ -1817,6 +1817,9 @@ function Lib:CreateWindow()
 			TextBox_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 			TextBox_2.TextSize = 12.000
 			if configslider.Description ~= nil and configslider.Description ~= "" then
+				UIPadding_16.Parent = Title_6
+				UIPadding_16.PaddingLeft = UDim.new(0, 8)
+				UIPadding_16.PaddingTop = UDim.new(0, 8)
 				Desc_7.Size = UDim2.new(1, -190, 0, 15 + Desc_7.TextBounds.Y)   
 				Input_2.Size = UDim2.new(1, 0, 0, 25 + Desc_7.TextBounds.Y + 15)         
 			end
