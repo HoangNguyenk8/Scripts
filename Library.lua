@@ -130,10 +130,10 @@ local function MouseTo(Frame)
 end
 function AutoUp(a)
 	a.ChildAdded:Connect(function()
-		a.CanvasSize = UDim2.new(0, 0, 0, a.UIListLayout.AbsoluteContentSize.Y + 15)
+		a.CanvasSize = UDim2.new(0, 0, 0, a:WaitForChild('UIListLayout').AbsoluteContentSize.Y + 15)
 	end)
 	a.ChildRemoved:Connect(function()
-		a.CanvasSize = UDim2.new(0, 0, 0, a.UIListLayout.AbsoluteContentSize.Y + 15)
+		a.CanvasSize = UDim2.new(0, 0, 0, a:WaitForChild('UIListLayout').AbsoluteContentSize.Y + 15)
 	end)
 end
 function Lib:Notify(cfnotify)
