@@ -724,7 +724,7 @@ function Lib:CreateWindow()
 	Bam_3.TextSize = 14.000
 	Bam_3.Activated:Connect(function()
 		HNDZ:Destroy()
-		for _, v in pairs(workspace.CurrentCamera:GetDescendants()) do if v:IsA("Part") then v:Destroy() end end
+		for _, v in pairs(workspace.CurrentCamera:GetChildren()) do if v:IsA("Part") then v:Destroy() end end
 		Lib:Notify({
 			Title = "Interface",
 			Content = "Interface : Destroy!",
