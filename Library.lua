@@ -128,6 +128,14 @@ local function MouseTo(Frame)
 		TweenService:Create(Frame, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.890}):Play()
 	end)
 end
+function AutoUp(a)
+	a.ChildAdded:Connect(function()
+		a.CanvasSize = UDim2.new(0, 0, 0, a.UIListLayout.AbsoluteContentSize.Y + 15)
+	end)
+	a.ChildRemoved:Connect(function()
+		a.CanvasSize = UDim2.new(0, 0, 0, a.UIListLayout.AbsoluteContentSize.Y + 15)
+	end)
+end
 function Lib:Notify(cfnotify)
 	cfnotify = cfnotify or {}
 	cfnotify.Title = cfnotify.Title or "Notification"
@@ -463,7 +471,7 @@ function Lib:CreateWindow()
 	local Icon_3 = Instance.new("ImageLabel")
 	local Bam_3 = Instance.new("TextButton")
 	local TabFrame = Instance.new("Frame")
-	local ScrollTab = Instance.new("Frame")
+	local ScrollTab = Instance.new("ScrollingFrame")
 	local UIPadding = Instance.new("UIPadding")
 	local UIListLayout = Instance.new("UIListLayout")
 	local Features = Instance.new("Frame")
@@ -750,7 +758,8 @@ function Lib:CreateWindow()
 	ScrollTab.BorderSizePixel = 0
 	ScrollTab.Position = UDim2.new(0.5, 0, 0.5, 0)
 	ScrollTab.Size = UDim2.new(1, -5, 1, -5)
-
+	ScrollTab.ScrollBarThickness = 0	
+	AutoUp(ScrollTab)
 	UIPadding.Parent = ScrollTab
 	UIPadding.PaddingBottom = UDim.new(0, 3)
 	UIPadding.PaddingLeft = UDim.new(0, 3)
@@ -760,6 +769,7 @@ function Lib:CreateWindow()
 	UIListLayout.Parent = ScrollTab
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.Padding = UDim.new(0, 4)
+
 	Features.Name = "Features"
 	Features.Parent = MainFrame
 	Features.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -988,7 +998,7 @@ function Lib:CreateWindow()
 		RealChannel.CanvasSize = UDim2.new(0, 0, 1.5, 0)
 		RealChannel.ScrollBarThickness = 2
 		RealChannel.LayoutOrder = Counts
-
+		AutoUp(RealChannel)
 		UIListLayout_2.Parent = RealChannel
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_2.Padding = UDim.new(0, 8)
