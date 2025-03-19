@@ -475,6 +475,7 @@ function Lib:CreateWindow()
 	local TextButton_2 = Instance.new("TextButton")
 	local ImageLabel_3 = Instance.new("ImageLabel")
 	local UIStroke_6 = Instance.new("UIStroke")
+	local UIMinized = false
 	HNDZ.Name = "HNDZ"
 	HNDZ.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	HNDZ.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -512,7 +513,7 @@ function Lib:CreateWindow()
 	TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
 	TextButton_2.TextSize = 14.000
 	TextButton_2.Activated:Connect(function()
-		if MainFrame.Visible then
+		if not UIMinized then
 			OldPos = MainFrame.Position
 			OldSize = MainFrame.Size
 			MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -520,7 +521,9 @@ function Lib:CreateWindow()
 			TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
 			wait(0.35)
 			MainFrame.Visible = false
+			UIMinized = true
 		else
+			UIMinized = false
 			MainFrame.Visible = true
 			MainFrame.AnchorPoint = Vector2.new(0, 0)
 			MainFrame.Position = UDim2.new(0, 0, 0, 0)
@@ -638,6 +641,7 @@ function Lib:CreateWindow()
 		MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
 		wait(0.35)
+		UIMinized = true
 		MainFrame.Visible = false
 	end)
 
