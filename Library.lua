@@ -2091,6 +2091,24 @@ function Lib:CreateWindow()
 				configinput.Callback(TextBox.Text)
 			end)
 		end
+		function Fe:AddSection(title)
+			local Section = Instance.new("TextLabel")
+			local UIPadding_11 = Instance.new("UIPadding")
+			Section.Name = "Section"
+			Section.Parent = RealChannel
+			Section.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Section.BackgroundTransparency = 1.000
+			Section.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Section.BorderSizePixel = 0
+			Section.Size = UDim2.new(1, 0, 0, 20)
+			Section.Font = Enum.Font.GothamBold
+			Section.Text = title
+			Section.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Section.TextSize = 14.000
+			Section.TextXAlignment = Enum.TextXAlignment.Left
+			UIPadding_11.Parent = Section
+			UIPadding_11.PaddingLeft = UDim.new(0, 4)
+		end
 		return Fe
 	end
 	return TabFunc
