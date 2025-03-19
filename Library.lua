@@ -1340,7 +1340,7 @@ function Lib:CreateWindow()
 					TweenService:Create(CheckFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 1.000}):Play()
 					TweenService:Create(UIStroke_4, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Color = Color3.fromRGB(80, 80 ,80)}):Play()
 					TweenService:Create(CheckFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(80, 80, 80)}):Play()
-					TweenService:Create(Circle_2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+					TweenService:Create(Circle_2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(80, 80, 80)}):Play()
 					TweenService:Create(Circle_2, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Position = UDim2.new(0 ,2 , 0, 1)}):Play()
 				end
 				ToggleFunc.Values = v
