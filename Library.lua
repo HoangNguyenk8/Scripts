@@ -1239,7 +1239,7 @@ function Lib:CreateWindow()
 			Toggle.BackgroundTransparency = 0.890
 			Toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Toggle.BorderSizePixel = 0
-			Toggle.Size = UDim2.new(1, 0, 0, 45)
+			Toggle.Size = UDim2.new(1, 0, 0, 30)
 
 			UICorner_6.CornerRadius = UDim.new(0, 3)
 			UICorner_6.Parent = Toggle
@@ -1391,7 +1391,7 @@ function Lib:CreateWindow()
 			Dropdown.BackgroundTransparency = 0.890
 			Dropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Dropdown.BorderSizePixel = 0
-			Dropdown.Size = UDim2.new(1, 0, 0, 45)
+			Dropdown.Size = UDim2.new(1, 0, 0, 30)
 
 			UICorner_12.CornerRadius = UDim.new(0, 3)
 			UICorner_12.Parent = Dropdown
@@ -1722,7 +1722,7 @@ function Lib:CreateWindow()
 			Input_2.BackgroundTransparency = 0.890
 			Input_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Input_2.BorderSizePixel = 0
-			Input_2.Size = UDim2.new(1, 0, 0, 45)
+			Input_2.Size = UDim2.new(1, 0, 0, 30)
 
 			UICorner_16.CornerRadius = UDim.new(0, 3)
 			UICorner_16.Parent = Input_2
@@ -1906,7 +1906,7 @@ function Lib:CreateWindow()
 			Paragraph.BackgroundTransparency = 0.890
 			Paragraph.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Paragraph.BorderSizePixel = 0
-			Paragraph.Size = UDim2.new(1, 0, 0, 45)
+			Paragraph.Size = UDim2.new(1, 0, 0, 30)
 
 			UICorner_21.CornerRadius = UDim.new(0, 3)
 			UICorner_21.Parent = Paragraph
@@ -2000,7 +2000,7 @@ function Lib:CreateWindow()
 			Input.BackgroundTransparency = 0.890
 			Input.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Input.BorderSizePixel = 0
-			Input.Size = UDim2.new(1, 0, 0, 45)
+			Input.Size = UDim2.new(1, 0, 0, 30)
 
 			UICorner_14.CornerRadius = UDim.new(0, 3)
 			UICorner_14.Parent = Input
