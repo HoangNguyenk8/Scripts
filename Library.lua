@@ -128,14 +128,6 @@ local function MouseTo(Frame)
 		TweenService:Create(Frame, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.890}):Play()
 	end)
 end
-function AutoUp(a)
-	a.ChildAdded:Connect(function()
-		a.CanvasSize = UDim2.new(0, 0, 0, a:WaitForChild('UIListLayout').AbsoluteContentSize.Y + 15)
-	end)
-	a.ChildRemoved:Connect(function()
-		a.CanvasSize = UDim2.new(0, 0, 0, a:WaitForChild('UIListLayout').AbsoluteContentSize.Y + 15)
-	end)
-end
 function Lib:Notify(cfnotify)
 	cfnotify = cfnotify or {}
 	cfnotify.Title = cfnotify.Title or "Notification"
@@ -759,7 +751,9 @@ function Lib:CreateWindow()
 	ScrollTab.Position = UDim2.new(0.5, 0, 0.5, 0)
 	ScrollTab.Size = UDim2.new(1, -5, 1, -5)
 	ScrollTab.ScrollBarThickness = 0	
-	AutoUp(ScrollTab)
+	game:GetService('RunService').Stepped:Connect(function()
+		ScrollTab.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 15)
+	end)
 	UIPadding.Parent = ScrollTab
 	UIPadding.PaddingBottom = UDim.new(0, 3)
 	UIPadding.PaddingLeft = UDim.new(0, 3)
@@ -998,7 +992,9 @@ function Lib:CreateWindow()
 		RealChannel.CanvasSize = UDim2.new(0, 0, 1.5, 0)
 		RealChannel.ScrollBarThickness = 2
 		RealChannel.LayoutOrder = Counts
-		AutoUp(RealChannel)
+		game:GetService('RunService').Stepped:Connect(function()
+			RealChannel.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y + 15)
+		end)
 		UIListLayout_2.Parent = RealChannel
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_2.Padding = UDim.new(0, 8)
@@ -1402,7 +1398,7 @@ function Lib:CreateWindow()
 			Title_4.BackgroundTransparency = 1.000
 			Title_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Title_4.BorderSizePixel = 0
-			Title_4.Size = UDim2.new(1, 0, 0, 18)
+			Title_4.Size = UDim2.new(1, 0, 1, 0)
 			Title_4.Font = Enum.Font.GothamBold
 			Title_4.Text = configdropdown.Title
 			Title_4.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -1459,7 +1455,7 @@ function Lib:CreateWindow()
 			Selecting.BorderSizePixel = 0
 			Selecting.Size = UDim2.new(1, 0, 1, 0)
 			Selecting.Font = Enum.Font.GothamBold
-			Selecting.Text = configdropdown.Default
+			Selecting.Text = (configdropdown.Default or "nil")
 			Selecting.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Selecting.TextSize = 12.000
 
@@ -1554,6 +1550,7 @@ function Lib:CreateWindow()
 				UIPadding_12.Parent = Title_4
 				UIPadding_12.PaddingLeft = UDim.new(0, 8)
 				UIPadding_12.PaddingTop = UDim.new(0, 8)
+				Title_4.Size = UDim2.new(1, 0, 0, 18)
 				Desc_5.Size = UDim2.new(1, -50, 0, 15 + Desc_5.TextBounds.Y)   
 				Dropdown.Size = UDim2.new(1, 0, 0, 25 + Desc_5.TextBounds.Y)         
 			end
