@@ -639,6 +639,8 @@ function Lib:CreateWindow()
 	Bam.Activated:Connect(function()
 		MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 		MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+		OldPos = MainFrame.Position
+		OldSize = MainFrame.Size
 		TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
 		wait(0.35)
 		UIMinized = true
