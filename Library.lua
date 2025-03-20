@@ -135,16 +135,16 @@ function Lib:Notify(cfnotify)
 	cfnotify.Duration = cfnotify.Duration or 5
 	local NotifyFunc = {}
 	spawn(function()
-		if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("Troitroi") then
+		if not game.CoreGui:FindFirstChild("Troitroi") then
 			local Troitroi = Instance.new("ScreenGui")
 			Troitroi.Name = "Troitroi"
-			Troitroi.Parent = game.Players.LocalPlayer.PlayerGui
+			Troitroi.Parent = game.CoreGui
 			Troitroi.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		end
-		if not game.Players.LocalPlayer.PlayerGui.Troitroi:FindFirstChild("NotifyLayout") then
+		if not game.CoreGui.Troitroi:FindFirstChild("NotifyLayout") then
 			local NotifyLayout = Instance.new("Frame")
 			NotifyLayout.Name = "NotifyLayout"
-			NotifyLayout.Parent = game.Players.LocalPlayer.PlayerGui.Troitroi
+			NotifyLayout.Parent = game.CoreGui.Troitroi
 			NotifyLayout.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			NotifyLayout.BackgroundTransparency = 1.000
 			NotifyLayout.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -152,15 +152,15 @@ function Lib:Notify(cfnotify)
 			NotifyLayout.Position = UDim2.new(1, 300, 1, -90)
 			NotifyLayout.Size = UDim2.new(0, 250, 0, 70)
 			local Count = 0
-			game.Players.LocalPlayer.PlayerGui.Troitroi.NotifyLayout.ChildRemoved:Connect(function()
-				for r, v in next, game.Players.LocalPlayer.PlayerGui.Troitroi.NotifyLayout:GetChildren() do
+			game.CoreGui.Troitroi.NotifyLayout.ChildRemoved:Connect(function()
+				for r, v in next, game.CoreGui.Troitroi.NotifyLayout:GetChildren() do
 					TweenService:Create(v, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 0, 1, -((v.Size.Y.Offset + 12) * Count))}):Play()
 					Count = Count + 1
 				end
 			end)
 		end
 		local NotifyHeighst = 0
-		for i, v in game.Players.LocalPlayer.PlayerGui.Troitroi.NotifyLayout:GetChildren() do
+		for i, v in game.CoreGui.Troitroi.NotifyLayout:GetChildren() do
 			NotifyHeighst = -(v.Position.Y.Offset) + v.Size.Y.Offset + 45
 		end
 		local NotiFrame = Instance.new("Frame")
@@ -174,7 +174,7 @@ function Lib:Notify(cfnotify)
 		local ccc = Instance.new("ImageLabel")
 		local cc = Instance.new("TextButton")
 		NotiFrame.Name = "NotiFrame"
-		NotiFrame.Parent = game.Players.LocalPlayer.PlayerGui.Troitroi.NotifyLayout
+		NotiFrame.Parent = game.CoreGui.Troitroi.NotifyLayout
 		NotiFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		NotiFrame.BackgroundTransparency = 1.000
 		NotiFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1443,7 +1443,7 @@ function Lib:CreateWindow()
 			DropClick.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
 			DropClick.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			DropClick.BorderSizePixel = 0
-			DropClick.Position = UDim2.new(1, -98, 0.22, 0)
+			DropClick.Position = UDim2.new(1, -98, 0.19, 0)
 			DropClick.Size = UDim2.new(0, 90, 0, 25)
 
 			UICorner_13.CornerRadius = UDim.new(0, 4)
@@ -1774,7 +1774,7 @@ function Lib:CreateWindow()
 			SliderFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
 			SliderFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			SliderFrame.BorderSizePixel = 0
-			SliderFrame.Position = UDim2.new(1, -140, 0, 19)
+			SliderFrame.Position = UDim2.new(1, -140, 0.25, 0)
 			SliderFrame.Size = UDim2.new(0, 135, 0, 8)
 
 			UICorner_17.CornerRadius = UDim.new(1, 0)
