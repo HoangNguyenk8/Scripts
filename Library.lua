@@ -1956,7 +1956,7 @@ function Lib:CreateWindow()
 			IconButton_2.BackgroundTransparency = 1.000
 			IconButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			IconButton_2.BorderSizePixel = 0
-			IconButton_2.Position = UDim2.new(1, -35, 0, 10)
+			IconButton_2.Position = UDim2.new(1, -35, 0.26, 0)
 			IconButton_2.Size = UDim2.new(0, 25, 0, 25)
 			IconButton_2.Image = cfp.Icon
 
