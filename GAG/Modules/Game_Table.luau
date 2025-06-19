@@ -5,5 +5,6 @@ local Cached = {
   Honeys = { "Flower Seed Pack", "Lavender", "Nectarshade", "Nectarine", "Hive Fruit", "Pollen Radar", "Nectar Staff", "Honey Sprinkler", "Bee Egg", "Bee Crate", "Honey Comb", "Bee Chair", "Honey Torch", "Honey Walkway" },
   Attributes = {"Pollinated", "Wet", "Frozen", "Rainbow", "Celesial", "Moonlit"},
   Weather = {"BeeSwarm","FrostEvent","KillerBunny","MeteorShower","NightEvent","RainEvent","ThunderStorm"},
+  NPCs = {["Sell NPC"] = CFrame.new(92, 4, 2)}
 }
 return Cached
