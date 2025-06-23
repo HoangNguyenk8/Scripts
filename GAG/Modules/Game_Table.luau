@@ -17,5 +17,16 @@ local Cached = {
       CFrame.new(-289.031219, 2.79752779, 7.74039459, 1, 0, 0, 0, 1, 0, 0, 0, 1)
     }
   },
+  EggsPrice = {
+    ["Common Egg"] = 50000,
+    ["Uncommon Egg "] = 150000,
+    ["Rare Egg"] = 600000,
+    ["Legendary Egg"] = 3000000,
+    ["Mythical Egg"] = 8000000,
+    ["Bug Egg"] = 50000000,
+    ["Common Summer Egg"] = 1000000,
+    ["Rare Summer Egg"] = 25000000,
+    ["Paradise Egg"] = 50000000,
+  },
 }
 return Cached
