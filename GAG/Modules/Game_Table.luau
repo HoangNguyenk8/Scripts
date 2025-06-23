@@ -5,6 +5,17 @@ local Cached = {
   Honeys = { "Flower Seed Pack", "Lavender", "Nectarshade", "Nectarine", "Hive Fruit", "Pollen Radar", "Nectar Staff", "Honey Sprinkler", "Bee Egg", "Bee Crate", "Honey Comb", "Bee Chair", "Honey Torch", "Honey Walkway" },
   Attributes = {"Pollinated", "Wet", "Frozen", "Rainbow", "Celesial", "Moonlit", "Shocked"},
   Weather = {"NightEvent","DiscoEvent","TornadoEvent","HeatwaveEvent","RainEvent","JanzenStorm","CurrentWeatherEvent","ChocolateRain","Windy","Thunderstorm","SummerHarvest","MeteorShower","KillerBunny"},
-  NPCs = {["Sell NPC"] = CFrame.new(92, 4, 2)}
+  NPCs = {["Sell NPC"] = CFrame.new(92, 4, 2)},
+  EggsLocations = {
+    {
+      CFrame.new(-289.039246, 2.79752779, 11.7703476, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+    },
+    {
+      CFrame.new(-289.04126, 2.87552762, 3.73038578, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+    },
+    {
+      CFrame.new(-289.031219, 2.79752779, 7.74039459, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+    }
+  },
 }
 return Cached
