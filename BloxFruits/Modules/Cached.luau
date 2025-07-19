@@ -214,7 +214,12 @@ local Cached = {
             "Fish Crew Member",
             "Piranha",
             "Terrorshark"
-        }
+        },
+        RengokuMobs = {
+            "Awakened Ice Admiral",
+            "Arctic Warrior",
+            "Snow Lurker"
+        },
     },
     Combo = {
         ["Screen1"] = {"Button1",Color3.fromRGB(255, 0, 0)},
@@ -267,13 +272,6 @@ local Cached = {
     },
     ["1M Fruits"] = {},
     ["Fruits Name"] = {},
-    Mobs = {
-        RengokuMobs = {
-            "Awakened Ice Admiral",
-            "Arctic Warrior",
-            "Snow Lurker"
-        },
-    },
 }
 print("[Zinner Hub] Loadded Cached Success!")
 return Cached
