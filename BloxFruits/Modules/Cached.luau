@@ -266,7 +266,14 @@ local Cached = {
         ["Dragon-Dragon"] = 15000000,        
     },
     ["1M Fruits"] = {},
-    ["Fruits Name"] = {}
+    ["Fruits Name"] = {},
+    Mobs = {
+        RengokuMobs = {
+            "Awakened Ice Admiral",
+            "Arctic Warrior",
+            "Snow Lurker"
+        },
+    },
 }
 print("[Zinner Hub] Loadded Cached Success!")
 return Cached
