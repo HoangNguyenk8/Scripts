@@ -10,7 +10,7 @@ local Cached = {
     UnlockPortal = false,
     Gift1MFruit = false,
     TweenService = game:GetService("TweenService"),
-    FastLoader = loadstring(game:HttpGet("https://raw.githubusercontent.com/HoangNguyenk8/Scripts/refs/heads/main/BloxFruits/Modules/FastAttackLoader.luau"))(),
+    FastLoader = loadstring(game:HttpGet("https://github.com/HoangNguyenk8/Scripts/blob/main/BloxFruits/Modules/FastAttackLoader.luau?raw=true"))(),
     AllMelee = {
         ["Black Leg"] = {"BuyBlackLeg"}, 
         ["Electro"] = {"BuyElectro"}, 
