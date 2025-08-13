@@ -1675,7 +1675,7 @@ ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
 ah.BorderSizePixel=0
-ah.Size=UDim2.new(1,0,0,60)
+ah.Size=UDim2.new(1,0,0,50)
 
 ai.Name="Background"
 ai.Parent=ah
@@ -1698,8 +1698,8 @@ aj.BackgroundColor3=Color3.fromRGB(255,255,255)
 aj.BackgroundTransparency=1.000
 aj.BorderColor3=Color3.fromRGB(0,0,0)
 aj.BorderSizePixel=0
-aj.Position=UDim2.new(0,15,0,8)
-aj.Size=UDim2.new(1,-80,0,18)
+aj.Position=UDim2.new(0,15,0,0)
+aj.Size=UDim2.new(1,-80,1,0)
 aj.Font=Enum.Font.Arial
 aj.Text=ag.Title
 aj.TextColor3=Color3.fromRGB(255,255,255)
@@ -1721,7 +1721,13 @@ ak.TextSize=13.000
 ak.TextWrapped=true
 ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
-
+if ak~=""then
+aj.Position=UDim2.new(0,15,0,8)
+aj.Size=UDim2.new(1,-80,0,18)
+a.Stepped:Connect(function()
+ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+23,50))
+end)
+end
 al.Name="Icon"
 al.Parent=ai
 al.AnchorPoint=Vector2.new(0,0.5)
@@ -1755,6 +1761,51 @@ end
 end
 am:SetTheme(ag.Theme)
 return am
+end
+function ae.AddSeperator(af,ag,ah)
+local ai=Instance.new"Frame"
+local aj=Instance.new"ImageLabel"
+local ak=Instance.new"UIPadding"
+local al=Instance.new"TextLabel"
+ai.Name="Seperator"
+ai.Parent=ab
+ai.BackgroundColor3=Color3.fromRGB(255,255,255)
+ai.BackgroundTransparency=1.000
+ai.BorderColor3=Color3.fromRGB(0,0,0)
+ai.BorderSizePixel=0
+ai.Size=UDim2.new(1,0,0,40)
+
+aj.Parent=ai
+aj.AnchorPoint=Vector2.new(0,0.5)
+aj.BackgroundColor3=Color3.fromRGB(255,255,255)
+aj.BackgroundTransparency=1.000
+aj.BorderColor3=Color3.fromRGB(0,0,0)
+aj.BorderSizePixel=0
+aj.Position=UDim2.new(0,0,0.5,0)
+aj.Size=UDim2.new(0,25,0,25)
+aj.Image=(ah or"")
+
+ak.Parent=ai
+ak.PaddingLeft=UDim.new(0,7)
+
+al.Parent=ai
+al.AnchorPoint=Vector2.new(0,0.5)
+al.BackgroundColor3=Color3.fromRGB(255,255,255)
+al.BackgroundTransparency=1.000
+al.BorderColor3=Color3.fromRGB(0,0,0)
+al.BorderSizePixel=0
+al.Position=UDim2.new(0,35,0.5,0)
+al.Size=UDim2.new(1,-50,1,0)
+al.Font=Enum.Font.Arial
+al.Text=ag
+al.TextColor3=Color3.fromRGB(255,255,255)
+al.TextSize=14.000
+al.TextXAlignment=Enum.TextXAlignment.Left
+if not ah then
+al.TextSize=17
+al.Position=UDim2.new(0,0,0,0)
+aj.Visible=false
+end
 end
 return ae
 end
