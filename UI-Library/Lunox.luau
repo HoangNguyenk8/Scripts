@@ -247,6 +247,7 @@ c.Title=c.Title or"Lunox Example"
 c.Author=c.Author or"By ! xHoang"
 c.Icon=c.Icon or"rbxassetid://119115999130075"
 c.Scale=c.Scale or UDim2.fromOffset(600,500)
+c.KeyCode=c.KeyCode or Enum.KeyCode.LeftControl
 c.Key=c.Key or{}
 c.Key.Enable=c.Key.Enable or false
 c.Key.RealKey=c.Key.RealKey or{"1234","4567"}
@@ -411,6 +412,15 @@ o.FillDirection=Enum.FillDirection.Horizontal
 o.SortOrder=Enum.SortOrder.LayoutOrder
 o.Padding=UDim.new(0,15)
 
+function a.Minized(I)
+OldSize=e.Size
+h.Visible=false
+a:Tween(e,0.13,"Quad","Size",UDim2.fromOffset(500,300))
+a:Tween(g,0.2,"Quad","ImageTransparency",1)
+a:Tween(f,0.2,"Quad","ImageTransparency",1)
+task.wait(0.1)
+e.Visible=false
+end
 p.Name="Minized"
 p.Parent=n
 p.AnchorPoint=Vector2.new(0,0.5)
@@ -427,12 +437,7 @@ p.ScaleType=Enum.ScaleType.Slice
 p.SliceCenter=Rect.new(256,256,256,256)
 p.SliceScale=0.050
 p.Activated:Connect(function()
-h.Visible=false
-a:Tween(e,0.13,"Quad","Size",UDim2.fromOffset(500,300))
-a:Tween(g,0.2,"Quad","ImageTransparency",1)
-a:Tween(f,0.2,"Quad","ImageTransparency",1)
-task.wait(0.1)
-e.Visible=false
+a:Minized()
 end)
 q.Name="Icon"
 q.Parent=p
@@ -654,6 +659,21 @@ local L={}
 function L.SetTransparency(M,N)
 g.ImageTransparency=N*0.01
 end
+game:GetService"UserInputService".InputBegan:Connect(function(M)
+if M.KeyCode==c.KeyCode then
+if h.Visible then
+a:Minized()
+else
+e.Visible=true
+task.wait(0.05)
+h.Visible=true
+e.Size=UDim2.new(0,OldSize.X.Offset-40,0,OldSize.Y.Offset-40)
+a:Tween(e,0.13,"Quad","Size",UDim2.fromOffset(OldSize.X.Offset,OldSize.Y.Offset))
+a:Tween(g,0.2,"Quad","ImageTransparency",0)
+a:Tween(f,0.2,"Quad","ImageTransparency",0.330)
+end
+end
+end)
 function L.AddSection(M,N)
 N=N or{}
 N.Open=N.Open or false
@@ -1488,8 +1508,8 @@ av.PaddingLeft=UDim.new(0,7)
 av.PaddingRight=UDim.new(0,7)
 av.PaddingTop=UDim.new(0,7)
 
-local ax=math.min(au.AbsoluteContentSize.Y+20,499)
 a.Stepped:Connect(function()
+DropY=math.min(au.AbsoluteContentSize.Y+20,499)
 if au.AbsoluteContentSize.Y+20>=450 then
 ar.ScrollingEnabled=true
 ar.CanvasSize=UDim2.new(0,0,0,au.AbsoluteContentSize.Y+20)
@@ -1501,13 +1521,13 @@ x.ScrollingEnabled=false
 H.Visible=true
 ab.ScrollingEnabled=false
 aq.Position=UDim2.new(0,al.AbsolutePosition.X,0,al.AbsolutePosition.Y)
-aq.Size=UDim2.new(0,al.AbsoluteSize.X,0,au.AbsoluteContentSize.Y-30)
+aq.Size=UDim2.new(0,al.AbsoluteSize.X,0,DropY-30)
 aq.Visible=true
-a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,ax))
+a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,DropY))
 end)
 
 H.Activated:Connect(function()
-a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,ax-50))
+a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,DropY-50))
 task.wait(0.05)
 aq.Visible=false
 x.ScrollingEnabled=true
@@ -1515,15 +1535,15 @@ H.Visible=false
 ab.ScrollingEnabled=true
 end)
 
-function aw.Set(ay,az)
-aw.Select=az or aw.Select
-for aA,aB in next,at:GetChildren()do
-if aB:IsA"ImageButton"and table.find(aw.Select,aB.TextLabel.Text)then
-a:Tween(aB,0.2,"Quad","ImageTransparency",0.890)
-a:Tween(aB.TextLabel,0.2,"Quad","TextTransparency",0)
-elseif aB:IsA"ImageButton"and not table.find(aw.Select,aB.TextLabel.Text)then
-a:Tween(aB,0.2,"Quad","ImageTransparency",1.000)
-a:Tween(aB.TextLabel,0.2,"Quad","TextTransparency",0.500)
+function aw.Set(ax,ay)
+aw.Select=ay or aw.Select
+for az,aA in next,ar:GetChildren()do
+if aA:IsA"ImageButton"and table.find(aw.Select,aA.TextLabel.Text)then
+a:Tween(aA,0.2,"Quad","ImageTransparency",0.890)
+a:Tween(aA.TextLabel,0.2,"Quad","TextTransparency",0)
+elseif aA:IsA"ImageButton"and not table.find(aw.Select,aA.TextLabel.Text)then
+a:Tween(aA,0.2,"Quad","ImageTransparency",1.000)
+a:Tween(aA.TextLabel,0.2,"Quad","TextTransparency",0.500)
 end
 end
 if#aw.Select==0 then
@@ -1538,63 +1558,63 @@ ag.Callback(table.concat(aw.Select,","))
 end
 end
 
-function aw.Add(ay,az)
-local aA=Instance.new"ImageButton"
-local aB=Instance.new"TextLabel"
-aA.Name="Option 2"
-aA.Parent=ar
+function aw.Add(ax,ay)
+local az=Instance.new"ImageButton"
+local aA=Instance.new"TextLabel"
+az.Name="Option 2"
+az.Parent=ar
+az.BackgroundColor3=Color3.fromRGB(255,255,255)
+az.BackgroundTransparency=1.000
+az.BorderColor3=Color3.fromRGB(0,0,0)
+az.BorderSizePixel=0
+az.Size=UDim2.new(1,0,0,40)
+az.Image="rbxassetid://80999662900595"
+az.ImageTransparency=1.000
+az.ScaleType=Enum.ScaleType.Slice
+az.SliceCenter=Rect.new(256,256,256,256)
+az.SliceScale=0.033
+
+aA.Parent=az
 aA.BackgroundColor3=Color3.fromRGB(255,255,255)
 aA.BackgroundTransparency=1.000
 aA.BorderColor3=Color3.fromRGB(0,0,0)
 aA.BorderSizePixel=0
-aA.Size=UDim2.new(1,0,0,40)
-aA.Image="rbxassetid://80999662900595"
-aA.ImageTransparency=1.000
-aA.ScaleType=Enum.ScaleType.Slice
-aA.SliceCenter=Rect.new(256,256,256,256)
-aA.SliceScale=0.033
-
-aB.Parent=aA
-aB.BackgroundColor3=Color3.fromRGB(255,255,255)
-aB.BackgroundTransparency=1.000
-aB.BorderColor3=Color3.fromRGB(0,0,0)
-aB.BorderSizePixel=0
-aB.Position=UDim2.new(0,10,0,0)
-aB.Size=UDim2.new(1,-10,1,0)
-aB.Font=Enum.Font.Arial
-aB.Text=az
-aB.TextColor3=Color3.fromRGB(255,255,255)
-aB.TextSize=14.000
-aB.TextTransparency=0.500
-aB.TextXAlignment=Enum.TextXAlignment.Left
-aA.Activated:Connect(function()
+aA.Position=UDim2.new(0,10,0,0)
+aA.Size=UDim2.new(1,-10,1,0)
+aA.Font=Enum.Font.Arial
+aA.Text=ay
+aA.TextColor3=Color3.fromRGB(255,255,255)
+aA.TextSize=14.000
+aA.TextTransparency=0.500
+aA.TextXAlignment=Enum.TextXAlignment.Left
+az.Activated:Connect(function()
 if ag.Multi then
-if aB.TextTransparency>=0.500 then
-table.insert(aw.Select,aB.Text)
+if aA.TextTransparency>=0.500 then
+table.insert(aw.Select,aA.Text)
 aw:Set(aw.Select)
 else
-for aC,aD in next,aw.Select do
-if aD==aB.Text then
-table.remove(aw.Select,aC)
+for aB,aC in next,aw.Select do
+if aC==aA.Text then
+table.remove(aw.Select,aB)
 end
 end
 end
 aw:Set(aw.Select)
 else
-aw.Select={aB.Text}
+aw.Select={aA.Text}
 aw:Set(aw.Select)
 end
 end)
 end
 
-function aw.Refresh(ay,az)
-for aA,aB in next,at:GetChildren()do
-if aB:IsA"ImageLabel"then
-aB:Destroy()
+function aw.Refresh(ax,ay)
+for az,aA in next,ar:GetChildren()do
+if aA:IsA"ImageLabel"then
+aA:Destroy()
 end
 end
-for aA,aB in next,az do
-ay:Add(aB)
+for az,aA in next,ay do
+ax:Add(aA)
 end
 end
 
