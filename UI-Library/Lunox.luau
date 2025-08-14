@@ -338,6 +338,7 @@ H.BackgroundColor3=Color3.fromRGB(255,255,255)
 H.BackgroundTransparency=1.000
 H.BorderColor3=Color3.fromRGB(0,0,0)
 H.BorderSizePixel=0
+H.TextTransparency=1.000
 H.Size=UDim2.new(1,0,1,0)
 H.Visible=false
 i.Name="Topbar"
@@ -1417,12 +1418,13 @@ an.BackgroundTransparency=1.000
 an.BorderColor3=Color3.fromRGB(0,0,0)
 an.BorderSizePixel=0
 an.Position=UDim2.new(0,10,0,0)
-an.Size=UDim2.new(1,-50,1,0)
+an.Size=UDim2.new(1,-60,1,0)
 an.Font=Enum.Font.Arial
 an.Text=""
 an.TextColor3=Color3.fromRGB(255,255,255)
 an.TextSize=15.000
 an.TextXAlignment=Enum.TextXAlignment.Left
+an.TextTruncate=Enum.TextTruncate.AtEnd
 
 ao.Name="Icon"
 ao.Parent=am
@@ -1508,12 +1510,9 @@ av.PaddingLeft=UDim.new(0,7)
 av.PaddingRight=UDim.new(0,7)
 av.PaddingTop=UDim.new(0,7)
 
-a.Stepped:Connect(function()
-DropY=math.min(au.AbsoluteContentSize.Y+20,499)
-if au.AbsoluteContentSize.Y+20>=450 then
-ar.ScrollingEnabled=true
+au:GetPropertyChangedSignal"AbsoluteContentSize":Connect(function()
 ar.CanvasSize=UDim2.new(0,0,0,au.AbsoluteContentSize.Y+20)
-end
+ar.ScrollingEnabled=math.min(au.AbsoluteContentSize.Y+20,300)>=300
 end)
 
 al.Activated:Connect(function()
@@ -1521,13 +1520,13 @@ x.ScrollingEnabled=false
 H.Visible=true
 ab.ScrollingEnabled=false
 aq.Position=UDim2.new(0,al.AbsolutePosition.X,0,al.AbsolutePosition.Y)
-aq.Size=UDim2.new(0,al.AbsoluteSize.X,0,DropY-30)
+aq.Size=UDim2.new(0,al.AbsoluteSize.X,0,math.min(au.AbsoluteContentSize.Y+20,300)-30)
 aq.Visible=true
-a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,DropY))
+a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,math.min(au.AbsoluteContentSize.Y+20,300)))
 end)
 
 H.Activated:Connect(function()
-a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,DropY-50))
+a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,math.min(au.AbsoluteContentSize.Y+20,300)))
 task.wait(0.05)
 aq.Visible=false
 x.ScrollingEnabled=true
