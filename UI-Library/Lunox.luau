@@ -1386,7 +1386,7 @@ ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
 if ag.Description~=nil and ag.Description~=""then
 a.Stepped:Connect(function()
-ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+35,80))
+ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+50,85))
 end)
 end
 al.Name="Click"
