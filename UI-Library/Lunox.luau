@@ -48,6 +48,68 @@ a:Tween(c[1],0.1,"Quad","Position",j)
 end
 end)
 end
+function a.CustomSize(b,c)
+local d=false
+local e=game.Players.LocalPlayer:GetMouse().Icon
+local f
+local g
+local h
+local i=c.Size.X.Offset
+local j=i-100
+local k=Instance.new"Frame"
+local l=Instance.new"ImageLabel"
+k.Parent=c
+k.BackgroundColor3=Color3.fromRGB(255,255,255)
+k.BackgroundTransparency=1.000
+k.BorderColor3=Color3.fromRGB(0,0,0)
+k.BorderSizePixel=0
+k.Position=UDim2.new(1,-30,1,-30)
+k.Size=UDim2.new(0,50,0,50)
+l.Parent=k
+l.AnchorPoint=Vector2.new(0.5,0.5)
+l.BackgroundColor3=Color3.fromRGB(255,255,255)
+l.BackgroundTransparency=1.000
+l.BorderColor3=Color3.fromRGB(0,0,0)
+l.BorderSizePixel=0
+l.Position=UDim2.new(0.5,-13,0.5,-13)
+l.Size=UDim2.new(0,100,0,100)
+l.Image="rbxassetid://120997033468887"
+l.ImageTransparency=0.800
+a:MouseEvent(l,function()
+l.ImageTransparency=0.500
+game.Players.LocalPlayer:GetMouse().Icon="rbxassetid://97880490001888"
+end,function()
+game.Players.LocalPlayer:GetMouse().Icon=e
+l.ImageTransparency=0.800
+end)
+k.InputBegan:Connect(function(m)
+if m.UserInputType==Enum.UserInputType.MouseButton1 or m.UserInputType==Enum.UserInputType.Touch then
+d=true
+g=m.Position
+h=c.Size
+m.Changed:Connect(function()
+if m.UserInputState==Enum.UserInputState.End then
+d=false
+end
+end)
+end
+end)
+k.InputChanged:Connect(function(m)
+if m.UserInputType==Enum.UserInputType.MouseMovement or m.UserInputType==Enum.UserInputType.Touch then
+f=m
+end
+end)
+game:GetService"UserInputService".InputChanged:Connect(function(m)
+if m==f and d then
+local n=m.Position-g
+local o=h.X.Offset+n.X
+local p=h.Y.Offset+n.Y
+o=math.max(o,i)
+p=math.max(p,j)
+a:Tween(c,0.2,"Quad","Size",UDim2.new(0,o,0,p))
+end
+end)
+end
 function a.UpdateScroll(b,c,d)
 c.CanvasSize=UDim2.new(0,0,0,d.AbsoluteContentSize.Y+20)
 end
@@ -182,7 +244,7 @@ if a.Window then warn"Already Create Window"return end
 a.Window=true
 c=c or{}
 c.Title=c.Title or"Lunox Example"
-c.Author=c.Author or"! xHoang"
+c.Author=c.Author or"By ! xHoang"
 c.Icon=c.Icon or"rbxassetid://119115999130075"
 c.Scale=c.Scale or UDim2.fromOffset(600,500)
 c.Key=c.Key or{}
@@ -219,7 +281,6 @@ local D=Instance.new"Frame"
 local E=Instance.new"Frame"
 local F=Instance.new"ImageLabel"
 local G=Instance.new"TextLabel"
-Instance.new"ScreenGui"
 local H=Instance.new"TextButton"
 
 d.Parent=game.CoreGui
@@ -329,7 +390,7 @@ m.BorderSizePixel=0
 m.Position=UDim2.new(0,69,0,35)
 m.Size=UDim2.new(0,200,0,30)
 m.Font=Enum.Font.Arial
-m.Text="By "..c.Author
+m.Text=c.Author
 m.TextColor3=Color3.fromRGB(255,255,255)
 m.TextSize=15.000
 m.TextTransparency=0.400
@@ -446,6 +507,14 @@ u.ImageTransparency=1.000
 u.ScaleType=Enum.ScaleType.Slice
 u.SliceCenter=Rect.new(256,256,256,256)
 u.SliceScale=0.050
+u.Activated:Connect(function()
+h.Visible=false
+a:Tween(e,0.13,"Quad","Size",UDim2.fromOffset(500,300))
+a:Tween(g,0.2,"Quad","ImageTransparency",1)
+a:Tween(f,0.2,"Quad","ImageTransparency",1)
+task.wait(0.1)
+d:Destroy()
+end)
 
 v.Name="Icon"
 v.Parent=u
@@ -575,6 +644,7 @@ end,function()
 u.ImageTransparency=1
 end)
 a:MakeDraggable(e,i)
+a:CustomSize(e)
 local K=a:Tween(e,0.2,"Quad","Size",UDim2.fromOffset(600,500))
 K.Completed:Connect(function()
 e.AnchorPoint=Vector2.new(0,0)
@@ -1235,11 +1305,12 @@ local an=Instance.new"TextLabel"
 local ao=Instance.new"ImageLabel"
 local ap=Instance.new"ImageLabel"
 local aq=Instance.new"ImageLabel"
-local ar=Instance.new"ImageLabel"
-local as=Instance.new"Frame"
-local at=Instance.new"UIListLayout"
-local au=Instance.new"UIPadding"
-local av={Select=ag.Default}
+local ar=Instance.new"ScrollingFrame"
+local as=Instance.new"ImageLabel"
+local at=Instance.new"Frame"
+local au=Instance.new"UIListLayout"
+local av=Instance.new"UIPadding"
+local aw={Select=ag.Default}
 ah.Name="Dropdown"
 ah.Parent=ab
 ah.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1375,50 +1446,68 @@ aq.SliceCenter=Rect.new(256,256,256,256)
 aq.SliceScale=0.033
 aq.Visible=false
 
-ar.Name="UIStroke"
-ar.Parent=aq
-ar.AnchorPoint=Vector2.new(0.5,0.5)
-ar.BackgroundColor3=Color3.fromRGB(255,255,255)
-ar.BackgroundTransparency=1.000
-ar.BorderColor3=Color3.fromRGB(0,0,0)
-ar.BorderSizePixel=0
-ar.Position=UDim2.new(0.5,0,0.5,0)
-ar.Size=UDim2.new(1,0,1,0)
-ar.Image="rbxassetid://117788349049947"
-ar.ImageTransparency=0.730
-ar.ScaleType=Enum.ScaleType.Slice
-ar.SliceCenter=Rect.new(256,256,256,256)
-ar.SliceScale=0.033
-
+as.Name="UIStroke"
 as.Parent=aq
+as.AnchorPoint=Vector2.new(0.5,0.5)
 as.BackgroundColor3=Color3.fromRGB(255,255,255)
 as.BackgroundTransparency=1.000
 as.BorderColor3=Color3.fromRGB(0,0,0)
 as.BorderSizePixel=0
+as.Position=UDim2.new(0.5,0,0.5,0)
 as.Size=UDim2.new(1,0,1,0)
+as.Image="rbxassetid://117788349049947"
+as.ImageTransparency=0.730
+as.ScaleType=Enum.ScaleType.Slice
+as.SliceCenter=Rect.new(256,256,256,256)
+as.SliceScale=0.033
 
-at.Parent=as
-at.SortOrder=Enum.SortOrder.LayoutOrder
-at.Padding=UDim.new(0,4)
+at.Parent=aq
+at.BackgroundColor3=Color3.fromRGB(255,255,255)
+at.BackgroundTransparency=1.000
+at.BorderColor3=Color3.fromRGB(0,0,0)
+at.BorderSizePixel=0
+at.Size=UDim2.new(1,0,1,0)
 
-au.Parent=as
-au.PaddingBottom=UDim.new(0,7)
-au.PaddingLeft=UDim.new(0,7)
-au.PaddingRight=UDim.new(0,7)
-au.PaddingTop=UDim.new(0,7)
+ar.Name="nn"
+ar.Parent=at
+ar.BackgroundColor3=Color3.fromRGB(255,255,255)
+ar.BackgroundTransparency=1.000
+ar.BorderColor3=Color3.fromRGB(0,0,0)
+ar.BorderSizePixel=0
+ar.Size=UDim2.new(1,0,1,0)
+ar.ScrollBarThickness=0
+ar.ScrollingEnabled=false
+
+au.Parent=ar
+au.SortOrder=Enum.SortOrder.LayoutOrder
+au.Padding=UDim.new(0,4)
+
+av.Parent=ar
+av.PaddingBottom=UDim.new(0,7)
+av.PaddingLeft=UDim.new(0,7)
+av.PaddingRight=UDim.new(0,7)
+av.PaddingTop=UDim.new(0,7)
+
+local ax=math.min(au.AbsoluteContentSize.Y+20,499)
+a.Stepped:Connect(function()
+if au.AbsoluteContentSize.Y+20>=450 then
+ar.ScrollingEnabled=true
+ar.CanvasSize=UDim2.new(0,0,0,au.AbsoluteContentSize.Y+20)
+end
+end)
 
 al.Activated:Connect(function()
 x.ScrollingEnabled=false
 H.Visible=true
 ab.ScrollingEnabled=false
 aq.Position=UDim2.new(0,al.AbsolutePosition.X,0,al.AbsolutePosition.Y)
-aq.Size=UDim2.new(0,al.AbsoluteSize.X,0,at.AbsoluteContentSize.Y-30)
+aq.Size=UDim2.new(0,al.AbsoluteSize.X,0,au.AbsoluteContentSize.Y-30)
 aq.Visible=true
-a:Tween(aq,0.2,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,at.AbsoluteContentSize.Y+20))
+a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,ax))
 end)
 
 H.Activated:Connect(function()
-a:Tween(aq,0.2,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,at.AbsoluteContentSize.Y-10))
+a:Tween(aq,0.3,"Quad","Size",UDim2.new(0,al.AbsoluteSize.X,0,ax-50))
 task.wait(0.05)
 aq.Visible=false
 x.ScrollingEnabled=true
@@ -1426,92 +1515,92 @@ H.Visible=false
 ab.ScrollingEnabled=true
 end)
 
-function av.Set(aw,ax)
-av.Select=ax or av.Select
-for ay,az in next,as:GetChildren()do
-if az:IsA"ImageButton"and table.find(av.Select,az.TextLabel.Text)then
-a:Tween(az,0.2,"Quad","ImageTransparency",0.890)
-a:Tween(az.TextLabel,0.2,"Quad","TextTransparency",0)
-elseif az:IsA"ImageButton"and not table.find(av.Select,az.TextLabel.Text)then
-a:Tween(az,0.2,"Quad","ImageTransparency",1.000)
-a:Tween(az.TextLabel,0.2,"Quad","TextTransparency",0.500)
+function aw.Set(ay,az)
+aw.Select=az or aw.Select
+for aA,aB in next,at:GetChildren()do
+if aB:IsA"ImageButton"and table.find(aw.Select,aB.TextLabel.Text)then
+a:Tween(aB,0.2,"Quad","ImageTransparency",0.890)
+a:Tween(aB.TextLabel,0.2,"Quad","TextTransparency",0)
+elseif aB:IsA"ImageButton"and not table.find(aw.Select,aB.TextLabel.Text)then
+a:Tween(aB,0.2,"Quad","ImageTransparency",1.000)
+a:Tween(aB.TextLabel,0.2,"Quad","TextTransparency",0.500)
 end
 end
-if#av.Select==0 then
+if#aw.Select==0 then
 an.Text=""
 else
-an.Text=table.concat(av.Select,",")
+an.Text=table.concat(aw.Select,",")
 end
 if ag.Multi then
-ag.Callback(av.Select)
+ag.Callback(aw.Select)
 else
-ag.Callback(table.concat(av.Select,","))
+ag.Callback(table.concat(aw.Select,","))
 end
 end
 
-function av.Add(aw,ax)
-local ay=Instance.new"ImageButton"
-local az=Instance.new"TextLabel"
-ay.Name="Option 2"
-ay.Parent=as
-ay.BackgroundColor3=Color3.fromRGB(255,255,255)
-ay.BackgroundTransparency=1.000
-ay.BorderColor3=Color3.fromRGB(0,0,0)
-ay.BorderSizePixel=0
-ay.Size=UDim2.new(1,0,0,40)
-ay.Image="rbxassetid://80999662900595"
-ay.ImageTransparency=1.000
-ay.ScaleType=Enum.ScaleType.Slice
-ay.SliceCenter=Rect.new(256,256,256,256)
-ay.SliceScale=0.033
+function aw.Add(ay,az)
+local aA=Instance.new"ImageButton"
+local aB=Instance.new"TextLabel"
+aA.Name="Option 2"
+aA.Parent=ar
+aA.BackgroundColor3=Color3.fromRGB(255,255,255)
+aA.BackgroundTransparency=1.000
+aA.BorderColor3=Color3.fromRGB(0,0,0)
+aA.BorderSizePixel=0
+aA.Size=UDim2.new(1,0,0,40)
+aA.Image="rbxassetid://80999662900595"
+aA.ImageTransparency=1.000
+aA.ScaleType=Enum.ScaleType.Slice
+aA.SliceCenter=Rect.new(256,256,256,256)
+aA.SliceScale=0.033
 
-az.Parent=ay
-az.BackgroundColor3=Color3.fromRGB(255,255,255)
-az.BackgroundTransparency=1.000
-az.BorderColor3=Color3.fromRGB(0,0,0)
-az.BorderSizePixel=0
-az.Position=UDim2.new(0,10,0,0)
-az.Size=UDim2.new(1,-10,1,0)
-az.Font=Enum.Font.Arial
-az.Text=ax
-az.TextColor3=Color3.fromRGB(255,255,255)
-az.TextSize=14.000
-az.TextTransparency=0.500
-az.TextXAlignment=Enum.TextXAlignment.Left
-ay.Activated:Connect(function()
+aB.Parent=aA
+aB.BackgroundColor3=Color3.fromRGB(255,255,255)
+aB.BackgroundTransparency=1.000
+aB.BorderColor3=Color3.fromRGB(0,0,0)
+aB.BorderSizePixel=0
+aB.Position=UDim2.new(0,10,0,0)
+aB.Size=UDim2.new(1,-10,1,0)
+aB.Font=Enum.Font.Arial
+aB.Text=az
+aB.TextColor3=Color3.fromRGB(255,255,255)
+aB.TextSize=14.000
+aB.TextTransparency=0.500
+aB.TextXAlignment=Enum.TextXAlignment.Left
+aA.Activated:Connect(function()
 if ag.Multi then
-if az.TextTransparency>=0.500 then
-table.insert(av.Select,az.Text)
-av:Set(av.Select)
+if aB.TextTransparency>=0.500 then
+table.insert(aw.Select,aB.Text)
+aw:Set(aw.Select)
 else
-for aA,aB in next,av.Select do
-if aB==az.Text then
-table.remove(av.Select,aA)
+for aC,aD in next,aw.Select do
+if aD==aB.Text then
+table.remove(aw.Select,aC)
 end
 end
 end
-av:Set(av.Select)
+aw:Set(aw.Select)
 else
-av.Select={az.Text}
-av:Set(av.Select)
+aw.Select={aB.Text}
+aw:Set(aw.Select)
 end
 end)
 end
 
-function av.Refresh(aw,ax)
-for ay,az in next,as:GetChildren()do
-if az:IsA"ImageLabel"then
-az:Destroy()
+function aw.Refresh(ay,az)
+for aA,aB in next,at:GetChildren()do
+if aB:IsA"ImageLabel"then
+aB:Destroy()
 end
 end
-for ay,az in next,ax do
-aw:Add(az)
+for aA,aB in next,az do
+ay:Add(aB)
 end
 end
 
-av:Refresh(ag.Values)
-av:Set((typeof(av.Select)=="string"and{av.Select}or av.Select))
-return av
+aw:Refresh(ag.Values)
+aw:Set((typeof(aw.Select)=="string"and{aw.Select}or aw.Select))
+return aw
 end
 function ae.AddInput(af,ag)
 ag=ag or{}
