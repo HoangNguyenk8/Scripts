@@ -1376,7 +1376,7 @@ ak.BackgroundTransparency=1.000
 ak.BorderColor3=Color3.fromRGB(0,0,0)
 ak.BorderSizePixel=0
 ak.Position=UDim2.new(0,15,0,26)
-ak.Size=UDim2.new(1,-80,1,-70)
+ak.Size=UDim2.new(1,-80,1,0)
 ak.Font=Enum.Font.Arial
 ak.Text=ag.Description
 ak.TextColor3=Color3.fromRGB(144,144,144)
@@ -1386,7 +1386,9 @@ ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
 if ak.Text~=""then
 a.Stepped:Connect(function()
-ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+60,95))
+ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+75,90))
+ap.Position=UDim2.new(0,10,0.7,ak.TextBounds.Y/3.6)
+al.Position=UDim2.new(0,10,0.7,ak.TextBounds.Y/3.6)
 end)
 end
 al.Name="Click"
@@ -1396,7 +1398,7 @@ al.BackgroundColor3=Color3.fromRGB(255,255,255)
 al.BackgroundTransparency=1.000
 al.BorderColor3=Color3.fromRGB(0,0,0)
 al.BorderSizePixel=0
-al.Position=UDim2.new(0,10,0.699999988,0)
+al.Position=UDim2.new(0,10,0.7,0)
 al.Size=UDim2.new(1,-20,0,35)
 al.Image="rbxassetid://80999662900595"
 al.ImageTransparency=0.940
@@ -1445,7 +1447,7 @@ ap.BackgroundColor3=Color3.fromRGB(255,255,255)
 ap.BackgroundTransparency=1.000
 ap.BorderColor3=Color3.fromRGB(0,0,0)
 ap.BorderSizePixel=0
-ap.Position=UDim2.new(0,10,0.699999988,0)
+ap.Position=UDim2.new(0,10,0.7,0)
 ap.Size=UDim2.new(1,-20,0,35)
 ap.Image="rbxassetid://117788349049947"
 ap.ImageTransparency=0.850
@@ -1608,7 +1610,7 @@ end
 
 function aw.Refresh(ax,ay)
 for az,aA in next,ar:GetChildren()do
-if aA:IsA"ImageLabel"then
+if aA:IsA"ImageButton"then
 aA:Destroy()
 end
 end
@@ -1783,7 +1785,7 @@ ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
 ah.BorderSizePixel=0
-ah.Size=UDim2.new(1,0,0,50)
+ah.Size=UDim2.new(1,0,0,55)
 
 ai.Name="Background"
 ai.Parent=ah
@@ -1833,7 +1835,7 @@ if ak~=""then
 aj.Position=UDim2.new(0,15,0,8)
 aj.Size=UDim2.new(1,-80,0,18)
 a.Stepped:Connect(function()
-ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+23,50))
+ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+40,60))
 end)
 end
 al.Name="Icon"
