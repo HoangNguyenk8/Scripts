@@ -1541,9 +1541,9 @@ _.ScrollingEnabled=true
 end)
 
 function aw.Set(ax,ay)
+aw.Select=ay or aw.Select
 for az,aA in next,ar:GetChildren()do
 if aA:IsA"ImageButton"and table.find(aw.Select,aA.TextLabel.Text)then
-aw.Select=ay or aw.Select
 a:Tween(aA,0.2,"Quad","ImageTransparency",0.890)
 a:Tween(aA.TextLabel,0.2,"Quad","TextTransparency",0)
 elseif aA:IsA"ImageButton"and not table.find(aw.Select,aA.TextLabel.Text)then
@@ -1613,6 +1613,8 @@ end)
 end
 
 function aw.Refresh(ax,ay)
+aw.Select={}
+aw:Set(aw.Select)
 for az,aA in next,ar:GetChildren()do
 if aA:IsA"ImageButton"then
 aA:Destroy()
@@ -1621,8 +1623,6 @@ end
 for az,aA in next,ay do
 ax:Add(aA)
 end
-aw.Select={}
-aw:Set(aw.Select)
 end
 
 aw:Refresh(ag.Values)
