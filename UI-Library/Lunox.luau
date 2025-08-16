@@ -214,6 +214,7 @@ h.TextColor3=Color3.fromRGB(100,100,100)
 h.TextSize=14.000
 h.TextXAlignment=Enum.TextXAlignment.Left
 h.TextYAlignment=Enum.TextYAlignment.Top
+h.RichText=true
 if h.Text~=""then
 a.Stepped:Connect(function()
 d.Size=UDim2.new(1,0,0,math.max(h.TextBounds.Y+30,68))
@@ -988,6 +989,7 @@ ak.TextSize=13.000
 ak.TextWrapped=true
 ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
+ak.RichText=true
 if ag.Description~=nil and ag.Description~=""then
 a.Stepped:Connect(function()
 aj.Size=UDim2.new(1,-80,0,18)
@@ -1099,6 +1101,7 @@ ak.TextSize=13.000
 ak.TextWrapped=true
 ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
+ak.RichText=true
 if ag.Description~=nil and ag.Description~=""then
 a.Stepped:Connect(function()
 aj.Size=UDim2.new(1,-80,0,18)
@@ -1201,6 +1204,7 @@ ak.TextSize=13.000
 ak.TextWrapped=true
 ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
+ak.RichText=true
 if ag.Description~=nil and ag.Description~=""then
 a.Stepped:Connect(function()
 ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+35,75))
@@ -1388,6 +1392,7 @@ ak.TextSize=13.000
 ak.TextWrapped=true
 ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
+ak.RichText=true
 if ak.Text~=""then
 a.Stepped:Connect(function()
 ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+75,90))
@@ -1697,6 +1702,7 @@ ak.TextSize=13.000
 ak.TextWrapped=true
 ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
+ak.RichText=true
 if ag.Description~=nil and ag.Description~=""then
 a.Stepped:Connect(function()
 ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+50,100))
@@ -1837,6 +1843,7 @@ ak.TextSize=13.000
 ak.TextWrapped=true
 ak.TextXAlignment=Enum.TextXAlignment.Left
 ak.TextYAlignment=Enum.TextYAlignment.Top
+ak.RichText=true
 if ak~=""then
 aj.Position=UDim2.new(0,15,0,8)
 aj.Size=UDim2.new(1,-80,0,18)
