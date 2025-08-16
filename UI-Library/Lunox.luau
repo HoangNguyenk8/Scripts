@@ -905,11 +905,15 @@ X.ImageTransparency=1
 end
 end)
 W.Activated:Connect(function()
-for ae,af in next,O:GetChildren()do
-if af:IsA"ImageButton"then
-a:Tween(af.Background,0.3,"Quad","ImageTransparency",1)
-a:Tween(af.TabName,0.3,"Quad","TextTransparency",0.3)
-a:Tween(af.UIStroke,0.3,"Quad","ImageTransparency",1)
+for ae,af in next,x:GetChildren()do
+if af:IsA"Frame"then
+for ag,ah in next,af:GetChildren()do
+if ah:IsA"ImageButton"then
+a:Tween(ah.Background,0.3,"Quad","ImageTransparency",1)
+a:Tween(ah.TabName,0.3,"Quad","TextTransparency",0.3)
+a:Tween(ah.UIStroke,0.3,"Quad","ImageTransparency",1)
+end
+end
 end
 end
 a:Tween(X,0.3,"Quad","ImageTransparency",0.95)
