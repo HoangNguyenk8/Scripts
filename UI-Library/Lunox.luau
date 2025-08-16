@@ -675,236 +675,236 @@ a:Tween(f,0.2,"Quad","ImageTransparency",0.330)
 end
 end
 end)
-function L.AddSection(M,N)
-N=N or{}
-N.Open=N.Open or false
-N.Title=N.Title or"Section"
-local O=Instance.new"Frame"
-local P=Instance.new"TextButton"
-local Q=Instance.new"ImageLabel"
-local R=Instance.new"UIListLayout"
-local S=Instance.new"UIPadding"
-O.Name="SectionTab"
-O.Parent=x
-O.BackgroundColor3=Color3.fromRGB(255,255,255)
-O.BackgroundTransparency=1.000
-O.BorderColor3=Color3.fromRGB(0,0,0)
-O.BorderSizePixel=0
-O.ClipsDescendants=true
-O.Size=UDim2.new(1,0,0,140)
-
-P.Name="Title"
-P.Parent=O
+local M=0
+function L.AddSection(N,O)
+O=O or{}
+O.Open=O.Open or false
+O.Title=O.Title or"Section"
+local P=Instance.new"Frame"
+local Q=Instance.new"TextButton"
+local R=Instance.new"ImageLabel"
+local S=Instance.new"UIListLayout"
+local T=Instance.new"UIPadding"
+P.Name="SectionTab"
+P.Parent=x
 P.BackgroundColor3=Color3.fromRGB(255,255,255)
 P.BackgroundTransparency=1.000
 P.BorderColor3=Color3.fromRGB(0,0,0)
 P.BorderSizePixel=0
-P.Position=UDim2.new(0,15,0,0)
-P.Size=UDim2.new(1,-30,0,30)
-P.Font=Enum.Font.ArialBold
-P.Text=N.Title
-P.TextColor3=Color3.fromRGB(144,144,144)
-P.TextSize=15.000
-P.TextXAlignment=Enum.TextXAlignment.Left
+P.ClipsDescendants=true
+P.Size=UDim2.new(1,0,0,140)
 
-Q.Name="Icon"
+Q.Name="Title"
 Q.Parent=P
-Q.AnchorPoint=Vector2.new(0,0.5)
 Q.BackgroundColor3=Color3.fromRGB(255,255,255)
 Q.BackgroundTransparency=1.000
 Q.BorderColor3=Color3.fromRGB(0,0,0)
 Q.BorderSizePixel=0
-Q.Position=UDim2.new(1,1,0.5,0)
-Q.Size=UDim2.new(0,18,0,18)
-Q.Image="rbxassetid://98740753192722"
-Q.ImageColor3=Color3.fromRGB(100,100,100)
-Q.ImageRectOffset=Vector2.new(0,192)
-Q.ImageRectSize=Vector2.new(96,96)
+Q.Position=UDim2.new(0,15,0,0)
+Q.Size=UDim2.new(1,-30,0,30)
+Q.Font=Enum.Font.ArialBold
+Q.Text=O.Title
+Q.TextColor3=Color3.fromRGB(144,144,144)
+Q.TextSize=15.000
+Q.TextXAlignment=Enum.TextXAlignment.Left
 
-R.Parent=O
-R.SortOrder=Enum.SortOrder.LayoutOrder
-R.Padding=UDim.new(0,5)
+R.Name="Icon"
+R.Parent=Q
+R.AnchorPoint=Vector2.new(0,0.5)
+R.BackgroundColor3=Color3.fromRGB(255,255,255)
+R.BackgroundTransparency=1.000
+R.BorderColor3=Color3.fromRGB(0,0,0)
+R.BorderSizePixel=0
+R.Position=UDim2.new(1,1,0.5,0)
+R.Size=UDim2.new(0,18,0,18)
+R.Image="rbxassetid://98740753192722"
+R.ImageColor3=Color3.fromRGB(100,100,100)
+R.ImageRectOffset=Vector2.new(0,192)
+R.ImageRectSize=Vector2.new(96,96)
 
-S.Parent=O
-S.PaddingLeft=UDim.new(0,8)
-a:MouseEvent(P,function()
-Q.ImageColor3=Color3.fromRGB(188,188,188)
-P.TextColor3=Color3.fromRGB(188,188,188)
+S.Parent=P
+S.SortOrder=Enum.SortOrder.LayoutOrder
+S.Padding=UDim.new(0,5)
+
+T.Parent=P
+T.PaddingLeft=UDim.new(0,8)
+a:MouseEvent(Q,function()
+R.ImageColor3=Color3.fromRGB(188,188,188)
+Q.TextColor3=Color3.fromRGB(188,188,188)
 end,function()
-Q.ImageColor3=Color3.fromRGB(100,100,100)
-P.TextColor3=Color3.fromRGB(144,144,144)
+R.ImageColor3=Color3.fromRGB(100,100,100)
+Q.TextColor3=Color3.fromRGB(144,144,144)
 end)
-if not N.Open then
-Q.Rotation=180
-O.Size=UDim2.new(1,0,0,32)
+if not O.Open then
+R.Rotation=180
+P.Size=UDim2.new(1,0,0,32)
 end
-P.Activated:Connect(function()
-N.Open=not N.Open
-if N.Open then
-a:Tween(Q,0.3,"Quad","Rotation",0)
+Q.Activated:Connect(function()
+O.Open=not O.Open
+if O.Open then
+a:Tween(R,0.3,"Quad","Rotation",0)
 else
-a:Tween(Q,0.3,"Quad","Rotation",180)
-a:Tween(O,0.3,"Quad","Size",UDim2.new(1,0,0,32))
+a:Tween(R,0.3,"Quad","Rotation",180)
+a:Tween(P,0.3,"Quad","Size",UDim2.new(1,0,0,32))
 end
 end)
 a.Stepped:Connect(function()
-if N.Open then
-a:Tween(O,0.3,"Quad","Size",UDim2.new(1,0,0,R.AbsoluteContentSize.Y+15))
+if O.Open then
+a:Tween(P,0.3,"Quad","Size",UDim2.new(1,0,0,S.AbsoluteContentSize.Y+15))
 end
 end)
-local T={}
-function T.ChangeTab(U,V,W,X)
-G.Text=W or""
-F.Image=X or""
-for Y,Z in ipairs(C:GetChildren())do
-a:Tween(Z,0.2,"Quad","Position",UDim2.new(0,0,0,60))
-for _,aa in ipairs(Z:GetChildren())do
-if aa:IsA"Frame"then
-a:Tween(aa.Background.Title,0.15,"Quad","TextTransparency",1)
-if aa.Background:FindFirstChild"Desc"then
-a:Tween(aa.Background.Desc,0.15,"Quad","TextTransparency",1)
+local U={}
+function U.ChangeTab(V,W,X,Y)
+G.Text=X or""
+F.Image=Y or""
+for Z,_ in ipairs(C:GetChildren())do
+a:Tween(_,0.2,"Quad","Position",UDim2.new(0,0,0,60))
+for aa,ab in ipairs(_:GetChildren())do
+if ab:IsA"Frame"then
+a:Tween(ab.Background.Title,0.15,"Quad","TextTransparency",1)
+if ab.Background:FindFirstChild"Desc"then
+a:Tween(ab.Background.Desc,0.15,"Quad","TextTransparency",1)
 end
-a:Tween(aa.Background,0.15,"Quad","ImageTransparency",1)
+a:Tween(ab.Background,0.15,"Quad","ImageTransparency",1)
 end
 end
 task.delay(0.1,function()
-Z.Visible=false
+_.Visible=false
 end)
 end
 task.wait(0.1)
-V.Visible=true
-a:Tween(V,0.2,"Quad","Position",UDim2.new(0,0,0,50))
-for aa,Y in ipairs(V:GetChildren())do
-if Y:IsA"Frame"then
-if Y.Name=="White"then
-a:Tween(Y.Background,0.15,"Quad","ImageTransparency",0.1)
+W.Visible=true
+a:Tween(W,0.2,"Quad","Position",UDim2.new(0,0,0,50))
+for aa,ab in ipairs(W:GetChildren())do
+if ab:IsA"Frame"then
+if ab.Name=="White"then
+a:Tween(ab.Background,0.15,"Quad","ImageTransparency",0.1)
 else
-a:Tween(Y.Background,0.15,"Quad","ImageTransparency",0.95)
+a:Tween(ab.Background,0.15,"Quad","ImageTransparency",0.95)
 end
-a:Tween(Y.Background.Title,0.15,"Quad","TextTransparency",0)
-if Y.Background:FindFirstChild"Desc"then
-a:Tween(Y.Background.Desc,0.15,"Quad","TextTransparency",0)
-end
-end
+a:Tween(ab.Background.Title,0.15,"Quad","TextTransparency",0)
+if ab.Background:FindFirstChild"Desc"then
+a:Tween(ab.Background.Desc,0.15,"Quad","TextTransparency",0)
 end
 end
-local aa=0
-function T.AddTab(U,V)
-V=V or{}
-V.Title=V.Title
-V.Icon=V.Icon or nil
-local W=Instance.new"ImageButton"
+end
+end
+function U.AddTab(aa,ab)
+ab=ab or{}
+ab.Title=ab.Title
+ab.Icon=ab.Icon or nil
+local V=Instance.new"ImageButton"
+local W=Instance.new"ImageLabel"
 local X=Instance.new"ImageLabel"
-local Y=Instance.new"ImageLabel"
-local Z=Instance.new"TextLabel"
-local _=Instance.new"ImageLabel"
-local ab=Instance.new"ScrollingFrame"
+local Y=Instance.new"TextLabel"
+local Z=Instance.new"ImageLabel"
+local _=Instance.new"ScrollingFrame"
 local ac=Instance.new"UIPadding"
 local ad=Instance.new"UIListLayout"
-W.Name="TabDisable"
-W.Parent=O
+V.Name="TabDisable"
+V.Parent=P
+V.BackgroundColor3=Color3.fromRGB(255,255,255)
+V.BackgroundTransparency=1.000
+V.BorderColor3=Color3.fromRGB(0,0,0)
+V.BorderSizePixel=0
+V.Size=UDim2.new(1,0,0,45)
+
+W.Name="Background"
+W.Parent=V
 W.BackgroundColor3=Color3.fromRGB(255,255,255)
 W.BackgroundTransparency=1.000
 W.BorderColor3=Color3.fromRGB(0,0,0)
 W.BorderSizePixel=0
-W.Size=UDim2.new(1,0,0,45)
+W.Size=UDim2.new(1,0,1,0)
+W.Image="rbxassetid://80999662900595"
+W.ImageTransparency=1.000
+W.ScaleType=Enum.ScaleType.Slice
+W.SliceCenter=Rect.new(256,256,256,256)
+W.SliceScale=0.033
 
-X.Name="Background"
-X.Parent=W
+X.Name="UIStroke"
+X.Parent=V
 X.BackgroundColor3=Color3.fromRGB(255,255,255)
 X.BackgroundTransparency=1.000
 X.BorderColor3=Color3.fromRGB(0,0,0)
 X.BorderSizePixel=0
 X.Size=UDim2.new(1,0,1,0)
-X.Image="rbxassetid://80999662900595"
+X.Image="rbxassetid://117788349049947"
 X.ImageTransparency=1.000
 X.ScaleType=Enum.ScaleType.Slice
 X.SliceCenter=Rect.new(256,256,256,256)
 X.SliceScale=0.033
 
-Y.Name="UIStroke"
-Y.Parent=W
+Y.Name="TabName"
+Y.Parent=V
 Y.BackgroundColor3=Color3.fromRGB(255,255,255)
 Y.BackgroundTransparency=1.000
 Y.BorderColor3=Color3.fromRGB(0,0,0)
 Y.BorderSizePixel=0
-Y.Size=UDim2.new(1,0,1,0)
-Y.Image="rbxassetid://117788349049947"
-Y.ImageTransparency=1.000
-Y.ScaleType=Enum.ScaleType.Slice
-Y.SliceCenter=Rect.new(256,256,256,256)
-Y.SliceScale=0.033
+Y.Position=UDim2.new(0,18,0,0)
+Y.Size=UDim2.new(1,-35,1,0)
+Y.Font=Enum.Font.Arial
+Y.Text=ab.Title
+Y.TextColor3=Color3.fromRGB(255,255,255)
+Y.TextSize=15.000
+Y.TextTransparency=0.300
+Y.TextWrapped=true
+Y.TextXAlignment=Enum.TextXAlignment.Left
 
-Z.Name="TabName"
-Z.Parent=W
-Z.BackgroundColor3=Color3.fromRGB(255,255,255)
-Z.BackgroundTransparency=1.000
-Z.BorderColor3=Color3.fromRGB(0,0,0)
-Z.BorderSizePixel=0
-Z.Position=UDim2.new(0,18,0,0)
-Z.Size=UDim2.new(1,-35,1,0)
-Z.Font=Enum.Font.Arial
-Z.Text=V.Title
-Z.TextColor3=Color3.fromRGB(255,255,255)
-Z.TextSize=15.000
-Z.TextTransparency=0.300
-Z.TextWrapped=true
-Z.TextXAlignment=Enum.TextXAlignment.Left
-
-ab.Name="Channel"
-ab.Parent=C
-ab.BackgroundColor3=Color3.fromRGB(255,255,255)
-ab.BackgroundTransparency=1.000
-ab.BorderColor3=Color3.fromRGB(0,0,0)
-ab.BorderSizePixel=0
-ab.Position=UDim2.new(0,0,0,50)
-ab.Selectable=false
-ab.Size=UDim2.new(1,0,1,-50)
-ab.CanvasSize=UDim2.new(0,0,0,560)
-ab.ScrollBarThickness=0
-ab.Visible=false
+_.Name="Channel"
+_.Parent=C
+_.BackgroundColor3=Color3.fromRGB(255,255,255)
+_.BackgroundTransparency=1.000
+_.BorderColor3=Color3.fromRGB(0,0,0)
+_.BorderSizePixel=0
+_.Position=UDim2.new(0,0,0,50)
+_.Selectable=false
+_.Size=UDim2.new(1,0,1,-50)
+_.CanvasSize=UDim2.new(0,0,0,560)
+_.ScrollBarThickness=0
+_.Visible=false
 a.Stepped:Connect(function()
-a:UpdateScroll(ab,ad)
+a:UpdateScroll(_,ad)
 end)
-ac.Parent=ab
+ac.Parent=_
 ac.PaddingBottom=UDim.new(0,4)
 ac.PaddingLeft=UDim.new(0,12)
 ac.PaddingRight=UDim.new(0,7)
 ac.PaddingTop=UDim.new(0,9)
 
-ad.Parent=ab
+ad.Parent=_
 ad.SortOrder=Enum.SortOrder.LayoutOrder
 ad.Padding=UDim.new(0,5)
-if V.Icon~=nil and V.Icon~=""then
-Z.Position=UDim2.new(0,32,0,0)
-_.Name="Icon"
-_.Parent=W
-_.AnchorPoint=Vector2.new(0,0.5)
-_.BackgroundColor3=Color3.fromRGB(255,255,255)
-_.BackgroundTransparency=1.000
-_.BorderColor3=Color3.fromRGB(0,0,0)
-_.BorderSizePixel=0
-_.Position=UDim2.new(0,10,0.5,0)
-_.Size=UDim2.new(0,18,0,18)
-_.Image=V.Icon
-_.ImageTransparency=0.300
+if ab.Icon~=nil and ab.Icon~=""then
+Y.Position=UDim2.new(0,32,0,0)
+Z.Name="Icon"
+Z.Parent=V
+Z.AnchorPoint=Vector2.new(0,0.5)
+Z.BackgroundColor3=Color3.fromRGB(255,255,255)
+Z.BackgroundTransparency=1.000
+Z.BorderColor3=Color3.fromRGB(0,0,0)
+Z.BorderSizePixel=0
+Z.Position=UDim2.new(0,10,0.5,0)
+Z.Size=UDim2.new(0,18,0,18)
+Z.Image=ab.Icon
+Z.ImageTransparency=0.300
 end
-if aa==0 then
-aa+=1
-ab.Visible=true
-_.ImageTransparency=0.1
-Z.TextTransparency=0
-X.ImageTransparency=0.95
-Y.ImageTransparency=0.9
+if M==0 then
+M+=1
+_.Visible=true
+Z.ImageTransparency=0.1
+Y.TextTransparency=0
+W.ImageTransparency=0.95
+X.ImageTransparency=0.9
 end
-a:MouseEvent(W,function()
-X.ImageTransparency=0.95
+a:MouseEvent(V,function()
+W.ImageTransparency=0.95
 end,function()
-if Z.TextTransparency>=0.1 then
-X.ImageTransparency=1
+if Y.TextTransparency>=0.1 then
+W.ImageTransparency=1
 end
 end)
-W.Activated:Connect(function()
+V.Activated:Connect(function()
 for ae,af in next,x:GetChildren()do
 if af:IsA"Frame"then
 for ag,ah in next,af:GetChildren()do
@@ -916,10 +916,10 @@ end
 end
 end
 end
-a:Tween(X,0.3,"Quad","ImageTransparency",0.95)
-a:Tween(Z,0.3,"Quad","TextTransparency",0)
-a:Tween(Y,0.3,"Quad","ImageTransparency",0.9)
-U:ChangeTab(ab,Z.Text,_.Image)
+a:Tween(W,0.3,"Quad","ImageTransparency",0.95)
+a:Tween(Y,0.3,"Quad","TextTransparency",0)
+a:Tween(X,0.3,"Quad","ImageTransparency",0.9)
+aa:ChangeTab(_,Y.Text,Z.Image)
 end)
 local ae={}
 function ae.AddToggle(af,ag)
@@ -939,7 +939,7 @@ local an=Instance.new"Frame"
 local ao=Instance.new"UICorner"
 local ap={}
 ah.Name="Toggle"
-ah.Parent=ab
+ah.Parent=_
 ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
@@ -1053,7 +1053,7 @@ local ak=Instance.new"TextLabel"
 local al=Instance.new"ImageLabel"
 local am={}
 ah.Name="Button"
-ah.Parent=ab
+ah.Parent=_
 ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
@@ -1150,7 +1150,7 @@ local ao=Instance.new"ImageLabel"
 local ap=Instance.new"TextLabel"
 local aq={Value=ag.Default}
 ah.Name="Slider"
-ah.Parent=ab
+ah.Parent=_
 ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
@@ -1337,7 +1337,7 @@ local au=Instance.new"UIListLayout"
 local av=Instance.new"UIPadding"
 local aw={Select=ag.Default}
 ah.Name="Dropdown"
-ah.Parent=ab
+ah.Parent=_
 ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
@@ -1524,7 +1524,7 @@ end)
 al.Activated:Connect(function()
 x.ScrollingEnabled=false
 H.Visible=true
-ab.ScrollingEnabled=false
+_.ScrollingEnabled=false
 aq.Position=UDim2.new(0,al.AbsolutePosition.X,0,al.AbsolutePosition.Y)
 aq.Size=UDim2.new(0,al.AbsoluteSize.X,0,math.min(au.AbsoluteContentSize.Y+20,300)-30)
 aq.Visible=true
@@ -1537,7 +1537,7 @@ task.wait(0.05)
 aq.Visible=false
 x.ScrollingEnabled=true
 H.Visible=false
-ab.ScrollingEnabled=true
+_.ScrollingEnabled=true
 end)
 
 function aw.Set(ax,ay)
@@ -1646,7 +1646,7 @@ local an=Instance.new"Frame"
 local ao=Instance.new"ImageLabel"
 local ap=Instance.new"TextBox"
 ah.Name="Input"
-ah.Parent=ab
+ah.Parent=_
 ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
@@ -1786,7 +1786,7 @@ local ak=Instance.new"TextLabel"
 local al=Instance.new"ImageLabel"
 local am={}
 ah.Name=ag.Theme
-ah.Parent=ab
+ah.Parent=_
 ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
@@ -1884,7 +1884,7 @@ local aj=Instance.new"ImageLabel"
 local ak=Instance.new"UIPadding"
 local al=Instance.new"TextLabel"
 ai.Name="Seperator"
-ai.Parent=ab
+ai.Parent=_
 ai.BackgroundColor3=Color3.fromRGB(255,255,255)
 ai.BackgroundTransparency=1.000
 ai.BorderColor3=Color3.fromRGB(0,0,0)
@@ -1925,7 +1925,7 @@ end
 end
 return ae
 end
-return T
+return U
 end
 return L
 end
