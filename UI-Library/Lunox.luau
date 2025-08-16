@@ -1626,7 +1626,7 @@ aw:Set(aw.Select)
 end
 
 aw:Refresh(ag.Values)
-aw:Set((typeof(aw.Select)=="string"and{aw.Select}or aw.Select))
+aw:Set((typeof(ag.Default)=="string"and{ag.Default}or ag.Default))
 return aw
 end
 function ae.AddInput(af,ag)
