@@ -248,6 +248,7 @@ c.Title=c.Title or"Lunox Example"
 c.Author=c.Author or"By ! xHoang"
 c.Icon=c.Icon or"rbxassetid://119115999130075"
 c.Scale=c.Scale or UDim2.fromOffset(600,500)
+c.Transparency=c.Transparency or 0
 c.KeyCode=c.KeyCode or Enum.KeyCode.LeftControl
 c.Key=c.Key or{}
 c.Key.Enable=c.Key.Enable or false
@@ -661,6 +662,7 @@ local L={}
 function L.SetTransparency(M,N)
 g.ImageTransparency=N*0.01
 end
+L:SetTransparency(c.Transparency)
 game:GetService"UserInputService".InputBegan:Connect(function(M)
 if M.KeyCode==c.KeyCode then
 if h.Visible then
@@ -671,7 +673,7 @@ task.wait(0.05)
 h.Visible=true
 e.Size=UDim2.new(0,OldSize.X.Offset-40,0,OldSize.Y.Offset-40)
 a:Tween(e,0.13,"Quad","Size",UDim2.fromOffset(OldSize.X.Offset,OldSize.Y.Offset))
-a:Tween(g,0.2,"Quad","ImageTransparency",0)
+a:Tween(g,0.2,"Quad","ImageTransparency",c.Transparency)
 a:Tween(f,0.2,"Quad","ImageTransparency",0.330)
 end
 end
