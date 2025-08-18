@@ -321,6 +321,7 @@ g.BackgroundTransparency=1.000
 g.BorderColor3=Color3.fromRGB(0,0,0)
 g.BorderSizePixel=0
 g.Size=UDim2.new(1,0,1,0)
+g.ImageTransparency=c.Transparency
 g.Image="rbxassetid://80999662900595"
 g.ImageColor3=Color3.fromRGB(16,16,16)
 g.ScaleType=Enum.ScaleType.Slice
@@ -662,7 +663,6 @@ local L={}
 function L.SetTransparency(M,N)
 g.ImageTransparency=N*0.01
 end
-L:SetTransparency(c.Transparency)
 game:GetService"UserInputService".InputBegan:Connect(function(M)
 if M.KeyCode==c.KeyCode then
 if h.Visible then
@@ -947,7 +947,7 @@ ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
 ah.BorderSizePixel=0
-ah.Size=UDim2.new(1,0,0,50)
+ah.Size=UDim2.new(1,0,0,55)
 
 ai.Name="Background"
 ai.Parent=ah
@@ -996,7 +996,7 @@ if ag.Description~=nil and ag.Description~=""then
 a.Stepped:Connect(function()
 aj.Size=UDim2.new(1,-80,0,18)
 aj.Position=UDim2.new(0,15,0,8)
-ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+15,50))
+ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+23,55))
 end)
 end
 
@@ -1062,7 +1062,7 @@ ah.BackgroundColor3=Color3.fromRGB(255,255,255)
 ah.BackgroundTransparency=1.000
 ah.BorderColor3=Color3.fromRGB(0,0,0)
 ah.BorderSizePixel=0
-ah.Size=UDim2.new(1,0,0,50)
+ah.Size=UDim2.new(1,0,0,55)
 ai.Name="Background"
 ai.Parent=ah
 ai.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1108,7 +1108,7 @@ if ag.Description~=nil and ag.Description~=""then
 a.Stepped:Connect(function()
 aj.Size=UDim2.new(1,-80,0,18)
 aj.Position=UDim2.new(0,15,0,8)
-ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+15,50))
+ah.Size=UDim2.new(1,0,0,math.max(ak.TextBounds.Y+23,55))
 end)
 end
 al.Name="Icon"
