@@ -796,6 +796,8 @@ function U.AddTab(aa,ab)
 ab=ab or{}
 ab.Title=ab.Title
 ab.Icon=ab.Icon or nil
+ab.Lock=ab.Lock or false
+ab.LockCallback=ab.LockCallback or function()end
 local V=Instance.new"ImageButton"
 local W=Instance.new"ImageLabel"
 local X=Instance.new"ImageLabel"
@@ -908,6 +910,7 @@ W.ImageTransparency=1
 end
 end)
 V.Activated:Connect(function()
+if ab.Lock==false then
 for ae,af in next,x:GetChildren()do
 if af:IsA"Frame"then
 for ag,ah in next,af:GetChildren()do
@@ -923,6 +926,9 @@ a:Tween(W,0.3,"Quad","ImageTransparency",0.95)
 a:Tween(Y,0.3,"Quad","TextTransparency",0)
 a:Tween(X,0.3,"Quad","ImageTransparency",0.9)
 aa:ChangeTab(_,Y.Text,Z.Image)
+else
+ab.LockCallback()
+end
 end)
 local ae={}
 function ae.AddToggle(af,ag)
