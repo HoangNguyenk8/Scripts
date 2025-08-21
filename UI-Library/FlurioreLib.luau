@@ -139,7 +139,7 @@ function f.NewNotify(g,h)
 local i=h or{}
 i.Title=i.Title or"Hirimi Hub"
 i.Description=i.Description or"Notification"
-i.Content=i.Content or""
+i.Description=i.Description or""
 i.Color=i.Color or Color3.fromRGB(144,144,144)
 i.Time=i.Time or 0.5
 i.Delay=i.Delay or 5
@@ -308,7 +308,7 @@ x.Parent=w
 y.Font=Enum.Font.GothamBold
 y.TextColor3=Color3.fromRGB(255,255,255)
 y.TextSize=13
-y.Text=i.Content
+y.Text=i.Description
 y.TextXAlignment=Enum.TextXAlignment.Left
 y.TextYAlignment=Enum.TextYAlignment.Top
 y.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1095,7 +1095,7 @@ local aG=0
 function aF.AddParagraph(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or""
+aJ.Description=aJ.Description or""
 local aK={}
 
 local aL=Instance.new"Frame";
@@ -1130,7 +1130,7 @@ aN.Name="ParagraphTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Content
+aO.Text=aJ.Description
 aO.RichText=true
 aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
@@ -1142,7 +1142,7 @@ aO.BackgroundTransparency=0.9990000128746033
 aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
-aO.Name="ParagraphContent"
+aO.Name="ParagraphDescription"
 aO.Parent=aL
 
 if aO.Text~=""then
@@ -1165,10 +1165,10 @@ end)
 function aK.Set(aP,aQ)
 local aR=aQ or{}
 aR.Title=aR.Title or aN.Text
-aR.Content=aR.Content or aO.Text
+aR.Description=aR.Description or aO.Text
 
 aN.Text=aR.Title
-aO.Text=aR.Content
+aO.Text=aR.Description
 aO.TextWrapped=false
 aO.Size=UDim2.new(1,-16,0,1,-23)
 aO.TextWrapped=true
@@ -1180,7 +1180,7 @@ end
 function aF.AddButton(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or""
+aJ.Description=aJ.Description or""
 aJ.Icon=aJ.Icon or"rbxassetid://16932740082"
 aJ.Callback=aJ.Callback or function()end
 local aK={}
@@ -1220,7 +1220,7 @@ aN.Name="ButtonTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Content
+aO.Text=aJ.Description
 aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
 aO.TextTransparency=0
@@ -1231,7 +1231,7 @@ aO.BackgroundTransparency=0.9990000128746033
 aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
-aO.Name="ButtonContent"
+aO.Name="ButtonDescription"
 aO.RichText=true
 aO.Parent=aL
 
@@ -1293,7 +1293,7 @@ end
 function aF.AddToggle(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or""
+aJ.Description=aJ.Description or""
 aJ.Default=aJ.Default or false
 aJ.Callback=aJ.Callback or function()end
 local aK={Value=aJ.Default,Options=aJ.Options,Selecting=aJ.Selecting}
@@ -1340,7 +1340,7 @@ aN.Name="ToggleTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Content
+aO.Text=aJ.Description
 aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
 aO.TextTransparency=0
@@ -1353,7 +1353,7 @@ aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Size=UDim2.new(1,-100,0,12)
 aO.RichText=true
-aO.Name="ToggleContent"
+aO.Name="ToggleDescription"
 aO.Parent=aL
 if aO.Text~=""then
 aO.Size=UDim2.new(1,-100,1,-23)
@@ -1457,7 +1457,7 @@ end
 function aF.AddSlider(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Slider"
-aJ.Content=aJ.Content or""
+aJ.Description=aJ.Description or""
 aJ.Increment=aJ.Increment or 1
 aJ.Min=aJ.Min or 0
 aJ.Max=aJ.Max or 100
@@ -1509,7 +1509,7 @@ aN.Name="SliderTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Content
+aO.Text=aJ.Description
 aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
 aO.TextTransparency=0
@@ -1522,7 +1522,7 @@ aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Size=UDim2.new(1,-180,0,12)
 aO.RichText=true
-aO.Name="SliderContent"
+aO.Name="SliderDescription"
 aO.Parent=aL
 
 if aO.Text~=""then
@@ -1661,7 +1661,7 @@ end
 function aF.AddInput(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or""
+aJ.Description=aJ.Description or""
 aJ.Callback=aJ.Callback or function()end
 local aK={Value=""}
 
@@ -1700,7 +1700,7 @@ aN.Name="InputTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Content
+aO.Text=aJ.Description
 aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
 aO.TextTransparency=0
@@ -1713,7 +1713,7 @@ aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Size=UDim2.new(1,-180,0,12)
-aO.Name="InputContent"
+aO.Name="InputDescription"
 aO.RichText=true
 aO.Parent=aL
 
@@ -1778,7 +1778,7 @@ end
 function aF.AddDropdown(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or""
+aJ.Description=aJ.Description or""
 aJ.Multi=aJ.Multi or false
 aJ.Options=aJ.Options or{}
 aJ.Default=aJ.Default or{}
@@ -1835,7 +1835,7 @@ aO.Name="DropdownTitle"
 aO.Parent=aL
 
 aP.Font=Enum.Font.GothamBold
-aP.Text=aJ.Content
+aP.Text=aJ.Description
 aP.TextColor3=Color3.fromRGB(122,122,122)
 aP.TextSize=12
 aP.TextTransparency=0
@@ -1849,7 +1849,7 @@ aP.BorderSizePixel=0
 aP.Position=UDim2.new(0,10,0,23)
 aP.Size=UDim2.new(1,-180,0,12)
 aP.RichText=true
-aP.Name="DropdownContent"
+aP.Name="DropdownDescription"
 aP.Parent=aL
 
 if aP.Text~=""then
