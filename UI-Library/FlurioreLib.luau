@@ -13,7 +13,7 @@ local m
 local function UpdatePos(n)
 local o=n.Position-l
 local p=UDim2.new(m.X.Scale,m.X.Offset+o.X,m.Y.Scale,m.Y.Offset+o.Y)
-local q=b:Create(i,TweenInfo.new(0.2),{Position=p})
+local q=b:Create(i,TweenInfo.new(0.1),{Position=p})
 q:Play()
 end
 
@@ -48,8 +48,8 @@ local i=false
 local j
 local k
 local l
-local m=h.Size.X.Offset
-local n=h.Size.Y.Offset
+local m=h.Size.X.Offset-100
+local n=h.Size.Y.Offset-100
 local o=Instance.new"Frame";
 o.AnchorPoint=Vector2.new(1,1)
 o.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -135,12 +135,12 @@ end)
 end
 
 local f={}
-function f.MakeNotify(g,h)
+function f.NewNotify(g,h)
 local i=h or{}
 i.Title=i.Title or"Hirimi Hub"
 i.Description=i.Description or"Notification"
 i.Content=i.Content or""
-i.Color=i.Color or Color3.fromRGB(255,0,255)
+i.Color=i.Color or Color3.fromRGB(144,144,144)
 i.Time=i.Time or 0.5
 i.Delay=i.Delay or 5
 local j={}
@@ -989,14 +989,13 @@ aA.Text=ap
 aA.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aA.TextSize=13
 aA.TextXAlignment=Enum.TextXAlignment.Left
-aA.TextYAlignment=Enum.TextYAlignment.Top
 aA.AnchorPoint=Vector2.new(0,0.5)
 aA.BackgroundColor3=Color3.fromRGB(255,255,255)
 aA.BackgroundTransparency=0.9990000128746033
 aA.BorderColor3=Color3.fromRGB(0,0,0)
 aA.BorderSizePixel=0
 aA.Position=UDim2.new(0,10,0.5,0)
-aA.Size=UDim2.new(1,-50,0,13)
+aA.Size=UDim2.new(1,-50,1,0)
 aA.Name="SectionTitle"
 aA.Parent=av
 
@@ -1109,7 +1108,7 @@ aL.BackgroundTransparency=0.9350000023841858
 aL.BorderColor3=Color3.fromRGB(0,0,0)
 aL.BorderSizePixel=0
 aL.LayoutOrder=aG
-aL.Size=UDim2.new(1,0,0,46)
+aL.Size=UDim2.new(1,0,0,40)
 aL.Name="Paragraph"
 aL.Parent=aB
 
@@ -1121,21 +1120,21 @@ aN.Text=aJ.Title
 aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aN.TextSize=13
 aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.TextYAlignment=Enum.TextYAlignment.Top
 aN.BackgroundColor3=Color3.fromRGB(255,255,255)
 aN.BackgroundTransparency=0.9990000128746033
 aN.BorderColor3=Color3.fromRGB(0,0,0)
 aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-16,0,13)
+aN.Position=UDim2.new(0,10,0,0)
+aN.Size=UDim2.new(1,-16,1,0)
 aN.Name="ParagraphTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
 aO.Text=aJ.Content
-aO.TextColor3=Color3.fromRGB(255,255,255)
+aO.RichText=true
+aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
-aO.TextTransparency=0.6000000238418579
+aO.TextTransparency=0
 aO.TextXAlignment=Enum.TextXAlignment.Left
 aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1146,29 +1145,34 @@ aO.Position=UDim2.new(0,10,0,23)
 aO.Name="ParagraphContent"
 aO.Parent=aL
 
+if aO.Text~=""then
 aO.Size=UDim2.new(1,-16,0,1,-23)
 aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-
+end
 aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+if aO.Text~=""then
+aN.Size=UDim2.new(1,-16,0,13)
+aN.Position=UDim2.new(0,10,0,10)
 aO.TextWrapped=false
 aO.Size=UDim2.new(1,-16,1,-23)
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 aO.TextWrapped=true
 UpdateSizeSection()
+end
 end)
 
 function aK.Set(aP,aQ)
 local aR=aQ or{}
-aR.Title=aR.Title or"Title"
-aR.Content=aR.Content or""
+aR.Title=aR.Title or aN.Text
+aR.Content=aR.Content or aN.Description
 
 aN.Text=aR.Title
 aO.Text=aR.Content
 aO.TextWrapped=false
-aO.Size=UDim2.new(1,-16,0,12+(12//aO.AbsoluteSize.X))
+aO.Size=UDim2.new(1,-16,0,1,-23)
 aO.TextWrapped=true
-aL.Size=UDim2.new(1,0,0,aO.AbsoluteSize.Y+33)
+aL.Size=UDim2.new(1,0,0,UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46)))
 end
 aG=aG+1
 return aK
@@ -1194,7 +1198,7 @@ aL.BackgroundTransparency=0.9350000023841858
 aL.BorderColor3=Color3.fromRGB(0,0,0)
 aL.BorderSizePixel=0
 aL.LayoutOrder=aG
-aL.Size=UDim2.new(1,0,0,46)
+aL.Size=UDim2.new(1,0,0,38)
 aL.Name="Button"
 aL.Parent=aB
 
@@ -1206,21 +1210,20 @@ aN.Text=aJ.Title
 aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aN.TextSize=13
 aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.TextYAlignment=Enum.TextYAlignment.Top
 aN.BackgroundColor3=Color3.fromRGB(255,255,255)
 aN.BackgroundTransparency=0.9990000128746033
 aN.BorderColor3=Color3.fromRGB(0,0,0)
 aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-100,0,13)
+aN.Position=UDim2.new(0,10,0,0)
+aN.Size=UDim2.new(1,-100,1,0)
 aN.Name="ButtonTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
 aO.Text=aJ.Content
-aO.TextColor3=Color3.fromRGB(255,255,255)
+aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
-aO.TextTransparency=0.6000000238418579
+aO.TextTransparency=0
 aO.TextXAlignment=Enum.TextXAlignment.Left
 aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1229,20 +1232,23 @@ aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Name="ButtonContent"
+aO.RichText=true
 aO.Parent=aL
-aO.Size=UDim2.new(1,-100,0,12)
 
+if aO.Text~=""then
 aO.Size=UDim2.new(1,-100,1,-23)
 aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
-
 aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
 aO.TextWrapped=false
+aN.Position=UDim2.new(0,10,0,10)
+aN.Size=UDim2.new(1,-100,0,13)
 aO.Size=UDim2.new(1,-100,1,-23)
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 aO.TextWrapped=true
 UpdateSizeSection()
 end)
+end
 
 aP.Font=Enum.Font.SourceSans
 aP.Text=""
@@ -1312,7 +1318,7 @@ aL.BackgroundTransparency=0.9350000023841858
 aL.BorderColor3=Color3.fromRGB(0,0,0)
 aL.BorderSizePixel=0
 aL.LayoutOrder=aG
-aL.Size=UDim2.new(1,0,0,46)
+aL.Size=UDim2.new(1,0,0,38)
 aL.Name="Toggle"
 aL.Parent=aB
 
@@ -1324,21 +1330,20 @@ aN.Text=aJ.Title
 aN.TextSize=13
 aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.TextYAlignment=Enum.TextYAlignment.Top
 aN.BackgroundColor3=Color3.fromRGB(255,255,255)
 aN.BackgroundTransparency=0.9990000128746033
 aN.BorderColor3=Color3.fromRGB(0,0,0)
 aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-100,0,13)
+aN.Position=UDim2.new(0,10,0,0)
+aN.Size=UDim2.new(1,-100,1,0)
 aN.Name="ToggleTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
 aO.Text=aJ.Content
-aO.TextColor3=Color3.fromRGB(255,255,255)
+aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
-aO.TextTransparency=0.6000000238418579
+aO.TextTransparency=0
 aO.TextXAlignment=Enum.TextXAlignment.Left
 aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1347,19 +1352,22 @@ aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Size=UDim2.new(1,-100,0,12)
+aO.RichText=true
 aO.Name="ToggleContent"
 aO.Parent=aL
-
+if aO.Text~=""then
 aO.Size=UDim2.new(1,-100,1,-23)
 aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
-local function UpdateToggleSize()
+aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+aN.Position=UDim2.new(0,10,0,10)
+aN.Size=UDim2.new(1,-100,0,13)
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 aO.Size=UDim2.new(1,-100,1,-23)
 aO.TextWrapped=true
 UpdateSizeSection()
+end)
 end
-aO:GetPropertyChangedSignal"AbsoluteSize":Connect(UpdateToggleSize)
 
 aP.Font=Enum.Font.SourceSans
 aP.Text=""
@@ -1479,7 +1487,7 @@ aL.BackgroundTransparency=0.9350000023841858
 aL.BorderColor3=Color3.fromRGB(0,0,0)
 aL.BorderSizePixel=0
 aL.LayoutOrder=aG
-aL.Size=UDim2.new(1,0,0,46)
+aL.Size=UDim2.new(1,0,0,38)
 aL.Name="Slider"
 aL.Parent=aB
 
@@ -1491,21 +1499,20 @@ aN.Text=aJ.Title
 aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aN.TextSize=13
 aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.TextYAlignment=Enum.TextYAlignment.Top
 aN.BackgroundColor3=Color3.fromRGB(255,255,255)
 aN.BackgroundTransparency=0.9990000128746033
 aN.BorderColor3=Color3.fromRGB(0,0,0)
 aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-180,0,13)
+aN.Position=UDim2.new(0,10,0,0)
+aN.Size=UDim2.new(1,-180,1,0)
 aN.Name="SliderTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
 aO.Text=aJ.Content
-aO.TextColor3=Color3.fromRGB(255,255,255)
+aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
-aO.TextTransparency=0.6000000238418579
+aO.TextTransparency=0
 aO.TextXAlignment=Enum.TextXAlignment.Left
 aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1514,20 +1521,25 @@ aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Size=UDim2.new(1,-180,0,12)
+aO.RichText=true
 aO.Name="SliderContent"
 aO.Parent=aL
 
+if aO.Text~=""then
 aO.Size=UDim2.new(1,-180,1,-23)
 aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
 
 aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+aN.Position=UDim2.new(0,10,0,10)
+aN.Size=UDim2.new(1,-180,0,13)
 aO.TextWrapped=false
 aO.Size=UDim2.new(1,-180,1,-23)
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 aO.TextWrapped=true
 UpdateSizeSection()
 end)
+end
 
 aP.AnchorPoint=Vector2.new(0,0.5)
 aP.BackgroundColor3=i.Color
@@ -1678,21 +1690,20 @@ aN.Text="TextBox"
 aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aN.TextSize=13
 aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.TextYAlignment=Enum.TextYAlignment.Top
 aN.BackgroundColor3=Color3.fromRGB(255,255,255)
 aN.BackgroundTransparency=0.9990000128746033
 aN.BorderColor3=Color3.fromRGB(0,0,0)
 aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-180,0,13)
+aN.Position=UDim2.new(0,10,0,0)
+aN.Size=UDim2.new(1,-180,1,0)
 aN.Name="InputTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
-aO.Text="This is a TextBox"
-aO.TextColor3=Color3.fromRGB(255,255,255)
+aO.Text=aJ.Content
+aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
-aO.TextTransparency=0.6000000238418579
+aO.TextTransparency=0
 aO.TextWrapped=true
 aO.TextXAlignment=Enum.TextXAlignment.Left
 aO.TextYAlignment=Enum.TextYAlignment.Top
@@ -1703,19 +1714,24 @@ aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Size=UDim2.new(1,-180,0,12)
 aO.Name="InputContent"
+aO.RichText=true
 aO.Parent=aL
 
+if aO.Text~=""then
 aO.Size=UDim2.new(1,-180,1,-23)
 aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
 
 aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
 aO.TextWrapped=false
+aN.Position=UDim2.new(0,10,0,10)
+aN.Size=UDim2.new(1,-180,0,13)
 aO.Size=UDim2.new(1,-180,1,-23)
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 aO.TextWrapped=true
 UpdateSizeSection()
 end)
+end
 
 aP.AnchorPoint=Vector2.new(1,0.5)
 aP.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1809,21 +1825,20 @@ aO.Text=aJ.Title
 aO.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aO.TextSize=13
 aO.TextXAlignment=Enum.TextXAlignment.Left
-aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
 aO.BackgroundTransparency=0.9990000128746033
 aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
-aO.Position=UDim2.new(0,10,0,10)
-aO.Size=UDim2.new(1,-180,0,13)
+aO.Position=UDim2.new(0,10,0,0)
+aO.Size=UDim2.new(1,-180,1,0)
 aO.Name="DropdownTitle"
 aO.Parent=aL
 
 aP.Font=Enum.Font.GothamBold
 aP.Text=aJ.Content
-aP.TextColor3=Color3.fromRGB(255,255,255)
+aP.TextColor3=Color3.fromRGB(122,122,122)
 aP.TextSize=12
-aP.TextTransparency=0.6000000238418579
+aP.TextTransparency=0
 aP.TextWrapped=true
 aP.TextXAlignment=Enum.TextXAlignment.Left
 aP.TextYAlignment=Enum.TextYAlignment.Top
@@ -1833,20 +1848,24 @@ aP.BorderColor3=Color3.fromRGB(0,0,0)
 aP.BorderSizePixel=0
 aP.Position=UDim2.new(0,10,0,23)
 aP.Size=UDim2.new(1,-180,0,12)
+aP.RichText=true
 aP.Name="DropdownContent"
 aP.Parent=aL
 
+if aP.Text~=""then
 aP.Size=UDim2.new(1,-180,1,-23)
 aP.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aP.TextBounds.Y+40,46))
-
 aP:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
 aP.TextWrapped=false
+aO.Position=UDim2.new(0,10,0,10)
+aO.Size=UDim2.new(1,-180,0,13)
 aP.Size=UDim2.new(1,-180,1,-23)
 aL.Size=UDim2.new(1,0,0,math.max(aP.TextBounds.Y+40,46))
 aP.TextWrapped=true
 UpdateSizeSection()
 end)
+end
 
 aQ.AnchorPoint=Vector2.new(1,0.5)
 aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -1875,7 +1894,7 @@ aS.Font=Enum.Font.GothamBold
 aS.Text=""
 aS.TextColor3=Color3.fromRGB(255,255,255)
 aS.TextSize=12
-aS.TextTransparency=0.6000000238418579
+aS.TextTransparency=0
 aS.TextWrapped=true
 aS.TextXAlignment=Enum.TextXAlignment.Left
 aS.AnchorPoint=Vector2.new(0,0.5)
