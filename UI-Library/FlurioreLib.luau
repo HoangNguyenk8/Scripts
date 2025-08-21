@@ -49,13 +49,8 @@ local j
 local k
 local l
 local m=h.Size.X.Offset
-if m<400 then
-m=400
-end
-local n=m-100
-h.Size=UDim2.new(0,m,0,n)
+local n=h.Size.Y.Offset
 local o=Instance.new"Frame";
-
 o.AnchorPoint=Vector2.new(1,1)
 o.BackgroundColor3=Color3.fromRGB(255,255,255)
 o.BackgroundTransparency=0.9990000128746033
@@ -360,13 +355,14 @@ j:Close()
 end)
 return j
 end
-function f.MakeGui(g,h)
+function f.NewWindow(g,h)
 local i=h or{}
-i.NameHub=i.NameHub or""
+i.Title=i.Title or""
 i.Description=i.Description or""
 i.Color=i.Color or Color3.fromRGB(222,0,0)
-i["Tab Width"]=i["Tab Width"]or 120
+i.TabWidth=i.TabWidth or 120
 i.KeyCode=i.KeyCode or"LeftControl"
+i.UIScale=i.UIScale or UDim2.fromOffset(550,400)
 local j={}
 
 local k=Instance.new"ScreenGui";
@@ -403,12 +399,11 @@ k.Parent=e
 
 l.BackgroundTransparency=1
 l.BorderSizePixel=0
-l.Size=UDim2.new(0,455,0,350)
+l.Size=i.UIScale
 l.ZIndex=0
 l.Name="DropShadowHolder"
 l.Parent=k
-
-l.Position=UDim2.new(0,(k.AbsoluteSize.X//2-l.Size.X.Offset//2),0,(k.AbsoluteSize.Y//2-l.Size.Y.Offset//2))
+l.Position=UDim2.new(0,(game.Workspace.CurrentCamera.ViewportSize.X/2-l.Size.X.Offset/2),0,(game.Workspace.CurrentCamera.ViewportSize.Y/2-l.Size.Y.Offset/2))
 m.Image="rbxassetid://6015897843"
 m.ImageColor3=Color3.fromRGB(15,15,15)
 m.ImageTransparency=0.5
@@ -448,7 +443,7 @@ q.Name="Top"
 q.Parent=n
 
 r.Font=Enum.Font.GothamBold
-r.Text=i.NameHub
+r.Text=i.Title
 r.TextColor3=Color3.fromRGB(255,255,255)
 r.TextSize=14
 r.TextXAlignment=Enum.TextXAlignment.Left
@@ -553,7 +548,7 @@ A.BackgroundTransparency=0.9990000128746033
 A.BorderColor3=Color3.fromRGB(0,0,0)
 A.BorderSizePixel=0
 A.Position=UDim2.new(0,9,0,50)
-A.Size=UDim2.new(0,i["Tab Width"],1,-59)
+A.Size=UDim2.new(0,i.TabWidth,1,-59)
 A.Name="LayersTab"
 A.Parent=n
 
@@ -574,8 +569,8 @@ D.BackgroundColor3=Color3.fromRGB(255,255,255)
 D.BackgroundTransparency=0.9990000128746033
 D.BorderColor3=Color3.fromRGB(0,0,0)
 D.BorderSizePixel=0
-D.Position=UDim2.new(0,i["Tab Width"]+18,0,50)
-D.Size=UDim2.new(1,-(i["Tab Width"]+9+18),1,-59)
+D.Position=UDim2.new(0,i.TabWidth+18,0,50)
+D.Size=UDim2.new(1,-(i.TabWidth+9+18),1,-59)
 D.Name="Layers"
 D.Parent=n
 
@@ -686,7 +681,6 @@ l.Visible=true
 end
 end
 end)
-l.Size=UDim2.new(0,115+r.TextBounds.X+1+t.TextBounds.X,0,350)
 MakeDraggable(q,l)
 
 local N=Instance.new"Frame";
@@ -805,9 +799,9 @@ game:GetService"VirtualInputManager":SendKeyEvent(false,i.KeyCode,false,game)
 end
 local Z=0
 local _=0
-function Y.CreateTab(aa,ab)
+function Y.AddTab(aa,ab)
 local ac=ab or{}
-ac.Name=ac.Name or"Tab"
+ac.Title=ac.Title or"Tab"
 ac.Icon=ac.Icon or""
 
 local ad=Instance.new"ScrollingFrame";
@@ -839,6 +833,7 @@ Instance.new"UICorner";
 
 af.BackgroundColor3=Color3.fromRGB(255,255,255)
 if Z==0 then
+F.Text=ac.Title
 af.BackgroundTransparency=0.9200000166893005
 else
 af.BackgroundTransparency=0.9990000128746033
@@ -867,7 +862,7 @@ ah.Name="TabButton"
 ah.Parent=af
 
 ai.Font=Enum.Font.GothamBold
-ai.Text=ac.Name
+ai.Text=ac.Title
 ai.TextColor3=Color3.fromRGB(255,255,255)
 ai.TextSize=13
 ai.TextXAlignment=Enum.TextXAlignment.Left
@@ -908,7 +903,7 @@ TweenInfo.new(0.6,Enum.EasingStyle.Back,Enum.EasingDirection.InOut),
 ):Play()
 I:JumpToIndex(af.LayoutOrder)
 task.wait(0.05)
-F.Text=ac.Name
+F.Text=ac.Title
 end
 end)
 
