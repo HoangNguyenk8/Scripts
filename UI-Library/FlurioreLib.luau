@@ -139,7 +139,7 @@ function f.MakeNotify(g,h)
 local i=h or{}
 i.Title=i.Title or"Hirimi Hub"
 i.Description=i.Description or"Notification"
-i.Content=i.Content or"Content"
+i.Content=i.Content or""
 i.Color=i.Color or Color3.fromRGB(255,0,255)
 i.Time=i.Time or 0.5
 i.Delay=i.Delay or 5
@@ -1096,7 +1096,7 @@ local aG=0
 function aF.AddParagraph(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or"Content"
+aJ.Content=aJ.Content or""
 local aK={}
 
 local aL=Instance.new"Frame";
@@ -1161,7 +1161,7 @@ end)
 function aK.Set(aP,aQ)
 local aR=aQ or{}
 aR.Title=aR.Title or"Title"
-aR.Content=aR.Content or"Content"
+aR.Content=aR.Content or""
 
 aN.Text=aR.Title
 aO.Text=aR.Content
@@ -1176,7 +1176,7 @@ end
 function aF.AddButton(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or"Content"
+aJ.Content=aJ.Content or""
 aJ.Icon=aJ.Icon or"rbxassetid://16932740082"
 aJ.Callback=aJ.Callback or function()end
 local aK={}
@@ -1287,7 +1287,7 @@ end
 function aF.AddToggle(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or"Content"
+aJ.Content=aJ.Content or""
 aJ.Default=aJ.Default or false
 aJ.Callback=aJ.Callback or function()end
 local aK={Value=aJ.Default,Options=aJ.Options,Selecting=aJ.Selecting}
@@ -1449,7 +1449,7 @@ end
 function aF.AddSlider(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Slider"
-aJ.Content=aJ.Content or"Content"
+aJ.Content=aJ.Content or""
 aJ.Increment=aJ.Increment or 1
 aJ.Min=aJ.Min or 0
 aJ.Max=aJ.Max or 100
@@ -1649,7 +1649,7 @@ end
 function aF.AddInput(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or"Content"
+aJ.Content=aJ.Content or""
 aJ.Callback=aJ.Callback or function()end
 local aK={Value=""}
 
@@ -1762,7 +1762,7 @@ end
 function aF.AddDropdown(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or"Content"
+aJ.Content=aJ.Content or""
 aJ.Multi=aJ.Multi or false
 aJ.Options=aJ.Options or{}
 aJ.Default=aJ.Default or{}
