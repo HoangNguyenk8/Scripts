@@ -137,12 +137,11 @@ end
 local f={}
 function f.NewNotify(g,h)
 local i=h or{}
-i.Title=i.Title or"Hirimi Hub"
-i.Description=i.Description or"Notification"
+i.Title=i.Title or""
 i.Description=i.Description or""
+i.Content=i.Content or""
 i.Color=i.Color or Color3.fromRGB(144,144,144)
-i.Time=i.Time or 0.5
-i.Delay=i.Delay or 5
+i.Duration=i.Duration or 5
 local j={}
 spawn(function()
 if not e:FindFirstChild"NotifyGui"then
@@ -308,7 +307,7 @@ x.Parent=w
 y.Font=Enum.Font.GothamBold
 y.TextColor3=Color3.fromRGB(255,255,255)
 y.TextSize=13
-y.Text=i.Description
+y.Text=i.Content
 y.TextXAlignment=Enum.TextXAlignment.Left
 y.TextYAlignment=Enum.TextYAlignment.Top
 y.BackgroundColor3=Color3.fromRGB(255,255,255)
@@ -336,10 +335,10 @@ end
 z=true
 b:Create(
 m,
-TweenInfo.new(tonumber(i.Time),Enum.EasingStyle.Back,Enum.EasingDirection.InOut),
+TweenInfo.new(tonumber(0.5),Enum.EasingStyle.Back,Enum.EasingDirection.InOut),
 {Position=UDim2.new(0,400,0,0)}
 ):Play()
-task.wait(tonumber(i.Time)/1.2)
+task.wait(0.7)
 l:Destroy()
 end
 w.Activated:Connect(function()
@@ -347,10 +346,10 @@ j:Close()
 end)
 b:Create(
 m,
-TweenInfo.new(tonumber(i.Time),Enum.EasingStyle.Back,Enum.EasingDirection.InOut),
+TweenInfo.new(tonumber(0.5),Enum.EasingStyle.Back,Enum.EasingDirection.InOut),
 {Position=UDim2.new(0,0,0,0)}
 ):Play()
-task.wait(tonumber(i.Delay))
+task.wait(tonumber(i.Duration))
 j:Close()
 end)
 return j
@@ -1146,6 +1145,8 @@ aO.Name="ParagraphDescription"
 aO.Parent=aL
 
 if aO.Text~=""then
+aN.Size=UDim2.new(1,-16,0,13)
+aN.Position=UDim2.new(0,10,0,10)
 aO.Size=UDim2.new(1,-16,0,1,-23)
 aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
@@ -1172,7 +1173,7 @@ aO.Text=aR.Description
 aO.TextWrapped=false
 aO.Size=UDim2.new(1,-16,0,1,-23)
 aO.TextWrapped=true
-aL.Size=UDim2.new(1,0,0,UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46)))
+aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 end
 aG=aG+1
 return aK
