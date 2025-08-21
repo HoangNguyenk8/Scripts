@@ -1165,7 +1165,7 @@ end)
 function aK.Set(aP,aQ)
 local aR=aQ or{}
 aR.Title=aR.Title or aN.Text
-aR.Content=aR.Content or aN.Description
+aR.Content=aR.Content or aO.Text
 
 aN.Text=aR.Title
 aO.Text=aR.Content
