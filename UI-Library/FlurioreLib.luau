@@ -1781,11 +1781,11 @@ local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
 aJ.Description=aJ.Description or""
 aJ.Multi=aJ.Multi or false
-aJ.Options=aJ.Options or{}
+aJ.Values=aJ.Values or{}
 aJ.Default=aJ.Default or{}
 aJ.Callback=aJ.Callback or function()end
 
-local aK={Value=(aJ.Multi and aJ.Default or{aJ.Default}),Options=aJ.Options}
+local aK={Value=(aJ.Multi and aJ.Default or{aJ.Default}),Options=aJ.Values}
 
 local aL=Instance.new"Frame";
 local aM=Instance.new"TextButton";
