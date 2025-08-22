@@ -1143,22 +1143,19 @@ aO.BorderSizePixel=0
 aO.Position=UDim2.new(0,10,0,23)
 aO.Name="ParagraphDescription"
 aO.Parent=aL
+aO.Size=UDim2.new(1,-16,1,-23)
+aO.TextWrapped=true
 
 if aO.Text~=""then
 aN.Size=UDim2.new(1,-16,0,13)
 aN.Position=UDim2.new(0,10,0,10)
-aO.Size=UDim2.new(1,-16,0,1,-23)
-aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 end
 aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
 if aO.Text~=""then
 aN.Size=UDim2.new(1,-16,0,13)
 aN.Position=UDim2.new(0,10,0,10)
-aO.TextWrapped=false
-aO.Size=UDim2.new(1,-16,1,-23)
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-aO.TextWrapped=true
 UpdateSizeSection()
 end
 end)
@@ -1172,7 +1169,6 @@ aN.Text=aR.Title
 aO.Text=aR.Content
 aO.TextWrapped=false
 aO.Size=UDim2.new(1,-16,1,-23)
-aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 end
 aG=aG+1
