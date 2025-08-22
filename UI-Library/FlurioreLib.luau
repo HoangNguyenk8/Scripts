@@ -393,7 +393,7 @@ local H=Instance.new"Folder";
 local I=Instance.new"UIPageLayout";
 
 k.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
-k.Name="HirimiGui"
+k.Name="FlurioreGui"
 k.Parent=e
 
 l.BackgroundTransparency=1
@@ -465,10 +465,10 @@ t.BackgroundColor3=Color3.fromRGB(255,255,255)
 t.BackgroundTransparency=0.9990000128746033
 t.BorderColor3=Color3.fromRGB(0,0,0)
 t.BorderSizePixel=0
-t.Size=UDim2.new(1,150,1,0)
+t.Size=UDim2.new(1,-150,1,0)
 t.Position=UDim2.new(0,r.TextBounds.X+15,0,0)
 t.Parent=q
-r:GetPropertyChangedSignal"TextBounds":Connect(function()
+game:GetService"RunService".Stepped:Connect(function()
 t.Position=UDim2.new(0,r.TextBounds.X+15,0,0)
 end)
 u.Font=Enum.Font.SourceSans
@@ -645,7 +645,7 @@ J.ChildAdded:Connect(UpdateSize1)
 J.ChildRemoved:Connect(UpdateSize1)
 
 function j.DestroyGui(L)
-if e:FindFirstChild"HirimiGui"then
+if e:FindFirstChild"FlurioreGui"then
 k:Destroy()
 end
 end
@@ -689,18 +689,15 @@ local O=Instance.new"Frame";
 local P=Instance.new"ImageLabel";
 local Q=Instance.new"UICorner";
 local R=Instance.new"TextButton";
-
-N.AnchorPoint=Vector2.new(1,1)
 N.BackgroundColor3=Color3.fromRGB(0,0,0)
 N.BackgroundTransparency=0.999
 N.BorderColor3=Color3.fromRGB(0,0,0)
 N.BorderSizePixel=0
 N.ClipsDescendants=true
-N.Position=UDim2.new(1,8,1,8)
-N.Size=UDim2.new(1,154,1,54)
+N.Size=UDim2.new(1,0,1,0)
 N.Visible=false
 N.Name="MoreBlur"
-N.Parent=D
+N.Parent=n
 
 O.BackgroundTransparency=1
 O.BorderSizePixel=0
