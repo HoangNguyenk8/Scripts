@@ -1712,7 +1712,7 @@ aM.CornerRadius=UDim.new(0,4)
 aM.Parent=aL
 
 aN.Font=Enum.Font.GothamBold
-aN.Text="TextBox"
+aN.Text=aJ.Title
 aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
 aN.TextSize=13
 aN.TextXAlignment=Enum.TextXAlignment.Left
