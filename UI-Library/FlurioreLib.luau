@@ -1687,6 +1687,7 @@ local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
 aJ.Description=aJ.Description or""
 aJ.PlaceHolder=aJ.PlaceHolder or"Input Here"
+aJ.Default=aJ.Default or""
 aJ.Callback=aJ.Callback or function()end
 local aK={Value=""}
 
@@ -1776,7 +1777,7 @@ aR.CursorPosition=-1
 aR.Font=Enum.Font.GothamBold
 aR.PlaceholderColor3=Color3.fromRGB(120.00000044703484,120.00000044703484,120.00000044703484)
 aR.PlaceholderText=aJ.PlaceHolder
-aR.Text=""
+aR.Text=aJ.Default
 aR.TextColor3=Color3.fromRGB(255,255,255)
 aR.TextSize=12
 aR.TextXAlignment=Enum.TextXAlignment.Left
