@@ -1171,7 +1171,7 @@ aR.Content=aR.Content or aO.Text
 aN.Text=aR.Title
 aO.Text=aR.Content
 aO.TextWrapped=false
-aO.Size=UDim2.new(1,-16,0,1,-23)
+aO.Size=UDim2.new(1,-16,1,-23)
 aO.TextWrapped=true
 aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
 end
