@@ -465,10 +465,12 @@ t.BackgroundColor3=Color3.fromRGB(255,255,255)
 t.BackgroundTransparency=0.9990000128746033
 t.BorderColor3=Color3.fromRGB(0,0,0)
 t.BorderSizePixel=0
-t.Size=UDim2.new(1,-(r.TextBounds.X+104),1,0)
+t.Size=UDim2.new(1,150,1,0)
 t.Position=UDim2.new(0,r.TextBounds.X+15,0,0)
 t.Parent=q
-
+r:GetPropertyChangedSignal"TextBounds":Connect(function()
+t.Position=UDim2.new(0,r.TextBounds.X+15,0,0)
+end)
 u.Font=Enum.Font.SourceSans
 u.Text=""
 u.TextColor3=Color3.fromRGB(0,0,0)
