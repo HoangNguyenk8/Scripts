@@ -2093,7 +2093,6 @@ aZ=aZ or{}
 aK:Clear()
 for a_,a0 in pairs(aY)do
 aK:AddOption(a0)
-wait()
 end
 aK.Options=aY
 aK:Set(aZ)
