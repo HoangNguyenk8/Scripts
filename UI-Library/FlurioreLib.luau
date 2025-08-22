@@ -1091,6 +1091,33 @@ UpdateSizeScroll()
 
 local aF={}
 local aG=0
+function aF.AddSeperator(aH,aI)
+local aJ=aI or"Title"
+local aK=Instance.new"Frame"
+local aL=Instance.new"TextLabel"
+aK.BackgroundColor3=Color3.fromRGB(255,255,255)
+aK.BackgroundTransparency=0.9350000023841858
+aK.BorderColor3=Color3.fromRGB(0,0,0)
+aK.BorderSizePixel=0
+aK.LayoutOrder=aG
+aK.Size=UDim2.new(1,0,0,33)
+aK.Name="Seperator"
+aK.Parent=aB
+aL.Font=Enum.Font.GothamBold
+aL.Text=aJ
+aL.TextColor3=Color3.fromRGB(230,230,230)
+aL.TextSize=13
+aL.TextXAlignment=Enum.TextXAlignment.Left
+aL.BackgroundColor3=Color3.fromRGB(255,255,255)
+aL.BackgroundTransparency=1
+aL.BorderColor3=Color3.fromRGB(0,0,0)
+aL.BorderSizePixel=0
+aL.Position=UDim2.new(0,10,0,0)
+aL.Size=UDim2.new(1,-16,1,0)
+aL.Name="SeperatorTitle"
+aL.Parent=aK
+aG=aG+1
+end
 function aF.AddParagraph(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
