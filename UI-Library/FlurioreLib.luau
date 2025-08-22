@@ -1094,7 +1094,7 @@ local aG=0
 function aF.AddParagraph(aH,aI)
 local aJ=aI or{}
 aJ.Title=aJ.Title or"Title"
-aJ.Description=aJ.Description or""
+aJ.Content=aJ.Content or""
 local aK={}
 
 local aL=Instance.new"Frame";
@@ -1129,7 +1129,7 @@ aN.Name="ParagraphTitle"
 aN.Parent=aL
 
 aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Description
+aO.Text=aJ.Content
 aO.RichText=true
 aO.TextColor3=Color3.fromRGB(122,122,122)
 aO.TextSize=12
@@ -1166,10 +1166,10 @@ end)
 function aK.Set(aP,aQ)
 local aR=aQ or{}
 aR.Title=aR.Title or aN.Text
-aR.Description=aR.Description or aO.Text
+aR.Content=aR.Content or aO.Text
 
 aN.Text=aR.Title
-aO.Text=aR.Description
+aO.Text=aR.Content
 aO.TextWrapped=false
 aO.Size=UDim2.new(1,-16,0,1,-23)
 aO.TextWrapped=true
