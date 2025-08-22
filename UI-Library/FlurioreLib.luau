@@ -786,6 +786,7 @@ W.Parent=V
 X.EasingDirection=Enum.EasingDirection.InOut
 X.EasingStyle=Enum.EasingStyle.Quad
 X.TweenTime=0.009999999776482582
+X.Padding=UDim.new(0,20)
 X.SortOrder=Enum.SortOrder.LayoutOrder
 X.Archivable=false
 X.Name="DropPageLayout"
@@ -1782,10 +1783,10 @@ aJ.Title=aJ.Title or"Title"
 aJ.Description=aJ.Description or""
 aJ.Multi=aJ.Multi or false
 aJ.Values=aJ.Values or{}
-aJ.Default=aJ.Default or{}
+aJ.Default=aJ.Default or(aJ.Multi and{}or"")
 aJ.Callback=aJ.Callback or function()end
 
-local aK={Value=(aJ.Multi and aJ.Default or{aJ.Default}),Options=aJ.Values}
+local aK={Value=aJ.Default,Options=aJ.Values}
 
 local aL=Instance.new"Frame";
 local aM=Instance.new"TextButton";
@@ -2102,7 +2103,7 @@ end
 aK.Options=aY
 aK:Set(aZ)
 end
-aK:Refresh(aK.Options,aK.Value)
+aK:Refresh(aK.Options,(aJ.Multi and aK.Value or{aK.Value}))
 aG=aG+1
 _=_+1
 return aK
