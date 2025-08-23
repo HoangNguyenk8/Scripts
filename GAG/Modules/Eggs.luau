@@ -1,8 +1,20 @@
 return {
     "Common Egg",
+    "Uncommon Egg",
+    "Rare Egg",
+    "Legendary Egg",
+    "Mythical Egg",
+    "Bug Egg",
+    "Night Egg",
+    "Premium Night Egg",
+    "Bee Egg",
+    "Anti Bee Egg",
     "Common Summer Egg",
     "Rare Summer Egg",
-    "Mythical Egg",
     "Paradise Egg",
-    "Bug Egg"
+    "Oasis Egg",
+    "Dinosaur Egg",
+    "Primal Egg",
+    "Zen Egg",
+    "Gourmet Egg",
 }
