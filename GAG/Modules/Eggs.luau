@@ -17,4 +17,5 @@ return {
     "Primal Egg",
     "Zen Egg",
     "Gourmet Egg",
+    "Sprout Egg",
 }
