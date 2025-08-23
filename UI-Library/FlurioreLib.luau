@@ -920,7 +920,6 @@ aq.BackgroundColor3=Color3.fromRGB(255,255,255)
 aq.BackgroundTransparency=0.9990000128746033
 aq.BorderColor3=Color3.fromRGB(0,0,0)
 aq.BorderSizePixel=0
-aq.LayoutOrder=al
 aq.ClipsDescendants=true
 aq.LayoutOrder=1
 aq.Size=UDim2.new(1,0,0,30)
