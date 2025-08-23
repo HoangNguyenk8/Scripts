@@ -921,7 +921,6 @@ aq.BackgroundTransparency=0.9990000128746033
 aq.BorderColor3=Color3.fromRGB(0,0,0)
 aq.BorderSizePixel=0
 aq.ClipsDescendants=true
-aq.LayoutOrder=1
 aq.Size=UDim2.new(1,0,0,30)
 aq.Name="Section"
 aq.Parent=ad
