@@ -135,6 +135,13 @@ end)
 end
 
 local f={}
+function f.NewInstance(g,h:string,i:{})
+local j=Instance.new(h)
+for k,l in pairs(i)do
+j[k]=l
+end
+return j
+end
 function f.NewNotify(g,h)
 local i=h or{}
 i.Title=i.Title or""
@@ -363,7 +370,6 @@ i.TabWidth=i.TabWidth or 120
 i.KeyCode=i.KeyCode or"LeftControl"
 i.UIScale=i.UIScale or UDim2.fromOffset(550,400)
 local j={}
-
 local k=Instance.new"ScreenGui";
 local l=Instance.new"Frame";
 local m=Instance.new"ImageLabel";
@@ -391,10 +397,39 @@ local F=Instance.new"TextLabel";
 local G=Instance.new"Frame";
 local H=Instance.new"Folder";
 local I=Instance.new"UIPageLayout";
+local J=Instance.new"Frame";
+local K=Instance.new"ImageButton";
+local L=Instance.new"UICorner";
 
 k.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
 k.Name="FlurioreGui"
 k.Parent=e
+
+J.Parent=k
+J.Size=UDim2.fromOffset(50,50)
+J.BackgroundColor3=Color3.fromRGB(10,10,10)
+J.AnchorPoint=Vector2.new(0.5,0.5)
+J.Position=UDim2.new(0.2,0,0.2,0)
+J.BackgroundColor3=Color3.new(0,0,0)
+J.BorderColor3=Color3.fromRGB(0,0,0)
+J.BorderSizePixel=0
+K.Parent=J
+K.Size=UDim2.new(0,40,0,40)
+K.BackgroundColor3=Color3.fromRGB(10,10,10)
+K.BackgroundTransparency=1
+K.Image="rbxassetid://130595948368073"
+K.AnchorPoint=Vector2.new(0.5,0.5)
+K.Position=UDim2.new(0.5,0,0.5,0)
+K.BackgroundColor3=Color3.new(0,0,0)
+K.BorderColor3=Color3.fromRGB(0,0,0)
+K.BorderSizePixel=0
+L.Parent=J
+L.CornerRadius=UDim.new(0,100)
+K.MouseButton1Click:Connect(function()
+n.Visible=false
+game:GetService"VirtualInputManager":SendKeyEvent(true,i.KeyCode,false,game)
+game:GetService"VirtualInputManager":SendKeyEvent(false,i.KeyCode,false,game)
+end)
 
 l.BackgroundTransparency=1
 l.BorderSizePixel=0
@@ -613,779 +648,1227 @@ I.TweenTime=0.3
 I.EasingDirection=Enum.EasingDirection.InOut
 I.EasingStyle=Enum.EasingStyle.Quad
 
-local J=Instance.new"ScrollingFrame";
-local K=Instance.new"UIListLayout";
+local M=Instance.new"ScrollingFrame";
+local N=Instance.new"UIListLayout";
 
-J.CanvasSize=UDim2.new(0,0,1.10000002,0)
-J.ScrollBarImageColor3=Color3.fromRGB(0,0,0)
-J.ScrollBarThickness=0
-J.Active=true
-J.BackgroundColor3=Color3.fromRGB(255,255,255)
-J.BackgroundTransparency=0.9990000128746033
-J.BorderColor3=Color3.fromRGB(0,0,0)
-J.BorderSizePixel=0
-J.Size=UDim2.new(1,0,1,-50)
-J.Name="ScrollTab"
-J.Parent=A
+M.CanvasSize=UDim2.new(0,0,1.10000002,0)
+M.ScrollBarImageColor3=Color3.fromRGB(0,0,0)
+M.ScrollBarThickness=0
+M.Active=true
+M.BackgroundColor3=Color3.fromRGB(255,255,255)
+M.BackgroundTransparency=0.9990000128746033
+M.BorderColor3=Color3.fromRGB(0,0,0)
+M.BorderSizePixel=0
+M.Size=UDim2.new(1,0,1,-50)
+M.Name="ScrollTab"
+M.Parent=A
 
-K.Padding=UDim.new(0,3)
-K.SortOrder=Enum.SortOrder.LayoutOrder
-K.Parent=J
+N.Padding=UDim.new(0,3)
+N.SortOrder=Enum.SortOrder.LayoutOrder
+N.Parent=M
 
 local function UpdateSize1()
-local L=0
-for M,N in J:GetChildren()do
-if N.Name~="UIListLayout"then
-L=L+3+N.Size.Y.Offset
+local O=0
+for P,Q in M:GetChildren()do
+if Q.Name~="UIListLayout"then
+O=O+3+Q.Size.Y.Offset
 end
 end
-J.CanvasSize=UDim2.new(0,0,0,L)
+M.CanvasSize=UDim2.new(0,0,0,O)
 end
-J.ChildAdded:Connect(UpdateSize1)
-J.ChildRemoved:Connect(UpdateSize1)
+M.ChildAdded:Connect(UpdateSize1)
+M.ChildRemoved:Connect(UpdateSize1)
 
-function j.DestroyGui(L)
+function j.DestroyGui(O)
 if e:FindFirstChild"FlurioreGui"then
 k:Destroy()
 end
 end
-local L=l.Position
-local M=l.Size
+local O=l.Position
+local P=l.Size
 u.Activated:Connect(function()
 CircleClick(u,d.X,d.Y)
 if v.Image=="rbxassetid://9886659406"then
 v.Image="rbxassetid://9886659001"
-L=l.Position
-M=l.Size
+O=l.Position
+P=l.Size
 b:Create(l,TweenInfo.new(0.3),{Position=UDim2.new(0,0,0,0)}):Play()
 b:Create(l,TweenInfo.new(0.3),{Size=UDim2.new(1,0,1,0)}):Play()
 else
 v.Image="rbxassetid://9886659406"
-b:Create(l,TweenInfo.new(0.3),{Position=L}):Play()
-b:Create(l,TweenInfo.new(0.3),{Size=M}):Play()
+b:Create(l,TweenInfo.new(0.3),{Position=O}):Play()
+b:Create(l,TweenInfo.new(0.3),{Size=P}):Play()
 end
 end)
 y.Activated:Connect(function()
 CircleClick(y,d.X,d.Y)
+n.Visible=true
 l.Visible=false
 end)
 w.Activated:Connect(function()
 CircleClick(w,d.X,d.Y)
 l.Visible=false
 end)
-a.InputBegan:Connect(function(N)
-if N.KeyCode==Enum.KeyCode[i.KeyCode]then
+a.InputBegan:Connect(function(Q)
+if Q.KeyCode==Enum.KeyCode[i.KeyCode]then
 if l.Visible then
+n.Visible=false
 l.Visible=false
 else
+n.Visible=true
 l.Visible=true
 end
 end
 end)
 MakeDraggable(q,l)
+MakeDraggable(K,J)
 
-local N=Instance.new"Frame";
-local O=Instance.new"Frame";
-local P=Instance.new"ImageLabel";
-local Q=Instance.new"UICorner";
-local R=Instance.new"TextButton";
-N.BackgroundColor3=Color3.fromRGB(0,0,0)
-N.BackgroundTransparency=0.999
-N.BorderColor3=Color3.fromRGB(0,0,0)
-N.BorderSizePixel=0
-N.ClipsDescendants=true
-N.Size=UDim2.new(1,0,1,0)
-N.Visible=false
-N.Name="MoreBlur"
-N.Parent=n
+local Q=Instance.new"Frame";
+local R=Instance.new"Frame";
+local S=Instance.new"ImageLabel";
+local T=Instance.new"UICorner";
+local U=Instance.new"TextButton";
+Q.BackgroundColor3=Color3.fromRGB(0,0,0)
+Q.BackgroundTransparency=0.999
+Q.BorderColor3=Color3.fromRGB(0,0,0)
+Q.BorderSizePixel=0
+Q.ClipsDescendants=true
+Q.Size=UDim2.new(1,0,1,0)
+Q.Visible=false
+Q.Name="MoreBlur"
+Q.Parent=n
 
-O.BackgroundTransparency=1
-O.BorderSizePixel=0
-O.Size=UDim2.new(1,0,1,0)
-O.ZIndex=0
-O.Name="DropShadowHolder"
-O.Parent=N
-
-P.Image="rbxassetid://6015897843"
-P.ImageColor3=Color3.fromRGB(0,0,0)
-P.ImageTransparency=0.5
-P.ScaleType=Enum.ScaleType.Slice
-P.SliceCenter=Rect.new(49,49,450,450)
-P.AnchorPoint=Vector2.new(0.5,0.5)
-P.BackgroundTransparency=1
-P.BorderSizePixel=0
-P.Position=UDim2.new(0.5,0,0.5,0)
-P.Size=UDim2.new(1,35,1,35)
-P.ZIndex=0
-P.Name="DropShadow"
-P.Parent=O
-
-Q.Parent=N
-
-R.Font=Enum.Font.SourceSans
-R.Text=""
-R.TextColor3=Color3.fromRGB(0,0,0)
-R.TextSize=14
-R.BackgroundColor3=Color3.fromRGB(255,255,255)
-R.BackgroundTransparency=0.999
-R.BorderColor3=Color3.fromRGB(0,0,0)
+R.BackgroundTransparency=1
 R.BorderSizePixel=0
 R.Size=UDim2.new(1,0,1,0)
-R.Name="ConnectButton"
-R.Parent=N
+R.ZIndex=0
+R.Name="DropShadowHolder"
+R.Parent=Q
 
-local S=Instance.new"Frame";
-local T=Instance.new"UICorner";
-local U=Instance.new"UIStroke";
-local V=Instance.new"Frame";
-local W=Instance.new"Folder";
-local X=Instance.new"UIPageLayout";
-
-S.AnchorPoint=Vector2.new(1,0.5)
-S.BackgroundColor3=Color3.fromRGB(30.00000011175871,30.00000011175871,30.00000011175871)
-S.BorderColor3=Color3.fromRGB(0,0,0)
+S.Image="rbxassetid://6015897843"
+S.ImageColor3=Color3.fromRGB(0,0,0)
+S.ImageTransparency=0.5
+S.ScaleType=Enum.ScaleType.Slice
+S.SliceCenter=Rect.new(49,49,450,450)
+S.AnchorPoint=Vector2.new(0.5,0.5)
+S.BackgroundTransparency=1
 S.BorderSizePixel=0
-S.LayoutOrder=1
-S.Position=UDim2.new(1,172,0.5,0)
-S.Size=UDim2.new(0,160,1,-16)
-S.Name="DropdownSelect"
-S.ClipsDescendants=true
-S.Parent=N
+S.Position=UDim2.new(0.5,0,0.5,0)
+S.Size=UDim2.new(1,35,1,35)
+S.ZIndex=0
+S.Name="DropShadow"
+S.Parent=R
 
-R.Activated:Connect(function()
-if N.Visible then
-b:Create(N,TweenInfo.new(0.3),{BackgroundTransparency=0.999}):Play()
-b:Create(S,TweenInfo.new(0.3),{Position=UDim2.new(1,172,0.5,0)}):Play()
-task.wait(0.3)
-N.Visible=false
-end
-end)
-T.CornerRadius=UDim.new(0,3)
-T.Parent=S
+T.Parent=Q
 
-U.Color=Color3.fromRGB(255,255,255)
-U.Thickness=2.5
-U.Transparency=0.8
-U.Parent=S
+U.Font=Enum.Font.SourceSans
+U.Text=""
+U.TextColor3=Color3.fromRGB(0,0,0)
+U.TextSize=14
+U.BackgroundColor3=Color3.fromRGB(255,255,255)
+U.BackgroundTransparency=0.999
+U.BorderColor3=Color3.fromRGB(0,0,0)
+U.BorderSizePixel=0
+U.Size=UDim2.new(1,0,1,0)
+U.Name="ConnectButton"
+U.Parent=Q
 
-V.AnchorPoint=Vector2.new(0.5,0.5)
-V.BackgroundColor3=Color3.fromRGB(0,0,0)
-V.BackgroundTransparency=0.9990000128746033
+local V=Instance.new"Frame";
+local W=Instance.new"UICorner";
+local X=Instance.new"UIStroke";
+local Y=Instance.new"Frame";
+local Z=Instance.new"Folder";
+local _=Instance.new"UIPageLayout";
+
+V.AnchorPoint=Vector2.new(1,0.5)
+V.BackgroundColor3=Color3.fromRGB(30.00000011175871,30.00000011175871,30.00000011175871)
 V.BorderColor3=Color3.fromRGB(0,0,0)
 V.BorderSizePixel=0
 V.LayoutOrder=1
-V.Position=UDim2.new(0.5,0,0.5,0)
-V.Size=UDim2.new(1,-10,1,-10)
-V.Name="DropdownSelectReal"
-V.Parent=S
+V.Position=UDim2.new(1,172,0.5,0)
+V.Size=UDim2.new(0,160,1,-16)
+V.Name="DropdownSelect"
+V.ClipsDescendants=true
+V.Parent=Q
 
-W.Name="DropdownFolder"
+U.Activated:Connect(function()
+if Q.Visible then
+b:Create(Q,TweenInfo.new(0.3),{BackgroundTransparency=0.999}):Play()
+b:Create(V,TweenInfo.new(0.3),{Position=UDim2.new(1,172,0.5,0)}):Play()
+task.wait(0.3)
+Q.Visible=false
+end
+end)
+W.CornerRadius=UDim.new(0,3)
 W.Parent=V
 
-X.EasingDirection=Enum.EasingDirection.InOut
-X.EasingStyle=Enum.EasingStyle.Quad
-X.TweenTime=0.009999999776482582
-X.Padding=UDim.new(0,20)
-X.SortOrder=Enum.SortOrder.LayoutOrder
-X.Archivable=false
-X.Name="DropPageLayout"
-X.Parent=W
+X.Color=Color3.fromRGB(255,255,255)
+X.Thickness=2.5
+X.Transparency=0.8
+X.Parent=V
 
-local Y={}
-function Y.ToggleUI(Z)
+Y.AnchorPoint=Vector2.new(0.5,0.5)
+Y.BackgroundColor3=Color3.fromRGB(0,0,0)
+Y.BackgroundTransparency=0.9990000128746033
+Y.BorderColor3=Color3.fromRGB(0,0,0)
+Y.BorderSizePixel=0
+Y.LayoutOrder=1
+Y.Position=UDim2.new(0.5,0,0.5,0)
+Y.Size=UDim2.new(1,-10,1,-10)
+Y.Name="DropdownSelectReal"
+Y.Parent=V
+
+Z.Name="DropdownFolder"
+Z.Parent=Y
+
+_.EasingDirection=Enum.EasingDirection.InOut
+_.EasingStyle=Enum.EasingStyle.Quad
+_.TweenTime=0.009999999776482582
+_.Padding=UDim.new(0,20)
+_.SortOrder=Enum.SortOrder.LayoutOrder
+_.Archivable=false
+_.Name="DropPageLayout"
+_.Parent=Z
+
+local aa={}
+function aa.ToggleUI(ab)
 game:GetService"VirtualInputManager":SendKeyEvent(true,i.KeyCode,false,game)
 game:GetService"VirtualInputManager":SendKeyEvent(false,i.KeyCode,false,game)
 end
-local Z=0
-local _=0
-function Y.AddTab(aa,ab)
-local ac=ab or{}
-ac.Title=ac.Title or"Tab"
-ac.Icon=ac.Icon or""
+local ab=0
+local ac=0
+function aa.AddTab(ad,ae)
+local af=ae or{}
+af.Title=af.Title or"Tab"
+af.Icon=af.Icon or""
 
-local ad=Instance.new"ScrollingFrame";
-local ae=Instance.new"UIListLayout";
+local ag=Instance.new"ScrollingFrame";
+local ah=Instance.new"UIListLayout";
 
-ad.ScrollBarImageColor3=Color3.fromRGB(80.00000283122063,80.00000283122063,80.00000283122063)
-ad.ScrollBarThickness=0
-ad.Active=true
-ad.LayoutOrder=Z
-ad.BackgroundColor3=Color3.fromRGB(255,255,255)
-ad.BackgroundTransparency=0.9990000128746033
-ad.BorderColor3=Color3.fromRGB(0,0,0)
-ad.BorderSizePixel=0
-ad.Size=UDim2.new(1,0,1,0)
-ad.Name="ScrolLayers"
-ad.Parent=H
+ag.ScrollBarImageColor3=Color3.fromRGB(80.00000283122063,80.00000283122063,80.00000283122063)
+ag.ScrollBarThickness=0
+ag.Active=true
+ag.LayoutOrder=ab
+ag.BackgroundColor3=Color3.fromRGB(255,255,255)
+ag.BackgroundTransparency=0.9990000128746033
+ag.BorderColor3=Color3.fromRGB(0,0,0)
+ag.BorderSizePixel=0
+ag.Size=UDim2.new(1,0,1,0)
+ag.Name="ScrolLayers"
+ag.Parent=H
 
-ae.Padding=UDim.new(0,3)
-ae.SortOrder=Enum.SortOrder.LayoutOrder
-ae.Parent=ad
+ah.Padding=UDim.new(0,3)
+ah.SortOrder=Enum.SortOrder.LayoutOrder
+ah.Parent=ag
 
-local af=Instance.new"Frame";
-local ag=Instance.new"UICorner";
-local ah=Instance.new"TextButton";
-local ai=Instance.new"TextLabel"
-local aj=Instance.new"ImageLabel";
+local ai=Instance.new"Frame";
+local aj=Instance.new"UICorner";
+local ak=Instance.new"TextButton";
+local al=Instance.new"TextLabel"
+local am=Instance.new"ImageLabel";
 Instance.new"UIStroke";
 Instance.new"UICorner";
 
-af.BackgroundColor3=Color3.fromRGB(255,255,255)
-if Z==0 then
-F.Text=ac.Title
-af.BackgroundTransparency=0.9200000166893005
-else
-af.BackgroundTransparency=0.9990000128746033
-end
-af.BorderColor3=Color3.fromRGB(0,0,0)
-af.BorderSizePixel=0
-af.LayoutOrder=Z
-af.Size=UDim2.new(1,0,0,30)
-af.Name="Tab"
-af.Parent=J
-
-ag.CornerRadius=UDim.new(0,4)
-ag.Parent=af
-
-ah.Font=Enum.Font.GothamBold
-ah.Text=""
-ah.TextColor3=Color3.fromRGB(255,255,255)
-ah.TextSize=13
-ah.TextXAlignment=Enum.TextXAlignment.Left
-ah.BackgroundColor3=Color3.fromRGB(255,255,255)
-ah.BackgroundTransparency=0.9990000128746033
-ah.BorderColor3=Color3.fromRGB(0,0,0)
-ah.BorderSizePixel=0
-ah.Size=UDim2.new(1,0,1,0)
-ah.Name="TabButton"
-ah.Parent=af
-
-ai.Font=Enum.Font.GothamBold
-ai.Text=ac.Title
-ai.TextColor3=Color3.fromRGB(255,255,255)
-ai.TextSize=13
-ai.TextXAlignment=Enum.TextXAlignment.Left
 ai.BackgroundColor3=Color3.fromRGB(255,255,255)
+if ab==0 then
+F.Text=af.Title
+ai.BackgroundTransparency=0.9200000166893005
+else
 ai.BackgroundTransparency=0.9990000128746033
+end
 ai.BorderColor3=Color3.fromRGB(0,0,0)
 ai.BorderSizePixel=0
-ai.Size=UDim2.new(1,0,1,0)
-ai.Position=UDim2.new(0,30,0,0)
-ai.Name="TabName"
-ai.Parent=af
+ai.LayoutOrder=ab
+ai.Size=UDim2.new(1,0,0,30)
+ai.Name="Tab"
+ai.Parent=M
 
-aj.Image=ac.Icon
-aj.BackgroundColor3=Color3.fromRGB(255,255,255)
-aj.BackgroundTransparency=0.9990000128746033
-aj.BorderColor3=Color3.fromRGB(0,0,0)
-aj.BorderSizePixel=0
-aj.Position=UDim2.new(0,9,0,7)
-aj.Size=UDim2.new(0,16,0,16)
-aj.Name="FeatureImg"
-aj.Parent=af
-ah.Activated:Connect(function()
-CircleClick(ah,d.X,d.Y)
-if af.LayoutOrder~=I.CurrentPage.LayoutOrder then
-for ak,al in J:GetChildren()do
-if al.Name=="Tab"then
+aj.CornerRadius=UDim.new(0,4)
+aj.Parent=ai
+
+ak.Font=Enum.Font.GothamBold
+ak.Text=""
+ak.TextColor3=Color3.fromRGB(255,255,255)
+ak.TextSize=13
+ak.TextXAlignment=Enum.TextXAlignment.Left
+ak.BackgroundColor3=Color3.fromRGB(255,255,255)
+ak.BackgroundTransparency=0.9990000128746033
+ak.BorderColor3=Color3.fromRGB(0,0,0)
+ak.BorderSizePixel=0
+ak.Size=UDim2.new(1,0,1,0)
+ak.Name="TabButton"
+ak.Parent=ai
+
+al.Font=Enum.Font.GothamBold
+al.Text=af.Title
+al.TextColor3=Color3.fromRGB(255,255,255)
+al.TextSize=13
+al.TextXAlignment=Enum.TextXAlignment.Left
+al.BackgroundColor3=Color3.fromRGB(255,255,255)
+al.BackgroundTransparency=0.9990000128746033
+al.BorderColor3=Color3.fromRGB(0,0,0)
+al.BorderSizePixel=0
+al.Size=UDim2.new(1,0,1,0)
+al.Position=UDim2.new(0,30,0,0)
+al.Name="TabName"
+al.Parent=ai
+
+am.Image=af.Icon
+am.BackgroundColor3=Color3.fromRGB(255,255,255)
+am.BackgroundTransparency=0.9990000128746033
+am.BorderColor3=Color3.fromRGB(0,0,0)
+am.BorderSizePixel=0
+am.Position=UDim2.new(0,9,0,7)
+am.Size=UDim2.new(0,16,0,16)
+am.Name="FeatureImg"
+am.Parent=ai
+ak.Activated:Connect(function()
+CircleClick(ak,d.X,d.Y)
+if ai.LayoutOrder~=I.CurrentPage.LayoutOrder then
+for an,ao in M:GetChildren()do
+if ao.Name=="Tab"then
 b:Create(
-al,
+ao,
 TweenInfo.new(0.3,Enum.EasingStyle.Back,Enum.EasingDirection.InOut),
 {BackgroundTransparency=0.9990000128746033}
 ):Play()
 end
 end
 b:Create(
-af,
+ai,
 TweenInfo.new(0.6,Enum.EasingStyle.Back,Enum.EasingDirection.InOut),
 {BackgroundTransparency=0.9200000166893005}
 ):Play()
-I:JumpToIndex(af.LayoutOrder)
+I:JumpToIndex(ai.LayoutOrder)
 task.wait(0.05)
-F.Text=ac.Title
+F.Text=af.Title
 end
 end)
 
-local ak={}
-local al=0
-function ak.AddSection(am,an,ao)
-local ap=an or"Title"
-local aq=Instance.new"Frame";
-local ar=ao or false
-local as=Instance.new"Frame";
-local at=Instance.new"UICorner";
-local au=Instance.new"UIGradient";
-
-aq.BackgroundColor3=Color3.fromRGB(255,255,255)
-aq.BackgroundTransparency=0.9990000128746033
-aq.BorderColor3=Color3.fromRGB(0,0,0)
-aq.BorderSizePixel=0
-aq.ClipsDescendants=true
-aq.Size=UDim2.new(1,0,0,30)
-aq.Name="Section"
-aq.Parent=ad
-
+local an={}
+local ao=0
+function an.AddSection(ap,aq,ar)
+local as=aq or"Title"
+local at=Instance.new"Frame";
+local au=ar or false
 local av=Instance.new"Frame";
 local aw=Instance.new"UICorner";
-Instance.new"UIStroke";
-local ax=Instance.new"TextButton";
+local ax=Instance.new"UIGradient";
+
+at.BackgroundColor3=Color3.fromRGB(255,255,255)
+at.BackgroundTransparency=0.9990000128746033
+at.BorderColor3=Color3.fromRGB(0,0,0)
+at.BorderSizePixel=0
+at.LayoutOrder=ao
+at.ClipsDescendants=true
+at.LayoutOrder=1
+at.Size=UDim2.new(1,0,0,30)
+at.Name="Section"
+at.Parent=ag
+
 local ay=Instance.new"Frame";
-local az=Instance.new"ImageLabel";
-local aA=Instance.new"TextLabel";
+local az=Instance.new"UICorner";
+Instance.new"UIStroke";
+local aA=Instance.new"TextButton";
+local aB=Instance.new"Frame";
+local aC=Instance.new"ImageLabel";
+local aD=Instance.new"TextLabel";
 
-av.AnchorPoint=Vector2.new(0.5,0)
-av.BackgroundColor3=Color3.fromRGB(255,255,255)
-av.BackgroundTransparency=0.9350000023841858
-av.BorderColor3=Color3.fromRGB(0,0,0)
-av.BorderSizePixel=0
-av.LayoutOrder=1
-av.Position=UDim2.new(0.5,0,0,0)
-av.Size=UDim2.new(1,1,0,30)
-av.Name="SectionReal"
-av.Parent=aq
-
-aw.CornerRadius=UDim.new(0,4)
-aw.Parent=av
-
-ax.Font=Enum.Font.SourceSans
-ax.Text=""
-ax.TextColor3=Color3.fromRGB(0,0,0)
-ax.TextSize=14
-ax.BackgroundColor3=Color3.fromRGB(255,255,255)
-ax.BackgroundTransparency=0.9990000128746033
-ax.BorderColor3=Color3.fromRGB(0,0,0)
-ax.BorderSizePixel=0
-ax.Size=UDim2.new(1,0,1,0)
-ax.Name="SectionButton"
-ax.Parent=av
-
-ay.AnchorPoint=Vector2.new(1,0.5)
-ay.BackgroundColor3=Color3.fromRGB(0,0,0)
-ay.BackgroundTransparency=0.9990000128746033
+ay.AnchorPoint=Vector2.new(0.5,0)
+ay.BackgroundColor3=Color3.fromRGB(255,255,255)
+ay.BackgroundTransparency=0.9350000023841858
 ay.BorderColor3=Color3.fromRGB(0,0,0)
 ay.BorderSizePixel=0
-ay.Position=UDim2.new(1,-5,0.5,0)
-ay.Size=UDim2.new(0,20,0,20)
-ay.Name="FeatureFrame"
-ay.Parent=av
+ay.LayoutOrder=1
+ay.Position=UDim2.new(0.5,0,0,0)
+ay.Size=UDim2.new(1,1,0,30)
+ay.Name="SectionReal"
+ay.Parent=at
 
-az.Image="rbxassetid://16851841101"
-az.AnchorPoint=Vector2.new(0.5,0.5)
-az.BackgroundColor3=Color3.fromRGB(255,255,255)
-az.BackgroundTransparency=0.9990000128746033
-az.BorderColor3=Color3.fromRGB(0,0,0)
-az.BorderSizePixel=0
-az.Position=UDim2.new(0.5,0,0.5,0)
-az.Rotation=-90
-az.Size=UDim2.new(1,6,1,6)
-az.Name="FeatureImg"
+az.CornerRadius=UDim.new(0,4)
 az.Parent=ay
 
-aA.Font=Enum.Font.GothamBold
-aA.Text=ap
-aA.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-aA.TextSize=13
-aA.TextXAlignment=Enum.TextXAlignment.Left
-aA.AnchorPoint=Vector2.new(0,0.5)
+aA.Font=Enum.Font.SourceSans
+aA.Text=""
+aA.TextColor3=Color3.fromRGB(0,0,0)
+aA.TextSize=14
 aA.BackgroundColor3=Color3.fromRGB(255,255,255)
 aA.BackgroundTransparency=0.9990000128746033
 aA.BorderColor3=Color3.fromRGB(0,0,0)
 aA.BorderSizePixel=0
-aA.Position=UDim2.new(0,10,0.5,0)
-aA.Size=UDim2.new(1,-50,1,0)
-aA.Name="SectionTitle"
-aA.Parent=av
+aA.Size=UDim2.new(1,0,1,0)
+aA.Name="SectionButton"
+aA.Parent=ay
 
-as.BackgroundColor3=Color3.fromRGB(255,255,255)
-as.BorderColor3=Color3.fromRGB(0,0,0)
-as.AnchorPoint=Vector2.new(0.5,0)
-as.BorderSizePixel=0
-as.Position=UDim2.new(0.5,0,0,33)
-as.Size=UDim2.new(0,0,0,2)
-as.Name="SectionDecideFrame"
-as.Parent=aq
+aB.AnchorPoint=Vector2.new(1,0.5)
+aB.BackgroundColor3=Color3.fromRGB(0,0,0)
+aB.BackgroundTransparency=0.9990000128746033
+aB.BorderColor3=Color3.fromRGB(0,0,0)
+aB.BorderSizePixel=0
+aB.Position=UDim2.new(1,-5,0.5,0)
+aB.Size=UDim2.new(0,20,0,20)
+aB.Name="FeatureFrame"
+aB.Parent=ay
 
-at.Parent=as
+aC.Image="rbxassetid://16851841101"
+aC.AnchorPoint=Vector2.new(0.5,0.5)
+aC.BackgroundColor3=Color3.fromRGB(255,255,255)
+aC.BackgroundTransparency=0.9990000128746033
+aC.BorderColor3=Color3.fromRGB(0,0,0)
+aC.BorderSizePixel=0
+aC.Position=UDim2.new(0.5,0,0.5,0)
+aC.Rotation=-90
+aC.Size=UDim2.new(1,6,1,6)
+aC.Name="FeatureImg"
+aC.Parent=aB
 
-au.Color=ColorSequence.new{
+aD.Font=Enum.Font.GothamBold
+aD.Text=as
+aD.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aD.TextSize=13
+aD.TextXAlignment=Enum.TextXAlignment.Left
+aD.AnchorPoint=Vector2.new(0,0.5)
+aD.BackgroundColor3=Color3.fromRGB(255,255,255)
+aD.BackgroundTransparency=0.9990000128746033
+aD.BorderColor3=Color3.fromRGB(0,0,0)
+aD.BorderSizePixel=0
+aD.Position=UDim2.new(0,10,0.5,0)
+aD.Size=UDim2.new(1,-50,1,0)
+aD.Name="SectionTitle"
+aD.Parent=ay
+
+av.BackgroundColor3=Color3.fromRGB(255,255,255)
+av.BorderColor3=Color3.fromRGB(0,0,0)
+av.AnchorPoint=Vector2.new(0.5,0)
+av.BorderSizePixel=0
+av.Position=UDim2.new(0.5,0,0,33)
+av.Size=UDim2.new(0,0,0,2)
+av.Name="SectionDecideFrame"
+av.Parent=at
+
+aw.Parent=av
+
+ax.Color=ColorSequence.new{
 ColorSequenceKeypoint.new(0,Color3.fromRGB(20,20,20)),
 ColorSequenceKeypoint.new(0.5,i.Color),
 ColorSequenceKeypoint.new(1,Color3.fromRGB(20,20,20))
 }
-au.Parent=as
+ax.Parent=av
 
-local aB=Instance.new"Frame";
-local aC=Instance.new"UICorner";
-local aD=Instance.new"UIListLayout";
+local aE=Instance.new"Frame";
+local aF=Instance.new"UICorner";
+local aG=Instance.new"UIListLayout";
 
-aB.AnchorPoint=Vector2.new(0.5,0)
-aB.BackgroundColor3=Color3.fromRGB(255,255,255)
-aB.BackgroundTransparency=0.9990000128746033
-aB.BorderColor3=Color3.fromRGB(0,0,0)
-aB.BorderSizePixel=0
-aB.ClipsDescendants=true
-aB.LayoutOrder=1
-aB.Position=UDim2.new(0.5,0,0,38)
-aB.Size=UDim2.new(1,0,0,100)
-aB.Name="SectionAdd"
-aB.Parent=aq
+aE.AnchorPoint=Vector2.new(0.5,0)
+aE.BackgroundColor3=Color3.fromRGB(255,255,255)
+aE.BackgroundTransparency=0.9990000128746033
+aE.BorderColor3=Color3.fromRGB(0,0,0)
+aE.BorderSizePixel=0
+aE.ClipsDescendants=true
+aE.LayoutOrder=1
+aE.Position=UDim2.new(0.5,0,0,38)
+aE.Size=UDim2.new(1,0,0,100)
+aE.Name="SectionAdd"
+aE.Parent=at
 
-aC.CornerRadius=UDim.new(0,2)
-aC.Parent=aB
+aF.CornerRadius=UDim.new(0,2)
+aF.Parent=aE
 
-aD.Padding=UDim.new(0,3)
-aD.SortOrder=Enum.SortOrder.LayoutOrder
-aD.Parent=aB
-local aE=true
+aG.Padding=UDim.new(0,3)
+aG.SortOrder=Enum.SortOrder.LayoutOrder
+aG.Parent=aE
+local aH=true
 local function UpdateSizeScroll()
-local aF=0
-for aG,aH in ad:GetChildren()do
-if aH.Name~="UIListLayout"then
-aF=aF+3+aH.Size.Y.Offset
+local aI=0
+for aJ,aK in ag:GetChildren()do
+if aK.Name~="UIListLayout"then
+aI=aI+3+aK.Size.Y.Offset
 end
 end
-ad.CanvasSize=UDim2.new(0,0,0,aF)
+ag.CanvasSize=UDim2.new(0,0,0,aI)
 end
 local function UpdateSizeSection()
-if aE then
-local aF=38
-for aG,aH in aB:GetChildren()do
-if aH.Name~="UIListLayout"and aH.Name~="UICorner"then
-aF=aF+aH.Size.Y.Offset+3
+if aH then
+local aI=38
+for aJ,aK in aE:GetChildren()do
+if aK.Name~="UIListLayout"and aK.Name~="UICorner"then
+aI=aI+aK.Size.Y.Offset+3
 end
 end
-b:Create(ay,TweenInfo.new(0.5),{Rotation=90}):Play()
-b:Create(aq,TweenInfo.new(0.5),{Size=UDim2.new(1,1,0,aF)}):Play()
-b:Create(aB,TweenInfo.new(0.5),{Size=UDim2.new(1,0,0,aF-38)}):Play()
-b:Create(as,TweenInfo.new(0.5),{Size=UDim2.new(1,0,0,2)}):Play()
+b:Create(aB,TweenInfo.new(0.5),{Rotation=90}):Play()
+b:Create(at,TweenInfo.new(0.5),{Size=UDim2.new(1,1,0,aI)}):Play()
+b:Create(aE,TweenInfo.new(0.5),{Size=UDim2.new(1,0,0,aI-38)}):Play()
+b:Create(av,TweenInfo.new(0.5),{Size=UDim2.new(1,0,0,2)}):Play()
 task.wait(0.5)
 UpdateSizeScroll()
 end
 end
-if not ar then
-ay.Rotation=0
-aq.Size=UDim2.new(1,1,0,30)
-as.Size=UDim2.new(0,0,0,2)
-aE=false
+if not au then
+aB.Rotation=0
+at.Size=UDim2.new(1,1,0,30)
+av.Size=UDim2.new(0,0,0,2)
+aH=false
 UpdateSizeScroll()
 end
-ax.Activated:Connect(function()
-CircleClick(ax,d.X,d.Y)
-if aE then
-b:Create(ay,TweenInfo.new(0.35),{Rotation=0}):Play()
-b:Create(aq,TweenInfo.new(0.35),{Size=UDim2.new(1,1,0,30)}):Play()
-b:Create(as,TweenInfo.new(0.35),{Size=UDim2.new(0,0,0,2)}):Play()
-aE=false
+aA.Activated:Connect(function()
+CircleClick(aA,d.X,d.Y)
+if aH then
+b:Create(aB,TweenInfo.new(0.35),{Rotation=0}):Play()
+b:Create(at,TweenInfo.new(0.35),{Size=UDim2.new(1,1,0,30)}):Play()
+b:Create(av,TweenInfo.new(0.35),{Size=UDim2.new(0,0,0,2)}):Play()
+aH=false
 task.wait(0.35)
 UpdateSizeScroll()
 else
-aE=true
+aH=true
 UpdateSizeSection()
 end
 end)
-aB.ChildAdded:Connect(UpdateSizeSection)
-aB.ChildRemoved:Connect(UpdateSizeSection)
+aE.ChildAdded:Connect(UpdateSizeSection)
+aE.ChildRemoved:Connect(UpdateSizeSection)
 UpdateSizeScroll()
 
-local aF={}
-local aG=0
-function aF.AddSeperator(aH,aI)
-local aJ=aI or"Title"
-local aK=Instance.new"Frame"
-local aL=Instance.new"TextLabel"
-aK.BackgroundColor3=Color3.fromRGB(255,255,255)
-aK.BackgroundTransparency=1
-aK.BorderColor3=Color3.fromRGB(0,0,0)
-aK.BorderSizePixel=0
-aK.Size=UDim2.new(1,0,0,33)
-aK.Name="Seperator"
-aK.Parent=aB
-aL.Font=Enum.Font.GothamBold
-aL.Text=aJ
-aL.TextColor3=Color3.fromRGB(230,230,230)
-aL.TextSize=13
-aL.TextXAlignment=Enum.TextXAlignment.Left
-aL.BackgroundColor3=Color3.fromRGB(255,255,255)
-aL.BackgroundTransparency=1
-aL.BorderColor3=Color3.fromRGB(0,0,0)
-aL.BorderSizePixel=0
-aL.Position=UDim2.new(0,10,0,0)
-aL.Size=UDim2.new(1,-16,1,0)
-aL.Name="SeperatorTitle"
-aL.Parent=aK
-aG=aG+1
-end
-function aF.AddParagraph(aH,aI)
-local aJ=aI or{}
-aJ.Title=aJ.Title or"Title"
-aJ.Content=aJ.Content or""
-local aK={}
-
-local aL=Instance.new"Frame";
-local aM=Instance.new"UICorner";
-local aN=Instance.new"TextLabel";
-local aO=Instance.new"TextLabel";
-
-aL.BackgroundColor3=Color3.fromRGB(255,255,255)
-aL.BackgroundTransparency=0.9350000023841858
-aL.BorderColor3=Color3.fromRGB(0,0,0)
-aL.BorderSizePixel=0
-aL.Size=UDim2.new(1,0,0,40)
-aL.Name="Paragraph"
-aL.Parent=aB
-
-aM.CornerRadius=UDim.new(0,4)
-aM.Parent=aL
-
-aN.Font=Enum.Font.GothamBold
-aN.Text=aJ.Title
-aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-aN.TextSize=13
-aN.TextXAlignment=Enum.TextXAlignment.Left
+local aI={}
+local aJ=0
+function aI.AddSeperator(aK,aL)
+local aM=aL or"Title"
+local aN=Instance.new"Frame"
+local aO=Instance.new"TextLabel"
 aN.BackgroundColor3=Color3.fromRGB(255,255,255)
-aN.BackgroundTransparency=0.9990000128746033
+aN.BackgroundTransparency=1
 aN.BorderColor3=Color3.fromRGB(0,0,0)
 aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,0)
-aN.Size=UDim2.new(1,-16,1,0)
-aN.Name="ParagraphTitle"
-aN.Parent=aL
-
+aN.LayoutOrder=aJ
+aN.Size=UDim2.new(1,0,0,33)
+aN.Name="Seperator"
+aN.Parent=aE
 aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Content
-aO.RichText=true
-aO.TextColor3=Color3.fromRGB(122,122,122)
-aO.TextSize=12
-aO.TextTransparency=0
+aO.Text=aM
+aO.TextColor3=Color3.fromRGB(230,230,230)
+aO.TextSize=13
 aO.TextXAlignment=Enum.TextXAlignment.Left
-aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
-aO.BackgroundTransparency=0.9990000128746033
+aO.BackgroundTransparency=1
 aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
-aO.Position=UDim2.new(0,10,0,23)
-aO.Name="ParagraphDescription"
-aO.Parent=aL
-aO.Size=UDim2.new(1,-16,1,-23)
-aO.TextWrapped=true
-
-if aO.Text~=""then
-aN.Size=UDim2.new(1,-16,0,13)
-aN.Position=UDim2.new(0,10,0,10)
-aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
+aO.Position=UDim2.new(0,10,0,0)
+aO.Size=UDim2.new(1,-16,1,0)
+aO.Name="SeperatorTitle"
+aO.Parent=aN
+aJ=aJ+1
 end
-aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
-if aO.Text~=""then
-aN.Size=UDim2.new(1,-16,0,13)
-aN.Position=UDim2.new(0,10,0,10)
-aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-UpdateSizeSection()
-end
-end)
+function aI.AddParagraph(aK,aL)
+local aM=aL or{}
+aM.Title=aM.Title or"Title"
+aM.Content=aM.Content or""
+local aN={}
 
-function aK.Set(aP,aQ)
-local aR=aQ or{}
-aR.Title=aR.Title or aN.Text
-aR.Content=aR.Content or aO.Text
+local aO=Instance.new"Frame";
+local aP=Instance.new"UICorner";
+local aQ=Instance.new"TextLabel";
+local aR=Instance.new"TextLabel";
 
-aN.Text=aR.Title
-aO.Text=aR.Content
-aO.TextWrapped=false
-aO.Size=UDim2.new(1,-16,1,-23)
-aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-end
-aG=aG+1
-return aK
-end
-function aF.AddButton(aH,aI)
-local aJ=aI or{}
-aJ.Title=aJ.Title or"Title"
-aJ.Description=aJ.Description or""
-aJ.Icon=aJ.Icon or"rbxassetid://16932740082"
-aJ.Callback=aJ.Callback or function()end
-local aK={}
-
-local aL=Instance.new"Frame";
-local aM=Instance.new"UICorner";
-local aN=Instance.new"TextLabel";
-local aO=Instance.new"TextLabel";
-local aP=Instance.new"TextButton";
-local aQ=Instance.new"Frame";
-local aR=Instance.new"ImageLabel";
-
-aL.BackgroundColor3=Color3.fromRGB(255,255,255)
-aL.BackgroundTransparency=0.9350000023841858
-aL.BorderColor3=Color3.fromRGB(0,0,0)
-aL.BorderSizePixel=0
-aL.Size=UDim2.new(1,0,0,38)
-aL.Name="Button"
-aL.Parent=aB
-
-aM.CornerRadius=UDim.new(0,4)
-aM.Parent=aL
-
-aN.Font=Enum.Font.GothamBold
-aN.Text=aJ.Title
-aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-aN.TextSize=13
-aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.BackgroundColor3=Color3.fromRGB(255,255,255)
-aN.BackgroundTransparency=0.9990000128746033
-aN.BorderColor3=Color3.fromRGB(0,0,0)
-aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,0)
-aN.Size=UDim2.new(1,-100,1,0)
-aN.Name="ButtonTitle"
-aN.Parent=aL
-
-aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Description
-aO.TextColor3=Color3.fromRGB(122,122,122)
-aO.TextSize=12
-aO.TextTransparency=0
-aO.TextXAlignment=Enum.TextXAlignment.Left
-aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
-aO.BackgroundTransparency=0.9990000128746033
+aO.BackgroundTransparency=0.9350000023841858
 aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
-aO.Position=UDim2.new(0,10,0,23)
-aO.Name="ButtonDescription"
-aO.RichText=true
-aO.Parent=aL
+aO.LayoutOrder=aJ
+aO.Size=UDim2.new(1,0,0,40)
+aO.Name="Paragraph"
+aO.Parent=aE
 
-if aO.Text~=""then
-aO.Size=UDim2.new(1,-100,1,-23)
-aO.TextWrapped=true
-aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
-aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
-aO.TextWrapped=false
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-100,0,13)
-aO.Size=UDim2.new(1,-100,1,-23)
-aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-aO.TextWrapped=true
-UpdateSizeSection()
-end)
-end
+aP.CornerRadius=UDim.new(0,4)
+aP.Parent=aO
 
-aP.Font=Enum.Font.SourceSans
-aP.Text=""
-aP.TextColor3=Color3.fromRGB(0,0,0)
-aP.TextSize=14
-aP.BackgroundColor3=Color3.fromRGB(0,0,0)
-aP.BackgroundTransparency=0.9990000128746033
-aP.BorderColor3=Color3.fromRGB(0,0,0)
-aP.BorderSizePixel=0
-aP.Size=UDim2.new(1,0,1,0)
-aP.Name="ButtonButton"
-aP.Parent=aL
-
-aQ.AnchorPoint=Vector2.new(1,0.5)
-aQ.BackgroundColor3=Color3.fromRGB(0,0,0)
+aQ.Font=Enum.Font.GothamBold
+aQ.Text=aM.Title
+aQ.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aQ.TextSize=13
+aQ.TextXAlignment=Enum.TextXAlignment.Left
+aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
 aQ.BackgroundTransparency=0.9990000128746033
 aQ.BorderColor3=Color3.fromRGB(0,0,0)
 aQ.BorderSizePixel=0
-aQ.Position=UDim2.new(1,-15,0.5,0)
-aQ.Size=UDim2.new(0,25,0,25)
-aQ.Name="FeatureFrame"
-aQ.Parent=aL
+aQ.Position=UDim2.new(0,10,0,0)
+aQ.Size=UDim2.new(1,-16,1,0)
+aQ.Name="ParagraphTitle"
+aQ.Parent=aO
 
-aR.Image=aJ.Icon
-aR.AnchorPoint=Vector2.new(0.5,0.5)
+aR.Font=Enum.Font.GothamBold
+aR.Text=aM.Content
+aR.RichText=true
+aR.TextColor3=Color3.fromRGB(122,122,122)
+aR.TextSize=12
+aR.TextTransparency=0
+aR.TextXAlignment=Enum.TextXAlignment.Left
+aR.TextYAlignment=Enum.TextYAlignment.Top
 aR.BackgroundColor3=Color3.fromRGB(255,255,255)
 aR.BackgroundTransparency=0.9990000128746033
 aR.BorderColor3=Color3.fromRGB(0,0,0)
 aR.BorderSizePixel=0
-aR.Position=UDim2.new(0.5,0,0.5,0)
-aR.Size=UDim2.new(1,0,1,0)
-aR.Name="FeatureImg"
-aR.Parent=aQ
+aR.Position=UDim2.new(0,10,0,23)
+aR.Name="ParagraphDescription"
+aR.Parent=aO
+aR.Size=UDim2.new(1,-16,1,-23)
+aR.TextWrapped=true
 
-aP.Activated:Connect(function()
-CircleClick(aP,d.X,d.Y)
-aJ.Callback()
-end)
-aG=aG+1
-return aK
+if aR.Text~=""then
+aQ.Size=UDim2.new(1,-16,0,13)
+aQ.Position=UDim2.new(0,10,0,10)
+aO.Size=UDim2.new(1,0,0,math.max(aR.TextBounds.Y+40,46))
 end
-function aF.AddToggle(aH,aI)
-local aJ=aI or{}
-aJ.Title=aJ.Title or"Title"
-aJ.Description=aJ.Description or""
-aJ.Default=aJ.Default or false
-aJ.Callback=aJ.Callback or function()end
-local aK={Value=aJ.Default,Options=aJ.Options,Selecting=aJ.Selecting}
+aR:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+if aR.Text~=""then
+aQ.Size=UDim2.new(1,-16,0,13)
+aQ.Position=UDim2.new(0,10,0,10)
+aO.Size=UDim2.new(1,0,0,math.max(aR.TextBounds.Y+40,46))
+UpdateSizeSection()
+end
+end)
 
-local aL=Instance.new"Frame";
-local aM=Instance.new"UICorner";
-local aN=Instance.new"TextLabel";
-local aO=Instance.new"TextLabel";
-local aP=Instance.new"TextButton";
+function aN.Set(aS,aT)
+local aU=aT or{}
+aU.Title=aU.Title or aQ.Text
+aU.Content=aU.Content or aR.Text
+
+aQ.Text=aU.Title
+aR.Text=aU.Content
+aR.TextWrapped=false
+aR.Size=UDim2.new(1,-16,1,-23)
+aO.Size=UDim2.new(1,0,0,math.max(aR.TextBounds.Y+40,46))
+end
+aJ=aJ+1
+return aN
+end
+function aI.AddButton(aK,aL)
+local aM=aL or{}
+aM.Title=aM.Title or"Title"
+aM.Description=aM.Description or""
+aM.Icon=aM.Icon or"rbxassetid://16932740082"
+aM.Callback=aM.Callback or function()end
+local aN={}
+
+local aO=Instance.new"Frame";
+local aP=Instance.new"UICorner";
+local aQ=Instance.new"TextLabel";
+local aR=Instance.new"TextLabel";
+local aS=Instance.new"TextButton";
+local aT=Instance.new"Frame";
+local aU=Instance.new"ImageLabel";
+
+aO.BackgroundColor3=Color3.fromRGB(255,255,255)
+aO.BackgroundTransparency=0.9350000023841858
+aO.BorderColor3=Color3.fromRGB(0,0,0)
+aO.BorderSizePixel=0
+aO.LayoutOrder=aJ
+aO.Size=UDim2.new(1,0,0,38)
+aO.Name="Button"
+aO.Parent=aE
+
+aP.CornerRadius=UDim.new(0,4)
+aP.Parent=aO
+
+aQ.Font=Enum.Font.GothamBold
+aQ.Text=aM.Title
+aQ.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aQ.TextSize=13
+aQ.TextXAlignment=Enum.TextXAlignment.Left
+aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
+aQ.BackgroundTransparency=0.9990000128746033
+aQ.BorderColor3=Color3.fromRGB(0,0,0)
+aQ.BorderSizePixel=0
+aQ.Position=UDim2.new(0,10,0,0)
+aQ.Size=UDim2.new(1,-100,1,0)
+aQ.Name="ButtonTitle"
+aQ.Parent=aO
+
+aR.Font=Enum.Font.GothamBold
+aR.Text=aM.Description
+aR.TextColor3=Color3.fromRGB(122,122,122)
+aR.TextSize=12
+aR.TextTransparency=0
+aR.TextXAlignment=Enum.TextXAlignment.Left
+aR.TextYAlignment=Enum.TextYAlignment.Top
+aR.BackgroundColor3=Color3.fromRGB(255,255,255)
+aR.BackgroundTransparency=0.9990000128746033
+aR.BorderColor3=Color3.fromRGB(0,0,0)
+aR.BorderSizePixel=0
+aR.Position=UDim2.new(0,10,0,23)
+aR.Name="ButtonDescription"
+aR.RichText=true
+aR.Parent=aO
+
+if aR.Text~=""then
+aR.Size=UDim2.new(1,-100,1,-23)
+aR.TextWrapped=true
+aO.Size=UDim2.new(1,0,0,math.max(aR.AbsoluteSize.Y+40,46))
+aR:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+aR.TextWrapped=false
+aQ.Position=UDim2.new(0,10,0,10)
+aQ.Size=UDim2.new(1,-100,0,13)
+aR.Size=UDim2.new(1,-100,1,-23)
+aO.Size=UDim2.new(1,0,0,math.max(aR.TextBounds.Y+40,46))
+aR.TextWrapped=true
+UpdateSizeSection()
+end)
+end
+
+aS.Font=Enum.Font.SourceSans
+aS.Text=""
+aS.TextColor3=Color3.fromRGB(0,0,0)
+aS.TextSize=14
+aS.BackgroundColor3=Color3.fromRGB(0,0,0)
+aS.BackgroundTransparency=0.9990000128746033
+aS.BorderColor3=Color3.fromRGB(0,0,0)
+aS.BorderSizePixel=0
+aS.Size=UDim2.new(1,0,1,0)
+aS.Name="ButtonButton"
+aS.Parent=aO
+
+aT.AnchorPoint=Vector2.new(1,0.5)
+aT.BackgroundColor3=Color3.fromRGB(0,0,0)
+aT.BackgroundTransparency=0.9990000128746033
+aT.BorderColor3=Color3.fromRGB(0,0,0)
+aT.BorderSizePixel=0
+aT.Position=UDim2.new(1,-15,0.5,0)
+aT.Size=UDim2.new(0,25,0,25)
+aT.Name="FeatureFrame"
+aT.Parent=aO
+
+aU.Image=aM.Icon
+aU.AnchorPoint=Vector2.new(0.5,0.5)
+aU.BackgroundColor3=Color3.fromRGB(255,255,255)
+aU.BackgroundTransparency=0.9990000128746033
+aU.BorderColor3=Color3.fromRGB(0,0,0)
+aU.BorderSizePixel=0
+aU.Position=UDim2.new(0.5,0,0.5,0)
+aU.Size=UDim2.new(1,0,1,0)
+aU.Name="FeatureImg"
+aU.Parent=aT
+
+aS.Activated:Connect(function()
+CircleClick(aS,d.X,d.Y)
+aM.Callback()
+end)
+aJ=aJ+1
+return aN
+end
+function aI.AddToggle(aK,aL)
+local aM=aL or{}
+aM.Title=aM.Title or"Title"
+aM.Description=aM.Description or""
+aM.Default=aM.Default or false
+aM.Callback=aM.Callback or function()end
+local aN={Value=aM.Default,Options=aM.Options,Selecting=aM.Selecting}
+
+local aO=Instance.new"Frame";
+local aP=Instance.new"UICorner";
+local aQ=Instance.new"TextLabel";
+local aR=Instance.new"TextLabel";
+local aS=Instance.new"TextButton";
 Instance.new"Frame";
 Instance.new"ImageLabel";
 Instance.new"UICorner";
 Instance.new"TextButton";
-local aQ=Instance.new"Frame";
-local aR=Instance.new"UICorner";
-local aS=Instance.new"UIStroke";
 local aT=Instance.new"Frame";
 local aU=Instance.new"UICorner";
+local aV=Instance.new"UIStroke";
+local aW=Instance.new"Frame";
+local aX=Instance.new"UICorner";
 
-aL.BackgroundColor3=Color3.fromRGB(255,255,255)
-aL.BackgroundTransparency=0.9350000023841858
-aL.BorderColor3=Color3.fromRGB(0,0,0)
-aL.BorderSizePixel=0
-aL.Size=UDim2.new(1,0,0,38)
-aL.Name="Toggle"
-aL.Parent=aB
-
-aM.CornerRadius=UDim.new(0,4)
-aM.Parent=aL
-
-aN.Font=Enum.Font.GothamBold
-aN.Text=aJ.Title
-aN.TextSize=13
-aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.BackgroundColor3=Color3.fromRGB(255,255,255)
-aN.BackgroundTransparency=0.9990000128746033
-aN.BorderColor3=Color3.fromRGB(0,0,0)
-aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,0)
-aN.Size=UDim2.new(1,-100,1,0)
-aN.Name="ToggleTitle"
-aN.Parent=aL
-
-aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Description
-aO.TextColor3=Color3.fromRGB(122,122,122)
-aO.TextSize=12
-aO.TextTransparency=0
-aO.TextXAlignment=Enum.TextXAlignment.Left
-aO.TextYAlignment=Enum.TextYAlignment.Top
 aO.BackgroundColor3=Color3.fromRGB(255,255,255)
-aO.BackgroundTransparency=0.9990000128746033
+aO.BackgroundTransparency=0.9350000023841858
 aO.BorderColor3=Color3.fromRGB(0,0,0)
 aO.BorderSizePixel=0
-aO.Position=UDim2.new(0,10,0,23)
-aO.Size=UDim2.new(1,-100,0,12)
-aO.RichText=true
-aO.Name="ToggleDescription"
-aO.Parent=aL
-if aO.Text~=""then
-aO.Size=UDim2.new(1,-100,1,-23)
-aO.TextWrapped=true
-aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
-aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-100,0,13)
-aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-aO.Size=UDim2.new(1,-100,1,-23)
-aO.TextWrapped=true
+aO.LayoutOrder=aJ
+aO.Size=UDim2.new(1,0,0,38)
+aO.Name="Toggle"
+aO.Parent=aE
+
+aP.CornerRadius=UDim.new(0,4)
+aP.Parent=aO
+
+aQ.Font=Enum.Font.GothamBold
+aQ.Text=aM.Title
+aQ.TextSize=13
+aQ.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aQ.TextXAlignment=Enum.TextXAlignment.Left
+aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
+aQ.BackgroundTransparency=0.9990000128746033
+aQ.BorderColor3=Color3.fromRGB(0,0,0)
+aQ.BorderSizePixel=0
+aQ.Position=UDim2.new(0,10,0,0)
+aQ.Size=UDim2.new(1,-100,1,0)
+aQ.Name="ToggleTitle"
+aQ.Parent=aO
+
+aR.Font=Enum.Font.GothamBold
+aR.Text=aM.Description
+aR.TextColor3=Color3.fromRGB(122,122,122)
+aR.TextSize=12
+aR.TextTransparency=0
+aR.TextXAlignment=Enum.TextXAlignment.Left
+aR.TextYAlignment=Enum.TextYAlignment.Top
+aR.BackgroundColor3=Color3.fromRGB(255,255,255)
+aR.BackgroundTransparency=0.9990000128746033
+aR.BorderColor3=Color3.fromRGB(0,0,0)
+aR.BorderSizePixel=0
+aR.Position=UDim2.new(0,10,0,23)
+aR.Size=UDim2.new(1,-100,0,12)
+aR.RichText=true
+aR.Name="ToggleDescription"
+aR.Parent=aO
+if aR.Text~=""then
+aR.Size=UDim2.new(1,-100,1,-23)
+aR.TextWrapped=true
+aO.Size=UDim2.new(1,0,0,math.max(aR.AbsoluteSize.Y+40,46))
+aR:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+aQ.Position=UDim2.new(0,10,0,10)
+aQ.Size=UDim2.new(1,-100,0,13)
+aO.Size=UDim2.new(1,0,0,math.max(aR.TextBounds.Y+40,46))
+aR.Size=UDim2.new(1,-100,1,-23)
+aR.TextWrapped=true
 UpdateSizeSection()
 end)
 end
+
+aS.Font=Enum.Font.SourceSans
+aS.Text=""
+aS.TextColor3=Color3.fromRGB(0,0,0)
+aS.TextSize=14
+aS.BackgroundColor3=Color3.fromRGB(0,0,0)
+aS.BackgroundTransparency=0.9990000128746033
+aS.BorderColor3=Color3.fromRGB(0,0,0)
+aS.BorderSizePixel=0
+aS.Size=UDim2.new(1,0,1,0)
+aS.Name="ToggleButton"
+aS.Parent=aO
+
+aT.AnchorPoint=Vector2.new(1,0.5)
+aT.BackgroundColor3=Color3.fromRGB(255,255,255)
+aT.BackgroundTransparency=0.9200000166893005
+aT.BorderColor3=Color3.fromRGB(0,0,0)
+aT.BorderSizePixel=0
+aT.Position=UDim2.new(1,-10,0.5,0)
+aT.Size=UDim2.new(0,30,0,15)
+aT.Name="FeatureFrame"
+aT.Parent=aO
+
+aU.Parent=aT
+
+aV.Color=Color3.fromRGB(255,255,255)
+aV.Thickness=2
+aV.Transparency=0.9
+aV.Parent=aT
+
+aW.BackgroundColor3=Color3.fromRGB(230.00000149011612,230.00000149011612,230.00000149011612)
+aW.BorderColor3=Color3.fromRGB(0,0,0)
+aW.BorderSizePixel=0
+aW.Position=UDim2.new(0,0,0,0)
+aW.Size=UDim2.new(0,14,0,14)
+aW.Name="ToggleCircle"
+aW.Parent=aT
+
+aX.CornerRadius=UDim.new(0,15)
+aX.Parent=aW
+
+aS.Activated:Connect(function()
+CircleClick(aS,d.X,d.Y)
+aN.Value=not aN.Value
+aN:Set(aN.Value)
+end)
+function aN.Set(aY,aZ)
+aM.Callback(aZ)
+if aZ then
+b:Create(
+aW,
+TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
+{Position=UDim2.new(0,15,0,0)}
+):Play()
+b:Create(
+aV,
+TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
+{Color=i.Color,Transparency=0}
+):Play()
+b:Create(
+aT,
+TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
+{BackgroundColor3=i.Color,BackgroundTransparency=0}
+):Play()
+else
+b:Create(
+aW,
+TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
+{Position=UDim2.new(0,0,0,0)}
+):Play()
+b:Create(
+aV,
+TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
+{Color=Color3.fromRGB(255,255,255),Transparency=0.9}
+):Play()
+b:Create(
+aT,
+TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
+{BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.9200000166893005}
+):Play()
+end
+end
+aN:Set(aN.Value)
+aJ=aJ+1
+return aN
+end
+function aI.AddSlider(aK,aL)
+local aM=aL or{}
+aM.Title=aM.Title or"Slider"
+aM.Description=aM.Description or""
+aM.Increment=aM.Increment or 1
+aM.Min=aM.Min or 0
+aM.Max=aM.Max or 100
+aM.Default=aM.Default or 50
+aM.Callback=aM.Callback or function()end
+local aN={Value=aM.Default}
+
+local aO=Instance.new"Frame";
+local aP=Instance.new"UICorner";
+local aQ=Instance.new"TextLabel";
+local aR=Instance.new"TextLabel";
+local aS=Instance.new"Frame";
+local aT=Instance.new"UICorner";
+local aU=Instance.new"TextBox";
+local aV=Instance.new"Frame";
+local aW=Instance.new"UICorner";
+local aX=Instance.new"Frame";
+local aY=Instance.new"UICorner";
+Instance.new"UIStroke";
+local aZ=Instance.new"Frame";
+local a_=Instance.new"UICorner";
+local a0=Instance.new"UIStroke";
+Instance.new"UIStroke";
+
+aO.BackgroundColor3=Color3.fromRGB(255,255,255)
+aO.BackgroundTransparency=0.9350000023841858
+aO.BorderColor3=Color3.fromRGB(0,0,0)
+aO.BorderSizePixel=0
+aO.LayoutOrder=aJ
+aO.Size=UDim2.new(1,0,0,38)
+aO.Name="Slider"
+aO.Parent=aE
+
+aP.CornerRadius=UDim.new(0,4)
+aP.Parent=aO
+
+aQ.Font=Enum.Font.GothamBold
+aQ.Text=aM.Title
+aQ.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aQ.TextSize=13
+aQ.TextXAlignment=Enum.TextXAlignment.Left
+aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
+aQ.BackgroundTransparency=0.9990000128746033
+aQ.BorderColor3=Color3.fromRGB(0,0,0)
+aQ.BorderSizePixel=0
+aQ.Position=UDim2.new(0,10,0,0)
+aQ.Size=UDim2.new(1,-180,1,0)
+aQ.Name="SliderTitle"
+aQ.Parent=aO
+
+aR.Font=Enum.Font.GothamBold
+aR.Text=aM.Description
+aR.TextColor3=Color3.fromRGB(122,122,122)
+aR.TextSize=12
+aR.TextTransparency=0
+aR.TextXAlignment=Enum.TextXAlignment.Left
+aR.TextYAlignment=Enum.TextYAlignment.Top
+aR.BackgroundColor3=Color3.fromRGB(255,255,255)
+aR.BackgroundTransparency=0.9990000128746033
+aR.BorderColor3=Color3.fromRGB(0,0,0)
+aR.BorderSizePixel=0
+aR.Position=UDim2.new(0,10,0,23)
+aR.Size=UDim2.new(1,-180,0,12)
+aR.RichText=true
+aR.Name="SliderDescription"
+aR.Parent=aO
+
+if aR.Text~=""then
+aR.Size=UDim2.new(1,-180,1,-23)
+aR.TextWrapped=true
+aO.Size=UDim2.new(1,0,0,math.max(aR.AbsoluteSize.Y+40,46))
+
+aR:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+aQ.Position=UDim2.new(0,10,0,10)
+aQ.Size=UDim2.new(1,-180,0,13)
+aR.TextWrapped=false
+aR.Size=UDim2.new(1,-180,1,-23)
+aO.Size=UDim2.new(1,0,0,math.max(aR.TextBounds.Y+40,46))
+aR.TextWrapped=true
+UpdateSizeSection()
+end)
+end
+
+aS.AnchorPoint=Vector2.new(0,0.5)
+aS.BackgroundColor3=i.Color
+aS.BorderColor3=Color3.fromRGB(0,0,0)
+aS.BorderSizePixel=0
+aS.Position=UDim2.new(1,-155,0.5,0)
+aS.Size=UDim2.new(0,28,0,20)
+aS.Name="SliderInput"
+aS.Parent=aO
+
+aT.CornerRadius=UDim.new(0,2)
+aT.Parent=aS
+
+aU.Font=Enum.Font.GothamBold
+aU.Text="90"
+aU.TextColor3=Color3.fromRGB(255,255,255)
+aU.TextSize=13
+aU.TextWrapped=true
+aU.BackgroundColor3=Color3.fromRGB(0,0,0)
+aU.BackgroundTransparency=0.9990000128746033
+aU.BorderColor3=Color3.fromRGB(0,0,0)
+aU.BorderSizePixel=0
+aU.Position=UDim2.new(0,-1,0,0)
+aU.Size=UDim2.new(1,0,1,0)
+aU.Parent=aS
+
+aV.AnchorPoint=Vector2.new(1,0.5)
+aV.BackgroundColor3=Color3.fromRGB(255,255,255)
+aV.BackgroundTransparency=0.800000011920929
+aV.BorderColor3=Color3.fromRGB(0,0,0)
+aV.BorderSizePixel=0
+aV.Position=UDim2.new(1,-20,0.5,0)
+aV.Size=UDim2.new(0,100,0,3)
+aV.Name="SliderFrame"
+aV.Parent=aO
+
+aW.Parent=aV
+
+aX.AnchorPoint=Vector2.new(0,0.5)
+aX.BackgroundColor3=i.Color
+aX.BorderColor3=Color3.fromRGB(0,0,0)
+aX.BorderSizePixel=0
+aX.Position=UDim2.new(0,0,0.5,0)
+aX.Size=UDim2.new(0.899999976,0,0,1)
+aX.Name="SliderDraggable"
+aX.Parent=aV
+
+aY.Parent=aX
+
+aZ.AnchorPoint=Vector2.new(1,0.5)
+aZ.BackgroundColor3=i.Color
+aZ.BorderColor3=Color3.fromRGB(0,0,0)
+aZ.BorderSizePixel=0
+aZ.Position=UDim2.new(1,4,0.5,0)
+aZ.Size=UDim2.new(0,8,0,8)
+aZ.Name="SliderCircle"
+aZ.Parent=aX
+
+a_.Parent=aZ
+
+a0.Color=i.Color
+a0.Parent=aZ
+
+local a1=false
+local function Round(a2,a3)
+local a4=math.floor(a2/a3+(math.sign(a2)*0.5))*a3
+if a4<0 then
+a4=a4+a3
+end
+return a4
+end
+function aN.Set(a2,a3)
+a3=math.clamp(Round(a3,aM.Increment),aM.Min,aM.Max)
+aN.Value=a3
+aU.Text=tostring(a3)
+b:Create(
+aX,
+TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),
+{Size=UDim2.fromScale((a3-aM.Min)/(aM.Max-aM.Min),1)}
+):Play()
+end
+aV.InputBegan:Connect(function(a2)
+if a2.UserInputType==Enum.UserInputType.MouseButton1 then
+a1=true
+end
+end)
+aV.InputEnded:Connect(function(a2)
+if a2.UserInputType==Enum.UserInputType.MouseButton1 then
+a1=false
+aM.Callback(aN.Value)
+end
+end)
+a.InputChanged:Connect(function(a2)
+if a1 and a2.UserInputType==Enum.UserInputType.MouseMovement then
+local a3=math.clamp((a2.Position.X-aV.AbsolutePosition.X)/aV.AbsoluteSize.X,0,1)
+aN:Set(aM.Min+((aM.Max-aM.Min)*a3))
+end
+end)
+aU:GetPropertyChangedSignal"Text":Connect(function()
+local a2=aU.Text:gsub("[^%d]","")
+if a2~=""then
+local a3=math.min(tonumber(a2),aM.Max)
+aU.Text=tostring(a3)
+else
+aU.Text=tostring(a2)
+end
+end)
+aU.FocusLost:Connect(function()
+if aU.Text~=""then
+aN:Set(tonumber(aU.Text))
+else
+aN:Set(0)
+end
+end)
+aN:Set(tonumber(aM.Default))
+aJ=aJ+1
+return aN
+end
+function aI.AddInput(aK,aL)
+local aM=aL or{}
+aM.Title=aM.Title or"Title"
+aM.Description=aM.Description or""
+aM.PlaceHolder=aM.PlaceHolder or"Input Here"
+aM.Default=aM.Default or""
+aM.Callback=aM.Callback or function()end
+local aN={Value=""}
+
+local aO=Instance.new"Frame";
+local aP=Instance.new"UICorner";
+local aQ=Instance.new"TextLabel";
+local aR=Instance.new"TextLabel";
+local aS=Instance.new"Frame";
+local aT=Instance.new"UICorner";
+local aU=Instance.new"TextBox";
+
+aO.BackgroundColor3=Color3.fromRGB(255,255,255)
+aO.BackgroundTransparency=0.9350000023841858
+aO.BorderColor3=Color3.fromRGB(0,0,0)
+aO.BorderSizePixel=0
+aO.LayoutOrder=aJ
+aO.Size=UDim2.new(1,0,0,46)
+aO.Name="Input"
+aO.Parent=aE
+
+aP.CornerRadius=UDim.new(0,4)
+aP.Parent=aO
+
+aQ.Font=Enum.Font.GothamBold
+aQ.Text=aM.Title
+aQ.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aQ.TextSize=13
+aQ.TextXAlignment=Enum.TextXAlignment.Left
+aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
+aQ.BackgroundTransparency=0.9990000128746033
+aQ.BorderColor3=Color3.fromRGB(0,0,0)
+aQ.BorderSizePixel=0
+aQ.Position=UDim2.new(0,10,0,0)
+aQ.Size=UDim2.new(1,-180,1,0)
+aQ.Name="InputTitle"
+aQ.Parent=aO
+
+aR.Font=Enum.Font.GothamBold
+aR.Text=aM.Description
+aR.TextColor3=Color3.fromRGB(122,122,122)
+aR.TextSize=12
+aR.TextTransparency=0
+aR.TextWrapped=true
+aR.TextXAlignment=Enum.TextXAlignment.Left
+aR.TextYAlignment=Enum.TextYAlignment.Top
+aR.BackgroundColor3=Color3.fromRGB(255,255,255)
+aR.BackgroundTransparency=0.9990000128746033
+aR.BorderColor3=Color3.fromRGB(0,0,0)
+aR.BorderSizePixel=0
+aR.Position=UDim2.new(0,10,0,23)
+aR.Size=UDim2.new(1,-180,0,12)
+aR.Name="InputDescription"
+aR.RichText=true
+aR.Parent=aO
+
+if aR.Text~=""then
+aR.Size=UDim2.new(1,-180,1,-23)
+aR.TextWrapped=true
+aO.Size=UDim2.new(1,0,0,math.max(aR.AbsoluteSize.Y+40,46))
+
+aR:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+aR.TextWrapped=false
+aQ.Position=UDim2.new(0,10,0,10)
+aQ.Size=UDim2.new(1,-180,0,13)
+aR.Size=UDim2.new(1,-180,1,-23)
+aO.Size=UDim2.new(1,0,0,math.max(aR.TextBounds.Y+40,46))
+aR.TextWrapped=true
+UpdateSizeSection()
+end)
+end
+
+aS.AnchorPoint=Vector2.new(1,0.5)
+aS.BackgroundColor3=Color3.fromRGB(255,255,255)
+aS.BackgroundTransparency=0.949999988079071
+aS.BorderColor3=Color3.fromRGB(0,0,0)
+aS.BorderSizePixel=0
+aS.ClipsDescendants=true
+aS.Position=UDim2.new(1,-7,0.5,0)
+aS.Size=UDim2.new(0,148,0,30)
+aS.Name="InputFrame"
+aS.Parent=aO
+
+aT.CornerRadius=UDim.new(0,4)
+aT.Parent=aS
+
+aU.CursorPosition=-1
+aU.Font=Enum.Font.GothamBold
+aU.PlaceholderColor3=Color3.fromRGB(120.00000044703484,120.00000044703484,120.00000044703484)
+aU.PlaceholderText=aM.PlaceHolder
+aU.Text=aM.Default
+aU.TextColor3=Color3.fromRGB(255,255,255)
+aU.TextSize=12
+aU.TextXAlignment=Enum.TextXAlignment.Left
+aU.AnchorPoint=Vector2.new(0,0.5)
+aU.BackgroundColor3=Color3.fromRGB(255,255,255)
+aU.BackgroundTransparency=0.9990000128746033
+aU.BorderColor3=Color3.fromRGB(0,0,0)
+aU.BorderSizePixel=0
+aU.Position=UDim2.new(0,5,0.5,0)
+aU.Size=UDim2.new(1,-10,1,-8)
+aU.Name="InputTextBox"
+aU.Parent=aS
+function aN.Set(aV,aW)
+aU.Text=aW
+aN.Value=aW
+aM.Callback(aW)
+end
+aU.FocusLost:Connect(function()
+aN:Set(aU.Text)
+end)
+aJ=aJ+1
+return aN
+end
+function aI.AddDropdown(aK,aL)
+local aM=aL or{}
+aM.Title=aM.Title or"Title"
+aM.Description=aM.Description or""
+aM.Multi=aM.Multi or false
+aM.Values=aM.Values or{}
+aM.Default=aM.Default or(aM.Multi and{}or"")
+aM.Callback=aM.Callback or function()end
+
+local aN={Value=aM.Default,Options=aM.Values}
+
+local aO=Instance.new"Frame";
+local aP=Instance.new"TextButton";
+local aQ=Instance.new"UICorner";
+local aR=Instance.new"TextLabel";
+local aS=Instance.new"TextLabel";
+local aT=Instance.new"Frame";
+local aU=Instance.new"UICorner";
+local aV=Instance.new"TextLabel";
+local aW=Instance.new"ImageLabel";
+
+aO.BackgroundColor3=Color3.fromRGB(255,255,255)
+aO.BackgroundTransparency=0.9350000023841858
+aO.BorderColor3=Color3.fromRGB(0,0,0)
+aO.BorderSizePixel=0
+aO.LayoutOrder=aJ
+aO.Size=UDim2.new(1,0,0,46)
+aO.Name="Dropdown"
+aO.Parent=aE
 
 aP.Font=Enum.Font.SourceSans
 aP.Text=""
@@ -1397,737 +1880,302 @@ aP.BorderColor3=Color3.fromRGB(0,0,0)
 aP.BorderSizePixel=0
 aP.Size=UDim2.new(1,0,1,0)
 aP.Name="ToggleButton"
-aP.Parent=aL
-
-aQ.AnchorPoint=Vector2.new(1,0.5)
-aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
-aQ.BackgroundTransparency=0.9200000166893005
-aQ.BorderColor3=Color3.fromRGB(0,0,0)
-aQ.BorderSizePixel=0
-aQ.Position=UDim2.new(1,-10,0.5,0)
-aQ.Size=UDim2.new(0,30,0,15)
-aQ.Name="FeatureFrame"
-aQ.Parent=aL
-
-aR.Parent=aQ
-
-aS.Color=Color3.fromRGB(255,255,255)
-aS.Thickness=2
-aS.Transparency=0.9
-aS.Parent=aQ
-
-aT.BackgroundColor3=Color3.fromRGB(230.00000149011612,230.00000149011612,230.00000149011612)
-aT.BorderColor3=Color3.fromRGB(0,0,0)
-aT.BorderSizePixel=0
-aT.Position=UDim2.new(0,0,0,0)
-aT.Size=UDim2.new(0,14,0,14)
-aT.Name="ToggleCircle"
-aT.Parent=aQ
-
-aU.CornerRadius=UDim.new(0,15)
-aU.Parent=aT
-
-aP.Activated:Connect(function()
-CircleClick(aP,d.X,d.Y)
-aK.Value=not aK.Value
-aK:Set(aK.Value)
-end)
-function aK.Set(aV,aW)
-aJ.Callback(aW)
-if aW then
-b:Create(
-aT,
-TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
-{Position=UDim2.new(0,15,0,0)}
-):Play()
-b:Create(
-aS,
-TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
-{Color=i.Color,Transparency=0}
-):Play()
-b:Create(
-aQ,
-TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
-{BackgroundColor3=i.Color,BackgroundTransparency=0}
-):Play()
-else
-b:Create(
-aT,
-TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
-{Position=UDim2.new(0,0,0,0)}
-):Play()
-b:Create(
-aS,
-TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
-{Color=Color3.fromRGB(255,255,255),Transparency=0.9}
-):Play()
-b:Create(
-aQ,
-TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
-{BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.9200000166893005}
-):Play()
-end
-end
-aK:Set(aK.Value)
-aG=aG+1
-return aK
-end
-function aF.AddSlider(aH,aI)
-local aJ=aI or{}
-aJ.Title=aJ.Title or"Slider"
-aJ.Description=aJ.Description or""
-aJ.Increment=aJ.Increment or 1
-aJ.Min=aJ.Min or 0
-aJ.Max=aJ.Max or 100
-aJ.Default=aJ.Default or 50
-aJ.Callback=aJ.Callback or function()end
-local aK={Value=aJ.Default}
-
-local aL=Instance.new"Frame";
-local aM=Instance.new"UICorner";
-local aN=Instance.new"TextLabel";
-local aO=Instance.new"TextLabel";
-local aP=Instance.new"Frame";
-local aQ=Instance.new"UICorner";
-local aR=Instance.new"TextBox";
-local aS=Instance.new"Frame";
-local aT=Instance.new"UICorner";
-local aU=Instance.new"Frame";
-local aV=Instance.new"UICorner";
-Instance.new"UIStroke";
-local aW=Instance.new"Frame";
-local aX=Instance.new"UICorner";
-local aY=Instance.new"UIStroke";
-Instance.new"UIStroke";
-
-aL.BackgroundColor3=Color3.fromRGB(255,255,255)
-aL.BackgroundTransparency=0.9350000023841858
-aL.BorderColor3=Color3.fromRGB(0,0,0)
-aL.BorderSizePixel=0
-aL.Size=UDim2.new(1,0,0,38)
-aL.Name="Slider"
-aL.Parent=aB
-
-aM.CornerRadius=UDim.new(0,4)
-aM.Parent=aL
-
-aN.Font=Enum.Font.GothamBold
-aN.Text=aJ.Title
-aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-aN.TextSize=13
-aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.BackgroundColor3=Color3.fromRGB(255,255,255)
-aN.BackgroundTransparency=0.9990000128746033
-aN.BorderColor3=Color3.fromRGB(0,0,0)
-aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,0)
-aN.Size=UDim2.new(1,-180,1,0)
-aN.Name="SliderTitle"
-aN.Parent=aL
-
-aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Description
-aO.TextColor3=Color3.fromRGB(122,122,122)
-aO.TextSize=12
-aO.TextTransparency=0
-aO.TextXAlignment=Enum.TextXAlignment.Left
-aO.TextYAlignment=Enum.TextYAlignment.Top
-aO.BackgroundColor3=Color3.fromRGB(255,255,255)
-aO.BackgroundTransparency=0.9990000128746033
-aO.BorderColor3=Color3.fromRGB(0,0,0)
-aO.BorderSizePixel=0
-aO.Position=UDim2.new(0,10,0,23)
-aO.Size=UDim2.new(1,-180,0,12)
-aO.RichText=true
-aO.Name="SliderDescription"
-aO.Parent=aL
-
-if aO.Text~=""then
-aO.Size=UDim2.new(1,-180,1,-23)
-aO.TextWrapped=true
-aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
-
-aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-180,0,13)
-aO.TextWrapped=false
-aO.Size=UDim2.new(1,-180,1,-23)
-aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-aO.TextWrapped=true
-UpdateSizeSection()
-end)
-end
-
-aP.AnchorPoint=Vector2.new(0,0.5)
-aP.BackgroundColor3=i.Color
-aP.BorderColor3=Color3.fromRGB(0,0,0)
-aP.BorderSizePixel=0
-aP.Position=UDim2.new(1,-155,0.5,0)
-aP.Size=UDim2.new(0,28,0,20)
-aP.Name="SliderInput"
-aP.Parent=aL
-
-aQ.CornerRadius=UDim.new(0,2)
-aQ.Parent=aP
-
-aR.Font=Enum.Font.GothamBold
-aR.Text="90"
-aR.TextColor3=Color3.fromRGB(255,255,255)
-aR.TextSize=13
-aR.TextWrapped=true
-aR.BackgroundColor3=Color3.fromRGB(0,0,0)
-aR.BackgroundTransparency=0.9990000128746033
-aR.BorderColor3=Color3.fromRGB(0,0,0)
-aR.BorderSizePixel=0
-aR.Position=UDim2.new(0,-1,0,0)
-aR.Size=UDim2.new(1,0,1,0)
-aR.Parent=aP
-
-aS.AnchorPoint=Vector2.new(1,0.5)
-aS.BackgroundColor3=Color3.fromRGB(255,255,255)
-aS.BackgroundTransparency=0.800000011920929
-aS.BorderColor3=Color3.fromRGB(0,0,0)
-aS.BorderSizePixel=0
-aS.Position=UDim2.new(1,-20,0.5,0)
-aS.Size=UDim2.new(0,100,0,3)
-aS.Name="SliderFrame"
-aS.Parent=aL
-
-aT.Parent=aS
-
-aU.AnchorPoint=Vector2.new(0,0.5)
-aU.BackgroundColor3=i.Color
-aU.BorderColor3=Color3.fromRGB(0,0,0)
-aU.BorderSizePixel=0
-aU.Position=UDim2.new(0,0,0.5,0)
-aU.Size=UDim2.new(0.899999976,0,0,1)
-aU.Name="SliderDraggable"
-aU.Parent=aS
-
-aV.Parent=aU
-
-aW.AnchorPoint=Vector2.new(1,0.5)
-aW.BackgroundColor3=i.Color
-aW.BorderColor3=Color3.fromRGB(0,0,0)
-aW.BorderSizePixel=0
-aW.Position=UDim2.new(1,4,0.5,0)
-aW.Size=UDim2.new(0,8,0,8)
-aW.Name="SliderCircle"
-aW.Parent=aU
-
-aX.Parent=aW
-
-aY.Color=i.Color
-aY.Parent=aW
-
-local aZ=false
-local function Round(a_,a0)
-local a1=math.floor(a_/a0+(math.sign(a_)*0.5))*a0
-if a1<0 then
-a1=a1+a0
-end
-return a1
-end
-function aK.Set(a_,a0)
-a0=math.clamp(Round(a0,aJ.Increment),aJ.Min,aJ.Max)
-aK.Value=a0
-aR.Text=tostring(a0)
-b:Create(
-aU,
-TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),
-{Size=UDim2.fromScale((a0-aJ.Min)/(aJ.Max-aJ.Min),1)}
-):Play()
-end
-aS.InputBegan:Connect(function(a_)
-if a_.UserInputType==Enum.UserInputType.MouseButton1 then
-aZ=true
-end
-end)
-aS.InputEnded:Connect(function(a_)
-if a_.UserInputType==Enum.UserInputType.MouseButton1 then
-aZ=false
-aJ.Callback(aK.Value)
-end
-end)
-a.InputChanged:Connect(function(a_)
-if aZ and a_.UserInputType==Enum.UserInputType.MouseMovement then
-local a0=math.clamp((a_.Position.X-aS.AbsolutePosition.X)/aS.AbsoluteSize.X,0,1)
-aK:Set(aJ.Min+((aJ.Max-aJ.Min)*a0))
-end
-end)
-aR:GetPropertyChangedSignal"Text":Connect(function()
-local a_=aR.Text:gsub("[^%d]","")
-if a_~=""then
-local a0=math.min(tonumber(a_),aJ.Max)
-aR.Text=tostring(a0)
-else
-aR.Text=tostring(a_)
-end
-end)
-aR.FocusLost:Connect(function()
-if aR.Text~=""then
-aK:Set(tonumber(aR.Text))
-else
-aK:Set(0)
-end
-end)
-aK:Set(tonumber(aJ.Default))
-aG=aG+1
-return aK
-end
-function aF.AddInput(aH,aI)
-local aJ=aI or{}
-aJ.Title=aJ.Title or"Title"
-aJ.Description=aJ.Description or""
-aJ.PlaceHolder=aJ.PlaceHolder or"Input Here"
-aJ.Default=aJ.Default or""
-aJ.Callback=aJ.Callback or function()end
-local aK={Value=""}
-
-local aL=Instance.new"Frame";
-local aM=Instance.new"UICorner";
-local aN=Instance.new"TextLabel";
-local aO=Instance.new"TextLabel";
-local aP=Instance.new"Frame";
-local aQ=Instance.new"UICorner";
-local aR=Instance.new"TextBox";
-
-aL.BackgroundColor3=Color3.fromRGB(255,255,255)
-aL.BackgroundTransparency=0.9350000023841858
-aL.BorderColor3=Color3.fromRGB(0,0,0)
-aL.BorderSizePixel=0
-aL.Size=UDim2.new(1,0,0,46)
-aL.Name="Input"
-aL.Parent=aB
-
-aM.CornerRadius=UDim.new(0,4)
-aM.Parent=aL
-
-aN.Font=Enum.Font.GothamBold
-aN.Text=aJ.Title
-aN.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-aN.TextSize=13
-aN.TextXAlignment=Enum.TextXAlignment.Left
-aN.BackgroundColor3=Color3.fromRGB(255,255,255)
-aN.BackgroundTransparency=0.9990000128746033
-aN.BorderColor3=Color3.fromRGB(0,0,0)
-aN.BorderSizePixel=0
-aN.Position=UDim2.new(0,10,0,0)
-aN.Size=UDim2.new(1,-180,1,0)
-aN.Name="InputTitle"
-aN.Parent=aL
-
-aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Description
-aO.TextColor3=Color3.fromRGB(122,122,122)
-aO.TextSize=12
-aO.TextTransparency=0
-aO.TextWrapped=true
-aO.TextXAlignment=Enum.TextXAlignment.Left
-aO.TextYAlignment=Enum.TextYAlignment.Top
-aO.BackgroundColor3=Color3.fromRGB(255,255,255)
-aO.BackgroundTransparency=0.9990000128746033
-aO.BorderColor3=Color3.fromRGB(0,0,0)
-aO.BorderSizePixel=0
-aO.Position=UDim2.new(0,10,0,23)
-aO.Size=UDim2.new(1,-180,0,12)
-aO.Name="InputDescription"
-aO.RichText=true
-aO.Parent=aL
-
-if aO.Text~=""then
-aO.Size=UDim2.new(1,-180,1,-23)
-aO.TextWrapped=true
-aL.Size=UDim2.new(1,0,0,math.max(aO.AbsoluteSize.Y+40,46))
-
-aO:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
-aO.TextWrapped=false
-aN.Position=UDim2.new(0,10,0,10)
-aN.Size=UDim2.new(1,-180,0,13)
-aO.Size=UDim2.new(1,-180,1,-23)
-aL.Size=UDim2.new(1,0,0,math.max(aO.TextBounds.Y+40,46))
-aO.TextWrapped=true
-UpdateSizeSection()
-end)
-end
-
-aP.AnchorPoint=Vector2.new(1,0.5)
-aP.BackgroundColor3=Color3.fromRGB(255,255,255)
-aP.BackgroundTransparency=0.949999988079071
-aP.BorderColor3=Color3.fromRGB(0,0,0)
-aP.BorderSizePixel=0
-aP.ClipsDescendants=true
-aP.Position=UDim2.new(1,-7,0.5,0)
-aP.Size=UDim2.new(0,148,0,30)
-aP.Name="InputFrame"
-aP.Parent=aL
+aP.Parent=aO
 
 aQ.CornerRadius=UDim.new(0,4)
-aQ.Parent=aP
+aQ.Parent=aO
 
-aR.CursorPosition=-1
 aR.Font=Enum.Font.GothamBold
-aR.PlaceholderColor3=Color3.fromRGB(120.00000044703484,120.00000044703484,120.00000044703484)
-aR.PlaceholderText=aJ.PlaceHolder
-aR.Text=aJ.Default
-aR.TextColor3=Color3.fromRGB(255,255,255)
-aR.TextSize=12
+aR.Text=aM.Title
+aR.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aR.TextSize=13
 aR.TextXAlignment=Enum.TextXAlignment.Left
-aR.AnchorPoint=Vector2.new(0,0.5)
 aR.BackgroundColor3=Color3.fromRGB(255,255,255)
 aR.BackgroundTransparency=0.9990000128746033
 aR.BorderColor3=Color3.fromRGB(0,0,0)
 aR.BorderSizePixel=0
-aR.Position=UDim2.new(0,5,0.5,0)
-aR.Size=UDim2.new(1,-10,1,-8)
-aR.Name="InputTextBox"
-aR.Parent=aP
-function aK.Set(aS,aT)
-aR.Text=aT
-aK.Value=aT
-aJ.Callback(aT)
-end
-aR.FocusLost:Connect(function()
-aK:Set(aR.Text)
-end)
-aG=aG+1
-return aK
-end
-function aF.AddDropdown(aH,aI)
-local aJ=aI or{}
-aJ.Title=aJ.Title or"Title"
-aJ.Description=aJ.Description or""
-aJ.Multi=aJ.Multi or false
-aJ.Values=aJ.Values or{}
-aJ.Default=aJ.Default or(aJ.Multi and{}or"")
-aJ.Callback=aJ.Callback or function()end
-
-local aK={Value=aJ.Default,Options=aJ.Values}
-
-local aL=Instance.new"Frame";
-local aM=Instance.new"TextButton";
-local aN=Instance.new"UICorner";
-local aO=Instance.new"TextLabel";
-local aP=Instance.new"TextLabel";
-local aQ=Instance.new"Frame";
-local aR=Instance.new"UICorner";
-local aS=Instance.new"TextLabel";
-local aT=Instance.new"ImageLabel";
-
-aL.BackgroundColor3=Color3.fromRGB(255,255,255)
-aL.BackgroundTransparency=0.9350000023841858
-aL.BorderColor3=Color3.fromRGB(0,0,0)
-aL.BorderSizePixel=0
-aL.Size=UDim2.new(1,0,0,46)
-aL.Name="Dropdown"
-aL.Parent=aB
-
-aM.Font=Enum.Font.SourceSans
-aM.Text=""
-aM.TextColor3=Color3.fromRGB(0,0,0)
-aM.TextSize=14
-aM.BackgroundColor3=Color3.fromRGB(0,0,0)
-aM.BackgroundTransparency=0.9990000128746033
-aM.BorderColor3=Color3.fromRGB(0,0,0)
-aM.BorderSizePixel=0
-aM.Size=UDim2.new(1,0,1,0)
-aM.Name="ToggleButton"
-aM.Parent=aL
-
-aN.CornerRadius=UDim.new(0,4)
-aN.Parent=aL
-
-aO.Font=Enum.Font.GothamBold
-aO.Text=aJ.Title
-aO.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-aO.TextSize=13
-aO.TextXAlignment=Enum.TextXAlignment.Left
-aO.BackgroundColor3=Color3.fromRGB(255,255,255)
-aO.BackgroundTransparency=0.9990000128746033
-aO.BorderColor3=Color3.fromRGB(0,0,0)
-aO.BorderSizePixel=0
-aO.Position=UDim2.new(0,10,0,0)
-aO.Size=UDim2.new(1,-180,1,0)
-aO.Name="DropdownTitle"
-aO.Parent=aL
-
-aP.Font=Enum.Font.GothamBold
-aP.Text=aJ.Description
-aP.TextColor3=Color3.fromRGB(122,122,122)
-aP.TextSize=12
-aP.TextTransparency=0
-aP.TextWrapped=true
-aP.TextXAlignment=Enum.TextXAlignment.Left
-aP.TextYAlignment=Enum.TextYAlignment.Top
-aP.BackgroundColor3=Color3.fromRGB(255,255,255)
-aP.BackgroundTransparency=0.9990000128746033
-aP.BorderColor3=Color3.fromRGB(0,0,0)
-aP.BorderSizePixel=0
-aP.Position=UDim2.new(0,10,0,23)
-aP.Size=UDim2.new(1,-180,0,12)
-aP.RichText=true
-aP.Name="DropdownDescription"
-aP.Parent=aL
-
-if aP.Text~=""then
-aP.Size=UDim2.new(1,-180,1,-23)
-aP.TextWrapped=true
-aL.Size=UDim2.new(1,0,0,math.max(aP.TextBounds.Y+40,46))
-aP:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
-aP.TextWrapped=false
-aO.Position=UDim2.new(0,10,0,10)
-aO.Size=UDim2.new(1,-180,0,13)
-aP.Size=UDim2.new(1,-180,1,-23)
-aL.Size=UDim2.new(1,0,0,math.max(aP.TextBounds.Y+40,46))
-aP.TextWrapped=true
-UpdateSizeSection()
-end)
-end
-
-aQ.AnchorPoint=Vector2.new(1,0.5)
-aQ.BackgroundColor3=Color3.fromRGB(255,255,255)
-aQ.BackgroundTransparency=0.949999988079071
-aQ.BorderColor3=Color3.fromRGB(0,0,0)
-aQ.BorderSizePixel=0
-aQ.Position=UDim2.new(1,-7,0.5,0)
-aQ.Size=UDim2.new(0,148,0,30)
-aQ.Name="SelectOptionsFrame"
-aQ.LayoutOrder=_
-aQ.Parent=aL
-
-aR.CornerRadius=UDim.new(0,4)
-aR.Parent=aQ
-
-aM.Activated:Connect(function()
-if not N.Visible then
-N.Visible=true
-X:JumpToIndex(aQ.LayoutOrder)
-b:Create(N,TweenInfo.new(0.3),{BackgroundTransparency=0.7}):Play()
-b:Create(S,TweenInfo.new(0.3),{Position=UDim2.new(1,-11,0.5,0)}):Play()
-end
-end)
+aR.Position=UDim2.new(0,10,0,0)
+aR.Size=UDim2.new(1,-180,1,0)
+aR.Name="DropdownTitle"
+aR.Parent=aO
 
 aS.Font=Enum.Font.GothamBold
-aS.Text=""
-aS.TextColor3=Color3.fromRGB(255,255,255)
+aS.Text=aM.Description
+aS.TextColor3=Color3.fromRGB(122,122,122)
 aS.TextSize=12
 aS.TextTransparency=0
 aS.TextWrapped=true
 aS.TextXAlignment=Enum.TextXAlignment.Left
-aS.AnchorPoint=Vector2.new(0,0.5)
+aS.TextYAlignment=Enum.TextYAlignment.Top
 aS.BackgroundColor3=Color3.fromRGB(255,255,255)
 aS.BackgroundTransparency=0.9990000128746033
 aS.BorderColor3=Color3.fromRGB(0,0,0)
 aS.BorderSizePixel=0
-aS.Position=UDim2.new(0,5,0.5,0)
-aS.Size=UDim2.new(1,-30,1,-8)
-aS.Name="OptionSelecting"
-aS.Parent=aQ
+aS.Position=UDim2.new(0,10,0,23)
+aS.Size=UDim2.new(1,-180,0,12)
+aS.RichText=true
+aS.Name="DropdownDescription"
+aS.Parent=aO
 
-aT.Image="rbxassetid://16851841101"
-aT.ImageColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+if aS.Text~=""then
+aS.Size=UDim2.new(1,-180,1,-23)
+aS.TextWrapped=true
+aO.Size=UDim2.new(1,0,0,math.max(aS.TextBounds.Y+40,46))
+aS:GetPropertyChangedSignal"AbsoluteSize":Connect(function()
+aS.TextWrapped=false
+aR.Position=UDim2.new(0,10,0,10)
+aR.Size=UDim2.new(1,-180,0,13)
+aS.Size=UDim2.new(1,-180,1,-23)
+aO.Size=UDim2.new(1,0,0,math.max(aS.TextBounds.Y+40,46))
+aS.TextWrapped=true
+UpdateSizeSection()
+end)
+end
+
 aT.AnchorPoint=Vector2.new(1,0.5)
 aT.BackgroundColor3=Color3.fromRGB(255,255,255)
-aT.BackgroundTransparency=0.9990000128746033
+aT.BackgroundTransparency=0.949999988079071
 aT.BorderColor3=Color3.fromRGB(0,0,0)
 aT.BorderSizePixel=0
-aT.Position=UDim2.new(1,0,0.5,0)
-aT.Size=UDim2.new(0,25,0,25)
-aT.Name="OptionImg"
-aT.Parent=aQ
+aT.Position=UDim2.new(1,-7,0.5,0)
+aT.Size=UDim2.new(0,148,0,30)
+aT.Name="SelectOptionsFrame"
+aT.LayoutOrder=ac
+aT.Parent=aO
 
-local aU=Instance.new"ScrollingFrame";
-local aV=Instance.new"UIListLayout";
+aU.CornerRadius=UDim.new(0,4)
+aU.Parent=aT
 
-aU.CanvasSize=UDim2.new(0,0,0,0)
-aU.ScrollBarImageColor3=Color3.fromRGB(0,0,0)
-aU.ScrollBarThickness=0
-aU.Active=true
-aU.LayoutOrder=_
-aU.BackgroundColor3=Color3.fromRGB(255,255,255)
-aU.BackgroundTransparency=0.9990000128746033
-aU.BorderColor3=Color3.fromRGB(0,0,0)
-aU.BorderSizePixel=0
-aU.Size=UDim2.new(1,0,1,0)
-aU.Name="ScrollSelect"
-aU.Parent=W
+aP.Activated:Connect(function()
+if not Q.Visible then
+Q.Visible=true
+_:JumpToIndex(aT.LayoutOrder)
+b:Create(Q,TweenInfo.new(0.3),{BackgroundTransparency=0.7}):Play()
+b:Create(V,TweenInfo.new(0.3),{Position=UDim2.new(1,-11,0.5,0)}):Play()
+end
+end)
 
-aV.Padding=UDim.new(0,3)
-aV.SortOrder=Enum.SortOrder.LayoutOrder
-aV.Parent=aU
+aV.Font=Enum.Font.GothamBold
+aV.Text=""
+aV.TextColor3=Color3.fromRGB(255,255,255)
+aV.TextSize=12
+aV.TextTransparency=0
+aV.TextWrapped=true
+aV.TextXAlignment=Enum.TextXAlignment.Left
+aV.AnchorPoint=Vector2.new(0,0.5)
+aV.BackgroundColor3=Color3.fromRGB(255,255,255)
+aV.BackgroundTransparency=0.9990000128746033
+aV.BorderColor3=Color3.fromRGB(0,0,0)
+aV.BorderSizePixel=0
+aV.Position=UDim2.new(0,5,0.5,0)
+aV.Size=UDim2.new(1,-30,1,-8)
+aV.Name="OptionSelecting"
+aV.Parent=aT
 
-local aW=0
-function aK.Clear(aX)
-for aY,aZ in aU:GetChildren()do
-if aZ.Name=="Option"then
-aK.Value={}
-aK.Options={}
-aS.Text="Select Options"
-aZ:Destroy()
+aW.Image="rbxassetid://16851841101"
+aW.ImageColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+aW.AnchorPoint=Vector2.new(1,0.5)
+aW.BackgroundColor3=Color3.fromRGB(255,255,255)
+aW.BackgroundTransparency=0.9990000128746033
+aW.BorderColor3=Color3.fromRGB(0,0,0)
+aW.BorderSizePixel=0
+aW.Position=UDim2.new(1,0,0.5,0)
+aW.Size=UDim2.new(0,25,0,25)
+aW.Name="OptionImg"
+aW.Parent=aT
+
+local aX=Instance.new"ScrollingFrame";
+local aY=Instance.new"UIListLayout";
+
+aX.CanvasSize=UDim2.new(0,0,0,0)
+aX.ScrollBarImageColor3=Color3.fromRGB(0,0,0)
+aX.ScrollBarThickness=0
+aX.Active=true
+aX.LayoutOrder=ac
+aX.BackgroundColor3=Color3.fromRGB(255,255,255)
+aX.BackgroundTransparency=0.9990000128746033
+aX.BorderColor3=Color3.fromRGB(0,0,0)
+aX.BorderSizePixel=0
+aX.Size=UDim2.new(1,0,1,0)
+aX.Name="ScrollSelect"
+aX.Parent=Z
+
+aY.Padding=UDim.new(0,3)
+aY.SortOrder=Enum.SortOrder.LayoutOrder
+aY.Parent=aX
+
+local aZ=0
+function aN.Clear(a_)
+for a0,a1 in aX:GetChildren()do
+if a1.Name=="Option"then
+aN.Value={}
+aN.Options={}
+aV.Text="Select Options"
+a1:Destroy()
 end
 end
 end
-function aK.Set(aX,aY)
-aK.Value=aY or aK.Value
-for aZ,a_ in aU:GetChildren()do
-if a_.Name~="UIListLayout"and not table.find(aK.Value,a_.OptionText.Text)then
+function aN.Set(a_,a0)
+aN.Value=a0 or aN.Value
+for a1,a2 in aX:GetChildren()do
+if a2.Name~="UIListLayout"and not table.find(aN.Value,a2.OptionText.Text)then
 b:Create(
-a_.ChooseFrame,
+a2.ChooseFrame,
 TweenInfo.new(0.1,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
 {Size=UDim2.new(0,0,0,0)}
 ):Play()
 b:Create(
-a_.ChooseFrame.UIStroke,
+a2.ChooseFrame.UIStroke,
 TweenInfo.new(0.1,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
 {Transparency=0.999}
 ):Play()
 b:Create(
-a_,
+a2,
 TweenInfo.new(0.1,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
 {BackgroundTransparency=0.999}
 ):Play()
-elseif a_.Name~="UIListLayout"and table.find(aK.Value,a_.OptionText.Text)then
+elseif a2.Name~="UIListLayout"and table.find(aN.Value,a2.OptionText.Text)then
 b:Create(
-a_.ChooseFrame.UIStroke,
+a2.ChooseFrame.UIStroke,
 TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
 {Transparency=0}
 ):Play()
 b:Create(
-a_.ChooseFrame,
+a2.ChooseFrame,
 TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
 {Size=UDim2.new(0,1,0,12)}
 ):Play()
 b:Create(
-a_,
+a2,
 TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
 {BackgroundTransparency=0.935}
 ):Play()
 end
 end
-local aZ=table.concat(aK.Value,", ")
-if aZ==""then
-aS.Text="Select Options"
+local a1=table.concat(aN.Value,", ")
+if a1==""then
+aV.Text="Select Options"
 else
-aS.Text=tostring(aZ)
+aV.Text=tostring(a1)
 end
-aJ.Callback((aJ.Multi and aK.Value or table.concat(aK.Value,",")))
+aM.Callback((aM.Multi and aN.Value or table.concat(aN.Value,",")))
 end
-function aK.AddOption(aX,aY)
-aY=aY or"Option"
-local aZ=Instance.new"Frame";
-local a_=Instance.new"UICorner";
-local a0=Instance.new"TextButton";
-local a1=Instance.new"TextLabel"
-local a2=Instance.new"Frame";
-local a3=Instance.new"UIStroke";
-local a4=Instance.new"UICorner";
+function aN.AddOption(a_,a0)
+a0=a0 or"Option"
+local a1=Instance.new"Frame";
+local a2=Instance.new"UICorner";
+local a3=Instance.new"TextButton";
+local a4=Instance.new"TextLabel"
+local a5=Instance.new"Frame";
+local a6=Instance.new"UIStroke";
+local a7=Instance.new"UICorner";
 
-aZ.BackgroundColor3=Color3.fromRGB(255,255,255)
-aZ.BackgroundTransparency=0.999
-aZ.BorderColor3=Color3.fromRGB(0,0,0)
-aZ.BorderSizePixel=0
-aZ.LayoutOrder=aW
-aZ.Size=UDim2.new(1,0,0,30)
-aZ.Name="Option"
-aZ.Parent=aU
-
-a_.CornerRadius=UDim.new(0,3)
-a_.Parent=aZ
-
-a0.Font=Enum.Font.GothamBold
-a0.Text=""
-a0.TextColor3=Color3.fromRGB(255,255,255)
-a0.TextSize=13
-a0.TextXAlignment=Enum.TextXAlignment.Left
-a0.BackgroundColor3=Color3.fromRGB(255,255,255)
-a0.BackgroundTransparency=0.9990000128746033
-a0.BorderColor3=Color3.fromRGB(0,0,0)
-a0.BorderSizePixel=0
-a0.Size=UDim2.new(1,0,1,0)
-a0.Name="OptionButton"
-a0.Parent=aZ
-
-a1.Font=Enum.Font.GothamBold
-a1.Text=aY
-a1.TextSize=13
-a1.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
-a1.TextXAlignment=Enum.TextXAlignment.Left
-a1.TextYAlignment=Enum.TextYAlignment.Top
 a1.BackgroundColor3=Color3.fromRGB(255,255,255)
-a1.BackgroundTransparency=0.9990000128746033
+a1.BackgroundTransparency=0.999
 a1.BorderColor3=Color3.fromRGB(0,0,0)
 a1.BorderSizePixel=0
-a1.Position=UDim2.new(0,8,0,8)
-a1.Size=UDim2.new(1,-100,0,13)
-a1.Name="OptionText"
-a1.Parent=aZ
+a1.LayoutOrder=aZ
+a1.Size=UDim2.new(1,0,0,30)
+a1.Name="Option"
+a1.Parent=aX
 
-a2.AnchorPoint=Vector2.new(0,0.5)
-a2.BackgroundColor3=i.Color
-a2.BorderColor3=Color3.fromRGB(0,0,0)
-a2.BorderSizePixel=0
-a2.Position=UDim2.new(0,2,0.5,0)
-a2.Size=UDim2.new(0,0,0,0)
-a2.Name="ChooseFrame"
-a2.Parent=aZ
+a2.CornerRadius=UDim.new(0,3)
+a2.Parent=a1
 
-a3.Color=i.Color
-a3.Thickness=1.600000023841858
-a3.Transparency=0.999
-a3.Parent=a2
+a3.Font=Enum.Font.GothamBold
+a3.Text=""
+a3.TextColor3=Color3.fromRGB(255,255,255)
+a3.TextSize=13
+a3.TextXAlignment=Enum.TextXAlignment.Left
+a3.BackgroundColor3=Color3.fromRGB(255,255,255)
+a3.BackgroundTransparency=0.9990000128746033
+a3.BorderColor3=Color3.fromRGB(0,0,0)
+a3.BorderSizePixel=0
+a3.Size=UDim2.new(1,0,1,0)
+a3.Name="OptionButton"
+a3.Parent=a1
 
-a4.Parent=a2
+a4.Font=Enum.Font.GothamBold
+a4.Text=a0
+a4.TextSize=13
+a4.TextColor3=Color3.fromRGB(230.77499270439148,230.77499270439148,230.77499270439148)
+a4.TextXAlignment=Enum.TextXAlignment.Left
+a4.TextYAlignment=Enum.TextYAlignment.Top
+a4.BackgroundColor3=Color3.fromRGB(255,255,255)
+a4.BackgroundTransparency=0.9990000128746033
+a4.BorderColor3=Color3.fromRGB(0,0,0)
+a4.BorderSizePixel=0
+a4.Position=UDim2.new(0,8,0,8)
+a4.Size=UDim2.new(1,-100,0,13)
+a4.Name="OptionText"
+a4.Parent=a1
 
-a0.Activated:Connect(function()
-CircleClick(a0,d.X,d.Y)
-if aJ.Multi then
-if aZ.BackgroundTransparency>0.95 then
-table.insert(aK.Value,aY)
-aK:Set(aK.Value)
+a5.AnchorPoint=Vector2.new(0,0.5)
+a5.BackgroundColor3=i.Color
+a5.BorderColor3=Color3.fromRGB(0,0,0)
+a5.BorderSizePixel=0
+a5.Position=UDim2.new(0,2,0.5,0)
+a5.Size=UDim2.new(0,0,0,0)
+a5.Name="ChooseFrame"
+a5.Parent=a1
+
+a6.Color=i.Color
+a6.Thickness=1.600000023841858
+a6.Transparency=0.999
+a6.Parent=a5
+
+a7.Parent=a5
+
+a3.Activated:Connect(function()
+CircleClick(a3,d.X,d.Y)
+if aM.Multi then
+if a1.BackgroundTransparency>0.95 then
+table.insert(aN.Value,a0)
+aN:Set(aN.Value)
 else
-for a5,a6 in pairs(aK.Value)do
-if a6==aY then
-table.remove(aK.Value,a5)
+for a8,a9 in pairs(aN.Value)do
+if a9==a0 then
+table.remove(aN.Value,a8)
 break
 end
 end
-aK:Set(aK.Value)
+aN:Set(aN.Value)
 end
 else
-aK.Value={aY}
-aK:Set(aK.Value)
+aN.Value={a0}
+aN:Set(aN.Value)
 end
 end)
-local a5=0
-for a6,a7 in aU:GetChildren()do
-if a7.Name~="UIListLayout"then
-a5=a5+3+a7.Size.Y.Offset
+local a8=0
+for a9,ba in aX:GetChildren()do
+if ba.Name~="UIListLayout"then
+a8=a8+3+ba.Size.Y.Offset
 end
 end
-aU.CanvasSize=UDim2.new(0,0,0,a5)
-aW=aW+1
+aX.CanvasSize=UDim2.new(0,0,0,a8)
+aZ=aZ+1
 end
-function aK.Refresh(aX,aY,aZ)
-aY=aY or{}
-aZ=aZ or{}
-aK:Clear()
-for a_,a0 in pairs(aY)do
-aK:AddOption(a0)
+function aN.Refresh(a_,a0,a1)
+a0=a0 or{}
+a1=a1 or{}
+aN:Clear()
+for a2,a3 in pairs(a0)do
+aN:AddOption(a3)
 end
-aK.Options=aY
-aK:Set(aZ)
+aN.Options=a0
+aN:Set(a1)
 end
-aK:Refresh(aK.Options,(aJ.Multi and aK.Value or{aK.Value}))
-aG=aG+1
-_=_+1
-return aK
+aN:Refresh(aN.Options,(aM.Multi and aN.Value or{aN.Value}))
+aJ=aJ+1
+ac=ac+1
+return aN
 end
-al=al+1
-return aF
+ao=ao+1
+return aI
 end
-Z=Z+1
-return ak
+ab=ab+1
+return an
 end
-return Y
+return aa
 end
 return f
