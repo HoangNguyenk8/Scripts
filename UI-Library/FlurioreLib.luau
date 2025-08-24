@@ -413,6 +413,7 @@ J.Position=UDim2.new(0.2,0,0.2,0)
 J.BackgroundColor3=Color3.new(0,0,0)
 J.BorderColor3=Color3.fromRGB(0,0,0)
 J.BorderSizePixel=0
+J.Visible=false
 K.Parent=J
 K.Size=UDim2.new(0,40,0,40)
 K.BackgroundColor3=Color3.fromRGB(10,10,10)
@@ -427,8 +428,7 @@ L.Parent=J
 L.CornerRadius=UDim.new(0,100)
 K.MouseButton1Click:Connect(function()
 J.Visible=false
-game:GetService"VirtualInputManager":SendKeyEvent(true,i.KeyCode,false,game)
-game:GetService"VirtualInputManager":SendKeyEvent(false,i.KeyCode,false,game)
+l.Visible=true
 end)
 
 l.BackgroundTransparency=1
@@ -712,10 +712,10 @@ end)
 a.InputBegan:Connect(function(Q)
 if Q.KeyCode==Enum.KeyCode[i.KeyCode]then
 if l.Visible then
-J.Visible=false
+J.Visible=true
 l.Visible=false
 else
-J.Visible=true
+J.Visible=false
 l.Visible=true
 end
 end
