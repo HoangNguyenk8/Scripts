@@ -426,7 +426,7 @@ K.BorderSizePixel=0
 L.Parent=J
 L.CornerRadius=UDim.new(0,100)
 K.MouseButton1Click:Connect(function()
-n.Visible=false
+J.Visible=false
 game:GetService"VirtualInputManager":SendKeyEvent(true,i.KeyCode,false,game)
 game:GetService"VirtualInputManager":SendKeyEvent(false,i.KeyCode,false,game)
 end)
@@ -702,7 +702,7 @@ end
 end)
 y.Activated:Connect(function()
 CircleClick(y,d.X,d.Y)
-n.Visible=true
+J.Visible=true
 l.Visible=false
 end)
 w.Activated:Connect(function()
@@ -712,10 +712,10 @@ end)
 a.InputBegan:Connect(function(Q)
 if Q.KeyCode==Enum.KeyCode[i.KeyCode]then
 if l.Visible then
-n.Visible=false
+J.Visible=false
 l.Visible=false
 else
-n.Visible=true
+J.Visible=true
 l.Visible=true
 end
 end
