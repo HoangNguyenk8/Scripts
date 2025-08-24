@@ -2,7 +2,7 @@ local a=game:GetService"UserInputService"
 local b=game:GetService"TweenService"
 local c=game:GetService"Players".LocalPlayer
 local d=c:GetMouse()
-local e=c.PlayerGui
+local e=game.CoreGui
 local function MakeDraggable(f,g)
 local function CustomPos(h,i)
 local j
