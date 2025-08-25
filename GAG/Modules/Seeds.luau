@@ -12,7 +12,7 @@ return {
     "Soul Fruit", "Cursed Fruit", "Cranberry", "Durian", "Eggplant", "Lotus",
     "Venus Fly Trap", "Nightshade", "Glowshroom", "Mint", "Moonflower", "Starfruit",
     "Moonglow", "Moon Blossom", "Crimson Vine", "Moon Melon", "Blood Banana",
-    "Celestiberry", "Moon Mango", "Rose", "Foxglove", "Lilac", "Pink Lily",
+    "Celestiberry", "Moon Mango", "Rose", "Foxglove", "Lilac", "Pink Lily", "Crown Of Thorns",
     "Purple Dahlia", "Sunflower", "Lavender", "Nectarshade", "Nectarine", "Hive Fruit",
     "Manuka Flower", "Dandelion", "Lumira", "Honeysuckle", "Crocus", "Succulent",
     "Violet Corn", "Bendboo", "Cocovine", "Dragon Pepper", "Bee Balm", "Nectar Thorn",
@@ -29,5 +29,5 @@ return {
     "Gleamroot", "Princess Thorn", "Mandrake", "Canary Melon", "Amberheart",
     "Mega Mushroom", "Cherry Blossom", "Purple Cabbage", "Lemon", "Pink Tulip",
     "Dragon Sapling", "Sinisterdrip", "Fruitball", "Potato", "Broccoli", "Log Pumpkin",
-    "Aura Flora", "Mutant Carrot", "Cyclamen", "King Palm"
+    "Aura Flora", "Mutant Carrot", "Cyclamen", "King Palm",
 }
