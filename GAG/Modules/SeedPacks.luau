@@ -41,4 +41,7 @@ return {
     "Rainbow Exotic Summer Seed Pack",
     "Exotic Summer Seed Pack",
     "Flower Seed Pack",
+    "Rainbow Exotic Skyroot Chest",
+    "Exotic Skyroot Chest",
+    "Skyroot Chest",
 }
