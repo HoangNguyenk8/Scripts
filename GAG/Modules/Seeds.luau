@@ -30,4 +30,16 @@ return {
     "Mega Mushroom", "Cherry Blossom", "Purple Cabbage", "Lemon", "Pink Tulip",
     "Dragon Sapling", "Sinisterdrip", "Fruitball", "Potato", "Broccoli", "Log Pumpkin",
     "Aura Flora", "Mutant Carrot", "Cyclamen", "King Palm",
+    "Aurora Vine",
+    "Calla Lily",
+    "Coolcool Beanbeanstalk",
+    "Crown of Thorns",
+    "Flare Melon",
+    "Glowpod",
+    "Lightshoot",
+    "Shimmersprout",
+    "Snaparino Beanarini",
+    "Spectralis",
+    "Spirit Lantern",
+    "Willowberry"
 }
