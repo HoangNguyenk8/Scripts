@@ -2951,7 +2951,7 @@ Settings=R
 
 local T=s.Template.Paragraph:Clone()
 T.Title.Text=R.Title
-T.Text.Text=R.Text
+T.Text.Text=R.Content
 T.Visible=true
 T.Parent=P
 
@@ -2975,13 +2975,13 @@ function S.Set(U,V)
 
 V=Kwargify({
 Title=R.Title,
-Text=R.Text
+Text=R.Content
 },V or{})
 
 S.Settings=V
 
 T.Title.Text=V.Title
-T.Text.Text=V.Text
+T.Text.Text=V.Content
 
 S:Update()
 
@@ -4540,7 +4540,7 @@ Settings=ag
 
 local ai=s.Template.Paragraph:Clone()
 ai.Title.Text=ag.Title
-ai.Text.Text=ag.Text
+ai.Text.Text=ag.Content
 ai.Visible=true
 ai.Parent=K
 
