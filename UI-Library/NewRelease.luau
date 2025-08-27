@@ -2685,7 +2685,7 @@ local J=u.Tabs["InActive Template"]:Clone()
 J.Name=H.Title
 J.TextLabel.Text=H.Title
 J.Parent=u.Tabs
-J.ImageLabel.Image=GetIcon(H.Icon,H.ImageSource)
+J.ImageLabel.Image=string.find(H.Icon,"rbxassetid://")and H.Icon or GetIcon(H.Icon,H.ImageSource)
 
 J.Visible=true
 
