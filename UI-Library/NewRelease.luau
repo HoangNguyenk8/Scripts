@@ -3862,7 +3862,6 @@ tween(Z,{BackgroundTransparency=0.98})
 end
 end
 
-Toggle()
 tween(W.List[X],{BackgroundTransparency=0.95,TextColor3=Color3.fromRGB(240,240,240)})
 end
 
@@ -4532,7 +4531,7 @@ function I.AddParagraph(af,ag)
 
 ag=Kwargify({
 Title="Paragraph",
-Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus venenatis lacus sed tempus eleifend. Mauris interdum bibendum felis, in tempor augue egestas vel. Praesent tristique consectetur ex, eu pretium sem placerat non. Vestibulum a nisi sit amet augue facilisis consectetur sit amet et nunc. Integer fermentum ornare cursus. Pellentesque sed ultricies metus, ut egestas metus. Vivamus auctor erat ac sapien vulputate, nec ultricies sem tempor. Quisque leo lorem, faucibus nec pulvinar nec, congue eu velit. Duis sodales massa efficitur imperdiet ultrices. Donec eros ipsum, ornare pharetra purus aliquam, tincidunt elementum nisi. Ut mi tortor, feugiat eget nunc vitae, facilisis interdum dui. Vivamus ullamcorper nunc dui, a dapibus nisi pretium ac. Integer eleifend placerat nibh, maximus malesuada tellus. Cras in justo in ligula scelerisque suscipit vel vitae quam."
+Content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus venenatis lacus sed tempus eleifend. Mauris interdum bibendum felis, in tempor augue egestas vel. Praesent tristique consectetur ex, eu pretium sem placerat non. Vestibulum a nisi sit amet augue facilisis consectetur sit amet et nunc. Integer fermentum ornare cursus. Pellentesque sed ultricies metus, ut egestas metus. Vivamus auctor erat ac sapien vulputate, nec ultricies sem tempor. Quisque leo lorem, faucibus nec pulvinar nec, congue eu velit. Duis sodales massa efficitur imperdiet ultrices. Donec eros ipsum, ornare pharetra purus aliquam, tincidunt elementum nisi. Ut mi tortor, feugiat eget nunc vitae, facilisis interdum dui. Vivamus ullamcorper nunc dui, a dapibus nisi pretium ac. Integer eleifend placerat nibh, maximus malesuada tellus. Cras in justo in ligula scelerisque suscipit vel vitae quam."
 },ag or{})
 
 local ah={
@@ -4565,13 +4564,13 @@ function ah.Set(aj,ak)
 
 ak=Kwargify({
 Title=ag.Title,
-Text=ag.Text
+Text=ag.Content
 },ak or{})
 
 ah.Settings=ak
 
 ai.Title.Text=ak.Title
-ai.Text.Text=ak.Text
+ai.Text.Text=ak.Content
 
 ah:Update()
 
@@ -5603,7 +5602,7 @@ d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(an.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 an.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
+print("Library Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
 wait(0.5)
 an.Title.Text=ag.Title
 d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
@@ -5641,7 +5640,6 @@ tween(aq,{BackgroundTransparency=0.98})
 end
 end
 
-Toggle()
 tween(an.List[ao],{BackgroundTransparency=0.95,TextColor3=Color3.fromRGB(240,240,240)})
 end
 
