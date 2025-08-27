@@ -2669,7 +2669,7 @@ end)()
 
 end
 
-function E.CreateTab(G,H)
+function E.AddTab(G,H)
 
 local I={}
 
