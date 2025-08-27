@@ -2226,7 +2226,7 @@ end
 function b.CreateWindow(B,C)
 
 C=Kwargify({
-Name="Luna UI Example Window",
+Title="Luna UI Example Window",
 Subtitle="",
 LogoID="6031097225",
 LoadingEnabled=true,
@@ -2674,7 +2674,7 @@ function E.CreateTab(G,H)
 local I={}
 
 H=Kwargify({
-Name="Tab",
+Title="Tab",
 ShowTitle=true,
 Icon="view_in_ar",
 ImageSource="Material"
@@ -2784,7 +2784,7 @@ function N.AddButton(Q,R)
 P.Position=UDim2.new(0,0,0,28)
 
 R=Kwargify({
-Name="Button",
+Title="Button",
 Description=nil,
 Callback=function()
 
@@ -3003,7 +3003,7 @@ P.Position=UDim2.new(0,0,0,28)
 local T={IgnoreConfig=false,Class="Slider",Settings=R}
 
 R=Kwargify({
-Name="Slider",
+Title="Slider",
 Range={0,200},
 Increment=1,
 CurrentValue=100,
@@ -3201,7 +3201,7 @@ P.Position=UDim2.new(0,0,0,28)
 local R={IgnoreConfig=false,Class="Toggle"}
 
 ag=Kwargify({
-Name="Toggle",
+Title="Toggle",
 Description=nil,
 CurrentValue=false,
 Callback=function(S)
@@ -3378,7 +3378,7 @@ P.Position=UDim2.new(0,0,0,28)
 local R={Class="Keybind",IgnoreConfig=false,Settings=ag,Active=false}
 
 ag=Kwargify({
-Name="Bind",
+Title="Bind",
 Description=nil,
 CurrentBind="Q",
 HoldToInteract=false,
@@ -3598,7 +3598,7 @@ P.Position=UDim2.new(0,0,0,28)
 local R={IgnoreConfig=false,Class="Input",Settings=ag}
 
 ag=Kwargify({
-Name="Dynamic Input",
+Title="Dynamic Input",
 Description=nil,
 CurrentValue="",
 PlaceholderText="Input Placeholder",
@@ -3765,7 +3765,7 @@ P.Position=UDim2.new(0,0,0,28)
 local R={IgnoreConfig=false,Class="Dropdown",Settings=ag}
 
 ag=Kwargify({
-Name="Dropdown",
+Title="Dropdown",
 Description=nil,
 Options={"Option 1","Option 2"},
 CurrentOption={"Option 1"},
@@ -4118,7 +4118,7 @@ P.Position=UDim2.new(0,0,0,28)
 local ai={IgnoreClass=false,Class="Colorpicker",Settings=ag}
 
 ag=Kwargify({
-Name="Color Picker",
+Title="Color Picker",
 Color=Color3.fromRGB(255,255,255),
 Callback=function(aj)
 
@@ -4376,7 +4376,7 @@ end
 function I.AddButton(af,ag)
 
 ag=Kwargify({
-Name="Button",
+Title="Button",
 Description=nil,
 Callback=function()
 
@@ -4592,7 +4592,7 @@ function I.AddSlider(af,ag,ah)
 local ai={IgnoreConfig=false,Class="Slider",Settings=ag}
 
 ag=Kwargify({
-Name="Slider",
+Title="Slider",
 Range={0,200},
 Increment=1,
 CurrentValue=100,
@@ -4789,7 +4789,7 @@ function I.AddToggle(af,ag,ah)
 local ai={IgnoreConfig=false,Class="Toggle"}
 
 ag=Kwargify({
-Name="Toggle",
+Title="Toggle",
 Description=nil,
 CurrentValue=false,
 Callback=function(aj)
@@ -4965,7 +4965,7 @@ function I.AddBind(af,ag,ah)
 local ai={Class="Keybind",IgnoreConfig=false,Settings=ag,Active=false}
 
 ag=Kwargify({
-Name="Bind",
+Title="Bind",
 Description=nil,
 CurrentBind="Q",
 HoldToInteract=false,
@@ -5182,7 +5182,7 @@ end
 function I.AddKeybind(af,ag)
 
 ag=Kwargify({
-Name="Bind",
+Title="Bind",
 Description=nil,
 CurrentBind="Q",
 HoldToInteract=false,
@@ -5378,7 +5378,7 @@ function I.AddInput(af,ag,ah)
 local ai={IgnoreConfig=false,Class="Input",Settings=ag}
 
 ag=Kwargify({
-Name="Dynamic Input",
+Title="Dynamic Input",
 Description=nil,
 CurrentValue="",
 PlaceholderText="Input Placeholder",
@@ -5544,7 +5544,7 @@ function I.AddDropdown(af,ag,ah)
 local ai={IgnoreConfig=false,Class="Dropdown",Settings=ag}
 
 ag=Kwargify({
-Name="Dropdown",
+Title="Dropdown",
 Description=nil,
 Options={"Option 1","Option 2"},
 CurrentOption={"Option 1"},
@@ -5896,7 +5896,7 @@ function I.AddColorPicker(af,ag,ah)
 local ai={IgnoreClass=false,Class="Colorpicker",Settings=ag}
 
 ag=Kwargify({
-Name="Color Picker",
+Title="Color Picker",
 Color=Color3.fromRGB(255,255,255),
 Callback=function(aj)
 
@@ -6158,7 +6158,7 @@ d:Create(ai,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.
 I:AddSection"Config Creator"
 
 I:AddInput{
-Name="Config Name",
+Title="Config Name",
 Description="Insert a name for your to be created config.",
 PlaceholderText="Name",
 CurrentValue="",
@@ -6173,7 +6173,7 @@ end,
 local aj
 
 I:AddButton{
-Name="Create Config",
+Title="Create Config",
 Description="Create a config with all of your current settings.",
 Callback=function()
 if not ag or string.gsub(ag," ","")==""then
@@ -6211,7 +6211,7 @@ I:AddSection"Config Load/Settings"
 
 
 aj=I:AddDropdown{
-Name="Select Config",
+Title="Select Config",
 Description="Select a config to load your settings on.",
 Options=b:RefreshConfigList(),
 CurrentOption={},
@@ -6223,7 +6223,7 @@ end,
 }
 
 I:AddButton{
-Name="Load Config",
+Title="Load Config",
 Description="Load your saved config settings.",
 Callback=function()
 local ak,al=b:LoadConfig(ah)
@@ -6247,7 +6247,7 @@ end
 }
 
 I:AddButton{
-Name="Overwrite Config",
+Title="Overwrite Config",
 Description="Overwrite your current config settings.",
 Callback=function()
 local ak,al=b:SaveConfig(ah)
@@ -6271,7 +6271,7 @@ end
 }
 
 I:AddButton{
-Name="Refresh Config List",
+Title="Refresh Config List",
 Description="Refresh the current config list.",
 Callback=function()
 aj:Set{Options=b:RefreshConfigList()}
@@ -6280,7 +6280,7 @@ end,
 
 local ak
 I:AddButton{
-Name="Set as autoload",
+Title="Set as autoload",
 Description="Set a config to auto load setting in your next session.",
 Callback=function()
 local al=ah
@@ -6302,7 +6302,7 @@ Text="None"
 }
 
 I:AddButton{
-Name="Delete Autoload",
+Title="Delete Autoload",
 Description="Delete The Autoload File",
 Callback=function()
 
@@ -6423,17 +6423,17 @@ d:Create(ah,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.
 I:AddSection"Custom Editor"
 
 local ai=I:AddColorPicker({
-Name="Color 1",
+Title="Color 1",
 Color=Color3.fromRGB(117,164,206),
 },"LunaInterfaceSuitePrebuiltCPC1")
 
 local aj=I:AddColorPicker({
-Name="Color 2",
+Title="Color 2",
 Color=Color3.fromRGB(123,201,201),
 },"LunaInterfaceSuitePrebuiltCPC2")
 
 local ak=I:AddColorPicker({
-Name="Color 3",
+Title="Color 3",
 Color=Color3.fromRGB(224,138,184),
 },"LunaInterfaceSuitePrebuiltCPC3")
 
@@ -6726,127 +6726,4 @@ end
 end
 aa:Destroy()
 end
-local af=b:CreateWindow{
-Name="Luna Example Window",
-Subtitle="gay",
-LogoID="82795327169782",
-LoadingEnabled=true,
-LoadingTitle="Zinner Hub Loading...",
-LoadingSubtitle="by ! xHoang",
-
-ConfigSettings={
-RootFolder=nil,
-ConfigFolder="Big Hub"
-},
-
-KeySystem=true,
-KeySettings={
-Title="Luna Example Key",
-Subtitle="Key System",
-Note="Best Key System Ever! Also, Please Use A HWID Keysystem like Pelican, Luarmor etc. that provide key strings based on your HWID since putting a simple string is very easy to bypass",
-SaveInRoot=false,
-SaveKey=true,
-Key={"Example Key"},
-SecondAction={
-Enabled=true,
-Type="Link",
-Parameter=""
-}
-}
-}
-local ag=af:CreateTab{
-Name="Tab Example",
-Icon="view_in_ar",
-ImageSource="Material",
-ShowTitle=true
-}
-ag:AddSection"Section Example"
-ag:AddButton{
-Name="Button Example!",
-Description=nil,
-Callback=function()
-
-end
-}
-ag:AddToggle({
-Name="Toggle Example",
-Description=nil,
-CurrentValue=false,
-Callback=function(ah)
-
-
-end
-},"Toggle")
-ag:AddColorPicker({
-Name="Color Picker Example",
-Color=Color3.fromRGB(86,171,128),
-Flag="ColorPicker1",
-Callback=function(ah)
-
-
-end
-},"ColorPicker")
-ag:AddSlider({
-Name="Slider Example",
-Range={0,200},
-Increment=5,
-CurrentValue=100,
-Callback=function(ah)
-
-
-end
-},"Slider")
-ag:AddInput({
-Name="Dynamic Input Example",
-Description=nil,
-PlaceholderText="Input Placeholder",
-CurrentValue="",
-Numeric=false,
-MaxCharacters=nil,
-Enter=false,
-Callback=function(ah)
-
-
-end
-},"Input")
-ag:AddDropdown({
-Name="Dropdown Example",
-Description=nil,
-Options={"Option 1","Option 2"},
-CurrentOption={"Option 1"},
-MultipleOptions=false,
-SpecialType=nil,
-Callback=function(ah)
-
-
-end
-},"Dropdown")
-ag:AddBind({
-Name="Bind Example",
-Description=nil,
-CurrentBind="Q",
-HoldToInteract=false,
-Callback=function(ah)
-
-
-end,
-
-OnChangedCallback=function(ah)
-
-
-end,
-},"Bind")
-ag:AddLabel{
-Text="Label Example",
-Style=1
-}
-ag:AddParagraph{
-Title="Paragraph Example ",
-Text="This Is A Paragraph. You Can Type Very Long Strings Here And They'll Automatically Fit! This Counts As A Description Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text?"
-}
-af:CreateHomeTab{
-SupportedExecutors={},
-DiscordInvite="1234",
-Icon=1,
-}
 return b
