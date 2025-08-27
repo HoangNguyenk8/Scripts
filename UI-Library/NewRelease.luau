@@ -25,7 +25,7 @@
 
 local a="Release Version 3.1"
 
-local b={Folder="Zinner",Options={},ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,Color3.fromRGB(117,164,206)),ColorSequenceKeypoint.new(0.50,Color3.fromRGB(123,201,201)),ColorSequenceKeypoint.new(1.00,Color3.fromRGB(224,138,175))}}
+local b={Folder="Zinner",Values={},ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,Color3.fromRGB(117,164,206)),ColorSequenceKeypoint.new(0.50,Color3.fromRGB(123,201,201)),ColorSequenceKeypoint.new(1.00,Color3.fromRGB(224,138,175))}}
 
 local c=game:GetService"UserInputService"
 local d=game:GetService"TweenService"
@@ -3183,7 +3183,7 @@ V:Destroy()
 end
 
 if S then
-b.Options[S]=T
+b.Values[S]=T
 end
 
 aa.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
@@ -3365,7 +3365,7 @@ S.toggle.UIStroke.color.Color=b.ThemeGradient
 end)
 
 if Q then
-b.Options[Q]=R
+b.Values[Q]=R
 end
 
 return R
@@ -3583,7 +3583,7 @@ T:Destroy()
 end
 
 if Q then
-b.Options[Q]=R
+b.Values[Q]=R
 end
 
 
@@ -3751,7 +3751,7 @@ T:Destroy()
 end
 
 if Q then
-b.Options[Q]=R
+b.Values[Q]=R
 end
 
 
@@ -3767,9 +3767,9 @@ local R={IgnoreConfig=false,Class="Dropdown",Settings=ag}
 ag=Kwargify({
 Title="Dropdown",
 Description=nil,
-Options={"Option 1","Option 2"},
-CurrentOption={"Option 1"},
-MultipleOptions=false,
+Values={"Option 1","Option 2"},
+Default={"Option 1"},
+Multi=false,
 SpecialType=nil,
 Callback=function(S)
 
@@ -3777,7 +3777,7 @@ Callback=function(S)
 end,
 },ag or{})
 
-R.CurrentOption=ag.CurrentOption
+R.Default=ag.Default
 
 local S=false
 if ag.Description~=nil and ag.Description~=""then
@@ -3867,7 +3867,7 @@ end
 
 local function Refresh()
 Clear()
-for X,Y in pairs(ag.Options)do
+for X,Y in pairs(ag.Values)do
 local Z=W.List.Template:Clone()
 local _=false
 Z.Text=Y
@@ -3875,44 +3875,44 @@ if Y=="Template"then Y="Template (Name)"end
 Z.Name=Y
 Z.Interact.MouseButton1Click:Connect(function()
 local ah
-if ag.MultipleOptions then
-if table.find(ag.CurrentOption,Y)then
-RemoveTable(ag.CurrentOption,Y)
-R.CurrentOption=ag.CurrentOption
+if ag.Multi then
+if table.find(ag.Default,Y)then
+RemoveTable(ag.Default,Y)
+R.Default=ag.Default
 if not _ then
 tween(Z,{TextColor3=Color3.fromRGB(200,200,200)})
 end
 tween(Z,{BackgroundTransparency=0.98})
 else
-table.insert(ag.CurrentOption,Y)
-R.CurrentOption=ag.CurrentOption
+table.insert(ag.Default,Y)
+R.Default=ag.Default
 tween(Z,{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 end
-ah=ag.CurrentOption
+ah=ag.Default
 else
-ag.CurrentOption={Y}
+ag.Default={Y}
 ah=Y
-R.CurrentOption=ah
+R.Default=ah
 ActivateColorSingle(Y)
 end
 
 SafeCallback(ah,function()
-if ag.MultipleOptions then
-if ag.CurrentOption and type(ag.CurrentOption)=="table"then
-if#ag.CurrentOption==1 then
-W.Selected.PlaceholderText=ag.CurrentOption[1]
-elseif#ag.CurrentOption==0 then
+if ag.Multi then
+if ag.Default and type(ag.Default)=="table"then
+if#ag.Default==1 then
+W.Selected.PlaceholderText=ag.Default[1]
+elseif#ag.Default==0 then
 W.Selected.PlaceholderText="None"
 else
-W.Selected.PlaceholderText=unpackt(ag.CurrentOption)
+W.Selected.PlaceholderText=unpackt(ag.Default)
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 W.Selected.PlaceholderText="None"
 end
 end
-if not ag.MultipleOptions then
-W.Selected.PlaceholderText=ag.CurrentOption[1]or"None"
+if not ag.Multi then
+W.Selected.PlaceholderText=ag.Default[1]or"None"
 end
 W.Selected.Text=""
 end)
@@ -3939,12 +3939,12 @@ end
 end
 
 local function PlayerTableRefresh()
-for ah,X in pairs(ag.Options)do
-table.remove(ag.Options,ah)
+for ah,X in pairs(ag.Values)do
+table.remove(ag.Values,ah)
 end
 
 for ah,X in pairs(h:GetChildren())do
-table.insert(ag.Options,X.Name)
+table.insert(ag.Values,X.Name)
 end
 end
 
@@ -3962,11 +3962,11 @@ end)
 
 if ag.SpecialType=="Player"then
 
-for ah,X in pairs(ag.Options)do
-table.remove(ag.Options,ah)
+for ah,X in pairs(ag.Values)do
+table.remove(ag.Values,ah)
 end
 PlayerTableRefresh()
-ag.CurrentOption=ag.Options[1]
+ag.Default=ag.Values[1]
 
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
@@ -3975,22 +3975,22 @@ end
 
 Refresh()
 
-if ag.CurrentOption then
-if type(ag.CurrentOption)=="string"then
-ag.CurrentOption={ag.CurrentOption}
+if ag.Default then
+if type(ag.Default)=="string"then
+ag.Default={ag.Default}
 end
-if not ag.MultipleOptions and type(ag.CurrentOption)=="table"then
-ag.CurrentOption={ag.CurrentOption[1]}
+if not ag.Multi and type(ag.Default)=="table"then
+ag.Default={ag.Default[1]}
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 end
 
 local ah,X=0
-for Y,Z in pairs(ag.CurrentOption)do
+for Y,Z in pairs(ag.Default)do
 ah=ah+1
 end
-if ah==1 then X=ag.CurrentOption[1]else X=ag.CurrentOption end
+if ah==1 then X=ag.Default[1]else X=ag.Default end
 SafeCallback(X)
 if type(X)=="string"then
 tween(W.List[X],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
@@ -4000,24 +4000,24 @@ tween(W.List[Z],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0
 end
 end
 
-if ag.MultipleOptions then
-if ag.CurrentOption and type(ag.CurrentOption)=="table"then
-if#ag.CurrentOption==1 then
-W.Selected.PlaceholderText=ag.CurrentOption[1]
-elseif#ag.CurrentOption==0 then
+if ag.Multi then
+if ag.Default and type(ag.Default)=="table"then
+if#ag.Default==1 then
+W.Selected.PlaceholderText=ag.Default[1]
+elseif#ag.Default==0 then
 W.Selected.PlaceholderText="None"
 else
-W.Selected.PlaceholderText=unpackt(ag.CurrentOption)
+W.Selected.PlaceholderText=unpackt(ag.Default)
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 W.Selected.PlaceholderText="None"
 end
-for Y,Z in pairs(ag.CurrentOption)do
+for Y,Z in pairs(ag.Default)do
 tween(W.List[Z],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
 end
 else
-W.Selected.PlaceholderText=ag.CurrentOption[1]or"None"
+W.Selected.PlaceholderText=ag.Default[1]or"None"
 end
 W.Selected.Text=""
 
@@ -4035,11 +4035,11 @@ end
 
 if ag.SpecialType=="Player"then
 
-for _,ai in pairs(ag.Options)do
-table.remove(ag.Options,_)
+for _,ai in pairs(ag.Values)do
+table.remove(ag.Values,_)
 end
 PlayerTableRefresh()
-ag.CurrentOption=ag.Options[1]
+ag.Default=ag.Values[1]
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
 
@@ -4047,22 +4047,22 @@ end
 
 Refresh()
 
-if ag.CurrentOption then
-if type(ag.CurrentOption)=="string"then
-ag.CurrentOption={ag.CurrentOption}
+if ag.Default then
+if type(ag.Default)=="string"then
+ag.Default={ag.Default}
 end
-if not ag.MultipleOptions and type(ag.CurrentOption)=="table"then
-ag.CurrentOption={ag.CurrentOption[1]}
+if not ag.Multi and type(ag.Default)=="table"then
+ag.Default={ag.Default[1]}
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 end
 
 local ai,_=0
-for aj,ak in pairs(ag.CurrentOption)do
+for aj,ak in pairs(ag.Default)do
 ai=ai+1
 end
-if ai==1 then _=ag.CurrentOption[1]else _=ag.CurrentOption end
+if ai==1 then _=ag.Default[1]else _=ag.Default end
 SafeCallback(_)
 for aj,ak in pairs(W.List:GetChildren())do
 if ak.ClassName=="TextLabel"then
@@ -4071,24 +4071,24 @@ end
 end
 tween(W.List[_],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 
-if ag.MultipleOptions then
-if ag.CurrentOption and type(ag.CurrentOption)=="table"then
-if#ag.CurrentOption==1 then
-W.Selected.PlaceholderText=ag.CurrentOption[1]
-elseif#ag.CurrentOption==0 then
+if ag.Multi then
+if ag.Default and type(ag.Default)=="table"then
+if#ag.Default==1 then
+W.Selected.PlaceholderText=ag.Default[1]
+elseif#ag.Default==0 then
 W.Selected.PlaceholderText="None"
 else
-W.Selected.PlaceholderText=unpackt(ag.CurrentOption)
+W.Selected.PlaceholderText=unpackt(ag.Default)
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 W.Selected.PlaceholderText="None"
 end
-for aj,ak in pairs(ag.CurrentOption)do
+for aj,ak in pairs(ag.Default)do
 tween(W.List[ak],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
 end
 else
-W.Selected.PlaceholderText=ag.CurrentOption[1]or"None"
+W.Selected.PlaceholderText=ag.Default[1]or"None"
 end
 W.Selected.Text=""
 
@@ -4102,7 +4102,7 @@ W:Destroy()
 end
 
 if Q then
-b.Options[Q]=R
+b.Values[Q]=R
 end
 
 
@@ -4351,7 +4351,7 @@ Q:Destroy()
 end
 
 if ah then
-b.Options[ah]=ai
+b.Values[ah]=ai
 end
 
 SafeCallback(ag.Color)
@@ -4771,7 +4771,7 @@ ak:Destroy()
 end
 
 if ah then
-b.Options[ah]=ai
+b.Values[ah]=ai
 end
 
 aa.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
@@ -4952,7 +4952,7 @@ aj.toggle.UIStroke.color.Color=b.ThemeGradient
 end)
 
 if ah then
-b.Options[ah]=ai
+b.Values[ah]=ai
 end
 
 return ai
@@ -5169,7 +5169,7 @@ ak:Destroy()
 end
 
 if ah then
-b.Options[ah]=ai
+b.Values[ah]=ai
 end
 
 
@@ -5530,7 +5530,7 @@ ak:Destroy()
 end
 
 if ah then
-b.Options[ah]=ai
+b.Values[ah]=ai
 end
 
 
@@ -5545,9 +5545,9 @@ local ai={IgnoreConfig=false,Class="Dropdown",Settings=ag}
 ag=Kwargify({
 Title="Dropdown",
 Description=nil,
-Options={"Option 1","Option 2"},
-CurrentOption={"Option 1"},
-MultipleOptions=false,
+Values={"Option 1","Option 2"},
+Default={"Option 1"},
+Multi=false,
 SpecialType=nil,
 Callback=function(aj)
 
@@ -5555,7 +5555,7 @@ Callback=function(aj)
 end,
 },ag or{})
 
-ai.CurrentOption=ag.CurrentOption
+ai.Default=ag.Default
 
 local aj=false
 if ag.Description~=nil and ag.Description~=""then
@@ -5645,7 +5645,7 @@ end
 
 local function Refresh()
 Clear()
-for ao,ap in pairs(ag.Options)do
+for ao,ap in pairs(ag.Values)do
 local aq=an.List.Template:Clone()
 local ar=false
 aq.Text=ap
@@ -5653,44 +5653,44 @@ if ap=="Template"then ap="Template (Name)"end
 aq.Name=ap
 aq.Interact.MouseButton1Click:Connect(function()
 local as
-if ag.MultipleOptions then
-if table.find(ag.CurrentOption,ap)then
-RemoveTable(ag.CurrentOption,ap)
-ai.CurrentOption=ag.CurrentOption
+if ag.Multi then
+if table.find(ag.Default,ap)then
+RemoveTable(ag.Default,ap)
+ai.Default=ag.Default
 if not ar then
 tween(aq,{TextColor3=Color3.fromRGB(200,200,200)})
 end
 tween(aq,{BackgroundTransparency=0.98})
 else
-table.insert(ag.CurrentOption,ap)
-ai.CurrentOption=ag.CurrentOption
+table.insert(ag.Default,ap)
+ai.Default=ag.Default
 tween(aq,{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 end
-as=ag.CurrentOption
+as=ag.Default
 else
-ag.CurrentOption={ap}
+ag.Default={ap}
 as=ap
-ai.CurrentOption=as
+ai.Default=as
 ActivateColorSingle(ap)
 end
 
 SafeCallback(as,function()
-if ag.MultipleOptions then
-if ag.CurrentOption and type(ag.CurrentOption)=="table"then
-if#ag.CurrentOption==1 then
-an.Selected.PlaceholderText=ag.CurrentOption[1]
-elseif#ag.CurrentOption==0 then
+if ag.Multi then
+if ag.Default and type(ag.Default)=="table"then
+if#ag.Default==1 then
+an.Selected.PlaceholderText=ag.Default[1]
+elseif#ag.Default==0 then
 an.Selected.PlaceholderText="None"
 else
-an.Selected.PlaceholderText=unpackt(ag.CurrentOption)
+an.Selected.PlaceholderText=unpackt(ag.Default)
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 an.Selected.PlaceholderText="None"
 end
 end
-if not ag.MultipleOptions then
-an.Selected.PlaceholderText=ag.CurrentOption[1]or"None"
+if not ag.Multi then
+an.Selected.PlaceholderText=ag.Default[1]or"None"
 end
 an.Selected.Text=""
 end)
@@ -5717,12 +5717,12 @@ end
 end
 
 local function PlayerTableRefresh()
-for ao,ap in pairs(ag.Options)do
-table.remove(ag.Options,ao)
+for ao,ap in pairs(ag.Values)do
+table.remove(ag.Values,ao)
 end
 
 for ao,ap in pairs(h:GetChildren())do
-table.insert(ag.Options,ap.Name)
+table.insert(ag.Values,ap.Name)
 end
 end
 
@@ -5740,11 +5740,11 @@ end)
 
 if ag.SpecialType=="Player"then
 
-for ao,ap in pairs(ag.Options)do
-table.remove(ag.Options,ao)
+for ao,ap in pairs(ag.Values)do
+table.remove(ag.Values,ao)
 end
 PlayerTableRefresh()
-ag.CurrentOption=ag.Options[1]
+ag.Default=ag.Values[1]
 
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
@@ -5753,22 +5753,22 @@ end
 
 Refresh()
 
-if ag.CurrentOption then
-if type(ag.CurrentOption)=="string"then
-ag.CurrentOption={ag.CurrentOption}
+if ag.Default then
+if type(ag.Default)=="string"then
+ag.Default={ag.Default}
 end
-if not ag.MultipleOptions and type(ag.CurrentOption)=="table"then
-ag.CurrentOption={ag.CurrentOption[1]}
+if not ag.Multi and type(ag.Default)=="table"then
+ag.Default={ag.Default[1]}
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 end
 
 local ao,ap=0
-for aq,ar in pairs(ag.CurrentOption)do
+for aq,ar in pairs(ag.Default)do
 ao=ao+1
 end
-if ao==1 then ap=ag.CurrentOption[1]else ap=ag.CurrentOption end
+if ao==1 then ap=ag.Default[1]else ap=ag.Default end
 SafeCallback(ap)
 if type(ap)=="string"then
 tween(an.List[ap],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
@@ -5778,24 +5778,24 @@ tween(an.List[ar],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency
 end
 end
 
-if ag.MultipleOptions then
-if ag.CurrentOption and type(ag.CurrentOption)=="table"then
-if#ag.CurrentOption==1 then
-an.Selected.PlaceholderText=ag.CurrentOption[1]
-elseif#ag.CurrentOption==0 then
+if ag.Multi then
+if ag.Default and type(ag.Default)=="table"then
+if#ag.Default==1 then
+an.Selected.PlaceholderText=ag.Default[1]
+elseif#ag.Default==0 then
 an.Selected.PlaceholderText="None"
 else
-an.Selected.PlaceholderText=unpackt(ag.CurrentOption)
+an.Selected.PlaceholderText=unpackt(ag.Default)
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 an.Selected.PlaceholderText="None"
 end
-for aq,ar in pairs(ag.CurrentOption)do
+for aq,ar in pairs(ag.Default)do
 tween(an.List[ar],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
 end
 else
-an.Selected.PlaceholderText=ag.CurrentOption[1]or"None"
+an.Selected.PlaceholderText=ag.Default[1]or"None"
 end
 an.Selected.Text=""
 
@@ -5813,11 +5813,11 @@ end
 
 if ag.SpecialType=="Player"then
 
-for as,at in pairs(ag.Options)do
-table.remove(ag.Options,as)
+for as,at in pairs(ag.Values)do
+table.remove(ag.Values,as)
 end
 PlayerTableRefresh()
-ag.CurrentOption=ag.Options[1]
+ag.Default=ag.Values[1]
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
 
@@ -5825,22 +5825,22 @@ end
 
 Refresh()
 
-if ag.CurrentOption then
-if type(ag.CurrentOption)=="string"then
-ag.CurrentOption={ag.CurrentOption}
+if ag.Default then
+if type(ag.Default)=="string"then
+ag.Default={ag.Default}
 end
-if not ag.MultipleOptions and type(ag.CurrentOption)=="table"then
-ag.CurrentOption={ag.CurrentOption[1]}
+if not ag.Multi and type(ag.Default)=="table"then
+ag.Default={ag.Default[1]}
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 end
 
 local as,at=0
-for au,av in pairs(ag.CurrentOption)do
+for au,av in pairs(ag.Default)do
 as=as+1
 end
-if as==1 then at=ag.CurrentOption[1]else at=ag.CurrentOption end
+if as==1 then at=ag.Default[1]else at=ag.Default end
 SafeCallback(at)
 for au,av in pairs(an.List:GetChildren())do
 if av.ClassName=="TextLabel"then
@@ -5849,24 +5849,24 @@ end
 end
 tween(an.List[at],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 
-if ag.MultipleOptions then
-if ag.CurrentOption and type(ag.CurrentOption)=="table"then
-if#ag.CurrentOption==1 then
-an.Selected.PlaceholderText=ag.CurrentOption[1]
-elseif#ag.CurrentOption==0 then
+if ag.Multi then
+if ag.Default and type(ag.Default)=="table"then
+if#ag.Default==1 then
+an.Selected.PlaceholderText=ag.Default[1]
+elseif#ag.Default==0 then
 an.Selected.PlaceholderText="None"
 else
-an.Selected.PlaceholderText=unpackt(ag.CurrentOption)
+an.Selected.PlaceholderText=unpackt(ag.Default)
 end
 else
-ag.CurrentOption={}
+ag.Default={}
 an.Selected.PlaceholderText="None"
 end
-for au,av in pairs(ag.CurrentOption)do
+for au,av in pairs(ag.Default)do
 tween(an.List[av],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
 end
 else
-an.Selected.PlaceholderText=ag.CurrentOption[1]or"None"
+an.Selected.PlaceholderText=ag.Default[1]or"None"
 end
 an.Selected.Text=""
 
@@ -5880,7 +5880,7 @@ an:Destroy()
 end
 
 if ah then
-b.Options[ah]=ai
+b.Values[ah]=ai
 end
 
 
@@ -6128,7 +6128,7 @@ al:Destroy()
 end
 
 if ah then
-b.Options[ah]=ai
+b.Values[ah]=ai
 end
 
 SafeCallback(ag.Color)
@@ -6201,7 +6201,7 @@ ImageSource="Material",
 Content=string.format("Created config %q",ag),
 }
 
-aj:Set{Options=b:RefreshConfigList()}
+aj:Set{Values=b:RefreshConfigList()}
 end
 }
 
@@ -6211,9 +6211,9 @@ I:AddSection"Config Load/Settings"
 aj=I:AddDropdown{
 Title="Select Config",
 Description="Select a config to load your settings on.",
-Options=b:RefreshConfigList(),
-CurrentOption={},
-MultipleOptions=false,
+Values=b:RefreshConfigList(),
+Default={},
+Multi=false,
 SpecialType=nil,
 Callback=function(ak)
 ah=ak
@@ -6272,7 +6272,7 @@ I:AddButton{
 Title="Refresh Config List",
 Description="Refresh the current config list.",
 Callback=function()
-aj:Set{Options=b:RefreshConfigList()}
+aj:Set{Values=b:RefreshConfigList()}
 end,
 }
 
@@ -6332,8 +6332,8 @@ state=ag.CurrentValue or false
 }
 end,
 Load=function(af,ag)
-if b.Options[af]then
-b.Options[af]:Set{CurrentValue=ag.state}
+if b.Values[af]then
+b.Values[af]:Set{CurrentValue=ag.state}
 end
 end
 },Slider=
@@ -6346,8 +6346,8 @@ value=(ag.CurrentValue and tostring(ag.CurrentValue)),
 }
 end,
 Load=function(af,ag)
-if b.Options[af]and ag.value then
-b.Options[af]:Set{CurrentValue=ag.value}
+if b.Values[af]and ag.value then
+b.Values[af]:Set{CurrentValue=ag.value}
 end
 end
 },Input=
@@ -6360,8 +6360,8 @@ text=ag.CurrentValue
 }
 end,
 Load=function(af,ag)
-if b.Options[af]and ag.text and type(ag.text)=="string"then
-b.Options[af]:Set{CurrentValue=ag.text}
+if b.Values[af]and ag.text and type(ag.text)=="string"then
+b.Values[af]:Set{CurrentValue=ag.text}
 end
 end
 },Dropdown=
@@ -6370,12 +6370,12 @@ Save=function(af,ag)
 return{
 type="Dropdown",
 flag=af,
-value=ag.CurrentOption
+value=ag.Default
 }
 end,
 Load=function(af,ag)
-if b.Options[af]and ag.value then
-b.Options[af]:Set{CurrentOption=ag.value}
+if b.Values[af]and ag.value then
+b.Values[af]:Set{Default=ag.value}
 end
 end
 },Colorpicker=
@@ -6401,8 +6401,8 @@ local ak=tonumber(ah:sub(6,7),16)/255
 return Color3.new(ai,aj,ak)
 end
 
-if b.Options[af]and ag.color then
-b.Options[af]:Set{Color=HexToColor3(ag.color)}
+if b.Values[af]and ag.color then
+b.Values[af]:Set{Color=HexToColor3(ag.color)}
 end
 end
 }
@@ -6523,7 +6523,7 @@ local aj={
 objects={}
 }
 
-for ak,al in next,b.Options do
+for ak,al in next,b.Values do
 if not af[al.Class]then continue end
 if al.IgnoreConfig then continue end
 
@@ -6610,7 +6610,7 @@ end
 
 if an=="/"or an=="\\"then
 local ao=ak:sub(al+1,am-1)
-if ao~="options"then
+if ao~="Values"then
 table.insert(ai,ao)
 end
 end
