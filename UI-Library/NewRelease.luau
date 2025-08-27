@@ -1846,7 +1846,7 @@ ab=ac.Size
 ad=string.split(tostring(ad),"Enum.KeyCode.")
 ad=ad[2]
 if ae then
-b:Notification{Title="Interface Hidden",Content="The interface has been hidden, you may reopen the interface by Pressing the UI Bind In Settings ("..tostring(ad)..")",Icon="visibility_off"}
+b:NewNotify{Title="Interface Hidden",Content="The interface has been hidden, you may reopen the interface by Pressing the UI Bind In Settings ("..tostring(ad)..")",Icon="visibility_off"}
 end
 tween(ac,{BackgroundTransparency=1})
 tween(ac.Elements,{BackgroundTransparency=1})
@@ -2080,7 +2080,7 @@ end)
 end)
 end
 
-function b.Notification(y,z)
+function b.NewNotify(y,z)
 task.spawn(function()
 z=Kwargify({
 Title="Missing Title",
@@ -2223,7 +2223,7 @@ tween(B,{Size=z})
 end
 
 
-function b.CreateWindow(B,C)
+function b.NewWindow(B,C)
 
 C=Kwargify({
 Title="Luna UI Example Window",
@@ -2431,7 +2431,7 @@ if C.KeySettings.SaveKey then
 if writefile then
 writefile(G..C.KeySettings.FileName..".luna",L)
 end
-b:Notification{Title="Key System",Content="The key for this script has been saved successfully.",Icon="lock_open"}
+b:NewNotify{Title="Key System",Content="The key for this script has been saved successfully.",Icon="lock_open"}
 end
 else
 if J==0 then
@@ -6177,7 +6177,7 @@ Title="Create Config",
 Description="Create a config with all of your current settings.",
 Callback=function()
 if not ag or string.gsub(ag," ","")==""then
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="warning",
 ImageSource="Material",
@@ -6188,7 +6188,7 @@ end
 
 local ak,al=b:SaveConfig(ag)
 if not ak then
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="error",
 ImageSource="Material",
@@ -6196,7 +6196,7 @@ Content="Unable to save config, return error: "..al
 }
 end
 
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
@@ -6228,7 +6228,7 @@ Description="Load your saved config settings.",
 Callback=function()
 local ak,al=b:LoadConfig(ah)
 if not ak then
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="error",
 ImageSource="Material",
@@ -6237,7 +6237,7 @@ Content="Unable to load config, return error: "..al
 return
 end
 
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
@@ -6252,7 +6252,7 @@ Description="Overwrite your current config settings.",
 Callback=function()
 local ak,al=b:SaveConfig(ah)
 if not ak then
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="error",
 ImageSource="Material",
@@ -6261,7 +6261,7 @@ Content="Unable to overwrite config, return error: "..al
 return
 end
 
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
@@ -6287,7 +6287,7 @@ local al=ah
 writefile(b.Folder.."/settings/autoload.txt",al)
 ak:Set{Text="Current autoload config: "..al}
 
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
@@ -6309,7 +6309,7 @@ Callback=function()
 delfile(b.Folder.."/settings/autoload.txt")
 ak:Set{Text="None"}
 
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
@@ -6574,7 +6574,7 @@ local ah=readfile(b.Folder.."/settings/autoload.txt")
 
 local ai,aj=b:LoadConfig(ah)
 if not ai then
-return b:Notification{
+return b:NewNotify{
 Title="Interface",
 Icon="sparkle",
 ImageSource="Material",
@@ -6582,7 +6582,7 @@ Content="Failed to load autoload config: "..aj,
 }
 end
 
-b:Notification{
+b:NewNotify{
 Title="Interface",
 Icon="sparkle",
 ImageSource="Material",
