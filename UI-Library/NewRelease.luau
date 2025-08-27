@@ -2245,7 +2245,7 @@ ConfigFolder="Big Hub"
 },C.ConfigSettings or{})
 
 C.KeySettings=Kwargify({
-Title=C.Name,
+Title=C.Title,
 Subtitle="Key System",
 Note="No Instructions",
 SaveInRoot=false,
@@ -2264,7 +2264,7 @@ local D=false
 
 local E={Bind=Enum.KeyCode.K,CurrentTab=nil,State=true,Size=false,Settings=nil}
 
-ac.Title.Title.Text=C.Name
+ac.Title.Title.Text=C.Title
 ac.Title.subtitle.Text=C.Subtitle
 ac.Logo.Image="rbxassetid://"..C.LogoID
 ac.Visible=true
@@ -2549,7 +2549,7 @@ end)
 
 K.icon.ImageLabel.Image=h:GetUserThumbnailAsync(h.LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)
 K.player.Text.Text="Hello, "..h.LocalPlayer.DisplayName
-K.player.user.Text=h.LocalPlayer.Name.." - "..C.Name
+K.player.user.Text=h.LocalPlayer.Name.." - "..C.Title
 
 K.detailsholder.dashboard.Client.Title.Text=(l and"Debugging (Studio)"or identifyexecutor())or"Your Executor Does Not Support identifyexecutor."
 for L,M in pairs(H.SupportedExecutors)do
@@ -2682,17 +2682,17 @@ ImageSource="Material"
 
 local J=u.Tabs["InActive Template"]:Clone()
 
-J.Name=H.Name
-J.TextLabel.Text=H.Name
+J.Name=H.Title
+J.TextLabel.Text=H.Title
 J.Parent=u.Tabs
 J.ImageLabel.Image=GetIcon(H.Icon,H.ImageSource)
 
 J.Visible=true
 
 local K=s.Template:Clone()
-K.Name=H.Name
+K.Name=H.Title
 K.Title.Visible=H.ShowTitle
-K.Title.Text=H.Name
+K.Title.Text=H.Title
 K.Visible=true
 
 I.Page=K
@@ -2728,7 +2728,7 @@ end
 
 end
 
-E.CurrentTab=H.Name
+E.CurrentTab=H.Title
 end
 
 if F then
@@ -2803,8 +2803,8 @@ T=s.Template.Button:Clone()
 else
 T=s.Template.ButtonDesc:Clone()
 end
-T.Name=R.Name
-T.Title.Text=R.Name
+T.Name=R.Title
+T.Title.Text=R.Title
 if R.Description~=nil and R.Description~=""then
 T.Desc.Text=R.Description
 end
@@ -2832,9 +2832,9 @@ d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..R.Name.." Callback Error "..tostring(V))
+print("Luna Interface Suite | "..R.Title.." Callback Error "..tostring(V))
 wait(0.5)
-T.Title.Text=R.Name
+T.Title.Text=R.Title
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -2861,7 +2861,7 @@ end)
 
 function S.Set(U,V)
 V=Kwargify({
-Name=R.Name,
+Name=R.Title,
 Description=R.Description,
 Callback=R.Callback
 },V or{})
@@ -2869,8 +2869,8 @@ Callback=R.Callback
 R=V
 S.Settings=V
 
-T.Name=R.Name
-T.Title.Text=R.Name
+T.Name=R.Title
+T.Title.Text=R.Title
 if R.Description~=nil and R.Description~=""and T.Desc~=nil then
 T.Desc.Text=R.Description
 end
@@ -3014,8 +3014,8 @@ end,
 
 local U=false
 local V=s.Template.Slider:Clone()
-V.Name=R.Name.." - Slider"
-V.Title.Text=R.Name
+V.Name=R.Title.." - Slider"
+V.Title.Text=R.Title
 V.Visible=true
 V.Parent=P
 
@@ -3096,9 +3096,9 @@ d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 V.Title.Text="Callback Error"
-print("Luna Interface Suite | "..R.Name.." Callback Error "..tostring(ag))
+print("Luna Interface Suite | "..R.Title.." Callback Error "..tostring(ag))
 wait(0.5)
-V.Title.Text=R.Name
+V.Title.Text=R.Title
 d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3129,9 +3129,9 @@ d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 V.Title.Text="Callback Error"
-print("Luna Interface Suite | "..R.Name.." Callback Error "..tostring(X))
+print("Luna Interface Suite | "..R.Title.." Callback Error "..tostring(X))
 wait(0.5)
-V.Title.Text=R.Name
+V.Title.Text=R.Title
 d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(30,33,40)}):Play()
 d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3159,7 +3159,7 @@ end)
 
 function T.Set(af,ag)
 ag=Kwargify({
-Name=R.Name,
+Name=R.Title,
 Range=R.Range,
 Increment=R.Increment,
 CurrentValue=R.CurrentValue,
@@ -3169,8 +3169,8 @@ Callback=R.Callback
 R=ag
 T.Settings=ag
 
-V.Name=R.Name.." - Slider"
-V.Title.Text=R.Name
+V.Name=R.Title.." - Slider"
+V.Title.Text=R.Title
 
 Set()
 
@@ -3220,8 +3220,8 @@ end
 S.Visible=true
 S.Parent=P
 
-S.Name=ag.Name.." - Toggle"
-S.Title.Text=ag.Name
+S.Name=ag.Title.." - Toggle"
+S.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""then
 S.Desc.Text=ag.Description
 end
@@ -3274,9 +3274,9 @@ d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 S.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(U))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(U))
 wait(0.5)
-S.Title.Text=ag.Name
+S.Title.Text=ag.Title
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3301,9 +3301,9 @@ d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 S.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(U))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(U))
 wait(0.5)
-S.Title.Text=ag.Name
+S.Title.Text=ag.Title
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3318,7 +3318,7 @@ end
 function R.Set(T,U)
 
 U=Kwargify({
-Name=ag.Name,
+Name=ag.Title,
 Description=ag.Description,
 CurrentValue=ag.CurrentValue,
 Callback=ag.Callback
@@ -3327,8 +3327,8 @@ Callback=ag.Callback
 R.Settings=U
 ag=U
 
-S.Name=ag.Name.." - Toggle"
-S.Title.Text=ag.Name
+S.Name=ag.Title.." - Toggle"
+S.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and S.Desc~=nil then
 S.Desc.Text=ag.Description
 end
@@ -3345,9 +3345,9 @@ d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0}):Play()
 S.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(W))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(W))
 wait(0.5)
-S.Title.Text=ag.Name
+S.Title.Text=ag.Title
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3405,8 +3405,8 @@ end
 T.Visible=true
 T.Parent=P
 
-T.Name=ag.Name
-T.Title.Text=ag.Name
+T.Name=ag.Title
+T.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""then
 T.Desc.Text=ag.Description
 end
@@ -3467,9 +3467,9 @@ d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(Z))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(Z))
 wait(0.5)
-T.Title.Text=ag.Name
+T.Title.Text=ag.Title
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3496,9 +3496,9 @@ d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(Z))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(Z))
 wait(0.5)
-T.Title.Text=ag.Name
+T.Title.Text=ag.Title
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3516,9 +3516,9 @@ d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(_))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(_))
 wait(0.5)
-T.Title.Text=ag.Name
+T.Title.Text=ag.Title
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3533,9 +3533,9 @@ d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(_))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(_))
 wait(0.5)
-T.Title.Text=ag.Name
+T.Title.Text=ag.Title
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3554,7 +3554,7 @@ end)
 function R.Set(U,V)
 
 V=Kwargify({
-Name=ag.Name,
+Name=ag.Title,
 Description=ag.Description,
 CurrentBind=ag.CurrentBind,
 HoldToInteract=ag.HoldToInteract,
@@ -3564,8 +3564,8 @@ Callback=ag.Callback
 R.Settings=V
 ag=V
 
-T.Name=ag.Name
-T.Title.Text=ag.Name
+T.Name=ag.Title
+T.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and T.Desc~=nil then
 T.Desc.Text=ag.Description
 end
@@ -3625,8 +3625,8 @@ else
 T=s.Template.Input:Clone()
 end
 
-T.Name=ag.Name
-T.Title.Text=ag.Name
+T.Name=ag.Title
+T.Title.Text=ag.Title
 if S then T.Desc.Text=ag.Description end
 T.Visible=true
 T.Parent=P
@@ -3663,9 +3663,9 @@ d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(W))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(W))
 wait(0.5)
-T.Title.Text=ag.Name
+T.Title.Text=ag.Title
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3704,9 +3704,9 @@ d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(V))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(V))
 wait(0.5)
-T.Title.Text=ag.Name
+T.Title.Text=ag.Title
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3731,8 +3731,8 @@ V=Kwargify(ag,V or{})
 R.Settings=V
 ag=V
 
-T.Name=ag.Name
-T.Title.Text=ag.Name
+T.Name=ag.Title
+T.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and T.Desc~=nil then
 T.Desc.Text=ag.Description
 end
@@ -3797,8 +3797,8 @@ local V=false
 local W
 if S then W=s.Template.DropdownDesc:Clone()else W=s.Template.Dropdown:Clone()end
 
-W.Name=ag.Name
-W.Title.Text=ag.Name
+W.Name=ag.Title
+W.Title.Text=ag.Title
 if S then W.Desc.Text=ag.Description end
 
 W.Parent=P
@@ -3824,9 +3824,9 @@ d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(W.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 W.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(_))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(_))
 wait(0.5)
-W.Title.Text=ag.Name
+W.Title.Text=ag.Title
 d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(W.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4028,8 +4028,8 @@ Z=Kwargify(ag,Z or{})
 R.Settings=Z
 ag=Z
 
-W.Name=ag.Name
-W.Title.Text=ag.Name
+W.Name=ag.Title
+W.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and W.Desc~=nil then
 W.Desc.Text=ag.Description
 end
@@ -4141,8 +4141,8 @@ local S=R.Display
 local T=R.MainCP
 local U=Q.ColorSlider
 
-Q.Name=ag.Name
-Q.Title.Text=ag.Name
+Q.Name=ag.Title
+Q.Title.Text=ag.Title
 Q.Visible=true
 Q.Parent=P
 Q.Size=UDim2.new(1.042,-25,0,38)
@@ -4165,9 +4165,9 @@ d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparen
 d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(Q.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 Q.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(Y))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(Y))
 wait(0.5)
-Q.Title.Text=ag.Name
+Q.Title.Text=ag.Title
 d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(Q.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4332,8 +4332,8 @@ as=Kwargify(ag,as or{})
 ai.Settings=as
 ag=as
 
-Q.Name=ag.Name
-Q.Title.Text=ag.Name
+Q.Name=ag.Title
+Q.Title.Text=ag.Title
 Q.Visible=true
 
 local at,au,av=ag.Color:ToHSV()
@@ -4395,8 +4395,8 @@ ai=s.Template.Button:Clone()
 else
 ai=s.Template.ButtonDesc:Clone()
 end
-ai.Name=ag.Name
-ai.Title.Text=ag.Name
+ai.Name=ag.Title
+ai.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""then
 ai.Desc.Text=ag.Description
 end
@@ -4424,9 +4424,9 @@ d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ai.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(ak))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ak))
 wait(0.5)
-ai.Title.Text=ag.Name
+ai.Title.Text=ag.Title
 d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4453,7 +4453,7 @@ end)
 
 function ah.Set(aj,ak)
 ak=Kwargify({
-Name=ag.Name,
+Name=ag.Title,
 Description=ag.Description,
 Callback=ag.Callback
 },ak or{})
@@ -4461,8 +4461,8 @@ Callback=ag.Callback
 ag=ak
 ah.Settings=ak
 
-ai.Name=ag.Name
-ai.Title.Text=ag.Name
+ai.Name=ag.Title
+ai.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and ai.Desc~=nil then
 ai.Desc.Text=ag.Description
 end
@@ -4603,8 +4603,8 @@ end,
 
 local aj=false
 local ak=s.Template.Slider:Clone()
-ak.Name=ag.Name.." - Slider"
-ak.Title.Text=ag.Name
+ak.Name=ag.Title.." - Slider"
+ak.Title.Text=ag.Title
 ak.Visible=true
 ak.Parent=K
 
@@ -4685,9 +4685,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(ar))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4718,9 +4718,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(ao))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ao))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(30,33,40)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4748,7 +4748,7 @@ end)
 
 function ai.Set(al,am)
 am=Kwargify({
-Name=ag.Name,
+Name=ag.Title,
 Range=ag.Range,
 Increment=ag.Increment,
 CurrentValue=ag.CurrentValue,
@@ -4758,8 +4758,8 @@ Callback=ag.Callback
 ag=am
 ai.Settings=am
 
-ak.Name=ag.Name.." - Slider"
-ak.Title.Text=ag.Name
+ak.Name=ag.Title.." - Slider"
+ak.Title.Text=ag.Title
 
 Set()
 
@@ -4808,8 +4808,8 @@ end
 aj.Visible=true
 aj.Parent=K
 
-aj.Name=ag.Name.." - Toggle"
-aj.Title.Text=ag.Name
+aj.Name=ag.Title.." - Toggle"
+aj.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""then
 aj.Desc.Text=ag.Description
 end
@@ -4862,9 +4862,9 @@ d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(al))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(al))
 wait(0.5)
-aj.Title.Text=ag.Name
+aj.Title.Text=ag.Title
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4889,9 +4889,9 @@ d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(al))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(al))
 wait(0.5)
-aj.Title.Text=ag.Name
+aj.Title.Text=ag.Title
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4906,7 +4906,7 @@ end
 function ai.Set(ak,al)
 
 al=Kwargify({
-Name=ag.Name,
+Name=ag.Title,
 Description=ag.Description,
 CurrentValue=ag.CurrentValue,
 Callback=ag.Callback
@@ -4915,8 +4915,8 @@ Callback=ag.Callback
 ai.Settings=al
 ag=al
 
-aj.Name=ag.Name.." - Toggle"
-aj.Title.Text=ag.Name
+aj.Name=ag.Title.." - Toggle"
+aj.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and aj.Desc~=nil then
 aj.Desc.Text=ag.Description
 end
@@ -4933,9 +4933,9 @@ d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0}):Play()
 aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(an))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(an))
 wait(0.5)
-aj.Title.Text=ag.Name
+aj.Title.Text=ag.Title
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -4992,8 +4992,8 @@ end
 ak.Visible=true
 ak.Parent=K
 
-ak.Name=ag.Name
-ak.Title.Text=ag.Name
+ak.Name=ag.Title
+ak.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""then
 ak.Desc.Text=ag.Description
 end
@@ -5054,9 +5054,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(aq))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5083,9 +5083,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(aq))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5103,9 +5103,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(ar))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5120,9 +5120,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(ar))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5141,7 +5141,7 @@ end)
 function ai.Set(al,am)
 
 am=Kwargify({
-Name=ag.Name,
+Name=ag.Title,
 Description=ag.Description,
 CurrentBind=ag.CurrentBind,
 HoldToInteract=ag.HoldToInteract,
@@ -5151,8 +5151,8 @@ Callback=ag.Callback
 ai.Settings=am
 ag=am
 
-ak.Name=ag.Name
-ak.Title.Text=ag.Name
+ak.Name=ag.Title
+ak.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and ak.Desc~=nil then
 ak.Desc.Text=ag.Description
 end
@@ -5205,8 +5205,8 @@ end
 aj.Visible=true
 aj.Parent=K
 
-aj.Name=ag.Name
-aj.Title.Text=ag.Name
+aj.Name=ag.Title
+aj.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""then
 aj.Desc.Text=ag.Description
 end
@@ -5281,9 +5281,9 @@ d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(ap))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ap))
 wait(0.5)
-aj.Title.Text=ag.Name
+aj.Title.Text=ag.Title
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5301,9 +5301,9 @@ d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(aq))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
 wait(0.5)
-aj.Title.Text=ag.Name
+aj.Title.Text=ag.Title
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5318,9 +5318,9 @@ d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(aq))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
 wait(0.5)
-aj.Title.Text=ag.Name
+aj.Title.Text=ag.Title
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5339,7 +5339,7 @@ end)
 function ah.Set(ak,al)
 
 al=Kwargify({
-Name=ag.Name,
+Name=ag.Title,
 Description=ag.Description,
 CurrentBind=ag.CurrentBind,
 HoldToInteract=ag.HoldToInteract,
@@ -5349,8 +5349,8 @@ Callback=ag.Callback
 ah.Settings=al
 ag=al
 
-aj.Name=ag.Name
-aj.Title.Text=ag.Name
+aj.Name=ag.Title
+aj.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and aj.Desc~=nil then
 aj.Desc.Text=ag.Description
 end
@@ -5405,8 +5405,8 @@ else
 ak=s.Template.Input:Clone()
 end
 
-ak.Name=ag.Name
-ak.Title.Text=ag.Name
+ak.Name=ag.Title
+ak.Title.Text=ag.Title
 if aj then ak.Desc.Text=ag.Description end
 ak.Visible=true
 ak.Parent=K
@@ -5443,9 +5443,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(an))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(an))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5484,9 +5484,9 @@ d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(am))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(am))
 wait(0.5)
-ak.Title.Text=ag.Name
+ak.Title.Text=ag.Title
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5511,8 +5511,8 @@ am=Kwargify(ag,am or{})
 ai.Settings=am
 ag=am
 
-ak.Name=ag.Name
-ak.Title.Text=ag.Name
+ak.Name=ag.Title
+ak.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and ak.Desc~=nil then
 ak.Desc.Text=ag.Description
 end
@@ -5576,8 +5576,8 @@ local am=false
 local an
 if aj then an=s.Template.DropdownDesc:Clone()else an=s.Template.Dropdown:Clone()end
 
-an.Name=ag.Name
-an.Title.Text=ag.Name
+an.Name=ag.Title
+an.Title.Text=ag.Title
 if aj then an.Desc.Text=ag.Description end
 
 an.Parent=K
@@ -5603,9 +5603,9 @@ d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(an.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 an.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(ar))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
 wait(0.5)
-an.Title.Text=ag.Name
+an.Title.Text=ag.Title
 d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(an.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -5807,8 +5807,8 @@ ar=Kwargify(ag,ar or{})
 ai.Settings=ar
 ag=ar
 
-an.Name=ag.Name
-an.Title.Text=ag.Name
+an.Name=ag.Title
+an.Title.Text=ag.Title
 if ag.Description~=nil and ag.Description~=""and an.Desc~=nil then
 an.Desc.Text=ag.Description
 end
@@ -5919,8 +5919,8 @@ local an=am.Display
 local ao=am.MainCP
 local ap=al.ColorSlider
 
-al.Name=ag.Name
-al.Title.Text=ag.Name
+al.Name=ag.Title
+al.Title.Text=ag.Title
 al.Visible=true
 al.Parent=K
 al.Size=UDim2.new(1.042,-25,0,38)
@@ -5943,9 +5943,9 @@ d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTranspare
 d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(al.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 al.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Name.." Callback Error "..tostring(at))
+print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(at))
 wait(0.5)
-al.Title.Text=ag.Name
+al.Title.Text=ag.Title
 d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(al.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -6110,8 +6110,8 @@ M=Kwargify(ag,M or{})
 ai.Settings=M
 ag=M
 
-al.Name=ag.Name
-al.Title.Text=ag.Name
+al.Name=ag.Title
+al.Title.Text=ag.Title
 al.Visible=true
 
 local N,O,P=ag.Color:ToHSV()
