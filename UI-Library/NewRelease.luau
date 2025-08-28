@@ -1626,307 +1626,116 @@ if q.ClassName=="UIListLayout"then return end
 local u=d:Create(q,t or o,r)
 u.Completed:Connect(s or function()end)
 u:Play()
+return u
 end
 
-local function BlurModule(q)
-local r=game:GetService'RunService'
-local s=workspace.CurrentCamera
-local t="Glass"
-local u={}
-local v=Instance.new('Folder',s)
-v.Name='LunaBlur'
-
-local w=99999999
-local x=math.random(1,w)
-
-local y=Instance.new('DepthOfFieldEffect',game:GetService'Lighting')
-y.FarIntensity=0
-y.FocusDistance=51.6
-y.InFocusRadius=50
-y.NearIntensity=6
-y.Name="DPT_"..x
-
-local z=Instance.new'Frame'
-z.Parent=q
-z.Size=UDim2.new(0.95,0,0.95,0)
-z.Position=UDim2.new(0.5,0,0.5,0)
-z.AnchorPoint=Vector2.new(0.5,0.5)
-z.BackgroundTransparency=1
-
-local A;do
-local B=0
-function A()
-B=B+1
-return'neon::'..tostring(B)
-end
-end
-
-do
-local function IsNotNaN(B)
-return B==B
-end
-local B=IsNotNaN(s:ScreenPointToRay(0,0).Origin.x)
-while not B do
-r.RenderStepped:wait()
-B=IsNotNaN(s:ScreenPointToRay(0,0).Origin.x)
-end
-end
-
-local B;do
-
-local C,D,E,F=math.acos,math.max,math.pi,math.sqrt
-local G=0.22
-local function DrawTriangle(H,I,J,K,L)
-
-local M=(H-I).magnitude
-local N=(I-J).magnitude
-local O=(J-H).magnitude
-local P=D(M,N,O)
-local Q,R,S
-if M==P then
-Q,R,S=H,I,J
-elseif N==P then
-Q,R,S=I,J,H
-elseif O==P then
-Q,R,S=J,H,I
-end
-
-local T=((R-Q).x*(S-Q).x+(R-Q).y*(S-Q).y+(R-Q).z*(S-Q).z)/(Q-R).magnitude
-local U=F((S-Q).magnitude^2-T*T)
-local V=(Q-R).magnitude-T
-
-local W=CFrame.new(R,Q)
-local X=CFrame.Angles(E/2,0,0)
-
-local Y=W
-
-local Z=(Y*X).lookVector
-local _=Q+CFrame.new(Q,R).lookVector*T
-local aa=CFrame.new(_,S).lookVector
-local ab=Z.x*aa.x+Z.y*aa.y+Z.z*aa.z
-
-local ac=CFrame.Angles(0,0,C(ab))
-
-Y=Y*ac
-if((Y*X).lookVector-aa).magnitude>0.01 then
-Y=Y*CFrame.Angles(0,0,-2*C(ab))
-end
-Y=Y*CFrame.new(0,U/2,-(V+T/2))
-
-local ad=W*ac*CFrame.Angles(0,E,0)
-if((ad*X).lookVector-aa).magnitude>0.01 then
-ad=ad*CFrame.Angles(0,0,2*C(ab))
-end
-ad=ad*CFrame.new(0,U/2,V/2)
-
-if not K then
-K=Instance.new'Part'
-K.FormFactor='Custom'
-K.TopSurface=0
-K.BottomSurface=0
-K.Anchored=true
-K.CanCollide=false
-K.CastShadow=false
-K.Material=t
-K.Size=Vector3.new(G,G,G)
-local ae=Instance.new('SpecialMesh',K)
-ae.MeshType=2
-ae.Name='WedgeMesh'
-end
-K.WedgeMesh.Scale=Vector3.new(0,U/G,T/G)
-K.CFrame=Y
-
-if not L then
-L=K:clone()
-end
-L.WedgeMesh.Scale=Vector3.new(0,U/G,V/G)
-L.CFrame=ad
-
-return K,L
-end
-
-function B(aa,ab,ac,ad,ae)
-ae[1],ae[2]=DrawTriangle(aa,ab,ac,ae[1],ae[2])
-ae[3],ae[4]=DrawTriangle(ac,ab,ad,ae[3],ae[4])
-end
-end
-
-if u[z]then
-return u[z].parts
-end
-
-local aa=A()
-local ab={}
-local ac=Instance.new('Folder',v)
-ac.Name=z.Name
-
-local ad={}
-do
-local function add(ae)
-if ae:IsA'GuiObject'then
-ad[#ad+1]=ae
-add(ae.Parent)
-end
-end
-add(z)
-end
-
-local function UpdateOrientation(ae)
-local C={
-Transparency=0.98;
-BrickColor=BrickColor.new'Institutional white';
-}
-local D=1-0.05*z.ZIndex
-
-local E,F=z.AbsolutePosition,z.AbsolutePosition+z.AbsoluteSize
-local G,H=Vector2.new(F.x,E.y),Vector2.new(E.x,F.y)
-do
-local I=0;
-for J,K in ipairs(ad)do
-I=I+K.Rotation
-end
-if I~=0 and I%180~=0 then
-local J=E:lerp(F,0.5)
-local K,L=math.sin(math.rad(I)),math.cos(math.rad(I))
-
-E=Vector2.new(L*(E.x-J.x)-K*(E.y-J.y),K*(E.x-J.x)+L*(E.y-J.y))+J
-G=Vector2.new(L*(G.x-J.x)-K*(G.y-J.y),K*(G.x-J.x)+L*(G.y-J.y))+J
-H=Vector2.new(L*(H.x-J.x)-K*(H.y-J.y),K*(H.x-J.x)+L*(H.y-J.y))+J
-F=Vector2.new(L*(F.x-J.x)-K*(F.y-J.y),K*(F.x-J.x)+L*(F.y-J.y))+J
-end
-end
-B(
-s:ScreenPointToRay(E.x,E.y,D).Origin,
-s:ScreenPointToRay(G.x,G.y,D).Origin,
-s:ScreenPointToRay(H.x,H.y,D).Origin,
-s:ScreenPointToRay(F.x,F.y,D).Origin,
-ab
-)
-if ae then
-for I,J in pairs(ab)do
-J.Parent=ac
-end
-for I,J in pairs(C)do
-for K,L in pairs(ab)do
-L[I]=J
-end
-end
-end
-
-end
-
-UpdateOrientation(true)
-r:BindToRenderStep(aa,2000,UpdateOrientation)
-end
-
-local function unpackt(aa:table)
-
-local ab=""
-local ac=0
-for ad,ae in pairs(aa)do
-if ac<3 then
-ab=ab..ae..", "
-ac+=1
+local function unpackt(q:table)
+local r=""
+local s=0
+for t,u in pairs(q)do
+if s<3 then
+r=r..u..", "
+s+=1
 else
-ab="Various"
+r=r.."..."
 break
 end
 end
 
-return ab
+return r
 end
 
 
-local aa=l and script.Parent:WaitForChild"Luna UI"or game:GetObjects"rbxassetid://86467455075715"[1]
+local q=l and script.Parent:WaitForChild"Luna UI"or game:GetObjects"rbxassetid://86467455075715"[1]
 
-local ab
+local r
 
-local function Hide(ac,ad,ae)
-ab=ac.Size
-ad=string.split(tostring(ad),"Enum.KeyCode.")
-ad=ad[2]
-if ae then
-b:NewNotify{Title="Interface Hidden",Content="The interface has been hidden, you may reopen the interface by Pressing the UI Bind In Settings ("..tostring(ad)..")",Icon="visibility_off"}
+local function Hide(s,t,u)
+r=s.Size
+t=string.split(tostring(t),"Enum.KeyCode.")
+t=t[2]
+if u then
+b:NewNotify{Title="Interface Hidden",Content="The interface has been hidden, you may reopen the interface by Pressing the UI Bind In Settings ("..tostring(t)..")",Icon="visibility_off"}
 end
-tween(ac,{BackgroundTransparency=1})
-tween(ac.Elements,{BackgroundTransparency=1})
-tween(ac.Line,{BackgroundTransparency=1})
-tween(ac.Title.Title,{TextTransparency=1})
-tween(ac.Title.subtitle,{TextTransparency=1})
-tween(ac.Logo,{ImageTransparency=1})
-tween(ac.Navigation.Line,{BackgroundTransparency=1})
+tween(s,{BackgroundTransparency=1})
+tween(s.Elements,{BackgroundTransparency=1})
+tween(s.Line,{BackgroundTransparency=1})
+tween(s.Title.Title,{TextTransparency=1})
+tween(s.Title.subtitle,{TextTransparency=1})
+tween(s.Logo,{ImageTransparency=1})
+tween(s.Navigation.Line,{BackgroundTransparency=1})
 
-for q,r in ipairs(ac.Controls:GetChildren())do
-if r.ClassName=="Frame"then
-tween(r,{BackgroundTransparency=1})
-tween(r.UIStroke,{Transparency=1})
-tween(r.ImageLabel,{ImageTransparency=1})
-r.Visible=false
+for v,w in ipairs(s.Controls:GetChildren())do
+if w.ClassName=="Frame"then
+tween(w,{BackgroundTransparency=1})
+tween(w.UIStroke,{Transparency=1})
+tween(w.ImageLabel,{ImageTransparency=1})
+w.Visible=false
 end
 end
-for q,r in ipairs(ac.Navigation.Tabs:GetChildren())do
-if r.ClassName=="Frame"and r.Name~="InActive Template"then
-d:Create(r,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
-d:Create(r.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
-d:Create(r.DropShadowHolder.DropShadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
-d:Create(r.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+for v,w in ipairs(s.Navigation.Tabs:GetChildren())do
+if w.ClassName=="Frame"and w.Name~="InActive Template"then
+d:Create(w,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
+d:Create(w.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
+d:Create(w.DropShadowHolder.DropShadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
+d:Create(w.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 end
 end
 
 task.wait(0.28)
-ac.Size=UDim2.new(0,0,0,0)
-ac.Parent.ShadowHolder.Visible=false
+s.Size=UDim2.new(0,0,0,0)
+s.Parent.ShadowHolder.Visible=false
 task.wait()
-ac.Elements.Parent.Visible=false
-ac.Visible=false
+s.Elements.Parent.Visible=false
+s.Visible=false
 end
 
 
 if gethui then
-aa.Parent=gethui()
+q.Parent=gethui()
 elseif syn and syn.protect_gui then
-syn.protect_gui(aa)
-aa.Parent=k
+syn.protect_gui(q)
+q.Parent=k
 elseif not l and k:FindFirstChild"RobloxGui"then
-aa.Parent=k:FindFirstChild"RobloxGui"
+q.Parent=k:FindFirstChild"RobloxGui"
 elseif not l then
-aa.Parent=k
+q.Parent=k
 end
 
 if gethui then
-for ac,ad in ipairs(gethui():GetChildren())do
-if ad.Name==aa.Name and ad~=aa then
-Hide(ad.SmartWindow)
-ad.Enabled=false
-ad.Name="Luna-Old"
+for s,t in ipairs(gethui():GetChildren())do
+if t.Name==q.Name and t~=q then
+Hide(t.SmartWindow)
+t.Enabled=false
+t.Name="Luna-Old"
 end
 end
 elseif not l then
-for ac,ad in ipairs(k:GetChildren())do
-if ad.Name==aa.Name and ad~=aa then
-Hide(ad.SmartWindow)
-ad.Enabled=false
-ad.Name="Luna-Old"
+for s,t in ipairs(k:GetChildren())do
+if t.Name==q.Name and t~=q then
+Hide(t.SmartWindow)
+t.Enabled=false
+t.Name="Luna-Old"
 end
 end
 end
 
-aa.Enabled=false
-aa.SmartWindow.Visible=false
-aa.Notifications.Template.Visible=false
-aa.DisplayOrder=1000000000
+q.Enabled=false
+q.SmartWindow.Visible=false
+q.Notifications.Template.Visible=false
+q.DisplayOrder=1000000000
 
-local ac:Frame=aa.SmartWindow
-local ad=ac.Drag
-local ae=aa.Drag
-local q=ae and ae.Interact or nil
-local r=ae and ae.Drag or nil
-local s=ac.Elements.Interactions
-local t=ac.LoadingFrame
-local u=ac.Navigation local v=
-u.Tabs
-local w=aa.Notifications
-local x:Frame=ac.KeySystem
+local s:Frame=q.SmartWindow
+local t=s.Drag
+local u=q.Drag
+local v=u and u.Interact or nil
+local w=u and u.Drag or nil
+local x=s.Elements.Interactions
+local y=s.LoadingFrame
+local z=s.Navigation local A=
+z.Tabs
+local B=q.Notifications
+local C:Frame=s.KeySystem
 
 
 
@@ -2012,21 +1821,21 @@ local x:Frame=ac.KeySystem
 
 
 
-local function Draggable(y,z,A,B)
+local function Draggable(D,E,F,G)
 pcall(function()
-local C,D,E,F
+local H,I,J,K
 
 local function connectFunctions()
-if ae and A then
-ae.MouseEnter:Connect(function()
-if not C then
-d:Create(r,TweenInfo.new(0.25,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{BackgroundTransparency=0.5,Size=UDim2.new(0,120,0,4)}):Play()
+if u and F then
+u.MouseEnter:Connect(function()
+if not H then
+d:Create(w,TweenInfo.new(0.25,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{BackgroundTransparency=0.5,Size=UDim2.new(0,120,0,4)}):Play()
 end
 end)
 
-ae.MouseLeave:Connect(function()
-if not C then
-d:Create(r,TweenInfo.new(0.25,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{BackgroundTransparency=0.7,Size=UDim2.new(0,100,0,4)}):Play()
+u.MouseLeave:Connect(function()
+if not H then
+d:Create(w,TweenInfo.new(0.25,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{BackgroundTransparency=0.7,Size=UDim2.new(0,100,0,4)}):Play()
 end
 end)
 end
@@ -2034,45 +1843,45 @@ end
 
 connectFunctions()
 
-y.InputBegan:Connect(function(G)
-if G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.Touch then
-C=true
-E=G.Position
-F=z.Position
+D.InputBegan:Connect(function(L)
+if L.UserInputType==Enum.UserInputType.MouseButton1 or L.UserInputType==Enum.UserInputType.Touch then
+H=true
+J=L.Position
+K=E.Position
 
-if A then
-d:Create(r,TweenInfo.new(0.35,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Size=UDim2.new(0,110,0,4),BackgroundTransparency=0}):Play()
+if F then
+d:Create(w,TweenInfo.new(0.35,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Size=UDim2.new(0,110,0,4),BackgroundTransparency=0}):Play()
 end
 
-G.Changed:Connect(function()
-if G.UserInputState==Enum.UserInputState.End then
-C=false
+L.Changed:Connect(function()
+if L.UserInputState==Enum.UserInputState.End then
+H=false
 connectFunctions()
 
-if A then
-d:Create(r,TweenInfo.new(0.35,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Size=UDim2.new(0,100,0,4),BackgroundTransparency=0.7}):Play()
+if F then
+d:Create(w,TweenInfo.new(0.35,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Size=UDim2.new(0,100,0,4),BackgroundTransparency=0.7}):Play()
 end
 end
 end)
 end
 end)
 
-y.InputChanged:Connect(function(G)
-if G.UserInputType==Enum.UserInputType.MouseMovement or G.UserInputType==Enum.UserInputType.Touch then
-D=G
+D.InputChanged:Connect(function(L)
+if L.UserInputType==Enum.UserInputType.MouseMovement or L.UserInputType==Enum.UserInputType.Touch then
+I=L
 end
 end)
 
-c.InputChanged:Connect(function(G)
-if G==D and C then
-local H=G.Position-E
+c.InputChanged:Connect(function(L)
+if L==I and H then
+local M=L.Position-J
 
-local I=UDim2.new(F.X.Scale,F.X.Offset+H.X,F.Y.Scale,F.Y.Offset+H.Y)
-d:Create(z,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Position=I}):Play()
+local N=UDim2.new(K.X.Scale,K.X.Offset+M.X,K.Y.Scale,K.Y.Offset+M.Y)
+d:Create(E,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Position=N}):Play()
 
-if ae then
-local J=UDim2.new(F.X.Scale,F.X.Offset+H.X,F.Y.Scale,F.Y.Offset+H.Y+240)
-ae.Position=J
+if u then
+local O=UDim2.new(K.X.Scale,K.X.Offset+M.X,K.Y.Scale,K.Y.Offset+M.Y+240)
+u.Position=O
 end
 end
 end)
@@ -2080,154 +1889,152 @@ end)
 end)
 end
 
-function b.NewNotify(y,z)
+function b.NewNotify(D,E)
 task.spawn(function()
-z=Kwargify({
+E=Kwargify({
 Title="Missing Title",
 Content="Missing or Unknown Content",
 Icon="view_in_ar",
 ImageSource="Material"
-},z or{})
+},E or{})
 
 
-local A=w.Template:Clone()
-A.Name=z.Title
-A.Parent=w
-A.LayoutOrder=#w:GetChildren()
-A.Visible=false
-BlurModule(A)
+local F=B.Template:Clone()
+F.Name=E.Title
+F.Parent=B
+F.LayoutOrder=#B:GetChildren()
+F.Visible=false
 
 
-A.Title.Text=z.Title
-A.Description.Text=z.Content
-A.Icon.Image=GetIcon(z.Icon,z.ImageSource)
+F.Title.Text=E.Title
+F.Description.Text=E.Content
+F.Icon.Image=GetIcon(E.Icon,E.ImageSource)
 
 
-A.BackgroundTransparency=1
-A.Title.TextTransparency=1
-A.Description.TextTransparency=1
-A.UIStroke.Transparency=1
-A.Shadow.ImageTransparency=1
-A.Icon.ImageTransparency=1
-A.Icon.BackgroundTransparency=1
+F.BackgroundTransparency=1
+F.Title.TextTransparency=1
+F.Description.TextTransparency=1
+F.UIStroke.Transparency=1
+F.Shadow.ImageTransparency=1
+F.Icon.ImageTransparency=1
+F.Icon.BackgroundTransparency=1
 
 task.wait()
 
 
-A.Size=UDim2.new(1,0,0,-w:FindFirstChild"UIListLayout".Padding.Offset)
+F.Size=UDim2.new(1,0,0,-B:FindFirstChild"UIListLayout".Padding.Offset)
 
-A.Icon.Size=UDim2.new(0,28,0,28)
-A.Icon.Position=UDim2.new(0,16,0.5,-1)
+F.Icon.Size=UDim2.new(0,28,0,28)
+F.Icon.Position=UDim2.new(0,16,0.5,-1)
 
-A.Visible=true
+F.Visible=true
 
-A.Description.Size=UDim2.new(1,-65,0,math.huge)
-local B=A.Description.TextBounds.Y+55
-A.Description.Size=UDim2.new(1,-65,0,B-35)
-A.Size=UDim2.new(1,0,0,-w:FindFirstChild"UIListLayout".Padding.Offset)
-d:Create(A,TweenInfo.new(0.6,Enum.EasingStyle.Exponential),{Size=UDim2.new(1,0,0,B)}):Play()
+F.Description.Size=UDim2.new(1,-65,0,math.huge)
+local G=F.Description.TextBounds.Y+55
+F.Description.Size=UDim2.new(1,-65,0,G-35)
+F.Size=UDim2.new(1,0,0,-B:FindFirstChild"UIListLayout".Padding.Offset)
+d:Create(F,TweenInfo.new(0.6,Enum.EasingStyle.Exponential),{Size=UDim2.new(1,0,0,G)}):Play()
 
 task.wait(0.15)
-d:Create(A,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.45}):Play()
-d:Create(A.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(F,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.45}):Play()
+d:Create(F.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
 task.wait(0.05)
 
-d:Create(A.Icon,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0}):Play()
+d:Create(F.Icon,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0}):Play()
 
 task.wait(0.05)
-d:Create(A.Description,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0.35}):Play()
-d:Create(A.UIStroke,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{Transparency=0.95}):Play()
-d:Create(A.Shadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0.82}):Play()
+d:Create(F.Description,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0.35}):Play()
+d:Create(F.UIStroke,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{Transparency=0.95}):Play()
+d:Create(F.Shadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0.82}):Play()
 
-local C=math.min(math.max((#A.Description.Text*0.1)+2.5,3),10)
-task.wait(z.Duration or C)
+local H=math.min(math.max((#F.Description.Text*0.1)+2.5,3),10)
+task.wait(E.Duration or H)
 
-A.Icon.Visible=false
-d:Create(A,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
-d:Create(A.UIStroke,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-d:Create(A.Shadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
-d:Create(A.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
-d:Create(A.Description,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
+F.Icon.Visible=false
+d:Create(F,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
+d:Create(F.UIStroke,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+d:Create(F.Shadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
+d:Create(F.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
+d:Create(F.Description,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
 
-d:Create(A,TweenInfo.new(1,Enum.EasingStyle.Exponential),{Size=UDim2.new(1,-90,0,0)}):Play()
+d:Create(F,TweenInfo.new(1,Enum.EasingStyle.Exponential),{Size=UDim2.new(1,-90,0,0)}):Play()
 
 task.wait(1)
 
-d:Create(A,TweenInfo.new(1,Enum.EasingStyle.Exponential),{Size=UDim2.new(1,-90,0,-w:FindFirstChild"UIListLayout".Padding.Offset)}):Play()
+d:Create(F,TweenInfo.new(1,Enum.EasingStyle.Exponential),{Size=UDim2.new(1,-90,0,-B:FindFirstChild"UIListLayout".Padding.Offset)}):Play()
 
-A.Visible=false
-A:Destroy()
+F.Visible=false
+F:Destroy()
 end)
 end
 
-local function Unhide(y,z)
-y.Size=ab
-y.Elements.Visible=true
-y.Visible=true
+local function Unhide(D,E)
+D.Size=r
+D.Elements.Visible=true
+D.Visible=true
 task.wait()
-tween(y,{BackgroundTransparency=0.2})
-tween(y.Elements,{BackgroundTransparency=0.08})
-tween(y.Line,{BackgroundTransparency=0})
-tween(y.Title.Title,{TextTransparency=0})
-tween(y.Title.subtitle,{TextTransparency=0})
-tween(y.Logo,{ImageTransparency=0})
-tween(y.Navigation.Line,{BackgroundTransparency=0})
+tween(D,{BackgroundTransparency=0.2})
+tween(D.Elements,{BackgroundTransparency=0.08})
+tween(D.Line,{BackgroundTransparency=0})
+tween(D.Title.Title,{TextTransparency=0})
+tween(D.Title.subtitle,{TextTransparency=0})
+tween(D.Logo,{ImageTransparency=0})
+tween(D.Navigation.Line,{BackgroundTransparency=0})
 
-for A,B in ipairs(y.Controls:GetChildren())do
-if B.ClassName=="Frame"and B.Name~="Theme"then
-B.Visible=true
-tween(B,{BackgroundTransparency=0.25})
-tween(B.UIStroke,{Transparency=0.5})
-tween(B.ImageLabel,{ImageTransparency=0.25})
+for F,G in ipairs(D.Controls:GetChildren())do
+if G.ClassName=="Frame"and G.Name~="Theme"then
+G.Visible=true
+tween(G,{BackgroundTransparency=0.25})
+tween(G.UIStroke,{Transparency=0.5})
+tween(G.ImageLabel,{ImageTransparency=0.25})
 end
 end
-for A,B in ipairs(y.Navigation.Tabs:GetChildren())do
-if B.ClassName=="Frame"and B.Name~="InActive Template"then
-if B.Name==z then
-d:Create(B,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(B.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.41}):Play()
+for F,G in ipairs(D.Navigation.Tabs:GetChildren())do
+if G.ClassName=="Frame"and G.Name~="InActive Template"then
+if G.Name==E then
+d:Create(G,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(G.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.41}):Play()
 end
-d:Create(B.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0}):Play()
-d:Create(B.DropShadowHolder.DropShadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
+d:Create(G.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0}):Play()
+d:Create(G.DropShadowHolder.DropShadow,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
 end
-end
-
 end
 
-local y
-local z
-local A
+end
+
+local D
+local E
+local F
 if j.ViewportSize.X>774 and j.ViewportSize.Y>503 then
-y=UDim2.fromOffset(675,424)
-z=UDim2.fromOffset(500,42)
+D=UDim2.fromOffset(675,424)
+E=UDim2.fromOffset(500,42)
 else
-y=UDim2.fromOffset(j.ViewportSize.X-100,j.ViewportSize.Y-100)
-z=UDim2.fromOffset(j.ViewportSize.X-275,42)
+D=UDim2.fromOffset(j.ViewportSize.X-100,j.ViewportSize.Y-100)
+E=UDim2.fromOffset(j.ViewportSize.X-275,42)
 end
 
-local function Maximise(B)
-B.Controls.ToggleSize.ImageLabel.Image="rbxassetid://10137941941"
-tween(B,{Size=y})
-B.Elements.Visible=true
-B.Navigation.Visible=true
-tween(B,{Position=A})
+local function Maximise(G)
+G.Controls.ToggleSize.ImageLabel.Image="rbxassetid://10137941941"
+tween(G,{Size=D})
+G.Elements.Visible=true
+G.Navigation.Visible=true
+tween(G,{Position=F})
 end
 
-local function Minimize(B)
-A=B.Position
-B.Controls.ToggleSize.ImageLabel.Image="rbxassetid://11036884234"
-B.Elements.Visible=false
-B.Navigation.Visible=false
-tween(B,{Size=z})
+local function Minimize(G)
+F=G.Position
+G.Controls.ToggleSize.ImageLabel.Image="rbxassetid://11036884234"
+G.Elements.Visible=false
+G.Navigation.Visible=false
+tween(G,{Size=E})
 end
 
+function b.NewWindow(G,H)
 
-function b.NewWindow(B,C)
-
-C=Kwargify({
+H=Kwargify({
 Title="Luna UI Example Window",
-Subtitle="",
+SubTitle="",
 LogoID="6031097225",
 LoadingEnabled=true,
 LoadingTitle="Luna Interface Suite",
@@ -2237,69 +2044,69 @@ ConfigSettings={},
 
 KeySystem=false,
 KeySettings={}
-},C or{})
+},H or{})
 
-C.ConfigSettings=Kwargify({
+H.ConfigSettings=Kwargify({
 RootFolder=nil,
 ConfigFolder="Big Hub"
-},C.ConfigSettings or{})
+},H.ConfigSettings or{})
 
-C.KeySettings=Kwargify({
-Title=C.Title,
+H.KeySettings=Kwargify({
+Title=H.Title,
 Subtitle="Key System",
 Note="No Instructions",
 SaveInRoot=false,
 SaveKey=true,
 Key={""},
 SecondAction={}
-},C.KeySettings or{})
+},H.KeySettings or{})
 
-C.KeySettings.SecondAction=Kwargify({
+H.KeySettings.SecondAction=Kwargify({
 Enabled=false,
 Type="Discord",
 Parameter=""
-},C.KeySettings.SecondAction)
+},H.KeySettings.SecondAction)
 
-local D=false
+local I=false
 
-local E={Bind=Enum.KeyCode.K,CurrentTab=nil,State=true,Size=false,Settings=nil}
+local J={Bind=Enum.KeyCode.K,CurrentTab=nil,State=true,Size=false,Settings=nil}
 
-ac.Title.Title.Text=C.Title
-ac.Title.subtitle.Text=C.Subtitle
-ac.Logo.Image="rbxassetid://"..C.LogoID
-ac.Visible=true
-ac.BackgroundTransparency=1
-ac.Size=y
-ac.Size=UDim2.fromOffset(ac.Size.X.Offset-70,ac.Size.Y.Offset-55)
-ac.Parent.ShadowHolder.Size=ac.Size
-t.Frame.Frame.Title.TextTransparency=1
-t.Frame.Frame.Subtitle.TextTransparency=1
-t.Version.TextTransparency=1
-t.Frame.ImageLabel.ImageTransparency=1
+s.Title.Title.Text=H.Title
+s.Title.subtitle.Text=H.SubTitle
+s.Logo.Image="rbxassetid://"..H.LogoID
+s.Visible=true
+s.BackgroundTransparency=1
+s.Size=D
+s.Size=UDim2.fromOffset(s.Size.X.Offset-70,s.Size.Y.Offset-55)
+s.Parent.ShadowHolder.Size=s.Size
+y.Frame.Frame.Title.TextTransparency=1
+y.Frame.Frame.Subtitle.TextTransparency=1
+y.Version.TextTransparency=1
+y.Frame.ImageLabel.ImageTransparency=1
 
-tween(s.Parent,{BackgroundTransparency=1})
-s.Parent.Visible=false
+tween(x.Parent,{BackgroundTransparency=1})
+x.Parent.Visible=false
 
-t.Frame.Frame.Title.Text=C.LoadingTitle
-t.Frame.Frame.Subtitle.Text=C.LoadingSubtitle
-t.Version.Text=t.Frame.Frame.Title.Text=="Luna Interface Suite"and a or"Luna UI"
+y.Frame.Frame.Title.Text=H.LoadingTitle
+y.Frame.Frame.Subtitle.Text=H.LoadingSubtitle
+y.Version.Text=y.Frame.Frame.Title.Text=="Luna Interface Suite"and a or"Luna UI"
 
-u.Player.icon.ImageLabel.Image=h:GetUserThumbnailAsync(h.LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size48x48)
-u.Player.Namez.Text=h.LocalPlayer.DisplayName
-u.Player.TextLabel.Text=h.LocalPlayer.Name
+z.Player.icon.ImageLabel.Image=h:GetUserThumbnailAsync(h.LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size48x48)
+z.Player.Namez.Text=h.LocalPlayer.DisplayName
+z.Player.TextLabel.Text=h.LocalPlayer.Name
 
-for F,G in pairs(ac.Controls:GetChildren())do
-G.Visible=false
+for K,L in pairs(s.Controls:GetChildren())do
+L.Visible=false
 end
 
-ac:GetPropertyChangedSignal"Position":Connect(function()
-ac.Parent.ShadowHolder.Position=ac.Position
+s:GetPropertyChangedSignal"Position":Connect(function()
+s.Parent.ShadowHolder.Position=s.Position
 end)
-ac:GetPropertyChangedSignal"Size":Connect(function()
-ac.Parent.ShadowHolder.Size=ac.Size
+s:GetPropertyChangedSignal"Size":Connect(function()
+s.Parent.ShadowHolder.Size=s.Size
 end)
 
-t.Visible=true
+y.Visible=true
 
 
 
@@ -2321,60 +2128,58 @@ t.Visible=true
 
 
 
-aa.Enabled=true
+q.Enabled=true
 
-BlurModule(ac)
+if H.KeySystem then
+local K=H.KeySettings
 
-if C.KeySystem then
-local F=C.KeySettings
+Draggable(t,s)
+Draggable(q.MobileSupport,q.MobileSupport)
+if u then Draggable(v,s,true,255)end
 
-Draggable(ad,ac)
-Draggable(aa.MobileSupport,aa.MobileSupport)
-if ae then Draggable(q,ac,true,255)end
-
-if not C.KeySettings then
-D=true
+if not H.KeySettings then
+I=true
 return
 end
 
-C.KeySettings.FileName="key"
+H.KeySettings.FileName="key"
 
-if typeof(C.KeySettings.Key)=="string"then C.KeySettings.Key={C.KeySettings.Key}end
+if typeof(H.KeySettings.Key)=="string"then H.KeySettings.Key={H.KeySettings.Key}end
 
-local G=C.KeySettings.SaveInRoot and"Luna/Configurations/"..C.ConfigSettings.RootFolder.."/"..C.ConfigSettings.ConfigFolder.."/Key System/"or"Luna/Configurations/"..C.ConfigSettings.ConfigFolder.."/Key System/"
+local L=H.KeySettings.SaveInRoot and"Luna/Configurations/"..H.ConfigSettings.RootFolder.."/"..H.ConfigSettings.ConfigFolder.."/Key System/"or"Luna/Configurations/"..H.ConfigSettings.ConfigFolder.."/Key System/"
 
-if isfile and isfile(G..C.KeySettings.FileName..".luna")then
-for H,I in ipairs(C.KeySettings.Key)do
-if string.find(readfile(G..C.KeySettings.FileName..".luna"),I)then
-D=true
+if isfile and isfile(L..H.KeySettings.FileName..".luna")then
+for M,N in ipairs(H.KeySettings.Key)do
+if string.find(readfile(L..H.KeySettings.FileName..".luna"),N)then
+I=true
 break
 end
 end
 end
 
-if not D then
+if not I then
 
-local H=x.Action.Copy
-local I=F.SecondAction.Type
+local M=C.Action.Copy
+local N=K.SecondAction.Type
 
-if I=="Discord"then
-H=x.Action.Discord
+if N=="Discord"then
+M=C.Action.Discord
 end
 
-local J=math.random(2,5)
+local O=math.random(2,5)
 
-x.Visible=true
-x.Title.Text=C.KeySettings.Title
-x.Subtitle.Text=C.KeySettings.Subtitle
-x.textshit.Text=C.KeySettings.Note
+C.Visible=true
+C.Title.Text=H.KeySettings.Title
+C.Subtitle.Text=H.KeySettings.Subtitle
+C.textshit.Text=H.KeySettings.Note
 
-if F.SecondAction.Enabled==true then
-H.Visible=true
+if K.SecondAction.Enabled==true then
+M.Visible=true
 end
 
-H.Interact.MouseButton1Click:Connect(function()
-if I=="Discord"then
-setclipboard(tostring("https://discord.gg/"..F.SecondAction.Parameter))
+M.Interact.MouseButton1Click:Connect(function()
+if N=="Discord"then
+setclipboard(tostring("https://discord.gg/"..K.SecondAction.Parameter))
 if n then
 n{
 Url='http://127.0.0.1:6463/rpc?v=1',
@@ -2386,187 +2191,187 @@ Origin='https://discord.com'
 Body=e:JSONEncode{
 cmd='INVITE_BROWSER',
 nonce=e:GenerateGUID(false),
-args={code=F.SecondAction.Parameter}
+args={code=K.SecondAction.Parameter}
 }
 }
 end
 else
-setclipboard(tostring(F.SecondAction.Parameter))
+setclipboard(tostring(K.SecondAction.Parameter))
 end
 end)
 
-x.Action.Submit.Interact.MouseButton1Click:Connect(function()
-if#x.Input.InputBox.Text==0 then return end
-local K=false
-local L=''
-for M,N in ipairs(C.KeySettings.Key)do
-if x.Input.InputBox.Text==N then
-K=true
-L=N
+C.Action.Submit.Interact.MouseButton1Click:Connect(function()
+if#C.Input.InputBox.Text==0 then return end
+local P=false
+local Q=''
+for R,S in ipairs(H.KeySettings.Key)do
+if C.Input.InputBox.Text==S then
+P=true
+Q=S
 break
 end
 end
-if K then
-for M,N in pairs(x:GetDescendants())do
-if N.ClassName~="UICorner"and N.ClassName~="UIPadding"then
-if N.ClassName~="UIStroke"then
-tween(N,{BackgroundTransparency=1},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
+if P then
+for R,S in pairs(C:GetDescendants())do
+if S.ClassName~="UICorner"and S.ClassName~="UIPadding"then
+if S.ClassName~="UIStroke"then
+tween(S,{BackgroundTransparency=1},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
 end
-if N.ClassName=="ImageButton"then
-tween(N,{ImageTransparency=1},nil,TweenInfo.new(0.5,Enum.EasingStyle.Exponential))
+if S.ClassName=="ImageButton"then
+tween(S,{ImageTransparency=1},nil,TweenInfo.new(0.5,Enum.EasingStyle.Exponential))
 end
-if N.ClassName=="TextLabel"then
-tween(N,{TextTransparency=1},nil,TweenInfo.new(0.4,Enum.EasingStyle.Exponential))
+if S.ClassName=="TextLabel"then
+tween(S,{TextTransparency=1},nil,TweenInfo.new(0.4,Enum.EasingStyle.Exponential))
 end
-if N.ClassName=="UIStroke"then
-tween(N,{Transparency=1},nil,TweenInfo.new(0.5,Enum.EasingStyle.Exponential))
+if S.ClassName=="UIStroke"then
+tween(S,{Transparency=1},nil,TweenInfo.new(0.5,Enum.EasingStyle.Exponential))
 end
 end
 end
-tween(x,{BackgroundTransparency=1},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
+tween(C,{BackgroundTransparency=1},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
 task.wait(0.51)
-D=true
-x.Visible=false
-if C.KeySettings.SaveKey then
+I=true
+C.Visible=false
+if H.KeySettings.SaveKey then
 if writefile then
-writefile(G..C.KeySettings.FileName..".luna",L)
+writefile(L..H.KeySettings.FileName..".luna",Q)
 end
 b:NewNotify{Title="Key System",Content="The key for this script has been saved successfully.",Icon="lock_open"}
 end
 else
-if J==0 then
+if O==0 then
 
 game.Players.LocalPlayer:Kick"No Attempts Remaining"
 game:Shutdown()
 end
-x.Input.InputBox.Text="Incorrect Key"
-J=J-1
+C.Input.InputBox.Text="Incorrect Key"
+O=O-1
 task.wait(0.4)
-x.Input.InputBox.Text=""
+C.Input.InputBox.Text=""
 end
 end)
 
-x.Close.MouseButton1Click:Connect(function()
+C.Close.MouseButton1Click:Connect(function()
 
 b:Destroy()
 end)
 end
 end
 
-if C.KeySystem then
-repeat task.wait()until D
+if H.KeySystem then
+repeat task.wait()until I
 end
 
-if C.LoadingEnabled then
+if H.LoadingEnabled then
 task.wait(0.3)
-d:Create(t.Frame.Frame.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-d:Create(t.Frame.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0}):Play()
+d:Create(y.Frame.Frame.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(y.Frame.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=0}):Play()
 task.wait(0.05)
-d:Create(t.Frame.Frame.Subtitle,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-d:Create(t.Version,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(y.Frame.Frame.Subtitle,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(y.Version,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 task.wait(0.29)
-d:Create(t.Frame.ImageLabel,TweenInfo.new(1.7,Enum.EasingStyle.Back,Enum.EasingDirection.Out,2,false,0.2),{Rotation=450}):Play()
+d:Create(y.Frame.ImageLabel,TweenInfo.new(1.7,Enum.EasingStyle.Back,Enum.EasingDirection.Out,2,false,0.2),{Rotation=450}):Play()
 
 task.wait(3.32)
 
-d:Create(t.Frame.Frame.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
-d:Create(t.Frame.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
+d:Create(y.Frame.Frame.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
+d:Create(y.Frame.ImageLabel,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{ImageTransparency=1}):Play()
 task.wait(0.05)
-d:Create(t.Frame.Frame.Subtitle,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
-d:Create(t.Version,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
+d:Create(y.Frame.Frame.Subtitle,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
+d:Create(y.Version,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=1}):Play()
 wait(0.3)
-d:Create(t,TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{BackgroundTransparency=1}):Play()
+d:Create(y,TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{BackgroundTransparency=1}):Play()
 end
 
-d:Create(ac,TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{BackgroundTransparency=0.2,Size=y}):Play()
-d:Create(ac.Parent.ShadowHolder,TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=y}):Play()
-d:Create(ac.Title.Title,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
-d:Create(ac.Title.subtitle,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
-d:Create(ac.Logo,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{ImageTransparency=0}):Play()
-d:Create(u.Player.icon.ImageLabel,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{ImageTransparency=0}):Play()
-d:Create(u.Player.icon.UIStroke,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Transparency=0}):Play()
-d:Create(ac.Line,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{BackgroundTransparency=0}):Play()
+d:Create(s,TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{BackgroundTransparency=0.2,Size=D}):Play()
+d:Create(s.Parent.ShadowHolder,TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=D}):Play()
+d:Create(s.Title.Title,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
+d:Create(s.Title.subtitle,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
+d:Create(s.Logo,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{ImageTransparency=0}):Play()
+d:Create(z.Player.icon.ImageLabel,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{ImageTransparency=0}):Play()
+d:Create(z.Player.icon.UIStroke,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Transparency=0}):Play()
+d:Create(s.Line,TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{BackgroundTransparency=0}):Play()
 wait(0.4)
-t.Visible=false
+y.Visible=false
 
-Draggable(ad,ac)
-Draggable(aa.MobileSupport,aa.MobileSupport)
-if ae then Draggable(q,ac,true,255)end
+Draggable(t,s)
+Draggable(q.MobileSupport,q.MobileSupport)
+if u then Draggable(v,s,true,255)end
 
-s.Template.LayoutOrder=1000000000
-s.Template.Visible=false
-u.Tabs["InActive Template"].LayoutOrder=1000000000
-u.Tabs["InActive Template"].Visible=false
+x.Template.LayoutOrder=1000000000
+x.Template.Visible=false
+z.Tabs["InActive Template"].LayoutOrder=1000000000
+z.Tabs["InActive Template"].Visible=false
 
-local F=true
+local K=true
 
-function E.CreateHomeTab(G,H)
+function J.CreateHomeTab(L,M)
 
-H=Kwargify({
+M=Kwargify({
 Icon=1,
 SupportedExecutors={"Vega X","Delta","Nihon","Xeno"},
 DiscordInvite="noinvitelink"
-},H or{})
+},M or{})
 
-local I={}
+local N={}
 
-local J=u.Tabs.Home
-J.Visible=true
-if H.Icon==2 then
-J.ImageLabel.Image=GetIcon("dashboard","Material")
+local O=z.Tabs.Home
+O.Visible=true
+if M.Icon==2 then
+O.ImageLabel.Image=GetIcon("dashboard","Material")
 end
 
-local K=s.Home
-K.Visible=true
+local P=x.Home
+P.Visible=true
 
-function I.Activate(L)
-tween(J.ImageLabel,{ImageColor3=Color3.fromRGB(255,255,255)})
-tween(J,{BackgroundTransparency=0})
-tween(J.UIStroke,{Transparency=0.41})
+function N.Activate(Q)
+tween(O.ImageLabel,{ImageColor3=Color3.fromRGB(255,255,255)})
+tween(O,{BackgroundTransparency=0})
+tween(O.UIStroke,{Transparency=0.41})
 
-s.UIPageLayout:JumpTo(K)
+x.UIPageLayout:JumpTo(P)
 
 task.wait(0.05)
 
-for M,N in ipairs(u.Tabs:GetChildren())do
-if N.Name~="InActive Template"and N.ClassName=="Frame"and N~=J then
-tween(N.ImageLabel,{ImageColor3=Color3.fromRGB(221,221,221)})
-tween(N,{BackgroundTransparency=1})
-tween(N.UIStroke,{Transparency=1})
+for R,S in ipairs(z.Tabs:GetChildren())do
+if S.Name~="InActive Template"and S.ClassName=="Frame"and S~=O then
+tween(S.ImageLabel,{ImageColor3=Color3.fromRGB(221,221,221)})
+tween(S,{BackgroundTransparency=1})
+tween(S.UIStroke,{Transparency=1})
 end
 
 end
 
-E.CurrentTab="Home"
+J.CurrentTab="Home"
 end
 
-I:Activate()
-F=false
-J.Interact.MouseButton1Click:Connect(function()
-I:Activate()
+N:Activate()
+K=false
+O.Interact.MouseButton1Click:Connect(function()
+N:Activate()
 end)
 
 
-K.icon.ImageLabel.Image=h:GetUserThumbnailAsync(h.LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)
-K.player.Text.Text="Hello, "..h.LocalPlayer.DisplayName
-K.player.user.Text=h.LocalPlayer.Name.." - "..C.Title
+P.icon.ImageLabel.Image=h:GetUserThumbnailAsync(h.LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)
+P.player.Text.Text="Hello, "..h.LocalPlayer.DisplayName
+P.player.user.Text=h.LocalPlayer.Name.." - "..H.Title
 
-K.detailsholder.dashboard.Client.Title.Text=(l and"Debugging (Studio)"or identifyexecutor())or"Your Executor Does Not Support identifyexecutor."
-for L,M in pairs(H.SupportedExecutors)do
-if l then K.detailsholder.dashboard.Client.Subtitle.Text="Luna Interface Suite - Debugging Mode"break end
-if M==identifyexecutor()then
-K.detailsholder.dashboard.Client.Subtitle.Text="Your Executor Supports This Script."
+P.detailsholder.dashboard.Client.Title.Text=(l and"Debugging (Studio)"or identifyexecutor())or"Your Executor Does Not Support identifyexecutor."
+for Q,R in pairs(M.SupportedExecutors)do
+if l then P.detailsholder.dashboard.Client.Subtitle.Text="Luna Interface Suite - Debugging Mode"break end
+if R==identifyexecutor()then
+P.detailsholder.dashboard.Client.Subtitle.Text="Your Executor Supports This Script."
 break
 else
-K.detailsholder.dashboard.Client.Subtitle.Text="Your Executor Isn't Officialy Supported By This Script."
+P.detailsholder.dashboard.Client.Subtitle.Text="Your Executor Isn't Officialy Supported By This Script."
 break
 end
 end
 
 
 
-K.detailsholder.dashboard.Discord.Interact.MouseButton1Click:Connect(function()
-setclipboard(tostring("https://discord.gg/"..H.DiscordInvite))
+P.detailsholder.dashboard.Discord.Interact.MouseButton1Click:Connect(function()
+setclipboard(tostring("https://discord.gg/"..M.DiscordInvite))
 if n then
 n{
 Url='http://127.0.0.1:6463/rpc?v=1',
@@ -2578,70 +2383,70 @@ Origin='https://discord.com'
 Body=e:JSONEncode{
 cmd='INVITE_BROWSER',
 nonce=e:GenerateGUID(false),
-args={code=H.DiscordInvite}
+args={code=M.DiscordInvite}
 }
 }
 end
 end)
 
-local L=0
+local Q=0
 local function getPing()return math.clamp(game:GetService"Stats".Network.ServerStatsItem["Data Ping"]:GetValue(),10,700)end
 
 local function checkFriends()
-if L==0 then
+if Q==0 then
 
-L=25
+Q=25
 
-local M={}
-local N=0
-local O=0
-local P=0
+local R={}
+local S=0
+local T=0
+local U=0
 
-local Q=h:GetFriendsAsync(i.UserId)
+local V=h:GetFriendsAsync(i.UserId)
 while true do
-for R,S in Q:GetCurrentPage()do
-N+=1
-table.insert(M,Data)
+for W,X in V:GetCurrentPage()do
+S+=1
+table.insert(R,Data)
 end
 
-if Q.IsFinished then
+if V.IsFinished then
 
 break
 else
 
-Q:AdvanceToNextPageAsync()
+V:AdvanceToNextPageAsync()
 end
 end
-for R,S in pairs(i:GetFriendsOnline())do
-O+=1
-end
-
-for R,S in pairs(M)do
-if h:FindFirstChild(S.Username)then
-P=P+1
-end
+for W,X in pairs(i:GetFriendsOnline())do
+T+=1
 end
 
-K.detailsholder.dashboard.Friends.All.Value.Text=tostring(N).." friends"
-K.detailsholder.dashboard.Friends.Offline.Value.Text=tostring(N-O).." friends"
-K.detailsholder.dashboard.Friends.Online.Value.Text=tostring(O).." friends"
-K.detailsholder.dashboard.Friends.InGame.Value.Text=tostring(P).." friends"
+for W,X in pairs(R)do
+if h:FindFirstChild(X.Username)then
+U=U+1
+end
+end
+
+P.detailsholder.dashboard.Friends.All.Value.Text=tostring(S).." friends"
+P.detailsholder.dashboard.Friends.Offline.Value.Text=tostring(S-T).." friends"
+P.detailsholder.dashboard.Friends.Online.Value.Text=tostring(T).." friends"
+P.detailsholder.dashboard.Friends.InGame.Value.Text=tostring(U).." friends"
 
 else
-L-=1
+Q-=1
 end
 end
 
-local function format(M)
-return string.format("%02i",M)
+local function format(R)
+return string.format("%02i",R)
 end
 
-local function convertToHMS(M)
-local N=(M-M%60)/60
-M=M-N*60
-local O=(N-N%60)/60
-N=N-O*60
-return format(O)..":"..format(N)..":"..format(M)
+local function convertToHMS(R)
+local S=(R-R%60)/60
+R=R-S*60
+local T=(S-S%60)/60
+S=S-T*60
+return format(T)..":"..format(S)..":"..format(R)
 end
 
 coroutine.wrap(function()
@@ -2649,17 +2454,17 @@ while task.wait()do
 
 
 
-K.detailsholder.dashboard.Server.Players.Value.Text=#h:GetPlayers().." playing"
-K.detailsholder.dashboard.Server.MaxPlayers.Value.Text=h.MaxPlayers.." players can join this server"
+P.detailsholder.dashboard.Server.Players.Value.Text=#h:GetPlayers().." playing"
+P.detailsholder.dashboard.Server.MaxPlayers.Value.Text=h.MaxPlayers.." players can join this server"
 
 
-K.detailsholder.dashboard.Server.Latency.Value.Text=l and tostring(math.round((h.LocalPlayer:GetNetworkPing()*2)/0.01)).."ms"or tostring(math.floor(getPing()).."ms")
+P.detailsholder.dashboard.Server.Latency.Value.Text=l and tostring(math.round((h.LocalPlayer:GetNetworkPing()*2)/0.01)).."ms"or tostring(math.floor(getPing()).."ms")
 
 
-K.detailsholder.dashboard.Server.Time.Value.Text=convertToHMS(time())
+P.detailsholder.dashboard.Server.Time.Value.Text=convertToHMS(time())
 
 
-K.detailsholder.dashboard.Server.Region.Value.Text=g:GetCountryRegionForPlayerAsync(h.LocalPlayer)
+P.detailsholder.dashboard.Server.Region.Value.Text=g:GetCountryRegionForPlayerAsync(h.LocalPlayer)
 
 checkFriends()
 end
@@ -2669,839 +2474,839 @@ end)()
 
 end
 
-function E.AddTab(G,H)
+function J.AddTab(L,M)
 
-local I={}
+local N={}
 
-H=Kwargify({
+M=Kwargify({
 Title="Tab",
 ShowTitle=true,
 Icon="view_in_ar",
 ImageSource="Material"
-},H or{})
+},M or{})
 
-local J=u.Tabs["InActive Template"]:Clone()
+local O=z.Tabs["InActive Template"]:Clone()
 
-J.Name=H.Title
-J.TextLabel.Text=H.Title
-J.Parent=u.Tabs
-J.ImageLabel.Image=string.find(H.Icon,"rbxassetid://")and H.Icon or GetIcon(H.Icon,H.ImageSource)
+O.Name=M.Title
+O.TextLabel.Text=M.Title
+O.Parent=z.Tabs
+O.ImageLabel.Image=string.find(M.Icon,"rbxassetid://")and M.Icon or GetIcon(M.Icon,M.ImageSource)
 
-J.Visible=true
+O.Visible=true
 
-local K=s.Template:Clone()
-K.Name=H.Title
-K.Title.Visible=H.ShowTitle
-K.Title.Text=H.Title
-K.Visible=true
+local P=x.Template:Clone()
+P.Name=M.Title
+P.Title.Visible=M.ShowTitle
+P.Title.Text=M.Title
+P.Visible=true
 
-I.Page=K
+N.Page=P
 
-if H.ShowTitle==false then
-K.UIPadding.PaddingTop=UDim.new(0,10)
+if M.ShowTitle==false then
+P.UIPadding.PaddingTop=UDim.new(0,10)
 end
 
-K.LayoutOrder=#s:GetChildren()-3
+P.LayoutOrder=#x:GetChildren()-3
 
-for L,M in ipairs(K:GetChildren())do
-if M.ClassName=="Frame"or M.ClassName=="TextLabel"and M.Name~="Title"then
-M:Destroy()
+for Q,R in ipairs(P:GetChildren())do
+if R.ClassName=="Frame"or R.ClassName=="TextLabel"and R.Name~="Title"then
+R:Destroy()
 end
 end
-K.Parent=s
+P.Parent=x
 
-function I.Activate(L)
-tween(J.ImageLabel,{ImageColor3=Color3.fromRGB(255,255,255)})
-tween(J,{BackgroundTransparency=0})
-tween(J.UIStroke,{Transparency=0.41})
+function N.Activate(Q)
+tween(O.ImageLabel,{ImageColor3=Color3.fromRGB(255,255,255)})
+tween(O,{BackgroundTransparency=0})
+tween(O.UIStroke,{Transparency=0.41})
 
-s.UIPageLayout:JumpTo(K)
+x.UIPageLayout:JumpTo(P)
 
 task.wait(0.05)
 
-for M,N in ipairs(u.Tabs:GetChildren())do
-if N.Name~="InActive Template"and N.ClassName=="Frame"and N~=J then
-tween(N.ImageLabel,{ImageColor3=Color3.fromRGB(221,221,221)})
-tween(N,{BackgroundTransparency=1})
-tween(N.UIStroke,{Transparency=1})
+for R,S in ipairs(z.Tabs:GetChildren())do
+if S.Name~="InActive Template"and S.ClassName=="Frame"and S~=O then
+tween(S.ImageLabel,{ImageColor3=Color3.fromRGB(221,221,221)})
+tween(S,{BackgroundTransparency=1})
+tween(S.UIStroke,{Transparency=1})
 end
 
 end
 
-E.CurrentTab=H.Title
+J.CurrentTab=M.Title
 end
 
-if F then
-I:Activate()
+if K then
+N:Activate()
 end
 
 task.wait(0.01)
 
-J.Interact.MouseButton1Click:Connect(function()
-I:Activate()
+O.Interact.MouseButton1Click:Connect(function()
+N:Activate()
 end)
 
-F=false
+K=false
 
 
-function I.AddSection(L,M:string)
+function N.AddSection(Q,R:string)
 
-local N={}
+local S={}
 
-if M==nil then M="Section"end
+if R==nil then R="Section"end
 
-N.Name=M
+S.Name=R
 
-local O=s.Template.Section:Clone()
-O.Text=M
-O.Visible=true
-O.Parent=K
-local P=O.Frame
+local T=x.Template.Section:Clone()
+T.Text=R
+T.Visible=true
+T.Parent=P
+local U=T.Frame
 
-O.TextTransparency=1
-tween(O,{TextTransparency=0})
+T.TextTransparency=1
+tween(T,{TextTransparency=0})
 
-function N.Set(Q,R)
-O.Text=R
+function S.Set(V,W)
+T.Text=W
 end
 
-function N.Destroy(Q)
-O:Destroy()
-end
-
-
-function N.CreateDivider(Q)
-P.Position=UDim2.new(0,0,0,28)
-local R=s.Template.Divider:Clone()
-R.Parent=P
-R.Size=UDim2.new(1,0,0,18)
-R.Line.BackgroundTransparency=1
-tween(R.Line,{BackgroundTransparency=0})
+function S.Destroy(V)
+T:Destroy()
 end
 
 
-function N.AddButton(Q,R)
-P.Position=UDim2.new(0,0,0,28)
+function S.CreateDivider(V)
+U.Position=UDim2.new(0,0,0,28)
+local W=x.Template.Divider:Clone()
+W.Parent=U
+W.Size=UDim2.new(1,0,0,18)
+W.Line.BackgroundTransparency=1
+tween(W.Line,{BackgroundTransparency=0})
+end
 
-R=Kwargify({
+
+function S.AddButton(V,W)
+U.Position=UDim2.new(0,0,0,28)
+
+W=Kwargify({
 Title="Button",
 Description=nil,
 Callback=function()
 
 end,
-},R or{})
+},W or{})
 
-local S={
+local X={
 Hover=false,
-Settings=R
+Settings=W
 }
 
 
-local T
-if R.Description==nil and R.Description~=""then
-T=s.Template.Button:Clone()
+local Y
+if W.Description==nil and W.Description~=""then
+Y=x.Template.Button:Clone()
 else
-T=s.Template.ButtonDesc:Clone()
+Y=x.Template.ButtonDesc:Clone()
 end
-T.Name=R.Title
-T.Title.Text=R.Title
-if R.Description~=nil and R.Description~=""then
-T.Desc.Text=R.Description
+Y.Name=W.Title
+Y.Title.Text=W.Title
+if W.Description~=nil and W.Description~=""then
+Y.Desc.Text=W.Description
 end
-T.Visible=true
-T.Parent=P
+Y.Visible=true
+Y.Parent=U
 
-T.UIStroke.Transparency=1
-T.Title.TextTransparency=1
-if R.Description~=nil and R.Description~=""then
-T.Desc.TextTransparency=1
-end
-
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(T.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-if R.Description~=nil and R.Description~=""then
-d:Create(T.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+Y.UIStroke.Transparency=1
+Y.Title.TextTransparency=1
+if W.Description~=nil and W.Description~=""then
+Y.Desc.TextTransparency=1
 end
 
-T.Interact.MouseButton1Click:Connect(function()
-local U,V=pcall(R.Callback)
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(Y.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(Y.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+if W.Description~=nil and W.Description~=""then
+d:Create(Y.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+end
 
-if not U then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..R.Title.." Callback Error "..tostring(V))
+Y.Interact.MouseButton1Click:Connect(function()
+local Z,_=pcall(W.Callback)
+
+if not Z then
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(Y.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+Y.Title.Text="Callback Error"
+print("Luna Interface Suite | "..W.Title.." Callback Error "..tostring(_))
 wait(0.5)
-T.Title.Text=R.Title
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+Y.Title.Text=W.Title
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(Y.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 else
-tween(T.UIStroke,{Color=Color3.fromRGB(136,131,163)})
+tween(Y.UIStroke,{Color=Color3.fromRGB(136,131,163)})
 wait(0.2)
-if S.Hover then
-tween(T.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+if X.Hover then
+tween(Y.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 else
-tween(T.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+tween(Y.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end
 end
 end)
 
-T.MouseEnter:Connect(function()
-S.Hover=true
-tween(T.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+Y.MouseEnter:Connect(function()
+X.Hover=true
+tween(Y.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-T.MouseLeave:Connect(function()
-S.Hover=false
-tween(T.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+Y.MouseLeave:Connect(function()
+X.Hover=false
+tween(Y.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-function S.Set(U,V)
-V=Kwargify({
-Name=R.Title,
-Description=R.Description,
-Callback=R.Callback
-},V or{})
+function X.Set(Z,_)
+_=Kwargify({
+Name=W.Title,
+Description=W.Description,
+Callback=W.Callback
+},_ or{})
 
-R=V
-S.Settings=V
+W=_
+X.Settings=_
 
-T.Name=R.Title
-T.Title.Text=R.Title
-if R.Description~=nil and R.Description~=""and T.Desc~=nil then
-T.Desc.Text=R.Description
+Y.Name=W.Title
+Y.Title.Text=W.Title
+if W.Description~=nil and W.Description~=""and Y.Desc~=nil then
+Y.Desc.Text=W.Description
 end
 end
 
-function S.Destroy(U)
-T.Visible=false
-T:Destroy()
+function X.Destroy(Z)
+Y.Visible=false
+Y:Destroy()
 end
 
-return S
+return X
 end
 
 
-function N.AddLabel(Q,R)
-P.Position=UDim2.new(0,0,0,28)
+function S.AddLabel(V,W)
+U.Position=UDim2.new(0,0,0,28)
 
-local S={}
+local X={}
 
-R=Kwargify({
-Text="Label",
+W=Kwargify({
+Title="Label",
 Style=1
-},R or{})
+},W or{})
 
-S.Settings=R
+X.Settings=W
 
-local T
-if R.Style==1 then
-T=s.Template.Label:Clone()
-elseif R.Style==2 then
-T=s.Template.Info:Clone()
-elseif R.Style==3 then
-T=s.Template.Warn:Clone()
+local Y
+if W.Style==1 then
+Y=x.Template.Label:Clone()
+elseif W.Style==2 then
+Y=x.Template.Info:Clone()
+elseif W.Style==3 then
+Y=x.Template.Warn:Clone()
 end
 
-T.Text.Text=R.Text
-T.Visible=true
-T.Parent=P
+Y.Text.Text=W.Text
+Y.Visible=true
+Y.Parent=U
 
-T.BackgroundTransparency=1
-T.UIStroke.Transparency=1
-T.Text.TextTransparency=1
+Y.BackgroundTransparency=1
+Y.UIStroke.Transparency=1
+Y.Text.TextTransparency=1
 
-if R.Style~=1 then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.8}):Play()
+if W.Style~=1 then
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.8}):Play()
 else
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
 end
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(T.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(Y.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(Y.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-function S.Set(U,V)
-R.Text=V
-S.Settings=R
-T.Text.Text=V
-end
-
-function S.Destroy(U)
-T.Visible=false
-T:Destroy()
+function X.Set(Z,_)
+W.Title=_
+X.Settings=W
+Y.Text.Text=_
 end
 
-return S
+function X.Destroy(Z)
+Y.Visible=false
+Y:Destroy()
+end
+
+return X
 end
 
 
-function N.AddParagraph(Q,R)
-P.Position=UDim2.new(0,0,0,28)
+function S.AddParagraph(V,W)
+U.Position=UDim2.new(0,0,0,28)
 
-R=Kwargify({
+W=Kwargify({
 Title="Paragraph",
-Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus venenatis lacus sed tempus eleifend. Mauris interdum bibendum felis, in tempor augue egestas vel. Praesent tristique consectetur ex, eu pretium sem placerat non. Vestibulum a nisi sit amet augue facilisis consectetur sit amet et nunc. Integer fermentum ornare cursus. Pellentesque sed ultricies metus, ut egestas metus. Vivamus auctor erat ac sapien vulputate, nec ultricies sem tempor. Quisque leo lorem, faucibus nec pulvinar nec, congue eu velit. Duis sodales massa efficitur imperdiet ultrices. Donec eros ipsum, ornare pharetra purus aliquam, tincidunt elementum nisi. Ut mi tortor, feugiat eget nunc vitae, facilisis interdum dui. Vivamus ullamcorper nunc dui, a dapibus nisi pretium ac. Integer eleifend placerat nibh, maximus malesuada tellus. Cras in justo in ligula scelerisque suscipit vel vitae quam."
-},R or{})
+Content=""
+},W or{})
 
-local S={
-Settings=R
+local X={
+Settings=W
 }
 
-local T=s.Template.Paragraph:Clone()
-T.Title.Text=R.Title
-T.Text.Text=R.Content
-T.Visible=true
-T.Parent=P
+local Y=x.Template.Paragraph:Clone()
+Y.Title.Text=W.Title
+Y.Text.Text=W.Content
+Y.Visible=true
+Y.Parent=U
 
-T.BackgroundTransparency=1
-T.UIStroke.Transparency=1
-T.Title.TextTransparency=1
-T.Text.TextTransparency=1
+Y.BackgroundTransparency=1
+Y.UIStroke.Transparency=1
+Y.Title.TextTransparency=1
+Y.Text.TextTransparency=1
 
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(T.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-d:Create(T.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(Y,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
+d:Create(Y.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(Y.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(Y.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-function S.Update(U)
-T.Text.Size=UDim2.new(T.Text.Size.X.Scale,T.Text.Size.X.Offset,0,math.huge)
-T.Text.Size=UDim2.new(T.Text.Size.X.Scale,T.Text.Size.X.Offset,0,T.Text.TextBounds.Y)
-tween(T,{Size=UDim2.new(T.Size.X.Scale,T.Size.X.Offset,0,T.Text.TextBounds.Y+40)})
+function X.Update(Z)
+Y.Text.Size=UDim2.new(Y.Text.Size.X.Scale,Y.Text.Size.X.Offset,0,math.huge)
+Y.Text.Size=UDim2.new(Y.Text.Size.X.Scale,Y.Text.Size.X.Offset,0,Y.Text.TextBounds.Y)
+tween(Y,{Size=UDim2.new(Y.Size.X.Scale,Y.Size.X.Offset,0,Y.Text.TextBounds.Y+40)})
 end
 
-function S.Set(U,V)
+function X.Set(Z,_)
 
-V=Kwargify({
-Title=R.Title,
-Text=R.Content
-},V or{})
+_=Kwargify({
+Title=W.Title,
+Text=W.Content
+},_ or{})
 
-S.Settings=V
+X.Settings=_
 
-T.Title.Text=V.Title
-T.Text.Text=V.Content
+Y.Title.Text=_.Title
+Y.Text.Text=_.Content
 
-S:Update()
+X:Update()
 
 end
 
-function S.Destroy(U)
-T.Visible=false
-T:Destroy()
+function X.Destroy(Z)
+Y.Visible=false
+Y:Destroy()
 end
 
-S:Update()
+X:Update()
 
-return S
+return X
 end
 
 
-function N.AddSlider(Q,R,S)
-P.Position=UDim2.new(0,0,0,28)
-local T={IgnoreConfig=false,Class="Slider",Settings=R}
+function S.AddSlider(V,W,X)
+U.Position=UDim2.new(0,0,0,28)
+local Y={IgnoreConfig=false,Class="Slider",Settings=W}
 
-R=Kwargify({
+W=Kwargify({
 Title="Slider",
 Range={0,200},
 Increment=1,
 CurrentValue=100,
-Callback=function(U)
+Callback=function(Z)
 
 end,
-},R or{})
+},W or{})
 
-local U=false
-local V=s.Template.Slider:Clone()
-V.Name=R.Title.." - Slider"
-V.Title.Text=R.Title
-V.Visible=true
-V.Parent=P
+local Z=false
+local _=x.Template.Slider:Clone()
+_.Name=W.Title.." - Slider"
+_.Title.Text=W.Title
+_.Visible=true
+_.Parent=U
 
-V.BackgroundTransparency=1
-V.UIStroke.Transparency=1
-V.Title.TextTransparency=1
+_.BackgroundTransparency=1
+_.UIStroke.Transparency=1
+_.Title.TextTransparency=1
 
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(V.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(_.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(_.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-V.Main.Progress.Size=UDim2.new(0,V.Main.AbsoluteSize.X*((R.CurrentValue+R.Range[1])/(R.Range[2]-R.Range[1]))>5 and V.Main.AbsoluteSize.X*(R.CurrentValue/(R.Range[2]-R.Range[1]))or 5,1,0)
+_.Main.Progress.Size=UDim2.new(0,_.Main.AbsoluteSize.X*((W.CurrentValue+W.Range[1])/(W.Range[2]-W.Range[1]))>5 and _.Main.AbsoluteSize.X*(W.CurrentValue/(W.Range[2]-W.Range[1]))or 5,1,0)
 
-V.Value.Text=tostring(R.CurrentValue)
-T.CurrentValue=V.Value.Text
+_.Value.Text=tostring(W.CurrentValue)
+Y.CurrentValue=_.Value.Text
 
-R.Callback(R.CurrentValue)
+W.Callback(W.CurrentValue)
 
-V.MouseEnter:Connect(function()
-tween(V.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+_.MouseEnter:Connect(function()
+tween(_.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-V.MouseLeave:Connect(function()
-tween(V.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+_.MouseLeave:Connect(function()
+tween(_.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-V.Interact.InputBegan:Connect(function(W)
-if W.UserInputType==Enum.UserInputType.MouseButton1 or W.UserInputType==Enum.UserInputType.Touch then
-U=true
-end
-end)
-
-V.Interact.InputEnded:Connect(function(W)
-if W.UserInputType==Enum.UserInputType.MouseButton1 or W.UserInputType==Enum.UserInputType.Touch then
-U=false
+_.Interact.InputBegan:Connect(function(aa)
+if aa.UserInputType==Enum.UserInputType.MouseButton1 or aa.UserInputType==Enum.UserInputType.Touch then
+Z=true
 end
 end)
 
-V.Interact.MouseButton1Down:Connect(function()
-local W=V.Main.Progress.AbsolutePosition.X+V.Main.Progress.AbsoluteSize.X
-local X=W
-local Y
-local Z;Z=f.Stepped:Connect(function()
-if U then
-Y=c:GetMouseLocation().X
-W=W+0.025*(Y-X)
+_.Interact.InputEnded:Connect(function(aa)
+if aa.UserInputType==Enum.UserInputType.MouseButton1 or aa.UserInputType==Enum.UserInputType.Touch then
+Z=false
+end
+end)
 
-if Y<V.Main.AbsolutePosition.X then
-Y=V.Main.AbsolutePosition.X
-elseif Y>V.Main.AbsolutePosition.X+V.Main.AbsoluteSize.X then
-Y=V.Main.AbsolutePosition.X+V.Main.AbsoluteSize.X
+_.Interact.MouseButton1Down:Connect(function()
+local aa=_.Main.Progress.AbsolutePosition.X+_.Main.Progress.AbsoluteSize.X
+local ab=aa
+local ac
+local ad;ad=f.Stepped:Connect(function()
+if Z then
+ac=c:GetMouseLocation().X
+aa=aa+0.025*(ac-ab)
+
+if ac<_.Main.AbsolutePosition.X then
+ac=_.Main.AbsolutePosition.X
+elseif ac>_.Main.AbsolutePosition.X+_.Main.AbsoluteSize.X then
+ac=_.Main.AbsolutePosition.X+_.Main.AbsoluteSize.X
 end
 
-if W<V.Main.AbsolutePosition.X+5 then
-W=V.Main.AbsolutePosition.X+5
-elseif W>V.Main.AbsolutePosition.X+V.Main.AbsoluteSize.X then
-W=V.Main.AbsolutePosition.X+V.Main.AbsoluteSize.X
+if aa<_.Main.AbsolutePosition.X+5 then
+aa=_.Main.AbsolutePosition.X+5
+elseif aa>_.Main.AbsolutePosition.X+_.Main.AbsoluteSize.X then
+aa=_.Main.AbsolutePosition.X+_.Main.AbsoluteSize.X
 end
 
-if W<=Y and(Y-X)<0 then
-X=Y
-elseif W>=Y and(Y-X)>0 then
-X=Y
+if aa<=ac and(ac-ab)<0 then
+ab=ac
+elseif aa>=ac and(ac-ab)>0 then
+ab=ac
 end
-V.Main.Progress.Size=UDim2.new(0,Y-V.Main.AbsolutePosition.X,1,0)
-local _=R.Range[1]+(Y-V.Main.AbsolutePosition.X)/V.Main.AbsoluteSize.X*(R.Range[2]-R.Range[1])
+_.Main.Progress.Size=UDim2.new(0,ac-_.Main.AbsolutePosition.X,1,0)
+local ae=W.Range[1]+(ac-_.Main.AbsolutePosition.X)/_.Main.AbsoluteSize.X*(W.Range[2]-W.Range[1])
 
-_=math.floor(_/R.Increment+0.5)*(R.Increment*10000000)/10000000
+ae=math.floor(ae/W.Increment+0.5)*(W.Increment*10000000)/10000000
 
-V.Value.Text=tostring(_)
+_.Value.Text=tostring(ae)
 
-if R.CurrentValue~=_ then
+if W.CurrentValue~=ae then
 local af,ag=pcall(function()
-R.Callback(_)
+W.Callback(ae)
 end)
 if not af then
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-V.Title.Text="Callback Error"
-print("Luna Interface Suite | "..R.Title.." Callback Error "..tostring(ag))
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(_.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+_.Title.Text="Callback Error"
+print("Luna Interface Suite | "..W.Title.." Callback Error "..tostring(ag))
 wait(0.5)
-V.Title.Text=R.Title
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+_.Title.Text=W.Title
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(_.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 
-R.CurrentValue=_
-T.CurrentValue=R.CurrentValue
+W.CurrentValue=ae
+Y.CurrentValue=W.CurrentValue
 
 end
 else
-d:Create(V.Main.Progress,TweenInfo.new(0.1,Enum.EasingStyle.Back,Enum.EasingDirection.In,0,false),{Size=UDim2.new(0,Y-V.Main.AbsolutePosition.X>5 and Y-V.Main.AbsolutePosition.X or 5,1,0)}):Play()
-Z:Disconnect()
+d:Create(_.Main.Progress,TweenInfo.new(0.1,Enum.EasingStyle.Back,Enum.EasingDirection.In,0,false),{Size=UDim2.new(0,ac-_.Main.AbsolutePosition.X>5 and ac-_.Main.AbsolutePosition.X or 5,1,0)}):Play()
+ad:Disconnect()
 end
 end)
 end)
 
-local function Set(af,ag)
+local function Set(aa,ab)
 
-af=af or R.CurrentValue
+aa=aa or W.CurrentValue
 
-d:Create(V.Main.Progress,TweenInfo.new(0.3,Enum.EasingStyle.Back,Enum.EasingDirection.InOut),{Size=UDim2.new(0,V.Main.AbsoluteSize.X*((af+R.Range[1])/(R.Range[2]-R.Range[1]))>5 and V.Main.AbsoluteSize.X*(af/(R.Range[2]-R.Range[1]))or 5,1,0)}):Play()
-if not ag then V.Value.Text=tostring(af)end
-local W,X=pcall(function()
-R.Callback(af)
+d:Create(_.Main.Progress,TweenInfo.new(0.3,Enum.EasingStyle.Back,Enum.EasingDirection.InOut),{Size=UDim2.new(0,_.Main.AbsoluteSize.X*((aa+W.Range[1])/(W.Range[2]-W.Range[1]))>5 and _.Main.AbsoluteSize.X*(aa/(W.Range[2]-W.Range[1]))or 5,1,0)}):Play()
+if not ab then _.Value.Text=tostring(aa)end
+local ac,ad=pcall(function()
+W.Callback(aa)
 end)
-if not W then
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-V.Title.Text="Callback Error"
-print("Luna Interface Suite | "..R.Title.." Callback Error "..tostring(X))
+if not ac then
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(_.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+_.Title.Text="Callback Error"
+print("Luna Interface Suite | "..W.Title.." Callback Error "..tostring(ad))
 wait(0.5)
-V.Title.Text=R.Title
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(V,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(30,33,40)}):Play()
-d:Create(V.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+_.Title.Text=W.Title
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(_,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(30,33,40)}):Play()
+d:Create(_.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 
-R.CurrentValue=af
-T.CurrentValue=R.CurrentValue
+W.CurrentValue=aa
+Y.CurrentValue=W.CurrentValue
 
 
 end
 
-function T.UpdateValue(af,ag)
-Set(tonumber(ag))
+function Y.UpdateValue(aa,ab)
+Set(tonumber(ab))
 end
 
-V.Value:GetPropertyChangedSignal"Text":Connect(function()
-local af=V.Value.Text
-if not tonumber(af)and af~="."then
-V.Value.Text=af:match"[0-9.]*"or""
+_.Value:GetPropertyChangedSignal"Text":Connect(function()
+local aa=_.Value.Text
+if not tonumber(aa)and aa~="."then
+_.Value.Text=aa:match"[0-9.]*"or""
 end
-if R.Range[2]<(tonumber(V.Value.Text)or 0)then V.Value.Text=R.Range[2]end
-V.Value.Size=UDim2.fromOffset(V.Value.TextBounds.X,23)
-Set(tonumber(V.Value.Text),true)
+if W.Range[2]<(tonumber(_.Value.Text)or 0)then _.Value.Text=W.Range[2]end
+_.Value.Size=UDim2.fromOffset(_.Value.TextBounds.X,23)
+Set(tonumber(_.Value.Text),true)
 end)
 
-function T.Set(af,ag)
-ag=Kwargify({
-Name=R.Title,
-Range=R.Range,
-Increment=R.Increment,
-CurrentValue=R.CurrentValue,
-Callback=R.Callback
-},ag or{})
+function Y.Set(aa,ab)
+ab=Kwargify({
+Name=W.Title,
+Range=W.Range,
+Increment=W.Increment,
+CurrentValue=W.CurrentValue,
+Callback=W.Callback
+},ab or{})
 
-R=ag
-T.Settings=ag
+W=ab
+Y.Settings=ab
 
-V.Name=R.Title.." - Slider"
-V.Title.Text=R.Title
+_.Name=W.Title.." - Slider"
+_.Title.Text=W.Title
 
 Set()
 
 
 end
 
-function T.Destroy(af)
-V.Visible=false
-V:Destroy()
+function Y.Destroy(aa)
+_.Visible=false
+_:Destroy()
 end
 
-if S then
-b.Values[S]=T
+if X then
+b.Values[X]=Y
 end
 
-aa.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
-V.Main.color.Color=b.ThemeGradient
-V.Main.UIStroke.color.Color=b.ThemeGradient
+q.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
+_.Main.color.Color=b.ThemeGradient
+_.Main.UIStroke.color.Color=b.ThemeGradient
 end)
 
-return T
+return Y
 
 end
 
 
-function N.AddToggle(af,ag,Q)
-P.Position=UDim2.new(0,0,0,28)
-local R={IgnoreConfig=false,Class="Toggle"}
+function S.AddToggle(aa,ab,ac)
+U.Position=UDim2.new(0,0,0,28)
+local ad={IgnoreConfig=false,Class="Toggle"}
 
-ag=Kwargify({
+ab=Kwargify({
 Title="Toggle",
 Description=nil,
-CurrentValue=false,
-Callback=function(S)
+Default=false,
+Callback=function(ae)
 end,
-},ag or{})
+},ab or{})
 
 
-local S
+local ae
 
-if ag.Description~=nil and ag.Description~=""then
-S=s.Template.ToggleDesc:Clone()
+if ab.Description~=nil and ab.Description~=""then
+ae=x.Template.ToggleDesc:Clone()
 else
-S=s.Template.Toggle:Clone()
+ae=x.Template.Toggle:Clone()
 end
 
-S.Visible=true
-S.Parent=P
+ae.Visible=true
+ae.Parent=U
 
-S.Name=ag.Title.." - Toggle"
-S.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""then
-S.Desc.Text=ag.Description
+ae.Name=ab.Title.." - Toggle"
+ae.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""then
+ae.Desc.Text=ab.Description
 end
 
-S.UIStroke.Transparency=1
-S.Title.TextTransparency=1
-if ag.Description~=nil and ag.Description~=""then
-S.Desc.TextTransparency=1
+ae.UIStroke.Transparency=1
+ae.Title.TextTransparency=1
+if ab.Description~=nil and ab.Description~=""then
+ae.Desc.TextTransparency=1
 end
 
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-if ag.Description~=nil and ag.Description~=""then
-d:Create(S.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+if ab.Description~=nil and ab.Description~=""then
+d:Create(ae.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 end
-d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(S.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(ae.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-local function Set(T)
-if T then
-S.toggle.color.Enabled=true
-tween(S.toggle,{BackgroundTransparency=0})
+local function Set(af)
+if af then
+ae.toggle.color.Enabled=true
+tween(ae.toggle,{BackgroundTransparency=0})
 
-S.toggle.UIStroke.color.Enabled=true
-tween(S.toggle.UIStroke,{Color=Color3.new(255,255,255)})
+ae.toggle.UIStroke.color.Enabled=true
+tween(ae.toggle.UIStroke,{Color=Color3.new(255,255,255)})
 
-tween(S.toggle.val,{BackgroundColor3=Color3.fromRGB(255,255,255),Position=UDim2.new(1,-23,0.5,0),BackgroundTransparency=0.45})
+tween(ae.toggle.val,{BackgroundColor3=Color3.fromRGB(255,255,255),Position=UDim2.new(1,-23,0.5,0),BackgroundTransparency=0.45})
 else
-S.toggle.color.Enabled=false
-S.toggle.UIStroke.color.Enabled=false
+ae.toggle.color.Enabled=false
+ae.toggle.UIStroke.color.Enabled=false
 
-S.toggle.UIStroke.Color=Color3.fromRGB(97,97,97)
+ae.toggle.UIStroke.Color=Color3.fromRGB(97,97,97)
 
-tween(S.toggle,{BackgroundTransparency=1})
+tween(ae.toggle,{BackgroundTransparency=1})
 
-tween(S.toggle.val,{BackgroundColor3=Color3.fromRGB(97,97,97),Position=UDim2.new(0,5,0.5,0),BackgroundTransparency=0})
+tween(ae.toggle.val,{BackgroundColor3=Color3.fromRGB(97,97,97),Position=UDim2.new(0,5,0.5,0),BackgroundTransparency=0})
 end
 
-R.CurrentValue=T
+ad.CurrentValue=af
 end
 
-S.Interact.MouseButton1Click:Connect(function()
-ag.CurrentValue=not ag.CurrentValue
-Set(ag.CurrentValue)
+ae.Interact.MouseButton1Click:Connect(function()
+ab.Default=not ab.Default
+Set(ab.Default)
 
-local T,U=pcall(function()
-ag.Callback(ag.CurrentValue)
+local af,ag=pcall(function()
+ab.Callback(ab.Default)
 end)
-if not T then
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-S.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(U))
+if not af then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ag))
 wait(0.5)
-S.Title.Text=ag.Title
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end)
 
-S.MouseEnter:Connect(function()
-tween(S.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+ae.MouseEnter:Connect(function()
+tween(ae.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-S.MouseLeave:Connect(function()
-tween(S.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+ae.MouseLeave:Connect(function()
+tween(ae.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-if ag.CurrentValue then
-Set(ag.CurrentValue)
-local T,U=pcall(function()
-ag.Callback(ag.CurrentValue)
+if ab.Default then
+Set(ab.Default)
+local af,ag=pcall(function()
+ab.Callback(ab.Default)
 end)
-if not T then
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-S.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(U))
+if not af then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ag))
 wait(0.5)
-S.Title.Text=ag.Title
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
 
-function R.UpdateState(T,U)
-ag.CurrentValue=U
-Set(ag.CurrentValue)
+function ad.UpdateState(af,ag)
+ab.Default=ag
+Set(ab.Default)
 end
 
-function R.Set(T,U)
-
-U=Kwargify({
-Name=ag.Title,
-Description=ag.Description,
-CurrentValue=ag.CurrentValue,
-Callback=ag.Callback
-},U or{})
-
-R.Settings=U
-ag=U
-
-S.Name=ag.Title.." - Toggle"
-S.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and S.Desc~=nil then
-S.Desc.Text=ag.Description
-end
-
-Set(ag.CurrentValue)
-
-R.CurrentValue=ag.CurrentValue
-
-local V,W=pcall(function()
-ag.Callback(ag.CurrentValue)
-end)
-if not V then
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0}):Play()
-S.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(W))
-wait(0.5)
-S.Title.Text=ag.Title
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(S,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(S.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-end
-end
-
-function R.Destroy(T)
-S.Visible=false
-S:Destroy()
-end
-
-aa.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
-S.toggle.color.Color=b.ThemeGradient
-S.toggle.UIStroke.color.Color=b.ThemeGradient
-end)
-
-if Q then
-b.Values[Q]=R
-end
-
-return R
-
-end
-
-
-function N.AddBind(af,ag,Q)
-P.Position=UDim2.new(0,0,0,28)
-local R={Class="Keybind",IgnoreConfig=false,Settings=ag,Active=false}
+function ad.Set(af,ag)
 
 ag=Kwargify({
+Name=ab.Title,
+Description=ab.Description,
+CurrentValue=ab.Default,
+Callback=ab.Callback
+},ag or{})
+
+ad.Settings=ag
+ab=ag
+
+ae.Name=ab.Title.." - Toggle"
+ae.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and ae.Desc~=nil then
+ae.Desc.Text=ab.Description
+end
+
+Set(ab.Default)
+
+ad.CurrentValue=ab.Default
+
+local V,W=pcall(function()
+ab.Callback(ab.Default)
+end)
+if not V then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(W))
+wait(0.5)
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+end
+end
+
+function ad.Destroy(af)
+ae.Visible=false
+ae:Destroy()
+end
+
+q.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
+ae.toggle.color.Color=b.ThemeGradient
+ae.toggle.UIStroke.color.Color=b.ThemeGradient
+end)
+
+if ac then
+b.Values[ac]=ad
+end
+
+return ad
+
+end
+
+
+function S.AddBind(aa,ab,ac)
+U.Position=UDim2.new(0,0,0,28)
+local ad={Class="Keybind",IgnoreConfig=false,Settings=ab,Active=false}
+
+ab=Kwargify({
 Title="Bind",
 Description=nil,
 CurrentBind="Q",
 HoldToInteract=false,
-Callback=function(S)
+Callback=function(ae)
 
 
 end,
 
-OnChangedCallback=function(S)
+OnChangedCallback=function(ae)
 
 
 end,
-},ag or{})
+},ab or{})
 
-local S=false
+local ae=false
 
-local T
-if ag.Description~=nil and ag.Description~=""then
-T=s.Template.BindDesc:Clone()
+local af
+if ab.Description~=nil and ab.Description~=""then
+af=x.Template.BindDesc:Clone()
 else
-T=s.Template.Bind:Clone()
+af=x.Template.Bind:Clone()
 end
 
-T.Visible=true
-T.Parent=P
+af.Visible=true
+af.Parent=U
 
-T.Name=ag.Title
-T.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""then
-T.Desc.Text=ag.Description
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""then
+af.Desc.Text=ab.Description
 end
 
-T.Title.TextTransparency=1
-if ag.Description~=nil and ag.Description~=""then
-T.Desc.TextTransparency=1
+af.Title.TextTransparency=1
+if ab.Description~=nil and ab.Description~=""then
+af.Desc.TextTransparency=1
 end
-T.BindFrame.BackgroundTransparency=1
-T.BindFrame.UIStroke.Transparency=1
-T.BindFrame.BindBox.TextTransparency=1
+af.BindFrame.BackgroundTransparency=1
+af.BindFrame.UIStroke.Transparency=1
+af.BindFrame.BindBox.TextTransparency=1
 
-d:Create(T,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-if ag.Description~=nil and ag.Description~=""then
-d:Create(T.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+if ab.Description~=nil and ab.Description~=""then
+d:Create(af.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 end
-d:Create(T.BindFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
-d:Create(T.BindFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
-d:Create(T.BindFrame.BindBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(af.BindFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
+d:Create(af.BindFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
+d:Create(af.BindFrame.BindBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
 
-T.BindFrame.BindBox.Text=ag.CurrentBind
-T.BindFrame.BindBox.Size=UDim2.new(0,T.BindFrame.BindBox.TextBounds.X+20,0,42)
+af.BindFrame.BindBox.Text=ab.CurrentBind
+af.BindFrame.BindBox.Size=UDim2.new(0,af.BindFrame.BindBox.TextBounds.X+20,0,42)
 
-T.BindFrame.BindBox.Focused:Connect(function()
-S=true
-T.BindFrame.BindBox.Text=""
+af.BindFrame.BindBox.Focused:Connect(function()
+ae=true
+af.BindFrame.BindBox.Text=""
 end)
 
-T.BindFrame.BindBox.FocusLost:Connect(function()
-S=false
-if T.BindFrame.BindBox.Text==('')then
-T.BindFrame.BindBox.Text=ag.CurrentBind
+af.BindFrame.BindBox.FocusLost:Connect(function()
+ae=false
+if af.BindFrame.BindBox.Text==('')then
+af.BindFrame.BindBox.Text=ab.CurrentBind
 end
 end)
 
-T.MouseEnter:Connect(function()
-tween(T.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+af.MouseEnter:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-T.MouseLeave:Connect(function()
-tween(T.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+af.MouseLeave:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
-c.InputBegan:Connect(function(U,V)
+c.InputBegan:Connect(function(ag,V)
 
-if S then
-if U.KeyCode~=Enum.KeyCode.Unknown and U.KeyCode~=E.Bind then
-local W=string.split(tostring(U.KeyCode),".")
+if ae then
+if ag.KeyCode~=Enum.KeyCode.Unknown and ag.KeyCode~=J.Bind then
+local W=string.split(tostring(ag.KeyCode),".")
 local X=W[3]
-T.BindFrame.BindBox.Text=tostring(X)
-ag.CurrentBind=tostring(X)
+af.BindFrame.BindBox.Text=tostring(X)
+ab.CurrentBind=tostring(X)
 local Y,Z=pcall(function()
-ag.Callback(ag.CurrentBind)
+ab.Callback(ab.CurrentBind)
 end)
 if not Y then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(Z))
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(Z))
 wait(0.5)
-T.Title.Text=ag.Title
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
-T.BindFrame.BindBox:ReleaseFocus()
+af.BindFrame.BindBox:ReleaseFocus()
 end
-elseif ag.CurrentBind~=nil and(U.KeyCode==Enum.KeyCode[ag.CurrentBind]and not V)then
+elseif ab.CurrentBind~=nil and(ag.KeyCode==Enum.KeyCode[ab.CurrentBind]and not V)then
 local W=true
 local X
-X=U.Changed:Connect(function(Y)
+X=ag.Changed:Connect(function(Y)
 if Y=="UserInputState"then
 X:Disconnect()
 W=false
 end
 end)
 
-if not ag.HoldToInteract then
-R.Active=not R.Active
+if not ab.HoldToInteract then
+ad.Active=not ad.Active
 local Y,Z=pcall(function()
-ag.Callback(R.Active)
+ab.Callback(ad.Active)
 end)
 if not Y then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(Z))
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(Z))
 wait(0.5)
-T.Title.Text=ag.Title
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 else
 wait(0.1)
@@ -3509,36 +3314,36 @@ if W then
 local Y;Y=f.Stepped:Connect(function()
 if not W then
 local Z,_=pcall(function()
-ag.Callback(false)
+ab.Callback(false)
 end)
 if not Z then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(_))
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(_))
 wait(0.5)
-T.Title.Text=ag.Title
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 Y:Disconnect()
 else
 local Z,_=pcall(function()
-ag.Callback(true)
+ab.Callback(true)
 end)
 if not Z then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(_))
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(_))
 wait(0.5)
-T.Title.Text=ag.Title
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
 end)
@@ -3547,286 +3352,287 @@ end
 end
 end)
 
-T.BindFrame.BindBox:GetPropertyChangedSignal"Text":Connect(function()
-d:Create(T.BindFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,T.BindFrame.BindBox.TextBounds.X+20,0,30)}):Play()
+af.BindFrame.BindBox:GetPropertyChangedSignal"Text":Connect(function()
+d:Create(af.BindFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,af.BindFrame.BindBox.TextBounds.X+20,0,30)}):Play()
 end)
 
-function R.Set(U,V)
+function ad.Set(ag,V)
 
 V=Kwargify({
-Name=ag.Title,
-Description=ag.Description,
-CurrentBind=ag.CurrentBind,
-HoldToInteract=ag.HoldToInteract,
-Callback=ag.Callback
+Name=ab.Title,
+Description=ab.Description,
+CurrentBind=ab.CurrentBind,
+HoldToInteract=ab.HoldToInteract,
+Callback=ab.Callback
 },V or{})
 
-R.Settings=V
-ag=V
+ad.Settings=V
+ab=V
 
-T.Name=ag.Title
-T.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and T.Desc~=nil then
-T.Desc.Text=ag.Description
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and af.Desc~=nil then
+af.Desc.Text=ab.Description
 end
 
-T.BindFrame.BindBox.Text=ag.CurrentBind
-T.BindFrame.Size=UDim2.new(0,T.BindFrame.BindBox.TextBounds.X+20,0,42)
+af.BindFrame.BindBox.Text=ab.CurrentBind
+af.BindFrame.Size=UDim2.new(0,af.BindFrame.BindBox.TextBounds.X+20,0,42)
 
 
-R.CurrentBind=ag.CurrentBind
+ad.CurrentBind=ab.CurrentBind
 end
 
-function R.Destroy(U)
-T.Visible=false
-T:Destroy()
+function ad.Destroy(ag)
+af.Visible=false
+af:Destroy()
 end
 
-if Q then
-b.Values[Q]=R
-end
-
-
-
-return R
-
+if ac then
+b.Values[ac]=ad
 end
 
 
-function N.AddInput(af,ag,Q)
-P.Position=UDim2.new(0,0,0,28)
-local R={IgnoreConfig=false,Class="Input",Settings=ag}
 
-ag=Kwargify({
+return ad
+
+end
+
+
+function S.AddInput(aa,ab,ac)
+U.Position=UDim2.new(0,0,0,28)
+local ad={IgnoreConfig=false,Class="Input",Settings=ab}
+
+ab=Kwargify({
 Title="Dynamic Input",
 Description=nil,
 CurrentValue="",
-PlaceholderText="Input Placeholder",
+PlaceHolder="Input Here",
 RemoveTextAfterFocusLost=false,
 Numeric=false,
 Enter=false,
 MaxCharacters=nil,
-Callback=function(S)
+Callback=function(ae)
 
 end,
-},ag or{})
+},ab or{})
 
-R.CurrentValue=ag.CurrentValue
+ad.CurrentValue=ab.CurrentValue
 
-local S
-if ag.Description~=nil and ag.Description~=""then
-S=true
+local ae
+if ab.Description~=nil and ab.Description~=""then
+ae=true
 end
 
-local T
-if S then
-T=s.Template.InputDesc:Clone()
+local af
+if ae then
+af=x.Template.InputDesc:Clone()
 else
-T=s.Template.Input:Clone()
+af=x.Template.Input:Clone()
 end
 
-T.Name=ag.Title
-T.Title.Text=ag.Title
-if S then T.Desc.Text=ag.Description end
-T.Visible=true
-T.Parent=P
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ae then af.Desc.Text=ab.Description end
+af.Visible=true
+af.Parent=U
 
-T.BackgroundTransparency=1
-T.UIStroke.Transparency=1
-T.Title.TextTransparency=1
-if S then T.Desc.TextTransparency=1 end
-T.InputFrame.BackgroundTransparency=1
-T.InputFrame.UIStroke.Transparency=1
-T.InputFrame.InputBox.TextTransparency=1
+af.BackgroundTransparency=1
+af.UIStroke.Transparency=1
+af.Title.TextTransparency=1
+if ae then af.Desc.TextTransparency=1 end
+af.InputFrame.BackgroundTransparency=1
+af.InputFrame.UIStroke.Transparency=1
+af.InputFrame.InputBox.TextTransparency=1
 
-d:Create(T,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(T.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-if S then d:Create(T.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()end
-d:Create(T.InputFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
-d:Create(T.InputFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
-d:Create(T.InputFrame.InputBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(af.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+if ae then d:Create(af.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()end
+d:Create(af.InputFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
+d:Create(af.InputFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
+d:Create(af.InputFrame.InputBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-T.InputFrame.InputBox.PlaceholderText=ag.PlaceholderText
-T.InputFrame.Size=UDim2.new(0,T.InputFrame.InputBox.TextBounds.X+52,0,30)
+af.InputFrame.InputBox.PlaceholderText=ab.PlaceHolder
+af.InputFrame.Size=UDim2.new(0,af.InputFrame.InputBox.TextBounds.X+52,0,30)
 
-T.InputFrame.InputBox.FocusLost:Connect(function(U)
+af.InputFrame.InputBox.FocusLost:Connect(function(ag)
 
-if ag.Enter then
-if U then
+if ab.Enter then
+if ag then
 local V,W=pcall(function()
-ag.Callback(T.InputFrame.InputBox.Text)
-R.CurrentValue=T.InputFrame.InputBox.Text
+ab.Callback(af.InputFrame.InputBox.Text)
+ad.CurrentValue=af.InputFrame.InputBox.Text
 end)
 if not V then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(W))
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(W))
 wait(0.5)
-T.Title.Text=ag.Title
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
 end
 
-if ag.RemoveTextAfterFocusLost then
-T.InputFrame.InputBox.Text=""
+if ab.RemoveTextAfterFocusLost then
+af.InputFrame.InputBox.Text=""
 end
 
 end)
 
-if ag.Numeric then
-T.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
-local U=T.InputFrame.InputBox.Text
-if not tonumber(U)and U~="."then
-T.InputFrame.InputBox.Text=U:match"[0-9.]*"or""
+if ab.Numeric then
+af.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
+local ag=af.InputFrame.InputBox.Text
+if not tonumber(ag)and ag~="."then
+af.InputFrame.InputBox.Text=ag:match"[0-9.]*"or""
 end
 end)
 end
 
-T.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
-if tonumber(ag.MaxCharacters)then
-if(#T.InputFrame.InputBox.Text-1)==ag.MaxCharacters then
-T.InputFrame.InputBox.Text=T.InputFrame.InputBox.Text:sub(1,ag.MaxCharacters)
+af.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
+if tonumber(ab.MaxCharacters)then
+if(#af.InputFrame.InputBox.Text-1)==ab.MaxCharacters then
+af.InputFrame.InputBox.Text=af.InputFrame.InputBox.Text:sub(1,ab.MaxCharacters)
 end
 end
-d:Create(T.InputFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,T.InputFrame.InputBox.TextBounds.X+52,0,30)}):Play()
-if not ag.Enter then
-local U,V=pcall(function()
-ag.Callback(T.InputFrame.InputBox.Text)
+d:Create(af.InputFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,af.InputFrame.InputBox.TextBounds.X+52,0,30)}):Play()
+if not ab.Enter then
+local ag,V=pcall(function()
+ab.Callback(af.InputFrame.InputBox.Text)
 end)
-if not U then
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-T.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(V))
+if not ag then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(V))
 wait(0.5)
-T.Title.Text=ag.Title
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(T,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(T.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
-R.CurrentValue=T.InputFrame.InputBox.Text
+ad.CurrentValue=af.InputFrame.InputBox.Text
 end)
 
-T.MouseEnter:Connect(function()
-tween(T.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+af.MouseEnter:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-T.MouseLeave:Connect(function()
-tween(T.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+af.MouseLeave:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
 
-function R.Set(U,V)
+function ad.Set(ag,V)
 
-V=Kwargify(ag,V or{})
+V=Kwargify(ab,V or{})
 
-R.Settings=V
-ag=V
+ad.Settings=V
+ab=V
 
-T.Name=ag.Title
-T.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and T.Desc~=nil then
-T.Desc.Text=ag.Description
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and af.Desc~=nil then
+af.Desc.Text=ab.Description
 end
 
-T.InputFrame.InputBox:CaptureFocus()
-T.InputFrame.InputBox.Text=tostring(ag.CurrentValue)
-T.InputFrame.InputBox:ReleaseFocus()
-T.InputFrame.Size=UDim2.new(0,T.InputFrame.InputBox.TextBounds.X+52,0,42)
+af.InputFrame.InputBox:CaptureFocus()
+af.InputFrame.InputBox.Text=tostring(ab.CurrentValue)
+af.InputFrame.InputBox:ReleaseFocus()
+af.InputFrame.Size=UDim2.new(0,af.InputFrame.InputBox.TextBounds.X+52,0,42)
 
-R.CurrentValue=ag.CurrentValue
+ad.CurrentValue=ab.CurrentValue
 end
 
-function R.Destroy(U)
-T.Visible=false
-T:Destroy()
+function ad.Destroy(ag)
+af.Visible=false
+af:Destroy()
 end
 
-if Q then
-b.Values[Q]=R
-end
-
-
-return R
-
+if ac then
+b.Values[ac]=ad
 end
 
 
-function N.AddDropdown(af,ag,Q)
-P.Position=UDim2.new(0,0,0,28)
-local R={IgnoreConfig=false,Class="Dropdown",Settings=ag}
+return ad
 
-ag=Kwargify({
+end
+
+
+function S.AddDropdown(aa,ab,ac)
+U.Position=UDim2.new(0,0,0,28)
+local ad={IgnoreConfig=false,Class="Dropdown",Settings=ab}
+
+ab=Kwargify({
 Title="Dropdown",
 Description=nil,
 Values={"Option 1","Option 2"},
-Default={"Option 1"},
+Default="Option 1",
 Multi=false,
 SpecialType=nil,
-Callback=function(S)
+Callback=function(ae)
 
 
 end,
-},ag or{})
-
-R.Default=ag.Default
-
-local S=false
-if ag.Description~=nil and ag.Description~=""then
-S=true
+},ab or{})
+ad.Value=ab.Mutli and{ab.Default}or ab.Default
+ad.Default=ab.Default
+local ae=false
+if ab.Description~=nil and ab.Description~=""then
+ae=true
 end
-local T
-local U
-if S then
-T=48
-U=170
-elseif not S then
-T=38
-U=160
+local af
+local ag
+if ae then
+af=48
+ag=180
+elseif not ae then
+af=38
+ag=190
 end
 local V=false
 
 local W
-if S then W=s.Template.DropdownDesc:Clone()else W=s.Template.Dropdown:Clone()end
+if ae then W=x.Template.DropdownDesc:Clone()else W=x.Template.Dropdown:Clone()end
 
-W.Name=ag.Title
-W.Title.Text=ag.Title
-if S then W.Desc.Text=ag.Description end
+W.List.Size=UDim2.new(1,-23,0,140)
+W.OptionHolderBackground.Size=UDim2.new(1,-23,0,140)
+W.Name=ab.Title
+W.Title.Text=ab.Title
+if ae then W.Desc.Text=ab.Description end
 
-W.Parent=P
+W.Parent=U
 W.Visible=true
 
 local function Toggle()
 V=not V
 if V then
 tween(W.icon,{Rotation=180})
-tween(W,{Size=UDim2.new(1,-25,0,U)})
+tween(W,{Size=UDim2.new(1,-25,0,ag)})
 else
 tween(W.icon,{Rotation=0})
-tween(W,{Size=UDim2.new(1,-25,0,T)})
+tween(W,{Size=UDim2.new(1,-25,0,af)})
 end
 end
 
 local function SafeCallback(X,Y)
 local Z,_=pcall(function()
-ag.Callback(X)
+ab.Callback(X)
 end)
 if not Z then
 d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
 d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
 d:Create(W.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
 W.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(_))
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(_))
 wait(0.5)
-W.Title.Text=ag.Title
+W.Title.Text=ab.Title
 d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
 d:Create(W,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
 d:Create(W.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
@@ -3867,7 +3673,7 @@ end
 
 local function Refresh()
 Clear()
-for X,Y in pairs(ag.Values)do
+for X,Y in pairs(ab.Values)do
 local Z=W.List.Template:Clone()
 local _=false
 Z.Text=Y
@@ -3875,44 +3681,44 @@ if Y=="Template"then Y="Template (Name)"end
 Z.Name=Y
 Z.Interact.MouseButton1Click:Connect(function()
 local ah
-if ag.Multi then
-if table.find(ag.Default,Y)then
-RemoveTable(ag.Default,Y)
-R.Default=ag.Default
+if ab.Multi then
+if table.find(ad.Value,Y)then
+RemoveTable(ad.Value,Y)
+ad.Default=ad.Value
 if not _ then
 tween(Z,{TextColor3=Color3.fromRGB(200,200,200)})
 end
 tween(Z,{BackgroundTransparency=0.98})
 else
-table.insert(ag.Default,Y)
-R.Default=ag.Default
+table.insert(ad.Value,Y)
+ad.Default=ad.Value
 tween(Z,{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 end
-ah=ag.Default
+ah=ad.Value
 else
-ag.Default={Y}
+ad.Value={Y}
 ah=Y
-R.Default=ah
+ad.Default=ah
 ActivateColorSingle(Y)
 end
 
 SafeCallback(ah,function()
-if ag.Multi then
-if ag.Default and type(ag.Default)=="table"then
-if#ag.Default==1 then
-W.Selected.PlaceholderText=ag.Default[1]
-elseif#ag.Default==0 then
+if ab.Multi then
+if ad.Value and type(ad.Value)=="table"then
+if#ad.Value==1 then
+W.Selected.PlaceholderText=ad.Value[1]
+elseif#ad.Value==0 then
 W.Selected.PlaceholderText="None"
 else
-W.Selected.PlaceholderText=unpackt(ag.Default)
+W.Selected.PlaceholderText=unpackt(ad.Value)
 end
 else
-ag.Default={}
+ad.Value={}
 W.Selected.PlaceholderText="None"
 end
 end
-if not ag.Multi then
-W.Selected.PlaceholderText=ag.Default[1]or"None"
+if not ab.Multi then
+W.Selected.PlaceholderText=ad.Value[1]or"None"
 end
 W.Selected.Text=""
 end)
@@ -3939,12 +3745,12 @@ end
 end
 
 local function PlayerTableRefresh()
-for ah,X in pairs(ag.Values)do
-table.remove(ag.Values,ah)
+for ah,X in pairs(ab.Values)do
+table.remove(ab.Values,ah)
 end
 
 for ah,X in pairs(h:GetChildren())do
-table.insert(ag.Values,X.Name)
+table.insert(ab.Values,X.Name)
 end
 end
 
@@ -3960,13 +3766,13 @@ W.MouseLeave:Connect(function()
 tween(W.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-if ag.SpecialType=="Player"then
+if ab.SpecialType=="Player"then
 
-for ah,X in pairs(ag.Values)do
-table.remove(ag.Values,ah)
+for ah,X in pairs(ab.Values)do
+table.remove(ab.Values,ah)
 end
 PlayerTableRefresh()
-ag.Default=ag.Values[1]
+ad.Value=ab.Values[1]
 
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
@@ -3975,22 +3781,22 @@ end
 
 Refresh()
 
-if ag.Default then
-if type(ag.Default)=="string"then
-ag.Default={ag.Default}
+if ad.Value then
+if type(ad.Value)=="string"then
+ad.Value={ad.Value}
 end
-if not ag.Multi and type(ag.Default)=="table"then
-ag.Default={ag.Default[1]}
+if not ab.Multi and type(ad.Value)=="table"then
+ad.Value={ad.Value[1]}
 end
 else
-ag.Default={}
+ad.Value={}
 end
 
 local ah,X=0
-for Y,Z in pairs(ag.Default)do
+for Y,Z in pairs(ad.Value)do
 ah=ah+1
 end
-if ah==1 then X=ag.Default[1]else X=ag.Default end
+if ah==1 then X=ad.Value[1]else X=ad.Value end
 SafeCallback(X)
 if type(X)=="string"then
 tween(W.List[X],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
@@ -4000,46 +3806,46 @@ tween(W.List[Z],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0
 end
 end
 
-if ag.Multi then
-if ag.Default and type(ag.Default)=="table"then
-if#ag.Default==1 then
-W.Selected.PlaceholderText=ag.Default[1]
-elseif#ag.Default==0 then
+if ab.Multi then
+if ad.Value and type(ad.Value)=="table"then
+if#ad.Value==1 then
+W.Selected.PlaceholderText=ad.Value[1]
+elseif#ad.Value==0 then
 W.Selected.PlaceholderText="None"
 else
-W.Selected.PlaceholderText=unpackt(ag.Default)
+W.Selected.PlaceholderText=unpackt(ad.Value)
 end
 else
-ag.Default={}
+ad.Value={}
 W.Selected.PlaceholderText="None"
 end
-for Y,Z in pairs(ag.Default)do
+for Y,Z in pairs(ad.Value)do
 tween(W.List[Z],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
 end
 else
-W.Selected.PlaceholderText=ag.Default[1]or"None"
+W.Selected.PlaceholderText=ad.Value[1]or"None"
 end
 W.Selected.Text=""
 
-function R.Set(Y,Z)
-Z=Kwargify(ag,Z or{})
+function ad.Set(Y,Z)
+Z=Kwargify(ab,Z or{})
 
-R.Settings=Z
-ag=Z
+ad.Settings=Z
+ab=Z
 
-W.Name=ag.Title
-W.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and W.Desc~=nil then
-W.Desc.Text=ag.Description
+W.Name=ab.Title
+W.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and W.Desc~=nil then
+W.Desc.Text=ab.Description
 end
 
-if ag.SpecialType=="Player"then
+if ab.SpecialType=="Player"then
 
-for _,ai in pairs(ag.Values)do
-table.remove(ag.Values,_)
+for _,ai in pairs(ab.Values)do
+table.remove(ab.Values,_)
 end
 PlayerTableRefresh()
-ag.Default=ag.Values[1]
+ad.Value=ab.Values[1]
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
 
@@ -4047,22 +3853,22 @@ end
 
 Refresh()
 
-if ag.Default then
-if type(ag.Default)=="string"then
-ag.Default={ag.Default}
+if ad.Value then
+if type(ad.Value)=="string"then
+ad.Value={ad.Value}
 end
-if not ag.Multi and type(ag.Default)=="table"then
-ag.Default={ag.Default[1]}
+if not ab.Multi and type(ad.Value)=="table"then
+ad.Value={ad.Value[1]}
 end
 else
-ag.Default={}
+ad.Value={}
 end
 
 local ai,_=0
-for aj,ak in pairs(ag.Default)do
+for aj,ak in pairs(ad.Value)do
 ai=ai+1
 end
-if ai==1 then _=ag.Default[1]else _=ag.Default end
+if ai==1 then _=ad.Value[1]else _=ad.Value end
 SafeCallback(_)
 for aj,ak in pairs(W.List:GetChildren())do
 if ak.ClassName=="TextLabel"then
@@ -4071,24 +3877,24 @@ end
 end
 tween(W.List[_],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 
-if ag.Multi then
-if ag.Default and type(ag.Default)=="table"then
-if#ag.Default==1 then
-W.Selected.PlaceholderText=ag.Default[1]
-elseif#ag.Default==0 then
+if ab.Multi then
+if ad.Value and type(ad.Value)=="table"then
+if#ad.Value==1 then
+W.Selected.PlaceholderText=ad.Value[1]
+elseif#ad.Value==0 then
 W.Selected.PlaceholderText="None"
 else
-W.Selected.PlaceholderText=unpackt(ag.Default)
+W.Selected.PlaceholderText=unpackt(ad.Value)
 end
 else
-ag.Default={}
+ad.Value={}
 W.Selected.PlaceholderText="None"
 end
-for aj,ak in pairs(ag.Default)do
+for aj,ak in pairs(ad.Value)do
 tween(W.List[ak],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
 end
 else
-W.Selected.PlaceholderText=ag.Default[1]or"None"
+W.Selected.PlaceholderText=ad.Value[1]or"None"
 end
 W.Selected.Text=""
 
@@ -4096,80 +3902,80 @@ W.Selected.Text=""
 
 end
 
-function R.Destroy(ai)
+function ad.Destroy(ai)
 W.Visible=false
 W:Destroy()
 end
 
-if Q then
-b.Values[Q]=R
+if ac then
+b.Values[ac]=ad
 end
 
 
 
-return R
+return ad
 
 end
 
 
-function N.AddColorPicker(af,ag,ah)
-P.Position=UDim2.new(0,0,0,28)
-local ai={IgnoreClass=false,Class="Colorpicker",Settings=ag}
+function S.AddColorPicker(aa,ab,ac)
+U.Position=UDim2.new(0,0,0,28)
+local ad={IgnoreClass=false,Class="Colorpicker",Settings=ab}
 
-ag=Kwargify({
+ab=Kwargify({
 Title="Color Picker",
 Color=Color3.fromRGB(255,255,255),
-Callback=function(aj)
+Callback=function(ae)
 
 
 end
-},ag or{})
+},ab or{})
 
-local function Color3ToHex(aj)
-return string.format("#%02X%02X%02X",math.floor(aj.R*255),math.floor(aj.G*255),math.floor(aj.B*255))
+local function Color3ToHex(ae)
+return string.format("#%02X%02X%02X",math.floor(ae.R*255),math.floor(ae.G*255),math.floor(ae.B*255))
 end
 
-ai.Color=Color3ToHex(ag.Color)
+ad.Color=Color3ToHex(ab.Color)
 
-local aj=UDim2.new(0,75,0,22)
-local ak=UDim2.new(0,219,0,129)
+local ae=UDim2.new(0,75,0,22)
+local af=UDim2.new(0,219,0,129)
 
-local Q=s.Template.ColorPicker:Clone()
-local R=Q.CPBackground
-local S=R.Display
-local T=R.MainCP
-local U=Q.ColorSlider
+local ag=x.Template.ColorPicker:Clone()
+local ah=ag.CPBackground
+local ai=ah.Display
+local aj=ah.MainCP
+local ak=ag.ColorSlider
 
-Q.Name=ag.Title
-Q.Title.Text=ag.Title
-Q.Visible=true
-Q.Parent=P
-Q.Size=UDim2.new(1.042,-25,0,38)
-R.Size=aj
-S.BackgroundTransparency=0
+ag.Name=ab.Title
+ag.Title.Text=ab.Title
+ag.Visible=true
+ag.Parent=U
+ag.Size=UDim2.new(1.042,-25,0,38)
+ah.Size=ae
+ai.BackgroundTransparency=0
 
-Q.MouseEnter:Connect(function()
-tween(Q.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+ag.MouseEnter:Connect(function()
+tween(ag.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
-Q.MouseLeave:Connect(function()
-tween(Q.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+ag.MouseLeave:Connect(function()
+tween(ag.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
 local function SafeCallback(V,W)
 local X,Y=pcall(function()
-ag.Callback(V)
+ab.Callback(V)
 end)
 if not X then
-d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(Q.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-Q.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(Y))
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ag.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ag.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(Y))
 wait(0.5)
-Q.Title.Text=ag.Title
-d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(Q,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(Q.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ag.Title.Text=ab.Title
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ag.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 if X and W then
 W()
@@ -4179,80 +3985,80 @@ end
 local V=false
 
 local W=game.Players.LocalPlayer:GetMouse()
-T.Image="http://www.roblox.com/asset/?id=11415645739"
+aj.Image="http://www.roblox.com/asset/?id=11415645739"
 local X=false
 local Y=false
-Q.Interact.MouseButton1Down:Connect(function()
+ag.Interact.MouseButton1Down:Connect(function()
 if not V then
 V=true
-tween(Q,{Size=UDim2.new(1.042,-25,0,165)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
-tween(R,{Size=ak})
-tween(S,{BackgroundTransparency=1})
+tween(ag,{Size=UDim2.new(1.042,-25,0,165)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
+tween(ah,{Size=af})
+tween(ai,{BackgroundTransparency=1})
 else
 V=false
-tween(Q,{Size=UDim2.new(1.042,-25,0,38)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
-tween(R,{Size=aj})
-tween(S,{BackgroundTransparency=0})
+tween(ag,{Size=UDim2.new(1.042,-25,0,38)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
+tween(ah,{Size=ae})
+tween(ai,{BackgroundTransparency=0})
 end
 end)
 c.InputEnded:Connect(function(Z,_)if Z.UserInputType==Enum.UserInputType.MouseButton1 or Z.UserInputType==Enum.UserInputType.Touch then
 X=false
 Y=false
 end end)
-T.MouseButton1Down:Connect(function()
+aj.MouseButton1Down:Connect(function()
 if V then
 X=true
 end
 end)
-T.MainPoint.MouseButton1Down:Connect(function()
+aj.MainPoint.MouseButton1Down:Connect(function()
 if V then
 X=true
 end
 end)
-U.MouseButton1Down:Connect(function()
+ak.MouseButton1Down:Connect(function()
 Y=true
 end)
-U.SliderPoint.MouseButton1Down:Connect(function()
+ak.SliderPoint.MouseButton1Down:Connect(function()
 Y=true
 end)
-local Z,_,al=ag.Color:ToHSV()
+local Z,_,al=ab.Color:ToHSV()
 local am=Color3.fromHSV(Z,_,al)
 local an,ao,ap=math.floor((Z*255)+0.5),math.floor((_*255)+0.5),math.floor((al*255)+0.5)
 local aq=string.format("#%02X%02X%02X",am.R*0xFF,am.G*0xFF,am.B*0xFF)
-Q.HexInput.InputBox.Text=aq
+ag.HexInput.InputBox.Text=aq
 local function setDisplay(ar,as,at)
 
-T.MainPoint.Position=UDim2.new(_,-T.MainPoint.AbsoluteSize.X/2,1-al,-T.MainPoint.AbsoluteSize.Y/2)
-T.MainPoint.ImageColor3=Color3.fromHSV(ar,as,at)
-R.BackgroundColor3=Color3.fromHSV(ar,1,1)
-S.BackgroundColor3=Color3.fromHSV(ar,as,at)
+aj.MainPoint.Position=UDim2.new(_,-aj.MainPoint.AbsoluteSize.X/2,1-al,-aj.MainPoint.AbsoluteSize.Y/2)
+aj.MainPoint.ImageColor3=Color3.fromHSV(ar,as,at)
+ah.BackgroundColor3=Color3.fromHSV(ar,1,1)
+ai.BackgroundColor3=Color3.fromHSV(ar,as,at)
 
-local au=ar*U.AbsoluteSize.X
-U.SliderPoint.Position=UDim2.new(0,au-U.SliderPoint.AbsoluteSize.X/2,0.5,0)
-U.SliderPoint.ImageColor3=Color3.fromHSV(ar,1,1)
+local au=ar*ak.AbsoluteSize.X
+ak.SliderPoint.Position=UDim2.new(0,au-ak.SliderPoint.AbsoluteSize.X/2,0.5,0)
+ak.SliderPoint.ImageColor3=Color3.fromHSV(ar,1,1)
 local av=Color3.fromHSV(ar,as,at)
 local aw,ax,ay=math.floor((av.R*255)+0.5),math.floor((av.G*255)+0.5),math.floor((av.B*255)+0.5)
-Q.RInput.InputBox.Text=tostring(aw)
-Q.GInput.InputBox.Text=tostring(ax)
-Q.BInput.InputBox.Text=tostring(ay)
+ag.RInput.InputBox.Text=tostring(aw)
+ag.GInput.InputBox.Text=tostring(ax)
+ag.BInput.InputBox.Text=tostring(ay)
 aq=string.format("#%02X%02X%02X",av.R*0xFF,av.G*0xFF,av.B*0xFF)
-Q.HexInput.InputBox.Text=aq
+ag.HexInput.InputBox.Text=aq
 end
 setDisplay(Z,_,al)
-Q.HexInput.InputBox.FocusLost:Connect(function()
+ag.HexInput.InputBox.FocusLost:Connect(function()
 if not pcall(function()
-local ar,as,at=string.match(Q.HexInput.InputBox.Text,"^#?(%w%w)(%w%w)(%w%w)$")
+local ar,as,at=string.match(ag.HexInput.InputBox.Text,"^#?(%w%w)(%w%w)(%w%w)$")
 local au=Color3.fromRGB(tonumber(ar,16),tonumber(as,16),tonumber(at,16))
 Z,_,al=au:ToHSV()
-aq=Q.HexInput.InputBox.Text
+aq=ag.HexInput.InputBox.Text
 setDisplay()
-ag.Color=au
+ab.Color=au
 end)
 then
-Q.HexInput.InputBox.Text=aq
+ag.HexInput.InputBox.Text=aq
 end
 local ar,as,at=math.floor((Z*255)+0.5),math.floor((_*255)+0.5),math.floor((al*255)+0.5)
-ag.Color=Color3.fromRGB(ar,as,at)
+ab.Color=Color3.fromRGB(ar,as,at)
 SafeCallback(Color3.fromRGB(ar,as,at))
 end)
 
@@ -4270,1059 +4076,861 @@ else
 ar.Text=tostring(ay)
 end
 local az,aA,aB=math.floor((au.R*255)+0.5),math.floor((au.G*255)+0.5),math.floor((au.B*255)+0.5)
-ag.Color=Color3.fromRGB(az,aA,aB)
+ab.Color=Color3.fromRGB(az,aA,aB)
 end
-Q.RInput.InputBox.FocusLost:connect(function()
-rgbBoxes(Q.RInput.InputBox,"R")
+ag.RInput.InputBox.FocusLost:connect(function()
+rgbBoxes(ag.RInput.InputBox,"R")
 SafeCallback(Color3.fromRGB(an,ao,ap))
 end)
-Q.GInput.InputBox.FocusLost:connect(function()
-rgbBoxes(Q.GInput.InputBox,"G")
+ag.GInput.InputBox.FocusLost:connect(function()
+rgbBoxes(ag.GInput.InputBox,"G")
 SafeCallback(Color3.fromRGB(an,ao,ap))
 end)
-Q.BInput.InputBox.FocusLost:connect(function()
-rgbBoxes(Q.BInput.InputBox,"B")
+ag.BInput.InputBox.FocusLost:connect(function()
+rgbBoxes(ag.BInput.InputBox,"B")
 SafeCallback(Color3.fromRGB(an,ao,ap))
 end)
 f.RenderStepped:connect(function()
 if X then
-local ar=math.clamp(W.X-T.AbsolutePosition.X,0,T.AbsoluteSize.X)
-local as=math.clamp(W.Y-T.AbsolutePosition.Y,0,T.AbsoluteSize.Y)
-T.MainPoint.Position=UDim2.new(0,ar-T.MainPoint.AbsoluteSize.X/2,0,as-T.MainPoint.AbsoluteSize.Y/2)
-_=ar/T.AbsoluteSize.X
-al=1-(as/T.AbsoluteSize.Y)
-S.BackgroundColor3=Color3.fromHSV(Z,_,al)
-T.MainPoint.ImageColor3=Color3.fromHSV(Z,_,al)
-R.BackgroundColor3=Color3.fromHSV(Z,1,1)
+local ar=math.clamp(W.X-aj.AbsolutePosition.X,0,aj.AbsoluteSize.X)
+local as=math.clamp(W.Y-aj.AbsolutePosition.Y,0,aj.AbsoluteSize.Y)
+aj.MainPoint.Position=UDim2.new(0,ar-aj.MainPoint.AbsoluteSize.X/2,0,as-aj.MainPoint.AbsoluteSize.Y/2)
+_=ar/aj.AbsoluteSize.X
+al=1-(as/aj.AbsoluteSize.Y)
+ai.BackgroundColor3=Color3.fromHSV(Z,_,al)
+aj.MainPoint.ImageColor3=Color3.fromHSV(Z,_,al)
+ah.BackgroundColor3=Color3.fromHSV(Z,1,1)
 local at=Color3.fromHSV(Z,_,al)
 local au,av,aw=math.floor((at.R*255)+0.5),math.floor((at.G*255)+0.5),math.floor((at.B*255)+0.5)
-Q.RInput.InputBox.Text=tostring(au)
-Q.GInput.InputBox.Text=tostring(av)
-Q.BInput.InputBox.Text=tostring(aw)
-Q.HexInput.InputBox.Text=string.format("#%02X%02X%02X",at.R*0xFF,at.G*0xFF,at.B*0xFF)
+ag.RInput.InputBox.Text=tostring(au)
+ag.GInput.InputBox.Text=tostring(av)
+ag.BInput.InputBox.Text=tostring(aw)
+ag.HexInput.InputBox.Text=string.format("#%02X%02X%02X",at.R*0xFF,at.G*0xFF,at.B*0xFF)
 SafeCallback(Color3.fromRGB(au,av,aw))
-ag.Color=Color3.fromRGB(au,av,aw)
-ai.Color=ag.Color
+ab.Color=Color3.fromRGB(au,av,aw)
+ad.Color=ab.Color
 end
 if Y then
-local ar=math.clamp(W.X-U.AbsolutePosition.X,0,U.AbsoluteSize.X)
-Z=ar/U.AbsoluteSize.X
-S.BackgroundColor3=Color3.fromHSV(Z,_,al)
-U.SliderPoint.Position=UDim2.new(0,ar-U.SliderPoint.AbsoluteSize.X/2,0.5,0)
-U.SliderPoint.ImageColor3=Color3.fromHSV(Z,1,1)
-R.BackgroundColor3=Color3.fromHSV(Z,1,1)
-T.MainPoint.ImageColor3=Color3.fromHSV(Z,_,al)
+local ar=math.clamp(W.X-ak.AbsolutePosition.X,0,ak.AbsoluteSize.X)
+Z=ar/ak.AbsoluteSize.X
+ai.BackgroundColor3=Color3.fromHSV(Z,_,al)
+ak.SliderPoint.Position=UDim2.new(0,ar-ak.SliderPoint.AbsoluteSize.X/2,0.5,0)
+ak.SliderPoint.ImageColor3=Color3.fromHSV(Z,1,1)
+ah.BackgroundColor3=Color3.fromHSV(Z,1,1)
+aj.MainPoint.ImageColor3=Color3.fromHSV(Z,_,al)
 local as=Color3.fromHSV(Z,_,al)
 local at,au,av=math.floor((as.R*255)+0.5),math.floor((as.G*255)+0.5),math.floor((as.B*255)+0.5)
-Q.RInput.InputBox.Text=tostring(at)
-Q.GInput.InputBox.Text=tostring(au)
-Q.BInput.InputBox.Text=tostring(av)
-Q.HexInput.InputBox.Text=string.format("#%02X%02X%02X",as.R*0xFF,as.G*0xFF,as.B*0xFF)
+ag.RInput.InputBox.Text=tostring(at)
+ag.GInput.InputBox.Text=tostring(au)
+ag.BInput.InputBox.Text=tostring(av)
+ag.HexInput.InputBox.Text=string.format("#%02X%02X%02X",as.R*0xFF,as.G*0xFF,as.B*0xFF)
 SafeCallback(Color3.fromRGB(at,au,av))
-ag.Color=Color3.fromRGB(at,au,av)
-ai.Color=ag.Color
+ab.Color=Color3.fromRGB(at,au,av)
+ad.Color=ab.Color
 end
 end)
 
-function ai.Set(ar,as)
+function ad.Set(ar,as)
 
-as=Kwargify(ag,as or{})
+as=Kwargify(ab,as or{})
 
-ai.Settings=as
-ag=as
+ad.Settings=as
+ab=as
 
-Q.Name=ag.Title
-Q.Title.Text=ag.Title
-Q.Visible=true
+ag.Name=ab.Title
+ag.Title.Text=ab.Title
+ag.Visible=true
 
-local at,au,av=ag.Color:ToHSV()
+local at,au,av=ab.Color:ToHSV()
 local aw=Color3.fromHSV(at,au,av)
 local ax,ay,az=math.floor((aw.R*255)+0.5),math.floor((aw.G*255)+0.5),math.floor((aw.B*255)+0.5)
 local aA=string.format("#%02X%02X%02X",aw.R*0xFF,aw.G*0xFF,aw.B*0xFF)
-Q.HexInput.InputBox.Text=aA
+ag.HexInput.InputBox.Text=aA
 setDisplay(at,au,av)
 SafeCallback(Color3.fromRGB(ax,ay,az))
 
-ai.Color=ag.Color
+ad.Color=ab.Color
 end
 
-function ai.Destroy(ar)
-Q:Destroy()
+function ad.Destroy(ar)
+ag:Destroy()
 end
 
-if ah then
-b.Values[ah]=ai
+if ac then
+b.Values[ac]=ad
 end
 
-SafeCallback(ag.Color)
+SafeCallback(ab.Color)
 
-return ai
+return ad
 end
 
-return N
+return S
 
-end
-
-
-function I.AddDivider(af)
-local ag=s.Template.Divider:Clone()
-ag.Parent=K
-ag.Line.BackgroundTransparency=1
-tween(ag.Line,{BackgroundTransparency=0})
 end
 
 
-function I.AddButton(af,ag)
+function N.AddDivider(aa)
+local ab=x.Template.Divider:Clone()
+ab.Parent=P
+ab.Line.BackgroundTransparency=1
+tween(ab.Line,{BackgroundTransparency=0})
+end
 
-ag=Kwargify({
+
+function N.AddButton(aa,ab)
+
+ab=Kwargify({
 Title="Button",
 Description=nil,
 Callback=function()
 
 end,
-},ag or{})
+},ab or{})
 
-local ah={
+local ac={
 Hover=false,
-Settings=ag
+Settings=ab
 }
 
 
-local ai
-if ag.Description==nil and ag.Description~=""then
-ai=s.Template.Button:Clone()
+local ad
+if ab.Description==nil and ab.Description~=""then
+ad=x.Template.Button:Clone()
 else
-ai=s.Template.ButtonDesc:Clone()
+ad=x.Template.ButtonDesc:Clone()
 end
-ai.Name=ag.Title
-ai.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""then
-ai.Desc.Text=ag.Description
+ad.Name=ab.Title
+ad.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""then
+ad.Desc.Text=ab.Description
 end
-ai.Visible=true
-ai.Parent=K
+ad.Visible=true
+ad.Parent=P
 
-ai.UIStroke.Transparency=1
-ai.Title.TextTransparency=1
-if ag.Description~=nil and ag.Description~=""then
-ai.Desc.TextTransparency=1
-end
-
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(ai.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-if ag.Description~=nil and ag.Description~=""then
-d:Create(ai.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+ad.UIStroke.Transparency=1
+ad.Title.TextTransparency=1
+if ab.Description~=nil and ab.Description~=""then
+ad.Desc.TextTransparency=1
 end
 
-ai.Interact.MouseButton1Click:Connect(function()
-local aj,ak=pcall(ag.Callback)
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ad.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(ad.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+if ab.Description~=nil and ab.Description~=""then
+d:Create(ad.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+end
 
-if not aj then
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ai.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ak))
+ad.Interact.MouseButton1Click:Connect(function()
+local ae,af=pcall(ab.Callback)
+
+if not ae then
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ad.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ad.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(af))
 wait(0.5)
-ai.Title.Text=ag.Title
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ad.Title.Text=ab.Title
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ad.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 else
-tween(ai.UIStroke,{Color=Color3.fromRGB(136,131,163)})
+tween(ad.UIStroke,{Color=Color3.fromRGB(136,131,163)})
 wait(0.2)
-if ah.Hover then
-tween(ai.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+if ac.Hover then
+tween(ad.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 else
-tween(ai.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+tween(ad.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end
 end
 end)
 
-ai.MouseEnter:Connect(function()
-ah.Hover=true
-tween(ai.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+ad.MouseEnter:Connect(function()
+ac.Hover=true
+tween(ad.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-ai.MouseLeave:Connect(function()
-ah.Hover=false
-tween(ai.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+ad.MouseLeave:Connect(function()
+ac.Hover=false
+tween(ad.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-function ah.Set(aj,ak)
-ak=Kwargify({
-Name=ag.Title,
-Description=ag.Description,
-Callback=ag.Callback
-},ak or{})
+function ac.Set(ae,af)
+af=Kwargify({
+Name=ab.Title,
+Description=ab.Description,
+Callback=ab.Callback
+},af or{})
 
-ag=ak
-ah.Settings=ak
+ab=af
+ac.Settings=af
 
-ai.Name=ag.Title
-ai.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and ai.Desc~=nil then
-ai.Desc.Text=ag.Description
+ad.Name=ab.Title
+ad.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and ad.Desc~=nil then
+ad.Desc.Text=ab.Description
 end
 end
 
-function ah.Destroy(aj)
-ai.Visible=false
-ai:Destroy()
+function ac.Destroy(ae)
+ad.Visible=false
+ad:Destroy()
 end
 
-return ah
+return ac
 end
 
 
-function I.AddLabel(af,ag)
+function N.AddLabel(aa,ab)
 
-local ah={}
+local ac={}
 
-ag=Kwargify({
-Text="Label",
+ab=Kwargify({
+Title="Label",
 Style=1
-},ag or{})
+},ab or{})
 
-ah.Settings=ag
+ac.Settings=ab
 
-local ai
-if ag.Style==1 then
-ai=s.Template.Label:Clone()
-elseif ag.Style==2 then
-ai=s.Template.Info:Clone()
-elseif ag.Style==3 then
-ai=s.Template.Warn:Clone()
+local ad
+if ab.Style==1 then
+ad=x.Template.Label:Clone()
+elseif ab.Style==2 then
+ad=x.Template.Info:Clone()
+elseif ab.Style==3 then
+ad=x.Template.Warn:Clone()
 end
 
-ai.Text.Text=ag.Text
-ai.Visible=true
-ai.Parent=K
+ad.Text.Text=ab.Title
+ad.Visible=true
+ad.Parent=P
 
-ai.BackgroundTransparency=1
-ai.UIStroke.Transparency=1
-ai.Text.TextTransparency=1
+ad.BackgroundTransparency=1
+ad.UIStroke.Transparency=1
+ad.Text.TextTransparency=1
 
-if ag.Style~=1 then
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.8}):Play()
+if ab.Style~=1 then
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.8}):Play()
 else
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
 end
-d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(ai.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(ad.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(ad.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-function ah.Set(aj,ak)
-ag.Text=ak
-ah.Settings=ag
-ai.Text.Text=ak
-end
-
-function ah.Destroy(aj)
-ai.Visible=false
-ai:Destroy()
+function ac.Set(ae,af)
+ab.Title=af
+ac.Settings=ab
+ad.Text.Text=af
 end
 
-return ah
+function ac.Destroy(ae)
+ad.Visible=false
+ad:Destroy()
+end
+
+return ac
 end
 
 
-function I.AddParagraph(af,ag)
+function N.AddParagraph(aa,ab)
 
-ag=Kwargify({
+ab=Kwargify({
 Title="Paragraph",
-Content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus venenatis lacus sed tempus eleifend. Mauris interdum bibendum felis, in tempor augue egestas vel. Praesent tristique consectetur ex, eu pretium sem placerat non. Vestibulum a nisi sit amet augue facilisis consectetur sit amet et nunc. Integer fermentum ornare cursus. Pellentesque sed ultricies metus, ut egestas metus. Vivamus auctor erat ac sapien vulputate, nec ultricies sem tempor. Quisque leo lorem, faucibus nec pulvinar nec, congue eu velit. Duis sodales massa efficitur imperdiet ultrices. Donec eros ipsum, ornare pharetra purus aliquam, tincidunt elementum nisi. Ut mi tortor, feugiat eget nunc vitae, facilisis interdum dui. Vivamus ullamcorper nunc dui, a dapibus nisi pretium ac. Integer eleifend placerat nibh, maximus malesuada tellus. Cras in justo in ligula scelerisque suscipit vel vitae quam."
-},ag or{})
+Content=""
+},ab or{})
 
-local ah={
-Settings=ag
+local ac={
+Settings=ab
 }
 
-local ai=s.Template.Paragraph:Clone()
-ai.Title.Text=ag.Title
-ai.Text.Text=ag.Content
-ai.Visible=true
-ai.Parent=K
+local ad=x.Template.Paragraph:Clone()
+ad.Title.Text=ab.Title
+ad.Text.Text=ab.Content
+ad.Visible=true
+ad.Parent=P
 
-ai.BackgroundTransparency=1
-ai.UIStroke.Transparency=1
-ai.Title.TextTransparency=1
-ai.Text.TextTransparency=1
+ad.BackgroundTransparency=1
+ad.UIStroke.Transparency=1
+ad.Title.TextTransparency=1
+ad.Text.TextTransparency=1
 
-d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
-d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(ai.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-d:Create(ai.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(ad,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=1}):Play()
+d:Create(ad.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(ad.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(ad.Text,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-function ah.Update(aj)
-ai.Text.Size=UDim2.new(ai.Text.Size.X.Scale,ai.Text.Size.X.Offset,0,math.huge)
-ai.Text.Size=UDim2.new(ai.Text.Size.X.Scale,ai.Text.Size.X.Offset,0,ai.Text.TextBounds.Y)
-tween(ai,{Size=UDim2.new(ai.Size.X.Scale,ai.Size.X.Offset,0,ai.Text.TextBounds.Y+40)})
+function ac.Update(ae)
+ad.Text.Size=UDim2.new(ad.Text.Size.X.Scale,ad.Text.Size.X.Offset,0,math.huge)
+ad.Text.Size=UDim2.new(ad.Text.Size.X.Scale,ad.Text.Size.X.Offset,0,ad.Text.TextBounds.Y)
+tween(ad,{Size=UDim2.new(ad.Size.X.Scale,ad.Size.X.Offset,0,ad.Text.TextBounds.Y+40)})
 end
 
-function ah.Set(aj,ak)
+function ac.Set(ae,af)
 
-ak=Kwargify({
-Title=ag.Title,
-Text=ag.Content
-},ak or{})
+af=Kwargify({
+Title=ab.Title,
+Text=ab.Content
+},af or{})
 
-ah.Settings=ak
+ac.Settings=af
 
-ai.Title.Text=ak.Title
-ai.Text.Text=ak.Content
+ad.Title.Text=af.Title
+ad.Text.Text=af.Content
 
-ah:Update()
+ac:Update()
 
 end
 
-function ah.Destroy(aj)
-ai.Visible=false
-ai:Destroy()
+function ac.Destroy(ae)
+ad.Visible=false
+ad:Destroy()
 end
 
-ah:Update()
+ac:Update()
 
-return ah
+return ac
 end
 
 
-function I.AddSlider(af,ag,ah)
-local ai={IgnoreConfig=false,Class="Slider",Settings=ag}
+function N.AddSlider(aa,ab,ac)
+local ad={IgnoreConfig=false,Class="Slider",Settings=ab}
 
-ag=Kwargify({
+ab=Kwargify({
 Title="Slider",
 Range={0,200},
 Increment=1,
 CurrentValue=100,
-Callback=function(aj)
+Callback=function(ae)
 
 end,
-},ag or{})
+},ab or{})
 
-local aj=false
-local ak=s.Template.Slider:Clone()
-ak.Name=ag.Title.." - Slider"
-ak.Title.Text=ag.Title
-ak.Visible=true
-ak.Parent=K
+local ae=false
+local af=x.Template.Slider:Clone()
+af.Name=ab.Title.." - Slider"
+af.Title.Text=ab.Title
+af.Visible=true
+af.Parent=P
 
-ak.BackgroundTransparency=1
-ak.UIStroke.Transparency=1
-ak.Title.TextTransparency=1
+af.BackgroundTransparency=1
+af.UIStroke.Transparency=1
+af.Title.TextTransparency=1
 
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(ak.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(af.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-ak.Main.Progress.Size=UDim2.new(0,ak.Main.AbsoluteSize.X*((ag.CurrentValue+ag.Range[1])/(ag.Range[2]-ag.Range[1]))>5 and ak.Main.AbsoluteSize.X*(ag.CurrentValue/(ag.Range[2]-ag.Range[1]))or 5,1,0)
+af.Main.Progress.Size=UDim2.new(0,af.Main.AbsoluteSize.X*((ab.CurrentValue+ab.Range[1])/(ab.Range[2]-ab.Range[1]))>5 and af.Main.AbsoluteSize.X*(ab.CurrentValue/(ab.Range[2]-ab.Range[1]))or 5,1,0)
 
-ak.Value.Text=tostring(ag.CurrentValue)
-ai.CurrentValue=ak.Value.Text
+af.Value.Text=tostring(ab.CurrentValue)
+ad.CurrentValue=af.Value.Text
 
-ag.Callback(ag.CurrentValue)
+ab.Callback(ab.CurrentValue)
 
-ak.MouseEnter:Connect(function()
-tween(ak.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+af.MouseEnter:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-ak.MouseLeave:Connect(function()
-tween(ak.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+af.MouseLeave:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-ak.Interact.InputBegan:Connect(function(al)
-if al.UserInputType==Enum.UserInputType.MouseButton1 or al.UserInputType==Enum.UserInputType.Touch then
-aj=true
+af.Interact.InputBegan:Connect(function(ag)
+if ag.UserInputType==Enum.UserInputType.MouseButton1 or ag.UserInputType==Enum.UserInputType.Touch then
+ae=true
 end
 end)
 
-ak.Interact.InputEnded:Connect(function(al)
-if al.UserInputType==Enum.UserInputType.MouseButton1 or al.UserInputType==Enum.UserInputType.Touch then
-aj=false
+af.Interact.InputEnded:Connect(function(ag)
+if ag.UserInputType==Enum.UserInputType.MouseButton1 or ag.UserInputType==Enum.UserInputType.Touch then
+ae=false
 end
 end)
 
-ak.Interact.MouseButton1Down:Connect(function()
-local al=ak.Main.Progress.AbsolutePosition.X+ak.Main.Progress.AbsoluteSize.X
-local am=al
-local an
-local ao;ao=f.Stepped:Connect(function()
-if aj then
-an=c:GetMouseLocation().X
-al=al+0.025*(an-am)
+af.Interact.MouseButton1Down:Connect(function()
+local ag=af.Main.Progress.AbsolutePosition.X+af.Main.Progress.AbsoluteSize.X
+local ah=ag
+local ai
+local aj;aj=f.Stepped:Connect(function()
+if ae then
+ai=c:GetMouseLocation().X
+ag=ag+0.025*(ai-ah)
 
-if an<ak.Main.AbsolutePosition.X then
-an=ak.Main.AbsolutePosition.X
-elseif an>ak.Main.AbsolutePosition.X+ak.Main.AbsoluteSize.X then
-an=ak.Main.AbsolutePosition.X+ak.Main.AbsoluteSize.X
+if ai<af.Main.AbsolutePosition.X then
+ai=af.Main.AbsolutePosition.X
+elseif ai>af.Main.AbsolutePosition.X+af.Main.AbsoluteSize.X then
+ai=af.Main.AbsolutePosition.X+af.Main.AbsoluteSize.X
 end
 
-if al<ak.Main.AbsolutePosition.X+5 then
-al=ak.Main.AbsolutePosition.X+5
-elseif al>ak.Main.AbsolutePosition.X+ak.Main.AbsoluteSize.X then
-al=ak.Main.AbsolutePosition.X+ak.Main.AbsoluteSize.X
+if ag<af.Main.AbsolutePosition.X+5 then
+ag=af.Main.AbsolutePosition.X+5
+elseif ag>af.Main.AbsolutePosition.X+af.Main.AbsoluteSize.X then
+ag=af.Main.AbsolutePosition.X+af.Main.AbsoluteSize.X
 end
 
-if al<=an and(an-am)<0 then
-am=an
-elseif al>=an and(an-am)>0 then
-am=an
+if ag<=ai and(ai-ah)<0 then
+ah=ai
+elseif ag>=ai and(ai-ah)>0 then
+ah=ai
 end
-ak.Main.Progress.Size=UDim2.new(0,an-ak.Main.AbsolutePosition.X,1,0)
-local ap=ag.Range[1]+(an-ak.Main.AbsolutePosition.X)/ak.Main.AbsoluteSize.X*(ag.Range[2]-ag.Range[1])
+af.Main.Progress.Size=UDim2.new(0,ai-af.Main.AbsolutePosition.X,1,0)
+local ak=ab.Range[1]+(ai-af.Main.AbsolutePosition.X)/af.Main.AbsoluteSize.X*(ab.Range[2]-ab.Range[1])
 
-ap=math.floor(ap/ag.Increment+0.5)*(ag.Increment*10000000)/10000000
+ak=math.floor(ak/ab.Increment+0.5)*(ab.Increment*10000000)/10000000
 
-ak.Value.Text=tostring(ap)
+af.Value.Text=tostring(ak)
 
-if ag.CurrentValue~=ap then
-local aq,ar=pcall(function()
-ag.Callback(ap)
+if ab.CurrentValue~=ak then
+local al,am=pcall(function()
+ab.Callback(ak)
 end)
-if not aq then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
+if not al then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(am))
 wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 
-ag.CurrentValue=ap
-ai.CurrentValue=ag.CurrentValue
+ab.CurrentValue=ak
+ad.CurrentValue=ab.CurrentValue
 
 end
 else
-d:Create(ak.Main.Progress,TweenInfo.new(0.1,Enum.EasingStyle.Back,Enum.EasingDirection.In,0,false),{Size=UDim2.new(0,an-ak.Main.AbsolutePosition.X>5 and an-ak.Main.AbsolutePosition.X or 5,1,0)}):Play()
-ao:Disconnect()
+d:Create(af.Main.Progress,TweenInfo.new(0.1,Enum.EasingStyle.Back,Enum.EasingDirection.In,0,false),{Size=UDim2.new(0,ai-af.Main.AbsolutePosition.X>5 and ai-af.Main.AbsolutePosition.X or 5,1,0)}):Play()
+aj:Disconnect()
 end
 end)
 end)
 
-local function Set(al,am)
+local function Set(ag,ah)
 
-al=al or ag.CurrentValue
+ag=ag or ab.CurrentValue
 
-d:Create(ak.Main.Progress,TweenInfo.new(0.3,Enum.EasingStyle.Back,Enum.EasingDirection.InOut),{Size=UDim2.new(0,ak.Main.AbsoluteSize.X*((al+ag.Range[1])/(ag.Range[2]-ag.Range[1]))>5 and ak.Main.AbsoluteSize.X*(al/(ag.Range[2]-ag.Range[1]))or 5,1,0)}):Play()
-if not am then ak.Value.Text=tostring(al)end
-local an,ao=pcall(function()
-ag.Callback(al)
+d:Create(af.Main.Progress,TweenInfo.new(0.3,Enum.EasingStyle.Back,Enum.EasingDirection.InOut),{Size=UDim2.new(0,af.Main.AbsoluteSize.X*((ag+ab.Range[1])/(ab.Range[2]-ab.Range[1]))>5 and af.Main.AbsoluteSize.X*(ag/(ab.Range[2]-ab.Range[1]))or 5,1,0)}):Play()
+if not ah then af.Value.Text=tostring(ag)end
+local ai,aj=pcall(function()
+ab.Callback(ag)
 end)
-if not an then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ao))
+if not ai then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(aj))
 wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(30,33,40)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(30,33,40)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 
-ag.CurrentValue=al
-ai.CurrentValue=ag.CurrentValue
+ab.CurrentValue=ag
+ad.CurrentValue=ab.CurrentValue
 
 
 end
 
-function ai.UpdateValue(al,am)
-Set(tonumber(am))
+function ad.UpdateValue(ag,ah)
+Set(tonumber(ah))
 end
 
-ak.Value:GetPropertyChangedSignal"Text":Connect(function()
-local al=ak.Value.Text
-if not tonumber(al)and al~="."then
-ak.Value.Text=al:match"[0-9.]*"or""
+af.Value:GetPropertyChangedSignal"Text":Connect(function()
+local ag=af.Value.Text
+if not tonumber(ag)and ag~="."then
+af.Value.Text=ag:match"[0-9.]*"or""
 end
-if ag.Range[2]<(tonumber(ak.Value.Text)or 0)then ak.Value.Text=ag.Range[2]end
-ak.Value.Size=UDim2.fromOffset(ak.Value.TextBounds.X,23)
-Set(tonumber(ak.Value.Text),true)
+if ab.Range[2]<(tonumber(af.Value.Text)or 0)then af.Value.Text=ab.Range[2]end
+af.Value.Size=UDim2.fromOffset(af.Value.TextBounds.X,23)
+Set(tonumber(af.Value.Text),true)
 end)
 
-function ai.Set(al,am)
-am=Kwargify({
-Name=ag.Title,
-Range=ag.Range,
-Increment=ag.Increment,
-CurrentValue=ag.CurrentValue,
-Callback=ag.Callback
-},am or{})
+function ad.Set(ag,ah)
+ah=Kwargify({
+Name=ab.Title,
+Range=ab.Range,
+Increment=ab.Increment,
+CurrentValue=ab.CurrentValue,
+Callback=ab.Callback
+},ah or{})
 
-ag=am
-ai.Settings=am
+ab=ah
+ad.Settings=ah
 
-ak.Name=ag.Title.." - Slider"
-ak.Title.Text=ag.Title
+af.Name=ab.Title.." - Slider"
+af.Title.Text=ab.Title
 
 Set()
 
 
 end
 
-function ai.Destroy(al)
-ak.Visible=false
-ak:Destroy()
+function ad.Destroy(ag)
+af.Visible=false
+af:Destroy()
 end
 
-if ah then
-b.Values[ah]=ai
+if ac then
+b.Values[ac]=ad
 end
 
-aa.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
-ak.Main.color.Color=b.ThemeGradient
-ak.Main.UIStroke.color.Color=b.ThemeGradient
+q.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
+af.Main.color.Color=b.ThemeGradient
+af.Main.UIStroke.color.Color=b.ThemeGradient
 end)
 
-return ai
+return ad
 
 end
 
 
-function I.AddToggle(af,ag,ah)
-local ai={IgnoreConfig=false,Class="Toggle"}
+function N.AddToggle(aa,ab,ac)
+local ad={IgnoreConfig=false,Class="Toggle"}
 
-ag=Kwargify({
+ab=Kwargify({
 Title="Toggle",
 Description=nil,
-CurrentValue=false,
-Callback=function(aj)
+Default=false,
+Callback=function(ae)
 end,
-},ag or{})
+},ab or{})
 
 
-local aj
+local ae
 
-if ag.Description~=nil and ag.Description~=""then
-aj=s.Template.ToggleDesc:Clone()
+if ab.Description~=nil and ab.Description~=""then
+ae=x.Template.ToggleDesc:Clone()
 else
-aj=s.Template.Toggle:Clone()
+ae=x.Template.Toggle:Clone()
 end
 
-aj.Visible=true
-aj.Parent=K
+ae.Visible=true
+ae.Parent=P
 
-aj.Name=ag.Title.." - Toggle"
-aj.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""then
-aj.Desc.Text=ag.Description
+ae.Name=ab.Title.." - Toggle"
+ae.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""then
+ae.Desc.Text=ab.Description
 end
 
-aj.UIStroke.Transparency=1
-aj.Title.TextTransparency=1
-if ag.Description~=nil and ag.Description~=""then
-aj.Desc.TextTransparency=1
+ae.UIStroke.Transparency=1
+ae.Title.TextTransparency=1
+if ab.Description~=nil and ab.Description~=""then
+ae.Desc.TextTransparency=1
 end
 
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-if ag.Description~=nil and ag.Description~=""then
-d:Create(aj.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+if ab.Description~=nil and ab.Description~=""then
+d:Create(ae.Desc,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 end
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(aj.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(ae.Title,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-local function Set(ak)
-if ak then
-aj.toggle.color.Enabled=true
-tween(aj.toggle,{BackgroundTransparency=0})
+local function Set(af)
+if af then
+ae.toggle.color.Enabled=true
+tween(ae.toggle,{BackgroundTransparency=0})
 
-aj.toggle.UIStroke.color.Enabled=true
-tween(aj.toggle.UIStroke,{Color=Color3.new(255,255,255)})
+ae.toggle.UIStroke.color.Enabled=true
+tween(ae.toggle.UIStroke,{Color=Color3.new(255,255,255)})
 
-tween(aj.toggle.val,{BackgroundColor3=Color3.fromRGB(255,255,255),Position=UDim2.new(1,-23,0.5,0),BackgroundTransparency=0.45})
+tween(ae.toggle.val,{BackgroundColor3=Color3.fromRGB(255,255,255),Position=UDim2.new(1,-23,0.5,0),BackgroundTransparency=0.45})
 else
-aj.toggle.color.Enabled=false
-aj.toggle.UIStroke.color.Enabled=false
+ae.toggle.color.Enabled=false
+ae.toggle.UIStroke.color.Enabled=false
 
-aj.toggle.UIStroke.Color=Color3.fromRGB(97,97,97)
+ae.toggle.UIStroke.Color=Color3.fromRGB(97,97,97)
 
-tween(aj.toggle,{BackgroundTransparency=1})
+tween(ae.toggle,{BackgroundTransparency=1})
 
-tween(aj.toggle.val,{BackgroundColor3=Color3.fromRGB(97,97,97),Position=UDim2.new(0,5,0.5,0),BackgroundTransparency=0})
+tween(ae.toggle.val,{BackgroundColor3=Color3.fromRGB(97,97,97),Position=UDim2.new(0,5,0.5,0),BackgroundTransparency=0})
 end
 
-ai.CurrentValue=ak
+ad.CurrentValue=af
 end
 
-aj.Interact.MouseButton1Click:Connect(function()
-ag.CurrentValue=not ag.CurrentValue
-Set(ag.CurrentValue)
+ae.Interact.MouseButton1Click:Connect(function()
+ab.Default=not ab.Default
+Set(ab.Default)
 
-local ak,al=pcall(function()
-ag.Callback(ag.CurrentValue)
+local af,ag=pcall(function()
+ab.Callback(ab.Default)
 end)
-if not ak then
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(al))
+if not af then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ag))
 wait(0.5)
-aj.Title.Text=ag.Title
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end)
 
-aj.MouseEnter:Connect(function()
-tween(aj.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+ae.MouseEnter:Connect(function()
+tween(ae.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-aj.MouseLeave:Connect(function()
-tween(aj.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+ae.MouseLeave:Connect(function()
+tween(ae.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-if ag.CurrentValue then
-Set(ag.CurrentValue)
-local ak,al=pcall(function()
-ag.Callback(ag.CurrentValue)
+if ab.Default then
+Set(ab.Default)
+local af,ag=pcall(function()
+ab.Callback(ab.Default)
 end)
-if not ak then
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(al))
+if not af then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ag))
 wait(0.5)
-aj.Title.Text=ag.Title
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
 
-function ai.UpdateState(ak,al)
-ag.CurrentValue=al
-Set(ag.CurrentValue)
+function ad.UpdateState(af,ag)
+ab.Default=ag
+Set(ab.Default)
 end
 
-function ai.Set(ak,al)
-
-al=Kwargify({
-Name=ag.Title,
-Description=ag.Description,
-CurrentValue=ag.CurrentValue,
-Callback=ag.Callback
-},al or{})
-
-ai.Settings=al
-ag=al
-
-aj.Name=ag.Title.." - Toggle"
-aj.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and aj.Desc~=nil then
-aj.Desc.Text=ag.Description
-end
-
-Set(ag.CurrentValue)
-
-ai.CurrentValue=ag.CurrentValue
-
-local am,an=pcall(function()
-ag.Callback(ag.CurrentValue)
-end)
-if not am then
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0}):Play()
-aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(an))
-wait(0.5)
-aj.Title.Text=ag.Title
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-end
-end
-
-function ai.Destroy(ak)
-aj.Visible=false
-aj:Destroy()
-end
-
-aa.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
-aj.toggle.color.Color=b.ThemeGradient
-aj.toggle.UIStroke.color.Color=b.ThemeGradient
-end)
-
-if ah then
-b.Values[ah]=ai
-end
-
-return ai
-
-end
-
-
-function I.AddBind(af,ag,ah)
-local ai={Class="Keybind",IgnoreConfig=false,Settings=ag,Active=false}
+function ad.Set(af,ag)
 
 ag=Kwargify({
+Name=ab.Title,
+Description=ab.Description,
+CurrentValue=ab.Default,
+Callback=ab.Callback
+},ag or{})
+
+ad.Settings=ag
+ab=ag
+
+ae.Name=ab.Title.." - Toggle"
+ae.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and ae.Desc~=nil then
+ae.Desc.Text=ab.Description
+end
+
+Set(ab.Default)
+
+ad.CurrentValue=ab.Default
+
+local ah,ai=pcall(function()
+ab.Callback(ab.Default)
+end)
+if not ah then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ai))
+wait(0.5)
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+end
+end
+
+function ad.Destroy(af)
+ae.Visible=false
+ae:Destroy()
+end
+
+q.ThemeRemote:GetPropertyChangedSignal"Value":Connect(function()
+ae.toggle.color.Color=b.ThemeGradient
+ae.toggle.UIStroke.color.Color=b.ThemeGradient
+end)
+
+if ac then
+b.Values[ac]=ad
+end
+
+return ad
+
+end
+
+
+function N.AddBind(aa,ab,ac)
+local ad={Class="Keybind",IgnoreConfig=false,Settings=ab,Active=false}
+
+ab=Kwargify({
 Title="Bind",
 Description=nil,
 CurrentBind="Q",
 HoldToInteract=false,
-Callback=function(aj)
+Callback=function(ae)
 
 
 end,
 
-OnChangedCallback=function(aj)
+OnChangedCallback=function(ae)
 
 
 end,
-},ag or{})
+},ab or{})
 
-local aj=false
+local ae=false
 
-local ak
-if ag.Description~=nil and ag.Description~=""then
-ak=s.Template.BindDesc:Clone()
+local af
+if ab.Description~=nil and ab.Description~=""then
+af=x.Template.BindDesc:Clone()
 else
-ak=s.Template.Bind:Clone()
+af=x.Template.Bind:Clone()
 end
 
-ak.Visible=true
-ak.Parent=K
+af.Visible=true
+af.Parent=P
 
-ak.Name=ag.Title
-ak.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""then
-ak.Desc.Text=ag.Description
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""then
+af.Desc.Text=ab.Description
 end
 
-ak.Title.TextTransparency=1
-if ag.Description~=nil and ag.Description~=""then
-ak.Desc.TextTransparency=1
+af.Title.TextTransparency=1
+if ab.Description~=nil and ab.Description~=""then
+af.Desc.TextTransparency=1
 end
-ak.BindFrame.BackgroundTransparency=1
-ak.BindFrame.UIStroke.Transparency=1
-ak.BindFrame.BindBox.TextTransparency=1
+af.BindFrame.BackgroundTransparency=1
+af.BindFrame.UIStroke.Transparency=1
+af.BindFrame.BindBox.TextTransparency=1
 
-d:Create(ak,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-if ag.Description~=nil and ag.Description~=""then
-d:Create(ak.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+if ab.Description~=nil and ab.Description~=""then
+d:Create(af.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 end
-d:Create(ak.BindFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
-d:Create(ak.BindFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
-d:Create(ak.BindFrame.BindBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(af.BindFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
+d:Create(af.BindFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
+d:Create(af.BindFrame.BindBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
 
-ak.BindFrame.BindBox.Text=ag.CurrentBind
-ak.BindFrame.BindBox.Size=UDim2.new(0,ak.BindFrame.BindBox.TextBounds.X+20,0,42)
+af.BindFrame.BindBox.Text=ab.CurrentBind
+af.BindFrame.BindBox.Size=UDim2.new(0,af.BindFrame.BindBox.TextBounds.X+20,0,42)
 
-ak.BindFrame.BindBox.Focused:Connect(function()
-aj=true
-ak.BindFrame.BindBox.Text=""
+af.BindFrame.BindBox.Focused:Connect(function()
+ae=true
+af.BindFrame.BindBox.Text=""
 end)
 
-ak.BindFrame.BindBox.FocusLost:Connect(function()
-aj=false
-if ak.BindFrame.BindBox.Text==('')then
-ak.BindFrame.BindBox.Text=ag.CurrentBind
+af.BindFrame.BindBox.FocusLost:Connect(function()
+ae=false
+if af.BindFrame.BindBox.Text==('')then
+af.BindFrame.BindBox.Text=ab.CurrentBind
 end
 end)
 
-ak.MouseEnter:Connect(function()
-tween(ak.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+af.MouseEnter:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-ak.MouseLeave:Connect(function()
-tween(ak.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+af.MouseLeave:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
-c.InputBegan:Connect(function(al,am)
+c.InputBegan:Connect(function(ag,ah)
 
-if aj then
-if al.KeyCode~=Enum.KeyCode.Unknown and al.KeyCode~=E.Bind then
-local an=string.split(tostring(al.KeyCode),".")
-local ao=an[3]
-ak.BindFrame.BindBox.Text=tostring(ao)
-ag.CurrentBind=tostring(ao)
-local ap,aq=pcall(function()
-ag.Callback(ag.CurrentBind)
+if ae then
+if ag.KeyCode~=Enum.KeyCode.Unknown and ag.KeyCode~=J.Bind then
+local ai=string.split(tostring(ag.KeyCode),".")
+local aj=ai[3]
+af.BindFrame.BindBox.Text=tostring(aj)
+ab.CurrentBind=tostring(aj)
+local ak,al=pcall(function()
+ab.Callback(ab.CurrentBind)
 end)
-if not ap then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
+if not ak then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(al))
 wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
-ak.BindFrame.BindBox:ReleaseFocus()
+af.BindFrame.BindBox:ReleaseFocus()
 end
-elseif ag.CurrentBind~=nil and(al.KeyCode==Enum.KeyCode[ag.CurrentBind]and not am)then
-local an=true
-local ao
-ao=al.Changed:Connect(function(ap)
-if ap=="UserInputState"then
-ao:Disconnect()
-an=false
-end
-end)
-
-if not ag.HoldToInteract then
-ai.Active=not ai.Active
-local ap,aq=pcall(function()
-ag.Callback(ai.Active)
-end)
-if not ap then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
-wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-end
-else
-wait(0.1)
-if an then
-local ap;ap=f.Stepped:Connect(function()
-if not an then
-local aq,ar=pcall(function()
-ag.Callback(false)
-end)
-if not aq then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
-wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-end
-ap:Disconnect()
-else
-local aq,ar=pcall(function()
-ag.Callback(true)
-end)
-if not aq then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
-wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-end
-end
-end)
-end
-end
-end
-end)
-
-ak.BindFrame.BindBox:GetPropertyChangedSignal"Text":Connect(function()
-d:Create(ak.BindFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,ak.BindFrame.BindBox.TextBounds.X+20,0,30)}):Play()
-end)
-
-function ai.Set(al,am)
-
-am=Kwargify({
-Name=ag.Title,
-Description=ag.Description,
-CurrentBind=ag.CurrentBind,
-HoldToInteract=ag.HoldToInteract,
-Callback=ag.Callback
-},am or{})
-
-ai.Settings=am
-ag=am
-
-ak.Name=ag.Title
-ak.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and ak.Desc~=nil then
-ak.Desc.Text=ag.Description
-end
-
-ak.BindFrame.BindBox.Text=ag.CurrentBind
-ak.BindFrame.Size=UDim2.new(0,ak.BindFrame.BindBox.TextBounds.X+20,0,42)
-
-
-ai.CurrentBind=ag.CurrentBind
-end
-
-function ai.Destroy(al)
-ak.Visible=false
-ak:Destroy()
-end
-
-if ah then
-b.Values[ah]=ai
-end
-
-
-
-return ai
-
-end
-
-function I.AddKeybind(af,ag)
-
-ag=Kwargify({
-Title="Bind",
-Description=nil,
-CurrentBind="Q",
-HoldToInteract=false,
-Callback=function(ah)
-
-
-end
-},ag or{})
-
-local ah={Settings=ag,Active=false}
-local ai=false
-
+elseif ab.CurrentBind~=nil and(ag.KeyCode==Enum.KeyCode[ab.CurrentBind]and not ah)then
+local ai=true
 local aj
-if ag.Description~=nil and ag.Description~=""then
-aj=s.Template.BindDesc:Clone()
-else
-aj=s.Template.Bind:Clone()
-end
-
-aj.Visible=true
-aj.Parent=K
-
-aj.Name=ag.Title
-aj.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""then
-aj.Desc.Text=ag.Description
-end
-
-aj.Title.TextTransparency=1
-if ag.Description~=nil and ag.Description~=""then
-aj.Desc.TextTransparency=1
-end
-aj.BindFrame.BackgroundTransparency=1
-aj.BindFrame.UIStroke.Transparency=1
-aj.BindFrame.BindBox.TextTransparency=1
-
-d:Create(aj,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(aj.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-if ag.Description~=nil and ag.Description~=""then
-d:Create(aj.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-end
-d:Create(aj.BindFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
-d:Create(aj.BindFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
-d:Create(aj.BindFrame.BindBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-
-
-aj.BindFrame.BindBox.Text=ag.CurrentBind
-aj.BindFrame.BindBox.Size=UDim2.new(0,aj.BindFrame.BindBox.TextBounds.X+16,0,42)
-
-aj.BindFrame.BindBox.Focused:Connect(function()
-ai=true
-aj.BindFrame.BindBox.Text=""
-end)
-
-aj.BindFrame.BindBox.FocusLost:Connect(function()
+aj=ag.Changed:Connect(function(ak)
+if ak=="UserInputState"then
+aj:Disconnect()
 ai=false
-if aj.BindFrame.BindBox.Text==('')then
-aj.BindFrame.BindBox.Text=ag.CurrentBind
 end
 end)
 
-aj.MouseEnter:Connect(function()
-tween(aj.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+if not ab.HoldToInteract then
+ad.Active=not ad.Active
+local ak,al=pcall(function()
+ab.Callback(ad.Active)
 end)
-
-aj.MouseLeave:Connect(function()
-tween(aj.UIStroke,{Color=Color3.fromRGB(64,61,76)})
-end)
-c.InputBegan:Connect(function(ak,al)
-
-if ai then
-if ak.KeyCode~=Enum.KeyCode.Unknown and ak.KeyCode~=Enum.KeyCode.K then
-local am=string.split(tostring(ak.KeyCode),".")
-local an=am[3]
-aj.BindFrame.BindBox.Text=tostring(an)
-ag.CurrentBind=tostring(an)
-aj.BindFrame.BindBox:ReleaseFocus()
-end
-elseif ag.CurrentBind~=nil and(ak.KeyCode==Enum.KeyCode[ag.CurrentBind]and not al)then
-local am=true
-local an
-an=ak.Changed:Connect(function(ao)
-if ao=="UserInputState"then
-an:Disconnect()
-am=false
-end
-end)
-
-if not ag.HoldToInteract then
-ah.Active=not ah.Active
-local ao,ap=pcall(function()
-ag.Callback(ah.Active)
-end)
-if not ao then
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(ap))
+if not ak then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(al))
 wait(0.5)
-aj.Title.Text=ag.Title
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 else
 wait(0.1)
-if am then
-local ao;ao=f.Stepped:Connect(function()
-if not am then
-local ap,aq=pcall(function()
-ag.Callback(false)
+if ai then
+local ak;ak=f.Stepped:Connect(function()
+if not ai then
+local al,am=pcall(function()
+ab.Callback(false)
 end)
-if not ap then
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
+if not al then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(am))
 wait(0.5)
-aj.Title.Text=ag.Title
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
-ao:Disconnect()
+ak:Disconnect()
 else
-local ap,aq=pcall(function()
-ag.Callback(true)
+local al,am=pcall(function()
+ab.Callback(true)
 end)
-if not ap then
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-aj.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(aq))
+if not al then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(am))
 wait(0.5)
-aj.Title.Text=ag.Title
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(aj,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(aj.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
 end)
@@ -5331,420 +4939,620 @@ end
 end
 end)
 
-aj.BindFrame.BindBox:GetPropertyChangedSignal"Text":Connect(function()
-d:Create(aj.BindFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,aj.BindFrame.BindBox.TextBounds.X+16,0,30)}):Play()
+af.BindFrame.BindBox:GetPropertyChangedSignal"Text":Connect(function()
+d:Create(af.BindFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,af.BindFrame.BindBox.TextBounds.X+20,0,30)}):Play()
 end)
 
-function ah.Set(ak,al)
+function ad.Set(ag,ah)
 
-al=Kwargify({
-Name=ag.Title,
-Description=ag.Description,
-CurrentBind=ag.CurrentBind,
-HoldToInteract=ag.HoldToInteract,
-Callback=ag.Callback
-},al or{})
+ah=Kwargify({
+Name=ab.Title,
+Description=ab.Description,
+CurrentBind=ab.CurrentBind,
+HoldToInteract=ab.HoldToInteract,
+Callback=ab.Callback
+},ah or{})
 
-ah.Settings=al
-ag=al
+ad.Settings=ah
+ab=ah
 
-aj.Name=ag.Title
-aj.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and aj.Desc~=nil then
-aj.Desc.Text=ag.Description
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and af.Desc~=nil then
+af.Desc.Text=ab.Description
 end
 
-aj.BindFrame.BindBox.Text=ag.CurrentBind
-aj.BindFrame.BindBox.Size=UDim2.new(0,aj.BindFrame.BindBox.TextBounds.X+16,0,42)
+af.BindFrame.BindBox.Text=ab.CurrentBind
+af.BindFrame.Size=UDim2.new(0,af.BindFrame.BindBox.TextBounds.X+20,0,42)
 
 
+ad.CurrentBind=ab.CurrentBind
+end
+
+function ad.Destroy(ag)
+af.Visible=false
+af:Destroy()
+end
+
+if ac then
+b.Values[ac]=ad
+end
+
+
+
+return ad
 
 end
 
-function ah.Destroy(ak)
-aj.Visible=false
-aj:Destroy()
+function N.AddKeybind(aa,ab)
+
+ab=Kwargify({
+Title="Bind",
+Description=nil,
+CurrentBind="Q",
+HoldToInteract=false,
+Callback=function(ac)
+
+
+end
+},ab or{})
+
+local ac={Settings=ab,Active=false}
+local ad=false
+
+local ae
+if ab.Description~=nil and ab.Description~=""then
+ae=x.Template.BindDesc:Clone()
+else
+ae=x.Template.Bind:Clone()
 end
 
+ae.Visible=true
+ae.Parent=P
 
-
-return ah
-
+ae.Name=ab.Title
+ae.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""then
+ae.Desc.Text=ab.Description
 end
 
+ae.Title.TextTransparency=1
+if ab.Description~=nil and ab.Description~=""then
+ae.Desc.TextTransparency=1
+end
+ae.BindFrame.BackgroundTransparency=1
+ae.BindFrame.UIStroke.Transparency=1
+ae.BindFrame.BindBox.TextTransparency=1
 
-function I.AddInput(af,ag,ah)
-local ai={IgnoreConfig=false,Class="Input",Settings=ag}
+d:Create(ae,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+if ab.Description~=nil and ab.Description~=""then
+d:Create(ae.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+end
+d:Create(ae.BindFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
+d:Create(ae.BindFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
+d:Create(ae.BindFrame.BindBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+
+
+ae.BindFrame.BindBox.Text=ab.CurrentBind
+ae.BindFrame.BindBox.Size=UDim2.new(0,ae.BindFrame.BindBox.TextBounds.X+16,0,42)
+
+ae.BindFrame.BindBox.Focused:Connect(function()
+ad=true
+ae.BindFrame.BindBox.Text=""
+end)
+
+ae.BindFrame.BindBox.FocusLost:Connect(function()
+ad=false
+if ae.BindFrame.BindBox.Text==('')then
+ae.BindFrame.BindBox.Text=ab.CurrentBind
+end
+end)
+
+ae.MouseEnter:Connect(function()
+tween(ae.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+end)
+
+ae.MouseLeave:Connect(function()
+tween(ae.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+end)
+c.InputBegan:Connect(function(af,ag)
+
+if ad then
+if af.KeyCode~=Enum.KeyCode.Unknown and af.KeyCode~=Enum.KeyCode.K then
+local ah=string.split(tostring(af.KeyCode),".")
+local ai=ah[3]
+ae.BindFrame.BindBox.Text=tostring(ai)
+ab.CurrentBind=tostring(ai)
+ae.BindFrame.BindBox:ReleaseFocus()
+end
+elseif ab.CurrentBind~=nil and(af.KeyCode==Enum.KeyCode[ab.CurrentBind]and not ag)then
+local ah=true
+local ai
+ai=af.Changed:Connect(function(aj)
+if aj=="UserInputState"then
+ai:Disconnect()
+ah=false
+end
+end)
+
+if not ab.HoldToInteract then
+ac.Active=not ac.Active
+local aj,ak=pcall(function()
+ab.Callback(ac.Active)
+end)
+if not aj then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ak))
+wait(0.5)
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+end
+else
+wait(0.1)
+if ah then
+local aj;aj=f.Stepped:Connect(function()
+if not ah then
+local ak,al=pcall(function()
+ab.Callback(false)
+end)
+if not ak then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(al))
+wait(0.5)
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+end
+aj:Disconnect()
+else
+local ak,al=pcall(function()
+ab.Callback(true)
+end)
+if not ak then
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ae.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(al))
+wait(0.5)
+ae.Title.Text=ab.Title
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ae,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ae.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+end
+end
+end)
+end
+end
+end
+end)
+
+ae.BindFrame.BindBox:GetPropertyChangedSignal"Text":Connect(function()
+d:Create(ae.BindFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,ae.BindFrame.BindBox.TextBounds.X+16,0,30)}):Play()
+end)
+
+function ac.Set(af,ag)
 
 ag=Kwargify({
+Name=ab.Title,
+Description=ab.Description,
+CurrentBind=ab.CurrentBind,
+HoldToInteract=ab.HoldToInteract,
+Callback=ab.Callback
+},ag or{})
+
+ac.Settings=ag
+ab=ag
+
+ae.Name=ab.Title
+ae.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and ae.Desc~=nil then
+ae.Desc.Text=ab.Description
+end
+
+ae.BindFrame.BindBox.Text=ab.CurrentBind
+ae.BindFrame.BindBox.Size=UDim2.new(0,ae.BindFrame.BindBox.TextBounds.X+16,0,42)
+
+
+
+end
+
+function ac.Destroy(af)
+ae.Visible=false
+ae:Destroy()
+end
+
+
+
+return ac
+
+end
+
+
+function N.AddInput(aa,ab,ac)
+local ad={IgnoreConfig=false,Class="Input",Settings=ab}
+
+ab=Kwargify({
 Title="Dynamic Input",
 Description=nil,
 CurrentValue="",
-PlaceholderText="Input Placeholder",
+PlaceHolder="Input Here",
 RemoveTextAfterFocusLost=false,
 Numeric=false,
 Enter=false,
 MaxCharacters=nil,
-Callback=function(aj)
+Callback=function(ae)
 
 end,
-},ag or{})
+},ab or{})
 
-ai.CurrentValue=ag.CurrentValue
+ad.CurrentValue=ab.CurrentValue
 
-local aj
-if ag.Description~=nil and ag.Description~=""then
-aj=true
+local ae
+if ab.Description~=nil and ab.Description~=""then
+ae=true
 end
 
-local ak
-if aj then
-ak=s.Template.InputDesc:Clone()
+local af
+if ae then
+af=x.Template.InputDesc:Clone()
 else
-ak=s.Template.Input:Clone()
+af=x.Template.Input:Clone()
 end
 
-ak.Name=ag.Title
-ak.Title.Text=ag.Title
-if aj then ak.Desc.Text=ag.Description end
-ak.Visible=true
-ak.Parent=K
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ae then af.Desc.Text=ab.Description end
+af.Visible=true
+af.Parent=P
 
-ak.BackgroundTransparency=1
-ak.UIStroke.Transparency=1
-ak.Title.TextTransparency=1
-if aj then ak.Desc.TextTransparency=1 end
-ak.InputFrame.BackgroundTransparency=1
-ak.InputFrame.UIStroke.Transparency=1
-ak.InputFrame.InputBox.TextTransparency=1
+af.BackgroundTransparency=1
+af.UIStroke.Transparency=1
+af.Title.TextTransparency=1
+if ae then af.Desc.TextTransparency=1 end
+af.InputFrame.BackgroundTransparency=1
+af.InputFrame.UIStroke.Transparency=1
+af.InputFrame.InputBox.TextTransparency=1
 
-d:Create(ak,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
-d:Create(ak.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
-if aj then d:Create(ak.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()end
-d:Create(ak.InputFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
-d:Create(ak.InputFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
-d:Create(ak.InputFrame.InputBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+d:Create(af.Title,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
+if ae then d:Create(af.Desc,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()end
+d:Create(af.InputFrame,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.9}):Play()
+d:Create(af.InputFrame.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{Transparency=0.3}):Play()
+d:Create(af.InputFrame.InputBox,TweenInfo.new(0.3,Enum.EasingStyle.Exponential),{TextTransparency=0}):Play()
 
-ak.InputFrame.InputBox.PlaceholderText=ag.PlaceholderText
-ak.InputFrame.Size=UDim2.new(0,ak.InputFrame.InputBox.TextBounds.X+52,0,30)
+af.InputFrame.InputBox.PlaceholderText=ab.PlaceHolder
+af.InputFrame.Size=UDim2.new(0,af.InputFrame.InputBox.TextBounds.X+52,0,30)
 
-ak.InputFrame.InputBox.FocusLost:Connect(function(al)
+af.InputFrame.InputBox.FocusLost:Connect(function(ag)
 
-if ag.Enter then
-if al then
-local am,an=pcall(function()
-ag.Callback(ak.InputFrame.InputBox.Text)
-ai.CurrentValue=ak.InputFrame.InputBox.Text
+if ab.Enter then
+if ag then
+local ah,ai=pcall(function()
+ab.Callback(af.InputFrame.InputBox.Text)
+ad.CurrentValue=af.InputFrame.InputBox.Text
 end)
-if not am then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(an))
+if not ah then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ai))
 wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
 end
 
-if ag.RemoveTextAfterFocusLost then
-ak.InputFrame.InputBox.Text=""
+if ab.RemoveTextAfterFocusLost then
+af.InputFrame.InputBox.Text=""
 end
 
 end)
 
-if ag.Numeric then
-ak.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
-local al=ak.InputFrame.InputBox.Text
-if not tonumber(al)and al~="."then
-ak.InputFrame.InputBox.Text=al:match"[0-9.]*"or""
+if ab.Numeric then
+af.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
+local ag=af.InputFrame.InputBox.Text
+if not tonumber(ag)and ag~="."then
+af.InputFrame.InputBox.Text=ag:match"[0-9.]*"or""
 end
 end)
 end
 
-ak.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
-if tonumber(ag.MaxCharacters)then
-if(#ak.InputFrame.InputBox.Text-1)==ag.MaxCharacters then
-ak.InputFrame.InputBox.Text=ak.InputFrame.InputBox.Text:sub(1,ag.MaxCharacters)
+af.InputFrame.InputBox:GetPropertyChangedSignal"Text":Connect(function()
+if tonumber(ab.MaxCharacters)then
+if(#af.InputFrame.InputBox.Text-1)==ab.MaxCharacters then
+af.InputFrame.InputBox.Text=af.InputFrame.InputBox.Text:sub(1,ab.MaxCharacters)
 end
 end
-d:Create(ak.InputFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,ak.InputFrame.InputBox.TextBounds.X+52,0,30)}):Play()
-if not ag.Enter then
-local al,am=pcall(function()
-ag.Callback(ak.InputFrame.InputBox.Text)
+d:Create(af.InputFrame,TweenInfo.new(0.55,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(0,af.InputFrame.InputBox.TextBounds.X+52,0,30)}):Play()
+if not ab.Enter then
+local ag,ah=pcall(function()
+ab.Callback(af.InputFrame.InputBox.Text)
 end)
-if not al then
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-ak.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(am))
+if not ag then
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+af.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ah))
 wait(0.5)
-ak.Title.Text=ag.Title
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(ak,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(ak.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+af.Title.Text=ab.Title
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(af,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(af.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
 end
-ai.CurrentValue=ak.InputFrame.InputBox.Text
+ad.CurrentValue=af.InputFrame.InputBox.Text
 end)
 
-ak.MouseEnter:Connect(function()
-tween(ak.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+af.MouseEnter:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-ak.MouseLeave:Connect(function()
-tween(ak.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+af.MouseLeave:Connect(function()
+tween(af.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
 
-function ai.Set(al,am)
+function ad.Set(ag,ah)
 
-am=Kwargify(ag,am or{})
+ah=Kwargify(ab,ah or{})
 
-ai.Settings=am
-ag=am
+ad.Settings=ah
+ab=ah
 
-ak.Name=ag.Title
-ak.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and ak.Desc~=nil then
-ak.Desc.Text=ag.Description
+af.Name=ab.Title
+af.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and af.Desc~=nil then
+af.Desc.Text=ab.Description
 end
 
-ak.InputFrame.InputBox:CaptureFocus()
-ak.InputFrame.InputBox.Text=tostring(ag.CurrentValue)
-ak.InputFrame.InputBox:ReleaseFocus()
-ak.InputFrame.Size=UDim2.new(0,ak.InputFrame.InputBox.TextBounds.X+52,0,42)
+af.InputFrame.InputBox:CaptureFocus()
+af.InputFrame.InputBox.Text=tostring(ab.CurrentValue)
+af.InputFrame.InputBox:ReleaseFocus()
+af.InputFrame.Size=UDim2.new(0,af.InputFrame.InputBox.TextBounds.X+52,0,42)
 
-ai.CurrentValue=ag.CurrentValue
+ad.CurrentValue=ab.CurrentValue
 end
 
-function ai.Destroy(al)
-ak.Visible=false
-ak:Destroy()
+function ad.Destroy(ag)
+af.Visible=false
+af:Destroy()
 end
 
-if ah then
-b.Values[ah]=ai
-end
-
-
-return ai
-
+if ac then
+b.Values[ac]=ad
 end
 
 
-function I.AddDropdown(af,ag,ah)
-local ai={IgnoreConfig=false,Class="Dropdown",Settings=ag}
+return ad
 
-ag=Kwargify({
+end
+
+
+function N.AddDropdown(aa,ab,ac)
+local ad={IgnoreConfig=false,Class="Dropdown",Settings=ab}
+
+ab=Kwargify({
 Title="Dropdown",
 Description=nil,
-Values={"Option 1","Option 2"},
-Default={"Option 1"},
+Values={},
+Default="",
 Multi=false,
 SpecialType=nil,
-Callback=function(aj)
+Callback=function(ae)
 
 
 end,
-},ag or{})
+},ab or{})
 
-ai.Default=ag.Default
-
-local aj=false
-if ag.Description~=nil and ag.Description~=""then
-aj=true
+ad.Default=ad.Value
+ad.Value=ab.Mutli and{ab.Default}or ab.Default
+local ae=false
+if ab.Description~=nil and ab.Description~=""then
+ae=true
 end
-local ak
-local al
-if aj then
-ak=48
-al=170
-elseif not aj then
-ak=38
-al=160
+local af
+local ag
+if ae then
+af=48
+ag=190
+elseif not ae then
+af=38
+ag=180
 end
-local am=false
+local ah=false
 
-local an
-if aj then an=s.Template.DropdownDesc:Clone()else an=s.Template.Dropdown:Clone()end
+local ai
+if ae then ai=x.Template.DropdownDesc:Clone()else ai=x.Template.Dropdown:Clone()end
 
-an.Name=ag.Title
-an.Title.Text=ag.Title
-if aj then an.Desc.Text=ag.Description end
+ai.List.Size=UDim2.new(1,-23,0,130)
+ai.OptionHolderBackground.Size=UDim2.new(1,-23,0,130)
+ai.Name=ab.Title
+ai.Title.Text=ab.Title
+if ae then ai.Desc.Text=ab.Description end
 
-an.Parent=K
-an.Visible=true
+ai.Parent=P
+ai.Visible=true
 
 local function Toggle()
-am=not am
-if am then
-tween(an.icon,{Rotation=180})
-tween(an,{Size=UDim2.new(1,-25,0,al)})
+ah=not ah
+if ah then
+tween(ai.icon,{Rotation=180})
+tween(ai,{Size=UDim2.new(1,-25,0,ag)})
 else
-tween(an.icon,{Rotation=0})
-tween(an,{Size=UDim2.new(1,-25,0,ak)})
+tween(ai.icon,{Rotation=0})
+tween(ai,{Size=UDim2.new(1,-25,0,af)})
 end
 end
 
-local function SafeCallback(ao,ap)
-local aq,ar=pcall(function()
-ag.Callback(ao)
+local function SafeCallback(aj,ak)
+local al,am=pcall(function()
+ab.Callback(aj)
 end)
-if not aq then
-d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(an.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-an.Title.Text="Callback Error"
-print("Library Interface Suite | "..ag.Title.." Callback Error "..tostring(ar))
+if not al then
+d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ai.Title.Text="Callback Error"
+print("Library Interface Suite | "..ab.Title.." Callback Error "..tostring(am))
 wait(0.5)
-an.Title.Text=ag.Title
-d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(an,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(an.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ai.Title.Text=ab.Title
+d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ai,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ai.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
-if aq and ap then
-ap()
+if al and ak then
+ak()
 end
 end
 
 
-an.Selected:GetPropertyChangedSignal"Text":Connect(function()
-local ao=an.Selected.Text:lower()
-for ap,aq in ipairs(an.List:GetChildren())do
-if aq:IsA"TextLabel"and aq.Name~="Template"then
-aq.Visible=ao==""or string.find(aq.Name:lower(),ao,1,true)~=nil
+ai.Selected:GetPropertyChangedSignal"Text":Connect(function()
+local aj=ai.Selected.Text:lower()
+for ak,al in ipairs(ai.List:GetChildren())do
+if al:IsA"TextLabel"and al.Name~="Template"then
+al.Visible=aj==""or string.find(al.Name:lower(),aj,1,true)~=nil
 end
 end
 end)
 
 
 local function Clear()
-for ao,ap in ipairs(an.List:GetChildren())do
-if ap.ClassName=="TextLabel"and ap.Name~="Template"then
-ap:Destroy()
+for aj,ak in ipairs(ai.List:GetChildren())do
+if ak.ClassName=="TextLabel"and ak.Name~="Template"then
+ak:Destroy()
 end
 end
 end
 
-local function ActivateColorSingle(ao)
-for ap,aq in pairs(an.List:GetChildren())do
-if aq.ClassName=="TextLabel"and aq.Name~="Template"then
-tween(aq,{BackgroundTransparency=0.98})
+local function ActivateColorSingle(aj)
+for ak,al in pairs(ai.List:GetChildren())do
+if al.ClassName=="TextLabel"and al.Name~="Template"then
+tween(al,{BackgroundTransparency=0.98})
 end
 end
 
-tween(an.List[ao],{BackgroundTransparency=0.95,TextColor3=Color3.fromRGB(240,240,240)})
+tween(ai.List[aj],{BackgroundTransparency=0.95,TextColor3=Color3.fromRGB(240,240,240)})
 end
 
 local function Refresh()
 Clear()
-for ao,ap in pairs(ag.Values)do
-local aq=an.List.Template:Clone()
-local ar=false
-aq.Text=ap
-if ap=="Template"then ap="Template (Name)"end
-aq.Name=ap
-aq.Interact.MouseButton1Click:Connect(function()
-local as
-if ag.Multi then
-if table.find(ag.Default,ap)then
-RemoveTable(ag.Default,ap)
-ai.Default=ag.Default
-if not ar then
-tween(aq,{TextColor3=Color3.fromRGB(200,200,200)})
+for aj,ak in pairs(ab.Values)do
+local al=ai.List.Template:Clone()
+local am=false
+al.Text=ak
+if ak=="Template"then ak="Template (Name)"end
+al.Name=ak
+al.Interact.MouseButton1Click:Connect(function()
+local an
+if ab.Multi then
+if table.find(ad.Value,ak)then
+RemoveTable(ad.Value,ak)
+ad.Default=ad.Value
+if not am then
+tween(al,{TextColor3=Color3.fromRGB(200,200,200)})
 end
-tween(aq,{BackgroundTransparency=0.98})
+tween(al,{BackgroundTransparency=0.98})
 else
-table.insert(ag.Default,ap)
-ai.Default=ag.Default
-tween(aq,{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
+table.insert(ad.Value,ak)
+ad.Default=ad.Value
+tween(al,{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 end
-as=ag.Default
+an=ad.Value
 else
-ag.Default={ap}
-as=ap
-ai.Default=as
-ActivateColorSingle(ap)
+ad.Value={ak}
+an=ak
+ad.Default=an
+ActivateColorSingle(ak)
 end
 
-SafeCallback(as,function()
-if ag.Multi then
-if ag.Default and type(ag.Default)=="table"then
-if#ag.Default==1 then
-an.Selected.PlaceholderText=ag.Default[1]
-elseif#ag.Default==0 then
-an.Selected.PlaceholderText="None"
+SafeCallback(an,function()
+if ab.Multi then
+if ad.Value and type(ad.Value)=="table"then
+if#ad.Value==1 then
+ai.Selected.PlaceholderText=ad.Value[1]
+elseif#ad.Value==0 then
+ai.Selected.PlaceholderText="None"
 else
-an.Selected.PlaceholderText=unpackt(ag.Default)
+ai.Selected.PlaceholderText=unpackt(ad.Value)
 end
 else
-ag.Default={}
-an.Selected.PlaceholderText="None"
+ad.Value={}
+ai.Selected.PlaceholderText="None"
 end
 end
-if not ag.Multi then
-an.Selected.PlaceholderText=ag.Default[1]or"None"
+if not ab.Multi then
+ai.Selected.PlaceholderText=ad.Value[1]or"None"
 end
-an.Selected.Text=""
+ai.Selected.Text=""
 end)
 end)
-aq.Visible=true
-aq.Parent=an.List
-aq.MouseEnter:Connect(function()
-ar=true
-if aq.BackgroundTransparency==0.95 then
+al.Visible=true
+al.Parent=ai.List
+al.MouseEnter:Connect(function()
+am=true
+if al.BackgroundTransparency==0.95 then
 return
 else
-tween(aq,{TextColor3=Color3.fromRGB(240,240,240)})
+tween(al,{TextColor3=Color3.fromRGB(240,240,240)})
 end
 end)
-aq.MouseLeave:Connect(function()
-ar=false
-if aq.BackgroundTransparency==0.95 then
+al.MouseLeave:Connect(function()
+am=false
+if al.BackgroundTransparency==0.95 then
 return
 else
-tween(aq,{TextColor3=Color3.fromRGB(200,200,200)})
+tween(al,{TextColor3=Color3.fromRGB(200,200,200)})
 end
 end)
 end
 end
 
 local function PlayerTableRefresh()
-for ao,ap in pairs(ag.Values)do
-table.remove(ag.Values,ao)
+for aj,ak in pairs(ab.Values)do
+table.remove(ab.Values,aj)
 end
 
-for ao,ap in pairs(h:GetChildren())do
-table.insert(ag.Values,ap.Name)
+for aj,ak in pairs(h:GetChildren())do
+table.insert(ab.Values,ak.Name)
 end
 end
 
-an.Interact.MouseButton1Click:Connect(function()
+ai.Interact.MouseButton1Click:Connect(function()
 Toggle()
 end)
 
-an.MouseEnter:Connect(function()
-tween(an.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+ai.MouseEnter:Connect(function()
+tween(ai.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
 
-an.MouseLeave:Connect(function()
-tween(an.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+ai.MouseLeave:Connect(function()
+tween(ai.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-if ag.SpecialType=="Player"then
+if ab.SpecialType=="Player"then
 
-for ao,ap in pairs(ag.Values)do
-table.remove(ag.Values,ao)
+for aj,ak in pairs(ab.Values)do
+table.remove(ab.Values,aj)
 end
 PlayerTableRefresh()
-ag.Default=ag.Values[1]
+ad.Value=ab.Values[1]
 
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
@@ -5753,71 +5561,73 @@ end
 
 Refresh()
 
-if ag.Default then
-if type(ag.Default)=="string"then
-ag.Default={ag.Default}
+if ad.Value then
+if type(ad.Value)=="string"then
+ad.Value={ad.Value}
 end
-if not ag.Multi and type(ag.Default)=="table"then
-ag.Default={ag.Default[1]}
-end
-else
-ag.Default={}
-end
-
-local ao,ap=0
-for aq,ar in pairs(ag.Default)do
-ao=ao+1
-end
-if ao==1 then ap=ag.Default[1]else ap=ag.Default end
-SafeCallback(ap)
-if type(ap)=="string"then
-tween(an.List[ap],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
-else
-for aq,ar in pairs(ap)do
-tween(an.List[ar],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
-end
-end
-
-if ag.Multi then
-if ag.Default and type(ag.Default)=="table"then
-if#ag.Default==1 then
-an.Selected.PlaceholderText=ag.Default[1]
-elseif#ag.Default==0 then
-an.Selected.PlaceholderText="None"
-else
-an.Selected.PlaceholderText=unpackt(ag.Default)
+if not ab.Multi and type(ad.Value)=="table"then
+ad.Value={ad.Value[1]}
 end
 else
-ag.Default={}
-an.Selected.PlaceholderText="None"
+ad.Value={}
 end
-for aq,ar in pairs(ag.Default)do
-tween(an.List[ar],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
+
+local aj,ak=0
+for al,am in pairs(ad.Value)do
+aj=aj+1
+end
+if aj==1 then ak=ad.Value[1]else ak=ad.Value end
+SafeCallback(ak)
+if type(ak)=="string"then
+if ad.Value[1]~=""then
+tween(ai.List[ak],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 end
 else
-an.Selected.PlaceholderText=ag.Default[1]or"None"
+for al,am in pairs(ak)do
+tween(ai.List[am],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
 end
-an.Selected.Text=""
-
-function ai.Set(aq,ar)
-ar=Kwargify(ag,ar or{})
-
-ai.Settings=ar
-ag=ar
-
-an.Name=ag.Title
-an.Title.Text=ag.Title
-if ag.Description~=nil and ag.Description~=""and an.Desc~=nil then
-an.Desc.Text=ag.Description
 end
 
-if ag.SpecialType=="Player"then
+if ab.Multi then
+if ad.Value and type(ad.Value)=="table"then
+if#ad.Value==1 then
+ai.Selected.PlaceholderText=ad.Value[1]
+elseif#ad.Value==0 then
+ai.Selected.PlaceholderText="None"
+else
+ai.Selected.PlaceholderText=unpackt(ad.Value)
+end
+else
+ad.Value={}
+ai.Selected.PlaceholderText="None"
+end
+for al,am in pairs(ad.Value)do
+tween(ai.List[am],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
+end
+else
+ai.Selected.PlaceholderText=ad.Value[1]~=""and ad.Value[1]or"None"
+end
+ai.Selected.Text=""
 
-for as,at in pairs(ag.Values)do
-table.remove(ag.Values,as)
+function ad.Set(al,am)
+am=Kwargify(ab,am or{})
+
+ad.Settings=am
+ab=am
+
+ai.Name=ab.Title
+ai.Title.Text=ab.Title
+if ab.Description~=nil and ab.Description~=""and ai.Desc~=nil then
+ai.Desc.Text=ab.Description
+end
+
+if ab.SpecialType=="Player"then
+
+for an,ao in pairs(ab.Values)do
+table.remove(ab.Values,an)
 end
 PlayerTableRefresh()
-ag.Default=ag.Values[1]
+ad.Value=ab.Values[1]
 h.PlayerAdded:Connect(function()PlayerTableRefresh()end)
 h.PlayerRemoving:Connect(function()PlayerTableRefresh()end)
 
@@ -5825,337 +5635,337 @@ end
 
 Refresh()
 
-if ag.Default then
-if type(ag.Default)=="string"then
-ag.Default={ag.Default}
+if ad.Value then
+if type(ad.Value)=="string"then
+ad.Value={ad.Value}
 end
-if not ag.Multi and type(ag.Default)=="table"then
-ag.Default={ag.Default[1]}
-end
-else
-ag.Default={}
-end
-
-local as,at=0
-for au,av in pairs(ag.Default)do
-as=as+1
-end
-if as==1 then at=ag.Default[1]else at=ag.Default end
-SafeCallback(at)
-for au,av in pairs(an.List:GetChildren())do
-if av.ClassName=="TextLabel"then
-tween(av,{TextColor3=Color3.fromRGB(200,200,200),BackgroundTransparency=0.98})
-end
-end
-tween(an.List[at],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
-
-if ag.Multi then
-if ag.Default and type(ag.Default)=="table"then
-if#ag.Default==1 then
-an.Selected.PlaceholderText=ag.Default[1]
-elseif#ag.Default==0 then
-an.Selected.PlaceholderText="None"
-else
-an.Selected.PlaceholderText=unpackt(ag.Default)
+if not ab.Multi and type(ad.Value)=="table"then
+ad.Value={ad.Value[1]}
 end
 else
-ag.Default={}
-an.Selected.PlaceholderText="None"
+ad.Value={}
 end
-for au,av in pairs(ag.Default)do
-tween(an.List[av],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
+
+local an,ao=0
+for ap,aq in pairs(ad.Value)do
+an=an+1
+end
+if an==1 then ao=ad.Value[1]else ao=ad.Value end
+SafeCallback(ao)
+for ap,aq in pairs(ai.List:GetChildren())do
+if aq.ClassName=="TextLabel"then
+tween(aq,{TextColor3=Color3.fromRGB(200,200,200),BackgroundTransparency=0.98})
+end
+end
+tween(ai.List[ao],{TextColor3=Color3.fromRGB(240,240,240),BackgroundTransparency=0.95})
+
+if ab.Multi then
+if ad.Value and type(ad.Value)=="table"then
+if#ad.Value==1 then
+ai.Selected.PlaceholderText=ad.Value[1]
+elseif#ad.Value==0 then
+ai.Selected.PlaceholderText="None"
+else
+ai.Selected.PlaceholderText=unpackt(ad.Value)
 end
 else
-an.Selected.PlaceholderText=ag.Default[1]or"None"
+ad.Value={}
+ai.Selected.PlaceholderText="None"
 end
-an.Selected.Text=""
-
-
-
+for ap,aq in pairs(ad.Value)do
+tween(ai.List[aq],{TextColor3=Color3.fromRGB(227,227,227),BackgroundTransparency=0.95})
 end
-
-function ai.Destroy(aq)
-an.Visible=false
-an:Destroy()
+else
+ai.Selected.PlaceholderText=ad.Value[1]or"None"
 end
-
-if ah then
-b.Values[ah]=ai
-end
+ai.Selected.Text=""
 
 
-
-return ai
 
 end
 
+function ad.Destroy(al)
+ai.Visible=false
+ai:Destroy()
+end
 
-function I.AddColorPicker(af,ag,ah)
-local ai={IgnoreClass=false,Class="Colorpicker",Settings=ag}
+if ac then
+b.Values[ac]=ad
+end
 
-ag=Kwargify({
+
+
+return ad
+
+end
+
+
+function N.AddColorPicker(aa,ab,ac)
+local ad={IgnoreClass=false,Class="Colorpicker",Settings=ab}
+
+ab=Kwargify({
 Title="Color Picker",
 Color=Color3.fromRGB(255,255,255),
-Callback=function(aj)
+Callback=function(ae)
 
 
 end
-},ag or{})
+},ab or{})
 
-local function Color3ToHex(aj)
-return string.format("#%02X%02X%02X",math.floor(aj.R*255),math.floor(aj.G*255),math.floor(aj.B*255))
+local function Color3ToHex(ae)
+return string.format("#%02X%02X%02X",math.floor(ae.R*255),math.floor(ae.G*255),math.floor(ae.B*255))
 end
 
-ai.Color=Color3ToHex(ag.Color)
+ad.Color=Color3ToHex(ab.Color)
 
-local aj=UDim2.new(0,75,0,22)
-local ak=UDim2.new(0,219,0,129)
+local ae=UDim2.new(0,75,0,22)
+local af=UDim2.new(0,219,0,129)
 
-local al=s.Template.ColorPicker:Clone()
-local am=al.CPBackground
-local an=am.Display
-local ao=am.MainCP
-local ap=al.ColorSlider
+local ag=x.Template.ColorPicker:Clone()
+local ah=ag.CPBackground
+local ai=ah.Display
+local aj=ah.MainCP
+local ak=ag.ColorSlider
 
-al.Name=ag.Title
-al.Title.Text=ag.Title
-al.Visible=true
-al.Parent=K
-al.Size=UDim2.new(1.042,-25,0,38)
-am.Size=aj
-an.BackgroundTransparency=0
+ag.Name=ab.Title
+ag.Title.Text=ab.Title
+ag.Visible=true
+ag.Parent=P
+ag.Size=UDim2.new(1.042,-25,0,38)
+ah.Size=ae
+ai.BackgroundTransparency=0
 
-al.MouseEnter:Connect(function()
-tween(al.UIStroke,{Color=Color3.fromRGB(87,84,104)})
+ag.MouseEnter:Connect(function()
+tween(ag.UIStroke,{Color=Color3.fromRGB(87,84,104)})
 end)
-al.MouseLeave:Connect(function()
-tween(al.UIStroke,{Color=Color3.fromRGB(64,61,76)})
+ag.MouseLeave:Connect(function()
+tween(ag.UIStroke,{Color=Color3.fromRGB(64,61,76)})
 end)
 
-local function SafeCallback(aq,ar)
-local as,at=pcall(function()
-ag.Callback(aq)
+local function SafeCallback(al,am)
+local an,ao=pcall(function()
+ab.Callback(al)
 end)
-if not as then
-d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
-d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
-d:Create(al.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
-al.Title.Text="Callback Error"
-print("Luna Interface Suite | "..ag.Title.." Callback Error "..tostring(at))
+if not an then
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0}):Play()
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(85,0,0)}):Play()
+d:Create(ag.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=1}):Play()
+ag.Title.Text="Callback Error"
+print("Luna Interface Suite | "..ab.Title.." Callback Error "..tostring(ao))
 wait(0.5)
-al.Title.Text=ag.Title
-d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
-d:Create(al,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
-d:Create(al.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
+ag.Title.Text=ab.Title
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundTransparency=0.5}):Play()
+d:Create(ag,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{BackgroundColor3=Color3.fromRGB(32,30,38)}):Play()
+d:Create(ag.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Exponential),{Transparency=0.5}):Play()
 end
-if as and ar then
-ar()
+if an and am then
+am()
 end
 end
 
-local aq=false
+local al=false
 
-local ar=game.Players.LocalPlayer:GetMouse()
-ao.Image="http://www.roblox.com/asset/?id=11415645739"
-local as=false
-local at=false
-al.Interact.MouseButton1Down:Connect(function()
-if not aq then
-aq=true
-tween(al,{Size=UDim2.new(1.042,-25,0,165)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
-tween(am,{Size=ak})
-tween(an,{BackgroundTransparency=1})
+local am=game.Players.LocalPlayer:GetMouse()
+aj.Image="http://www.roblox.com/asset/?id=11415645739"
+local an=false
+local ao=false
+ag.Interact.MouseButton1Down:Connect(function()
+if not al then
+al=true
+tween(ag,{Size=UDim2.new(1.042,-25,0,165)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
+tween(ah,{Size=af})
+tween(ai,{BackgroundTransparency=1})
 else
-aq=false
-tween(al,{Size=UDim2.new(1.042,-25,0,38)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
-tween(am,{Size=aj})
-tween(an,{BackgroundTransparency=0})
+al=false
+tween(ag,{Size=UDim2.new(1.042,-25,0,38)},nil,TweenInfo.new(0.6,Enum.EasingStyle.Exponential))
+tween(ah,{Size=ae})
+tween(ai,{BackgroundTransparency=0})
 end
 end)
-c.InputEnded:Connect(function(au,av)if au.UserInputType==Enum.UserInputType.MouseButton1 or au.UserInputType==Enum.UserInputType.Touch then
-as=false
-at=false
+c.InputEnded:Connect(function(ap,aq)if ap.UserInputType==Enum.UserInputType.MouseButton1 or ap.UserInputType==Enum.UserInputType.Touch then
+an=false
+ao=false
 end end)
-ao.MouseButton1Down:Connect(function()
-if aq then
-as=true
+aj.MouseButton1Down:Connect(function()
+if al then
+an=true
 end
 end)
-ao.MainPoint.MouseButton1Down:Connect(function()
-if aq then
-as=true
+aj.MainPoint.MouseButton1Down:Connect(function()
+if al then
+an=true
 end
 end)
-ap.MouseButton1Down:Connect(function()
-at=true
+ak.MouseButton1Down:Connect(function()
+ao=true
 end)
-ap.SliderPoint.MouseButton1Down:Connect(function()
-at=true
+ak.SliderPoint.MouseButton1Down:Connect(function()
+ao=true
 end)
-local au,av,aw=ag.Color:ToHSV()
-local ax=Color3.fromHSV(au,av,aw)
-local ay,az,aA=math.floor((au*255)+0.5),math.floor((av*255)+0.5),math.floor((aw*255)+0.5)
-local aB=string.format("#%02X%02X%02X",ax.R*0xFF,ax.G*0xFF,ax.B*0xFF)
-al.HexInput.InputBox.Text=aB
-local function setDisplay(L,M,N)
+local ap,aq,ar=ab.Color:ToHSV()
+local as=Color3.fromHSV(ap,aq,ar)
+local at,au,av=math.floor((ap*255)+0.5),math.floor((aq*255)+0.5),math.floor((ar*255)+0.5)
+local aw=string.format("#%02X%02X%02X",as.R*0xFF,as.G*0xFF,as.B*0xFF)
+ag.HexInput.InputBox.Text=aw
+local function setDisplay(ax,ay,az)
 
-ao.MainPoint.Position=UDim2.new(av,-ao.MainPoint.AbsoluteSize.X/2,1-aw,-ao.MainPoint.AbsoluteSize.Y/2)
-ao.MainPoint.ImageColor3=Color3.fromHSV(L,M,N)
-am.BackgroundColor3=Color3.fromHSV(L,1,1)
-an.BackgroundColor3=Color3.fromHSV(L,M,N)
+aj.MainPoint.Position=UDim2.new(aq,-aj.MainPoint.AbsoluteSize.X/2,1-ar,-aj.MainPoint.AbsoluteSize.Y/2)
+aj.MainPoint.ImageColor3=Color3.fromHSV(ax,ay,az)
+ah.BackgroundColor3=Color3.fromHSV(ax,1,1)
+ai.BackgroundColor3=Color3.fromHSV(ax,ay,az)
 
-local O=L*ap.AbsoluteSize.X
-ap.SliderPoint.Position=UDim2.new(0,O-ap.SliderPoint.AbsoluteSize.X/2,0.5,0)
-ap.SliderPoint.ImageColor3=Color3.fromHSV(L,1,1)
-local P=Color3.fromHSV(L,M,N)
-local Q,R,S=math.floor((P.R*255)+0.5),math.floor((P.G*255)+0.5),math.floor((P.B*255)+0.5)
-al.RInput.InputBox.Text=tostring(Q)
-al.GInput.InputBox.Text=tostring(R)
-al.BInput.InputBox.Text=tostring(S)
-aB=string.format("#%02X%02X%02X",P.R*0xFF,P.G*0xFF,P.B*0xFF)
-al.HexInput.InputBox.Text=aB
+local aA=ax*ak.AbsoluteSize.X
+ak.SliderPoint.Position=UDim2.new(0,aA-ak.SliderPoint.AbsoluteSize.X/2,0.5,0)
+ak.SliderPoint.ImageColor3=Color3.fromHSV(ax,1,1)
+local aB=Color3.fromHSV(ax,ay,az)
+local Q,R,S=math.floor((aB.R*255)+0.5),math.floor((aB.G*255)+0.5),math.floor((aB.B*255)+0.5)
+ag.RInput.InputBox.Text=tostring(Q)
+ag.GInput.InputBox.Text=tostring(R)
+ag.BInput.InputBox.Text=tostring(S)
+aw=string.format("#%02X%02X%02X",aB.R*0xFF,aB.G*0xFF,aB.B*0xFF)
+ag.HexInput.InputBox.Text=aw
 end
-setDisplay(au,av,aw)
-al.HexInput.InputBox.FocusLost:Connect(function()
+setDisplay(ap,aq,ar)
+ag.HexInput.InputBox.FocusLost:Connect(function()
 if not pcall(function()
-local L,M,N=string.match(al.HexInput.InputBox.Text,"^#?(%w%w)(%w%w)(%w%w)$")
-local O=Color3.fromRGB(tonumber(L,16),tonumber(M,16),tonumber(N,16))
-au,av,aw=O:ToHSV()
-aB=al.HexInput.InputBox.Text
+local ax,ay,az=string.match(ag.HexInput.InputBox.Text,"^#?(%w%w)(%w%w)(%w%w)$")
+local aA=Color3.fromRGB(tonumber(ax,16),tonumber(ay,16),tonumber(az,16))
+ap,aq,ar=aA:ToHSV()
+aw=ag.HexInput.InputBox.Text
 setDisplay()
-ag.Color=O
+ab.Color=aA
 end)
 then
-al.HexInput.InputBox.Text=aB
+ag.HexInput.InputBox.Text=aw
 end
-local L,M,N=math.floor((au*255)+0.5),math.floor((av*255)+0.5),math.floor((aw*255)+0.5)
-ag.Color=Color3.fromRGB(L,M,N)
-SafeCallback(Color3.fromRGB(L,M,N))
+local ax,ay,az=math.floor((ap*255)+0.5),math.floor((aq*255)+0.5),math.floor((ar*255)+0.5)
+ab.Color=Color3.fromRGB(ax,ay,az)
+SafeCallback(Color3.fromRGB(ax,ay,az))
 end)
 
-local function rgbBoxes(L,M)
-local N=tonumber(L.Text)
-local O=Color3.fromHSV(au,av,aw)
-local P,Q,R=math.floor((O.R*255)+0.5),math.floor((O.G*255)+0.5),math.floor((O.B*255)+0.5)
+local function rgbBoxes(ax,ay)
+local az=tonumber(ax.Text)
+local aA=Color3.fromHSV(ap,aq,ar)
+local aB,Q,R=math.floor((aA.R*255)+0.5),math.floor((aA.G*255)+0.5),math.floor((aA.B*255)+0.5)
 local S
-if M=="R"then S=P;P=N elseif M=="G"then S=Q;Q=N else S=R;R=N end
-if N then
-N=math.clamp(N,0,255)
-au,av,aw=Color3.fromRGB(P,Q,R):ToHSV()
+if ay=="R"then S=aB;aB=az elseif ay=="G"then S=Q;Q=az else S=R;R=az end
+if az then
+az=math.clamp(az,0,255)
+ap,aq,ar=Color3.fromRGB(aB,Q,R):ToHSV()
 setDisplay()
 else
-L.Text=tostring(S)
+ax.Text=tostring(S)
 end
-local T,U,V=math.floor((O.R*255)+0.5),math.floor((O.G*255)+0.5),math.floor((O.B*255)+0.5)
-ag.Color=Color3.fromRGB(T,U,V)
+local T,U,V=math.floor((aA.R*255)+0.5),math.floor((aA.G*255)+0.5),math.floor((aA.B*255)+0.5)
+ab.Color=Color3.fromRGB(T,U,V)
 end
-al.RInput.InputBox.FocusLost:connect(function()
-rgbBoxes(al.RInput.InputBox,"R")
-SafeCallback(Color3.fromRGB(ay,az,aA))
+ag.RInput.InputBox.FocusLost:connect(function()
+rgbBoxes(ag.RInput.InputBox,"R")
+SafeCallback(Color3.fromRGB(at,au,av))
 end)
-al.GInput.InputBox.FocusLost:connect(function()
-rgbBoxes(al.GInput.InputBox,"G")
-SafeCallback(Color3.fromRGB(ay,az,aA))
+ag.GInput.InputBox.FocusLost:connect(function()
+rgbBoxes(ag.GInput.InputBox,"G")
+SafeCallback(Color3.fromRGB(at,au,av))
 end)
-al.BInput.InputBox.FocusLost:connect(function()
-rgbBoxes(al.BInput.InputBox,"B")
-SafeCallback(Color3.fromRGB(ay,az,aA))
+ag.BInput.InputBox.FocusLost:connect(function()
+rgbBoxes(ag.BInput.InputBox,"B")
+SafeCallback(Color3.fromRGB(at,au,av))
 end)
 f.RenderStepped:connect(function()
-if as then
-local L=math.clamp(ar.X-ao.AbsolutePosition.X,0,ao.AbsoluteSize.X)
-local M=math.clamp(ar.Y-ao.AbsolutePosition.Y,0,ao.AbsoluteSize.Y)
-ao.MainPoint.Position=UDim2.new(0,L-ao.MainPoint.AbsoluteSize.X/2,0,M-ao.MainPoint.AbsoluteSize.Y/2)
-av=L/ao.AbsoluteSize.X
-aw=1-(M/ao.AbsoluteSize.Y)
-an.BackgroundColor3=Color3.fromHSV(au,av,aw)
-ao.MainPoint.ImageColor3=Color3.fromHSV(au,av,aw)
-am.BackgroundColor3=Color3.fromHSV(au,1,1)
-local N=Color3.fromHSV(au,av,aw)
-local O,P,Q=math.floor((N.R*255)+0.5),math.floor((N.G*255)+0.5),math.floor((N.B*255)+0.5)
-al.RInput.InputBox.Text=tostring(O)
-al.GInput.InputBox.Text=tostring(P)
-al.BInput.InputBox.Text=tostring(Q)
-al.HexInput.InputBox.Text=string.format("#%02X%02X%02X",N.R*0xFF,N.G*0xFF,N.B*0xFF)
-SafeCallback(Color3.fromRGB(O,P,Q))
-ag.Color=Color3.fromRGB(O,P,Q)
-ai.Color=ag.Color
+if an then
+local ax=math.clamp(am.X-aj.AbsolutePosition.X,0,aj.AbsoluteSize.X)
+local ay=math.clamp(am.Y-aj.AbsolutePosition.Y,0,aj.AbsoluteSize.Y)
+aj.MainPoint.Position=UDim2.new(0,ax-aj.MainPoint.AbsoluteSize.X/2,0,ay-aj.MainPoint.AbsoluteSize.Y/2)
+aq=ax/aj.AbsoluteSize.X
+ar=1-(ay/aj.AbsoluteSize.Y)
+ai.BackgroundColor3=Color3.fromHSV(ap,aq,ar)
+aj.MainPoint.ImageColor3=Color3.fromHSV(ap,aq,ar)
+ah.BackgroundColor3=Color3.fromHSV(ap,1,1)
+local az=Color3.fromHSV(ap,aq,ar)
+local aA,aB,Q=math.floor((az.R*255)+0.5),math.floor((az.G*255)+0.5),math.floor((az.B*255)+0.5)
+ag.RInput.InputBox.Text=tostring(aA)
+ag.GInput.InputBox.Text=tostring(aB)
+ag.BInput.InputBox.Text=tostring(Q)
+ag.HexInput.InputBox.Text=string.format("#%02X%02X%02X",az.R*0xFF,az.G*0xFF,az.B*0xFF)
+SafeCallback(Color3.fromRGB(aA,aB,Q))
+ab.Color=Color3.fromRGB(aA,aB,Q)
+ad.Color=ab.Color
 end
-if at then
-local L=math.clamp(ar.X-ap.AbsolutePosition.X,0,ap.AbsoluteSize.X)
-au=L/ap.AbsoluteSize.X
-an.BackgroundColor3=Color3.fromHSV(au,av,aw)
-ap.SliderPoint.Position=UDim2.new(0,L-ap.SliderPoint.AbsoluteSize.X/2,0.5,0)
-ap.SliderPoint.ImageColor3=Color3.fromHSV(au,1,1)
-am.BackgroundColor3=Color3.fromHSV(au,1,1)
-ao.MainPoint.ImageColor3=Color3.fromHSV(au,av,aw)
-local M=Color3.fromHSV(au,av,aw)
-local N,O,P=math.floor((M.R*255)+0.5),math.floor((M.G*255)+0.5),math.floor((M.B*255)+0.5)
-al.RInput.InputBox.Text=tostring(N)
-al.GInput.InputBox.Text=tostring(O)
-al.BInput.InputBox.Text=tostring(P)
-al.HexInput.InputBox.Text=string.format("#%02X%02X%02X",M.R*0xFF,M.G*0xFF,M.B*0xFF)
-SafeCallback(Color3.fromRGB(N,O,P))
-ag.Color=Color3.fromRGB(N,O,P)
-ai.Color=ag.Color
+if ao then
+local ax=math.clamp(am.X-ak.AbsolutePosition.X,0,ak.AbsoluteSize.X)
+ap=ax/ak.AbsoluteSize.X
+ai.BackgroundColor3=Color3.fromHSV(ap,aq,ar)
+ak.SliderPoint.Position=UDim2.new(0,ax-ak.SliderPoint.AbsoluteSize.X/2,0.5,0)
+ak.SliderPoint.ImageColor3=Color3.fromHSV(ap,1,1)
+ah.BackgroundColor3=Color3.fromHSV(ap,1,1)
+aj.MainPoint.ImageColor3=Color3.fromHSV(ap,aq,ar)
+local ay=Color3.fromHSV(ap,aq,ar)
+local az,aA,aB=math.floor((ay.R*255)+0.5),math.floor((ay.G*255)+0.5),math.floor((ay.B*255)+0.5)
+ag.RInput.InputBox.Text=tostring(az)
+ag.GInput.InputBox.Text=tostring(aA)
+ag.BInput.InputBox.Text=tostring(aB)
+ag.HexInput.InputBox.Text=string.format("#%02X%02X%02X",ay.R*0xFF,ay.G*0xFF,ay.B*0xFF)
+SafeCallback(Color3.fromRGB(az,aA,aB))
+ab.Color=Color3.fromRGB(az,aA,aB)
+ad.Color=ab.Color
 end
 end)
 
-function ai.Set(L,M)
+function ad.Set(ax,ay)
 
-M=Kwargify(ag,M or{})
+ay=Kwargify(ab,ay or{})
 
-ai.Settings=M
-ag=M
+ad.Settings=ay
+ab=ay
 
-al.Name=ag.Title
-al.Title.Text=ag.Title
-al.Visible=true
+ag.Name=ab.Title
+ag.Title.Text=ab.Title
+ag.Visible=true
 
-local N,O,P=ag.Color:ToHSV()
-local Q=Color3.fromHSV(N,O,P)
+local az,aA,aB=ab.Color:ToHSV()
+local Q=Color3.fromHSV(az,aA,aB)
 local R,S,T=math.floor((Q.R*255)+0.5),math.floor((Q.G*255)+0.5),math.floor((Q.B*255)+0.5)
 local U=string.format("#%02X%02X%02X",Q.R*0xFF,Q.G*0xFF,Q.B*0xFF)
-al.HexInput.InputBox.Text=U
-setDisplay(N,O,P)
+ag.HexInput.InputBox.Text=U
+setDisplay(az,aA,aB)
 SafeCallback(Color3.fromRGB(R,S,T))
 
-ai.Color=ag.Color
+ad.Color=ab.Color
 end
 
-function ai.Destroy(L)
-al:Destroy()
+function ad.Destroy(ax)
+ag:Destroy()
 end
 
-if ah then
-b.Values[ah]=ai
+if ac then
+b.Values[ac]=ad
 end
 
-SafeCallback(ag.Color)
+SafeCallback(ab.Color)
 
-return ai
+return ad
 end
 
 
-function I.BuildConfigSection(af)
+function N.BuildConfigSection(aa)
 if l then
-I:AddLabel{Text="Config system unavailable. (Environment isStudio)",Style=3}
+N:AddLabel{Text="Config system unavailable. (Environment isStudio)",Style=3}
 return"Config system unavailable."
 end
 
-local ag
-local ah
+local ab
+local ac
 
-local ai=s.Template.Title:Clone()
-ai.Text="Configurations"
-ai.Visible=true
-ai.Parent=K
-ai.TextTransparency=1
-d:Create(ai,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
+local ad=x.Template.Title:Clone()
+ad.Text="Configurations"
+ad.Visible=true
+ad.Parent=P
+ad.TextTransparency=1
+d:Create(ad,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
 
-I:AddSection"Config Creator"
+N:AddSection"Config Creator"
 
-I:AddInput{
+N:AddInput{
 Title="Config Name",
 Description="Insert a name for your to be created config.",
 PlaceholderText="Name",
@@ -6163,18 +5973,18 @@ CurrentValue="",
 Numeric=false,
 MaxCharacters=nil,
 Enter=false,
-Callback=function(aj)
-ag=aj
+Callback=function(ae)
+ab=ae
 end,
 }
 
-local aj
+local ae
 
-I:AddButton{
+N:AddButton{
 Title="Create Config",
 Description="Create a config with all of your current settings.",
 Callback=function()
-if not ag or string.gsub(ag," ","")==""then
+if not ab or string.gsub(ab," ","")==""then
 b:NewNotify{
 Title="Interface",
 Icon="warning",
@@ -6184,13 +5994,13 @@ Content="Config name cannot be empty."
 return
 end
 
-local ak,al=b:SaveConfig(ag)
-if not ak then
+local af,ag=b:SaveConfig(ab)
+if not af then
 b:NewNotify{
 Title="Interface",
 Icon="error",
 ImageSource="Material",
-Content="Unable to save config, return error: "..al
+Content="Unable to save config, return error: "..ag
 }
 end
 
@@ -6198,39 +6008,39 @@ b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
-Content=string.format("Created config %q",ag),
+Content=string.format("Created config %q",ab),
 }
 
-aj:Set{Values=b:RefreshConfigList()}
+ae:Set{Values=b:RefreshConfigList()}
 end
 }
 
-I:AddSection"Config Load/Settings"
+N:AddSection"Config Load/Settings"
 
 
-aj=I:AddDropdown{
+ae=N:AddDropdown{
 Title="Select Config",
 Description="Select a config to load your settings on.",
 Values=b:RefreshConfigList(),
 Default={},
 Multi=false,
 SpecialType=nil,
-Callback=function(ak)
-ah=ak
+Callback=function(af)
+ac=af
 end,
 }
 
-I:AddButton{
+N:AddButton{
 Title="Load Config",
 Description="Load your saved config settings.",
 Callback=function()
-local ak,al=b:LoadConfig(ah)
-if not ak then
+local af,ag=b:LoadConfig(ac)
+if not af then
 b:NewNotify{
 Title="Interface",
 Icon="error",
 ImageSource="Material",
-Content="Unable to load config, return error: "..al
+Content="Unable to load config, return error: "..ag
 }
 return
 end
@@ -6239,22 +6049,22 @@ b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
-Content=string.format("Loaded config %q",ah),
+Content=string.format("Loaded config %q",ac),
 }
 end
 }
 
-I:AddButton{
+N:AddButton{
 Title="Overwrite Config",
 Description="Overwrite your current config settings.",
 Callback=function()
-local ak,al=b:SaveConfig(ah)
-if not ak then
+local af,ag=b:SaveConfig(ac)
+if not af then
 b:NewNotify{
 Title="Interface",
 Icon="error",
 ImageSource="Material",
-Content="Unable to overwrite config, return error: "..al
+Content="Unable to overwrite config, return error: "..ag
 }
 return
 end
@@ -6263,49 +6073,49 @@ b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
-Content=string.format("Overwrote config %q",ah),
+Content=string.format("Overwrote config %q",ac),
 }
 end
 }
 
-I:AddButton{
+N:AddButton{
 Title="Refresh Config List",
 Description="Refresh the current config list.",
 Callback=function()
-aj:Set{Values=b:RefreshConfigList()}
+ae:Set{Values=b:RefreshConfigList()}
 end,
 }
 
-local ak
-I:AddButton{
+local af
+N:AddButton{
 Title="Set as autoload",
 Description="Set a config to auto load setting in your next session.",
 Callback=function()
-local al=ah
-writefile(b.Folder.."/settings/autoload.txt",al)
-ak:Set{Text="Current autoload config: "..al}
+local ag=ac
+writefile(b.Folder.."/settings/autoload.txt",ag)
+af:Set{Text="Current autoload config: "..ag}
 
 b:NewNotify{
 Title="Interface",
 Icon="info",
 ImageSource="Material",
-Content=string.format("Set %q to auto load",al),
+Content=string.format("Set %q to auto load",ag),
 }
 end,
 }
 
-ak=I:AddParagraph{
+af=N:AddParagraph{
 Title="Current Auto Load",
 Text="None"
 }
 
-I:AddButton{
+N:AddButton{
 Title="Delete Autoload",
 Description="Delete The Autoload File",
 Callback=function()
 
 delfile(b.Folder.."/settings/autoload.txt")
-ak:Set{Text="None"}
+af:Set{Text="None"}
 
 b:NewNotify{
 Title="Interface",
@@ -6317,162 +6127,162 @@ end,
 }
 
 if isfile(b.Folder.."/settings/autoload.txt")then
-local al=readfile(b.Folder.."/settings/autoload.txt")
-ak:Set{Text="Current autoload config: "..al}
+local ag=readfile(b.Folder.."/settings/autoload.txt")
+af:Set{Text="Current autoload config: "..ag}
 end
 end
 
-local af={Toggle=
+local aa={Toggle=
 {
-Save=function(af,ag)
+Save=function(aa,ab)
 return{
 type="Toggle",
-flag=af,
-state=ag.CurrentValue or false
+flag=aa,
+state=ab.CurrentValue or false
 }
 end,
-Load=function(af,ag)
-if b.Values[af]then
-b.Values[af]:Set{CurrentValue=ag.state}
+Load=function(aa,ab)
+if b.Values[aa]then
+b.Values[aa]:Set{CurrentValue=ab.state}
 end
 end
 },Slider=
 {
-Save=function(af,ag)
+Save=function(aa,ab)
 return{
 type="Slider",
-flag=af,
-value=(ag.CurrentValue and tostring(ag.CurrentValue)),
+flag=aa,
+value=(ab.CurrentValue and tostring(ab.CurrentValue)),
 }
 end,
-Load=function(af,ag)
-if b.Values[af]and ag.value then
-b.Values[af]:Set{CurrentValue=ag.value}
+Load=function(aa,ab)
+if b.Values[aa]and ab.value then
+b.Values[aa]:Set{CurrentValue=ab.value}
 end
 end
 },Input=
 {
-Save=function(af,ag)
+Save=function(aa,ab)
 return{
 type="Input",
-flag=af,
-text=ag.CurrentValue
+flag=aa,
+text=ab.CurrentValue
 }
 end,
-Load=function(af,ag)
-if b.Values[af]and ag.text and type(ag.text)=="string"then
-b.Values[af]:Set{CurrentValue=ag.text}
+Load=function(aa,ab)
+if b.Values[aa]and ab.text and type(ab.text)=="string"then
+b.Values[aa]:Set{CurrentValue=ab.text}
 end
 end
 },Dropdown=
 {
-Save=function(af,ag)
+Save=function(aa,ab)
 return{
 type="Dropdown",
-flag=af,
-value=ag.Default
+flag=aa,
+value=ab.Default
 }
 end,
-Load=function(af,ag)
-if b.Values[af]and ag.value then
-b.Values[af]:Set{Default=ag.value}
+Load=function(aa,ab)
+if b.Values[aa]and ab.value then
+b.Values[aa]:Set{Default=ab.value}
 end
 end
 },Colorpicker=
 
 {
-Save=function(af,ag)
-local function Color3ToHex(ah)
-return string.format("#%02X%02X%02X",math.floor(ah.R*255),math.floor(ah.G*255),math.floor(ah.B*255))
+Save=function(aa,ab)
+local function Color3ToHex(ac)
+return string.format("#%02X%02X%02X",math.floor(ac.R*255),math.floor(ac.G*255),math.floor(ac.B*255))
 end
 
 return{
 type="Colorpicker",
-flag=af,
-color=Color3ToHex(ag.Color)or nil,
-alpha=ag.Alpha
+flag=aa,
+color=Color3ToHex(ab.Color)or nil,
+alpha=ab.Alpha
 }
 end,
-Load=function(af,ag)
-local function HexToColor3(ah)
-local ai=tonumber(ah:sub(2,3),16)/255
-local aj=tonumber(ah:sub(4,5),16)/255
-local ak=tonumber(ah:sub(6,7),16)/255
-return Color3.new(ai,aj,ak)
+Load=function(aa,ab)
+local function HexToColor3(ac)
+local ad=tonumber(ac:sub(2,3),16)/255
+local ae=tonumber(ac:sub(4,5),16)/255
+local af=tonumber(ac:sub(6,7),16)/255
+return Color3.new(ad,ae,af)
 end
 
-if b.Values[af]and ag.color then
-b.Values[af]:Set{Color=HexToColor3(ag.color)}
+if b.Values[aa]and ab.color then
+b.Values[aa]:Set{Color=HexToColor3(ab.color)}
 end
 end
 }
 }
 
 
-function I.BuildThemeSection(ag)
+function N.BuildThemeSection(ab)
 
-local ah=s.Template.Title:Clone()
-ah.Text="Theming"
-ah.Visible=true
-ah.Parent=K
-ah.TextTransparency=1
-d:Create(ah,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
+local ac=x.Template.Title:Clone()
+ac.Text="Theming"
+ac.Visible=true
+ac.Parent=P
+ac.TextTransparency=1
+d:Create(ac,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{TextTransparency=0}):Play()
 
-I:AddSection"Custom Editor"
+N:AddSection"Custom Editor"
 
-local ai=I:AddColorPicker({
+local ad=N:AddColorPicker({
 Title="Color 1",
 Color=Color3.fromRGB(117,164,206),
 },"LunaInterfaceSuitePrebuiltCPC1")
 
-local aj=I:AddColorPicker({
+local ae=N:AddColorPicker({
 Title="Color 2",
 Color=Color3.fromRGB(123,201,201),
 },"LunaInterfaceSuitePrebuiltCPC2")
 
-local ak=I:AddColorPicker({
+local af=N:AddColorPicker({
 Title="Color 3",
 Color=Color3.fromRGB(224,138,184),
 },"LunaInterfaceSuitePrebuiltCPC3")
 
 task.wait(1)
 
-ai:Set{
-Callback=function(al)
-if aj and ak then
-b.ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,al or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.50,aj.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(1.00,ak.Color or Color3.fromRGB(255,255,255))}
-aa.ThemeRemote.Value=not aa.ThemeRemote.Value
+ad:Set{
+Callback=function(ag)
+if ae and af then
+b.ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,ag or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.50,ae.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(1.00,af.Color or Color3.fromRGB(255,255,255))}
+q.ThemeRemote.Value=not q.ThemeRemote.Value
 end
 end
 }
 
-aj:Set{
-Callback=function(al)
-if ai and ak then
-b.ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,ai.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.50,al or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(1.00,ak.Color or Color3.fromRGB(255,255,255))}
-aa.ThemeRemote.Value=not aa.ThemeRemote.Value
+ae:Set{
+Callback=function(ag)
+if ad and af then
+b.ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,ad.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.50,ag or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(1.00,af.Color or Color3.fromRGB(255,255,255))}
+q.ThemeRemote.Value=not q.ThemeRemote.Value
 end
 end
 }
 
-ak:Set{
-Callback=function(al)
-if aj and ai then
-b.ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,ai.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.50,aj.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(1.00,al or Color3.fromRGB(255,255,255))}
-aa.ThemeRemote.Value=not aa.ThemeRemote.Value
+af:Set{
+Callback=function(ag)
+if ae and ad then
+b.ThemeGradient=ColorSequence.new{ColorSequenceKeypoint.new(0.00,ad.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.50,ae.Color or Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(1.00,ag or Color3.fromRGB(255,255,255))}
+q.ThemeRemote.Value=not q.ThemeRemote.Value
 end
 end
 }
 
-I:AddSection"Preset Gradients"
+N:AddSection"Preset Gradients"
 
-for al,am in pairs(p)do
-I:AddButton{
-Name=tostring(al),
+for ag,ah in pairs(p)do
+N:AddButton{
+Name=tostring(ag),
 Callback=function()
-ai:Set{Color=am[1]}
-aj:Set{Color=am[2]}
-ak:Set{Color=am[3]}
+ad:Set{Color=ah[1]}
+ae:Set{Color=ah[2]}
+af:Set{Color=ah[3]}
 end,
 }
 end
@@ -6482,15 +6292,15 @@ end
 
 local function BuildFolderTree()
 if l then return"Config system unavailable."end
-local ag={
+local ab={
 b.Folder,
 b.Folder.."/settings"
 }
 
-for ah=1,#ag do
-local ai=ag[ah]
-if not isfolder(ai)then
-makefolder(ai)
+for ac=1,#ab do
+local ad=ab[ac]
+if not isfolder(ad)then
+makefolder(ad)
 end
 end
 end
@@ -6499,10 +6309,10 @@ local function SetFolder()
 
 if l then return"Config system unavailable."end
 
-if C.ConfigSettings.RootFolder~=nil and C.ConfigSettings.RootFolder~=""then
-b.Folder=C.ConfigSettings.RootFolder.."/"..C.ConfigSettings.ConfigFolder
+if H.ConfigSettings.RootFolder~=nil and H.ConfigSettings.RootFolder~=""then
+b.Folder=H.ConfigSettings.RootFolder.."/"..H.ConfigSettings.ConfigFolder
 else
-b.Folder=C.ConfigSettings.ConfigFolder
+b.Folder=H.ConfigSettings.ConfigFolder
 end
 
 BuildFolderTree()
@@ -6510,52 +6320,52 @@ end
 
 SetFolder()
 
-function b.SaveConfig(ag,ah)
+function b.SaveConfig(ab,ac)
 if l then return"Config system unavailable."end
 
-if(not ah)then
+if(not ac)then
 return false,"Please select a config file."
 end
 
-local ai=b.Folder.."/settings/"..ah..".luna"
+local ad=b.Folder.."/settings/"..ac..".luna"
 
-local aj={
+local ae={
 objects={}
 }
 
-for ak,al in next,b.Values do
-if not af[al.Class]then continue end
-if al.IgnoreConfig then continue end
+for af,ag in next,b.Values do
+if not aa[ag.Class]then continue end
+if ag.IgnoreConfig then continue end
 
-table.insert(aj.objects,af[al.Class].Save(ak,al))
+table.insert(ae.objects,aa[ag.Class].Save(af,ag))
 end
 
-local ak,al=pcall(e.JSONEncode,e,aj)
-if not ak then
+local af,ag=pcall(e.JSONEncode,e,ae)
+if not af then
 return false,"Unable to encode into JSON data"
 end
 
-writefile(ai,al)
+writefile(ad,ag)
 return true
 end
 
-function b.LoadConfig(ag,ah)
+function b.LoadConfig(ab,ac)
 if l then return"Config system unavailable."end
 
-if(not ah)then
+if(not ac)then
 return false,"Please select a config file."
 end
 
-local ai=b.Folder.."/settings/"..ah..".luna"
-if not isfile(ai)then return false,"Invalid file"end
+local ad=b.Folder.."/settings/"..ac..".luna"
+if not isfile(ad)then return false,"Invalid file"end
 
-local aj,ak=pcall(e.JSONDecode,e,readfile(ai))
-if not aj then return false,"Unable to decode JSON data."end
+local ae,af=pcall(e.JSONDecode,e,readfile(ad))
+if not ae then return false,"Unable to decode JSON data."end
 
-for al,am in next,ak.objects do
-if af[am.type]then
+for ag,ah in next,af.objects do
+if aa[ah.type]then
 task.spawn(function()
-af[am.type].Load(am.flag,am)
+aa[ah.type].Load(ah.flag,ah)
 end)
 end
 end
@@ -6563,20 +6373,20 @@ end
 return true
 end
 
-function b.LoadAutoloadConfig(ag)
+function b.LoadAutoloadConfig(ab)
 if isfile(b.Folder.."/settings/autoload.txt")then
 
 if l then return"Config system unavailable."end
 
-local ah=readfile(b.Folder.."/settings/autoload.txt")
+local ac=readfile(b.Folder.."/settings/autoload.txt")
 
-local ai,aj=b:LoadConfig(ah)
-if not ai then
+local ad,ae=b:LoadConfig(ac)
+if not ad then
 return b:NewNotify{
 Title="Interface",
 Icon="sparkle",
 ImageSource="Material",
-Content="Failed to load autoload config: "..aj,
+Content="Failed to load autoload config: "..ae,
 }
 end
 
@@ -6584,144 +6394,144 @@ b:NewNotify{
 Title="Interface",
 Icon="sparkle",
 ImageSource="Material",
-Content=string.format("Auto loaded config %q",ah),
+Content=string.format("Auto loaded config %q",ac),
 }
 
 end
 end
 
-function b.RefreshConfigList(ag)
+function b.RefreshConfigList(ab)
 if l then return"Config system unavailable."end
 
-local ah=listfiles(b.Folder.."/settings")
+local ac=listfiles(b.Folder.."/settings")
 
-local ai={}
-for aj=1,#ah do
-local ak=ah[aj]
-if ak:sub(-5)==".luna"then
-local al=ak:find(".luna",1,true)
-local am=al
+local ad={}
+for ae=1,#ac do
+local af=ac[ae]
+if af:sub(-5)==".luna"then
+local ag=af:find(".luna",1,true)
+local ah=ag
 
-local an=ak:sub(al,al)
-while an~="/"and an~="\\"and an~=""do
-al=al-1
-an=ak:sub(al,al)
+local ai=af:sub(ag,ag)
+while ai~="/"and ai~="\\"and ai~=""do
+ag=ag-1
+ai=af:sub(ag,ag)
 end
 
-if an=="/"or an=="\\"then
-local ao=ak:sub(al+1,am-1)
-if ao~="Values"then
-table.insert(ai,ao)
+if ai=="/"or ai=="\\"then
+local aj=af:sub(ag+1,ah-1)
+if aj~="Values"then
+table.insert(ad,aj)
 end
 end
-end
-end
-
-return ai
-end
-return I
-end
-
-
-s.Parent.Visible=true
-tween(s.Parent,{BackgroundTransparency=0.1})
-u.Visible=true
-tween(u.Line,{BackgroundTransparency=0})
-
-for af,ag in ipairs(ac.Controls:GetChildren())do
-if ag.ClassName=="Frame"and ag.Name~="Theme"then
-ag.Visible=true
-tween(ag,{BackgroundTransparency=0.25})
-tween(ag.UIStroke,{Transparency=0.5})
-tween(ag.ImageLabel,{ImageTransparency=0.25})
 end
 end
 
-ac.Controls.Close.ImageLabel.MouseButton1Click:Connect(function()
-Hide(ac,E.Bind,true)
-ae.Visible=false
-E.State=false
+return ad
+end
+return N
+end
+
+
+x.Parent.Visible=true
+tween(x.Parent,{BackgroundTransparency=0.1})
+z.Visible=true
+tween(z.Line,{BackgroundTransparency=0})
+
+for aa,ab in ipairs(s.Controls:GetChildren())do
+if ab.ClassName=="Frame"and ab.Name~="Theme"then
+ab.Visible=true
+tween(ab,{BackgroundTransparency=0.25})
+tween(ab.UIStroke,{Transparency=0.5})
+tween(ab.ImageLabel,{ImageTransparency=0.25})
+end
+end
+
+s.Controls.Close.ImageLabel.MouseButton1Click:Connect(function()
+Hide(s,J.Bind,true)
+u.Visible=false
+J.State=false
 if c.KeyboardEnabled==false then
-aa.MobileSupport.Visible=true
+q.MobileSupport.Visible=true
 end
 end)
-ac.Controls.Close.MouseEnter:Connect(function()
-tween(ac.Controls.Close.ImageLabel,{ImageColor3=Color3.new(1,1,1)})
+s.Controls.Close.MouseEnter:Connect(function()
+tween(s.Controls.Close.ImageLabel,{ImageColor3=Color3.new(1,1,1)})
 end)
-ac.Controls.Close.MouseLeave:Connect(function()
-tween(ac.Controls.Close.ImageLabel,{ImageColor3=Color3.fromRGB(195,195,195)})
+s.Controls.Close.MouseLeave:Connect(function()
+tween(s.Controls.Close.ImageLabel,{ImageColor3=Color3.fromRGB(195,195,195)})
 end)
 
-c.InputBegan:Connect(function(af,ag)
-if ag then return end
-if E.State then return end
-if af.KeyCode==E.Bind then
-Unhide(ac,E.CurrentTab)
-aa.MobileSupport.Visible=false
-ae.Visible=true
-E.State=true
+c.InputBegan:Connect(function(aa,ab)
+if ab then return end
+if J.State then return end
+if aa.KeyCode==J.Bind then
+Unhide(s,J.CurrentTab)
+q.MobileSupport.Visible=false
+u.Visible=true
+J.State=true
 end
 end)
 
-ac.Logo.MouseButton1Click:Connect(function()
-if u.Size.X.Offset==205 then
-tween(s.Parent,{Size=UDim2.new(1,-55,s.Parent.Size.Y.Scale,s.Parent.Size.Y.Offset)})
-tween(u,{Size=UDim2.new(u.Size.X.Scale,55,u.Size.Y.Scale,u.Size.Y.Offset)})
+s.Logo.MouseButton1Click:Connect(function()
+if z.Size.X.Offset==205 then
+tween(x.Parent,{Size=UDim2.new(1,-55,x.Parent.Size.Y.Scale,x.Parent.Size.Y.Offset)})
+tween(z,{Size=UDim2.new(z.Size.X.Scale,55,z.Size.Y.Scale,z.Size.Y.Offset)})
 else
-tween(s.Parent,{Size=UDim2.new(1,-205,s.Parent.Size.Y.Scale,s.Parent.Size.Y.Offset)})
-tween(u,{Size=UDim2.new(u.Size.X.Scale,205,u.Size.Y.Scale,u.Size.Y.Offset)})
+tween(x.Parent,{Size=UDim2.new(1,-205,x.Parent.Size.Y.Scale,x.Parent.Size.Y.Offset)})
+tween(z,{Size=UDim2.new(z.Size.X.Scale,205,z.Size.Y.Scale,z.Size.Y.Offset)})
 end
 end)
 
-ac.Controls.ToggleSize.ImageLabel.MouseButton1Click:Connect(function()
-E.Size=not E.Size
-if E.Size then
-Minimize(ac)
-ae.Visible=false
+s.Controls.ToggleSize.ImageLabel.MouseButton1Click:Connect(function()
+J.Size=not J.Size
+if J.Size then
+Minimize(s)
+u.Visible=false
 else
-Maximise(ac)
-ae.Visible=true
+Maximise(s)
+u.Visible=true
 end
 end)
-ac.Controls.ToggleSize.MouseEnter:Connect(function()
-tween(ac.Controls.ToggleSize.ImageLabel,{ImageColor3=Color3.new(1,1,1)})
+s.Controls.ToggleSize.MouseEnter:Connect(function()
+tween(s.Controls.ToggleSize.ImageLabel,{ImageColor3=Color3.new(1,1,1)})
 end)
-ac.Controls.ToggleSize.MouseLeave:Connect(function()
-tween(ac.Controls.ToggleSize.ImageLabel,{ImageColor3=Color3.fromRGB(195,195,195)})
+s.Controls.ToggleSize.MouseLeave:Connect(function()
+tween(s.Controls.ToggleSize.ImageLabel,{ImageColor3=Color3.fromRGB(195,195,195)})
 end)
 
-ac.Controls.Theme.ImageLabel.MouseButton1Click:Connect(function()
-if E.Settings then
-E.Settings:Activate()
-s.Settings.CanvasPosition=Vector2.new(0,698)
+s.Controls.Theme.ImageLabel.MouseButton1Click:Connect(function()
+if J.Settings then
+J.Settings:Activate()
+x.Settings.CanvasPosition=Vector2.new(0,698)
 end
 end)
-ac.Controls.Theme.MouseEnter:Connect(function()
-tween(ac.Controls.Theme.ImageLabel,{ImageColor3=Color3.new(1,1,1)})
+s.Controls.Theme.MouseEnter:Connect(function()
+tween(s.Controls.Theme.ImageLabel,{ImageColor3=Color3.new(1,1,1)})
 end)
-ac.Controls.Theme.MouseLeave:Connect(function()
-tween(ac.Controls.Theme.ImageLabel,{ImageColor3=Color3.fromRGB(195,195,195)})
-end)
-
-
-aa.MobileSupport.Interact.MouseButton1Click:Connect(function()
-Unhide(ac,E.CurrentTab)
-ae.Visible=true
-E.State=true
-aa.MobileSupport.Visible=false
+s.Controls.Theme.MouseLeave:Connect(function()
+tween(s.Controls.Theme.ImageLabel,{ImageColor3=Color3.fromRGB(195,195,195)})
 end)
 
-return E
+
+q.MobileSupport.Interact.MouseButton1Click:Connect(function()
+Unhide(s,J.CurrentTab)
+u.Visible=true
+J.State=true
+q.MobileSupport.Visible=false
+end)
+
+return J
 end
 
-function b.Destroy(af)
+function b.Destroy(aa)
+s.Visible=false
+for ab,ac in ipairs(B:GetChildren())do
+if ac.ClassName=="Frame"then
 ac.Visible=false
-for ag,ah in ipairs(w:GetChildren())do
-if ah.ClassName=="Frame"then
-ah.Visible=false
-ah:Destroy()
+ac:Destroy()
 end
 end
-aa:Destroy()
+q:Destroy()
 end
 return b
