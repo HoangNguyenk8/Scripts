@@ -2052,12 +2052,16 @@ TweenInfo.new(0.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),
 ):Play()
 end
 end
-local a1=table.concat(aN.Value,", ")
-if a1==""then
-aV.Text="Select Options"
+local a1=aN.Value
+local a2=""
+if#a1==0 then
+a2="Select Options"
+elseif#a1<=2 then
+a2=table.concat(a1,", ")
 else
-aV.Text=tostring(a1)
+a2=a1[1]..", "..a1[2].."..."
 end
+aV.Text=a2
 aM.Callback((aM.Multi and aN.Value or table.concat(aN.Value,",")))
 end
 function aN.AddOption(a_,a0)
