@@ -1482,5 +1482,4 @@ return {
 		["baby_changing_station"] = "http://www.roblox.com/asset/?id=6035107930";
 		["fire_extinguisher"] = "http://www.roblox.com/asset/?id=6035121913";
 		["sparkle"] = "http://www.roblox.com/asset/?id=4483362748"
-	}
 }
