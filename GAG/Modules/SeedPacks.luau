@@ -44,4 +44,5 @@ return {
     "Rainbow Exotic Skyroot Chest",
     "Exotic Skyroot Chest",
     "Skyroot Chest",
+    "Enchanted Seed Pack",
 }
